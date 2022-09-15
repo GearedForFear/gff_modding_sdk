@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/custom_resources/player_controls.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+accelerate = "accelerate_5"
+reverse = "reverse_5"
+turn_left = "turn_left_5"
+turn_right = "turn_right_5"
+weapon_front = "weapon_front_5"
+weapon_back = "weapon_back_5"
+weapon_left = "weapon_left_5"
+weapon_right = "weapon_right_5"
+boost = "boost_5"
+drift = "drift_5"
+pause = "pause_5"
+respawn = "respawn_5"
+ui_accept = "ui_accept_5"
+ui_cancel = "ui_cancel_5"
+ui_up = "ui_up_5"
+ui_down = "ui_down_5"
+ui_left = "ui_left_5"
+ui_right = "ui_right_5"
