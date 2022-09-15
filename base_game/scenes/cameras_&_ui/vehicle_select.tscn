@@ -1,0 +1,388 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/vehicle_select.gd" type="Script" id=1]
+[ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://resources/fonts/Robtronika-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=4]
+[ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=8]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 11
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 11
+font_data = ExtResource( 3 )
+
+[node name="RootControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+__meta__ = {
+"__editor_plugin_screen__": "2D"
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.07
+anchor_top = 0.07
+anchor_right = 0.07
+anchor_bottom = 0.07
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Geared for Fear"
+script = ExtResource( 5 )
+base_font_size = 40.0
+menu = true
+
+[node name="BackgroundShader" type="ColorRect" parent="."]
+material = SubResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackBar" type="ColorRect" parent="."]
+anchor_left = 0.6
+anchor_right = 0.88
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.588235 )
+script = ExtResource( 1 )
+
+[node name="Nitro" type="VBoxContainer" parent="BlackBar"]
+anchor_right = 1.0
+anchor_bottom = 0.9
+alignment = 1
+
+[node name="Category" type="Label" parent="BlackBar/Nitro"]
+margin_top = 94.0
+margin_right = 179.0
+margin_bottom = 139.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Nitro"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 36.0
+menu = true
+
+[node name="ChainsAwe" type="Label" parent="BlackBar/Nitro"]
+modulate = Color( 1, 0.901961, 0, 1 )
+margin_top = 143.0
+margin_right = 179.0
+margin_bottom = 157.0
+custom_fonts/font = SubResource( 10 )
+text = "Chain's Awe"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="SuicideDoor" type="Label" parent="BlackBar/Nitro"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 161.0
+margin_right = 179.0
+margin_bottom = 175.0
+custom_fonts/font = SubResource( 10 )
+text = "Suicide Door"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="GraveMistake" type="Label" parent="BlackBar/Nitro"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 179.0
+margin_right = 179.0
+margin_bottom = 193.0
+custom_fonts/font = SubResource( 10 )
+text = "Grave Mistake"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="MetalUndertow" type="Label" parent="BlackBar/Nitro"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 197.0
+margin_right = 179.0
+margin_bottom = 211.0
+custom_fonts/font = SubResource( 10 )
+text = "Metal Undertow"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Fungibber" type="Label" parent="BlackBar/Nitro"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 215.0
+margin_right = 179.0
+margin_bottom = 229.0
+custom_fonts/font = SubResource( 10 )
+text = "Fungibber"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Rocket" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.9
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Category" type="Label" parent="BlackBar/Rocket"]
+margin_top = 121.0
+margin_right = 172.0
+margin_bottom = 166.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Rocket"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 36.0
+menu = true
+
+[node name="WarmWelcome" type="Label" parent="BlackBar/Rocket"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 184.0
+custom_fonts/font = SubResource( 10 )
+text = "Warm Welcome"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Turbulence" type="Label" parent="BlackBar/Rocket"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 188.0
+margin_right = 172.0
+margin_bottom = 202.0
+custom_fonts/font = SubResource( 10 )
+text = "Turbulence"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="EternalBond" type="Label" parent="BlackBar/Rocket"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 206.0
+margin_right = 172.0
+margin_bottom = 220.0
+custom_fonts/font = SubResource( 10 )
+text = "Eternal Bond"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Missilodon" type="Label" parent="BlackBar/Rocket"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 224.0
+margin_right = 172.0
+margin_bottom = 238.0
+custom_fonts/font = SubResource( 10 )
+text = "Missilodon"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Switch" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.9
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Category" type="Label" parent="BlackBar/Switch"]
+margin_top = 94.0
+margin_right = 172.0
+margin_bottom = 139.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Switch"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 36.0
+menu = true
+
+[node name="Restless" type="Label" parent="BlackBar/Switch"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 197.0
+margin_right = 172.0
+margin_bottom = 211.0
+custom_fonts/font = SubResource( 10 )
+text = "Restless"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Burst" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.9
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Category" type="Label" parent="BlackBar/Burst"]
+margin_top = 94.0
+margin_right = 172.0
+margin_bottom = 139.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Burst"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 36.0
+menu = true
+
+[node name="WellRaised" type="Label" parent="BlackBar/Burst"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 179.0
+margin_right = 172.0
+margin_bottom = 193.0
+custom_fonts/font = SubResource( 10 )
+text = "Well Raised"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="Overcharge" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.9
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Category" type="Label" parent="BlackBar/Overcharge"]
+margin_top = 94.0
+margin_right = 172.0
+margin_bottom = 139.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Overcharge"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 36.0
+menu = true
+
+[node name="NoMatch" type="Label" parent="BlackBar/Overcharge"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 233.0
+margin_right = 172.0
+margin_bottom = 247.0
+custom_fonts/font = SubResource( 10 )
+text = "No Match"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="CrashCrop" type="Label" parent="BlackBar/Overcharge"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 251.0
+margin_right = 172.0
+margin_bottom = 265.0
+custom_fonts/font = SubResource( 10 )
+text = "Crash Crop"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="PageNumber" type="Label" parent="."]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+anchor_left = 0.6
+anchor_top = 0.9
+anchor_right = 0.88
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 12 )
+text = "Page 1/5"
+align = 1
+valign = 1
+script = ExtResource( 5 )
+base_font_size = 11.0
+menu = true

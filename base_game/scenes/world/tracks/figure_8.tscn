@@ -1,0 +1,511 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/world/gameplay_zones/respawn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/world/maps/usa.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=5]
+[ext_resource path="res://scripts/world/editor_only.gd" type="Script" id=6]
+[ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
+[ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
+[ext_resource path="res://scenes/world/decorations/rock_0.tscn" type="PackedScene" id=9]
+
+[sub_resource type="ProceduralSky" id=9]
+sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
+sky_horizon_color = Color( 0.717647, 0.87451, 1, 1 )
+ground_bottom_color = Color( 0.890196, 0.694118, 0.541176, 1 )
+ground_horizon_color = Color( 0.937255, 0.792157, 0.682353, 1 )
+sun_latitude = 32.0
+sun_longitude = -100.0
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 9 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_sky_contribution = 0.4
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 21.0438, 18.2348, 34.6246 )
+
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 42.088, 36.47, 69.25 )
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+albedo_color = Color( 1, 1, 0, 0.54902 )
+
+[node name="RootSpatial" type="Spatial"]
+
+[node name="Map" parent="." instance=ExtResource( 4 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_max_distance = 200.0
+
+[node name="GameplayManager" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="GameplayManager"]
+process_mode = 0
+wait_time = 100.0
+one_shot = true
+
+[node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
+
+[node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 131.076, 0, 225.855 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint0/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint0/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint0"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.507253, 0, -0.861798, 0, 1, 0, 0.861798, 0, -0.507253, 16.5954, -0.0290031, 23.1947 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.507253, 0, -0.861798, 0, 1, 0, 0.861798, 0, -0.507253, 25.3941, -0.0290031, 8.39333 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.566967, 0, -0.823741, 0, 1, 0, 0.823741, 0, -0.566967, 13.1063, -0.0290031, 28.4921 )
+
+[node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.4763, 0, -0.879283, 0, 1, 0, 0.879283, 0, -0.4763, 30.5273, -0.0290031, 2.9489 )
+
+[node name="RespawnPoint4" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.709534, 0, -0.704672, 0, 1, 0, 0.704672, 0, -0.709534, 9.02278, -0.0290031, 34.3966 )
+
+[node name="Waypoint1" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( 0.752966, 0, -0.658059, 0, 1, 0, 0.658059, 0, 0.752966, 88.0083, 3.8147e-06, 180.707 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint1/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint1/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint1"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.600867, 0, -0.799349, 0, 1, 0, 0.799349, 0, -0.600867, 22.8245, -0.0290031, 21.5275 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.187501, 0, -0.982265, 0, 1, 0, 0.982265, 0, -0.187501, 34.6196, -0.0290031, -4.29696 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.73942, 0, -0.673245, 0, 1, 0, 0.673245, 0, -0.73942, 16.5066, -0.0290031, 28.7207 )
+
+[node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.840878, 0, -0.541224, 0, 1, 0, 0.541224, 0, -0.840878, -1.11617, -0.0290069, 32.1044 )
+
+[node name="Waypoint2" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.155676, 0, -0.987808, 0, 1, 0, 0.987808, 0, -0.155676, 73.4654, 0, 121.018 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint2/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint2/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint2"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint2/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.600867, 0, -0.799349, 0, 1, 0, 0.799349, 0, -0.600867, 18.8926, -0.0290031, 21.628 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint2/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( 0.464379, 0, -0.885637, 0, 1, 0, 0.885637, 0, 0.464379, 29.7719, -0.0290069, -18.4583 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint2/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.73942, 0, -0.673245, 0, 1, 0, 0.673245, 0, -0.73942, 13.2992, -0.0290031, 27.5966 )
+
+[node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint2/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.840878, 0, -0.541224, 0, 1, 0, 0.541224, 0, -0.840878, 4.65945, -0.0290069, 30.075 )
+
+[node name="Waypoint3" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.736404, 0, -0.676542, 0, 1, 0, 0.676542, 0, -0.736404, 137.529, 0, 72.7749 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint3/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint3/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint3"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint3/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.573834, 0, -0.818972, 0, 1, 0, 0.818972, 0, -0.573834, 31.6489, -0.0289993, 27.4209 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint3/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.163877, 0, -0.986481, 0, 1, 0, 0.986481, 0, -0.163877, 44.0553, -0.0290069, -8.4101 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint3/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.610408, 0, -0.792087, 0, 1, 0, 0.792087, 0, -0.610408, 28.3702, -0.0289993, 32.4065 )
+
+[node name="Waypoint4" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.999264, 0, 0.0383531, 0, 1, 0, -0.0383531, 0, -0.999264, 188.387, 0, 89.4876 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint4/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint4/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint4"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint4/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.337227, 0, -0.941423, 0, 1, 0, 0.941423, 0, -0.337227, 37.7663, -0.0289993, 24.7338 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint4/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( 0.369569, 0, -0.929204, 0, 1, 0, 0.929204, 0, 0.369569, 40.2338, -0.0290069, -11.5968 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint4/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( 0.257301, 0, -0.966331, 0, 1, 0, 0.966331, 0, 0.257301, 50.4137, -0.0289993, -14.8147 )
+
+[node name="Waypoint5" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.901213, 0, 0.433376, 0, 1, 0, -0.433376, 0, -0.901213, 239.826, -3.30773, 143.157 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint5/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint5/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint5"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint5/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.781259, 0, -0.624207, 0, 1, 0, 0.624207, 0, -0.781259, 1.6875, -0.0289993, 27.3877 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint5/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.824818, 0, -0.5654, 0, 1, 0, 0.5654, 0, -0.824818, 10.6769, -0.0290069, 29.5514 )
+
+[node name="Waypoint6" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.58147, 0, 0.813568, 0, 1, 0, -0.813568, 0, -0.58147, 249.845, 0, 259.135 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint6/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint6/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint6"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.742432, 0, -0.669921, 0, 1, 0, 0.669921, 0, -0.742432, 25.4003, -0.0290069, 41.3591 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.56416, 0, -0.825666, 0, 1, 0, 0.825666, 0, -0.56416, 48.9832, -0.0290069, 23.1834 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.742432, 0, -0.669921, 0, 1, 0, 0.669921, 0, -0.742432, 20.7557, -0.0290031, 44.8869 )
+
+[node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.409445, 0, -0.912336, 0, 1, 0, 0.912336, 0, -0.409445, 52.0904, -0.0290107, 17.7919 )
+
+[node name="RespawnPoint4" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.742432, 0, -0.669921, 0, 1, 0, 0.669921, 0, -0.742432, 15.6063, -0.0290069, 48.132 )
+
+[node name="RespawnPoint5" parent="GameplayManager/NonPlayerPath/Waypoint6/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.41904, 0, -0.907969, 0, 1, 0, 0.907969, 0, -0.41904, 54.8586, -0.0290145, 12.1341 )
+
+[node name="Waypoint7" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.678609, 0, 0.7345, 0, 1, 0, -0.7345, 0, -0.678609, 258.804, 31.3673, 417.031 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870321, 0 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint7/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint7/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint7"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint7/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.622245, 0.148784, -0.768553, -0.0153255, 0.979269, 0.201984, 0.782672, 0.137462, -0.607065, 16.1843, -2.666, 32.2048 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint7/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.56416, 0, -0.825666, 0, 1, 0, 0.825666, 0, -0.56416, 40.1897, -1.44986, 8.11171 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint7/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.739581, 0.212576, -0.638616, 0.0262507, 0.957203, 0.288223, 0.672555, 0.1964, -0.71351, 11.1433, -3.27604, 37.2051 )
+
+[node name="Waypoint8" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.980378, 0, -0.197127, 0, 1, 0, 0.197127, 0, -0.980378, 292.719, 31.3673, 469.829 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.93884, 0.870319, -17.386 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint8/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint8/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint8"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint8/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.983597, 0, -0.180382, 0, 1, 0, 0.180382, 0, -0.983597, 8.03389, 2.20958, 30.5663 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint8/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.56416, 0, -0.825666, 0, 1, 0, 0.825666, 0, -0.56416, 36.4061, 1.60262, 12.4442 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint8/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.991709, 0, -0.128501, 0, 1, 0, 0.128501, 0, -0.991709, 1.04779, 2.29921, 31.7323 )
+
+[node name="Waypoint9" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.545458, 0, -0.838138, 0, 1, 0, 0.838138, 0, -0.545458, 344.181, 31.3673, 480.374 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.93884, 0.870319, -17.386 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint9/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint9/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint9"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint9/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.994135, 0, 0.108156, 0, 1, 0, -0.108156, 0, -0.994135, 11.5653, 1.26097, 45.451 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint9/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.985272, 0, 0.171, 0, 1, 0, -0.171, 0, -0.985272, 6.00902, 1.60263, 38.2308 )
+
+[node name="Waypoint10" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( -0.586655, 0, -0.809837, 0, 1, 0, 0.809837, 0, -0.586655, 429.956, 31.3673, 444.951 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.93884, 0.870319, -17.386 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint10/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint10/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint10"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint10/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.999857, 0, -0.0169294, 0, 1, 0, 0.0169294, 0, -0.999857, 28.6464, 1.74062, 37.057 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint10/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.999392, 0, -0.0349002, 0, 1, 0, 0.0349002, 0, -0.999392, 34.901, 1.60262, 45.0039 )
+
+[node name="Waypoint11" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( 0.979701, 0, -0.200462, 0, 1, 0, 0.200462, 0, 0.979701, 450.922, 31.3673, 356.394 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.17773, 0.870319, 9.82452 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint11/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint11/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint11"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint11/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.977791, 0, -0.209585, 0, 1, 0, 0.209585, 0, -0.977791, -4.0202, 1.74062, 55.5346 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint11/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.999521, 0, 0.030974, 0, 1, 0, -0.030974, 0, -0.999521, -10.8619, 1.60262, 56.3931 )
+
+[node name="Waypoint12" type="Position3D" parent="GameplayManager/NonPlayerPath"]
+transform = Transform( 0.906027, 0, 0.423219, 0, 1, 0, -0.423219, 0, 0.906027, 313.057, 1.8928, 253.837 )
+
+[node name="Area" type="Area" parent="GameplayManager/NonPlayerPath/Waypoint12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75763, 0.870319, 4.44958 )
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+script = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint12/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint12/Area"]
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint12"]
+
+[node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.445995, 0, -0.895036, 0, 1, 0, 0.895036, 0, -0.445995, 30.3826, 1.92204, 16.1639 )
+
+[node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.501752, 0, -0.865012, 0, 1, 0, 0.865012, 0, -0.501752, 27.8904, 2.15759, 22.5931 )
+
+[node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.391357, 0, -0.92024, 0, 1, 0, 0.92024, 0, -0.391357, 36.1059, 1.92204, 3.42349 )
+
+[node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.44882, 0, -0.893623, 0, 1, 0, 0.893623, 0, -0.44882, 34.0051, 2.15759, 9.99091 )
+
+[node name="RespawnPoint4" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.321538, 0, -0.946898, 0, 1, 0, 0.946898, 0, -0.321538, 40.8896, 1.92204, -9.13562 )
+
+[node name="RespawnPoint5" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
+transform = Transform( -0.380828, 0, -0.924647, 0, 1, 0, 0.924647, 0, -0.380828, 39.285, 2.1576, -2.42953 )
+
+[node name="DeletionManager" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="StartSpawns" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 250, 0, 250 )
+
+[node name="TargetStartSpawn" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 195.547, -0.7585, 247.552 )
+
+[node name="Rock0" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.168558, 1.47358e-08, -0.985692, -8.74228e-08, 1, 0, -0.985692, -8.61719e-08, -0.168558, 68.857, -0.758, 169.471 )
+global_culling = true
+
+[node name="Rock1" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.899642, 0, -0.436629, 0, 1, 0, 0.436629, 0, 0.899642, 69.6893, -0.7585, 173.159 )
+global_culling = true
+
+[connection signal="timeout" from="GameplayManager/Timer" to="GameplayManager" method="_on_Timer_timeout"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint0/Area" to="GameplayManager/NonPlayerPath/Waypoint0/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint1/Area" to="GameplayManager/NonPlayerPath/Waypoint1/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint2/Area" to="GameplayManager/NonPlayerPath/Waypoint2/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint3/Area" to="GameplayManager/NonPlayerPath/Waypoint3/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint4/Area" to="GameplayManager/NonPlayerPath/Waypoint4/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint5/Area" to="GameplayManager/NonPlayerPath/Waypoint5/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint6/Area" to="GameplayManager/NonPlayerPath/Waypoint6/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint7/Area" to="GameplayManager/NonPlayerPath/Waypoint7/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint8/Area" to="GameplayManager/NonPlayerPath/Waypoint8/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint9/Area" to="GameplayManager/NonPlayerPath/Waypoint9/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint10/Area" to="GameplayManager/NonPlayerPath/Waypoint10/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint11/Area" to="GameplayManager/NonPlayerPath/Waypoint11/Area" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint12/Area" to="GameplayManager/NonPlayerPath/Waypoint12/Area" method="_on_Area_body_entered"]

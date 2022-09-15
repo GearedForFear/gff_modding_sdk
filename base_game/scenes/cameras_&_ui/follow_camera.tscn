@@ -1,0 +1,472 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://resources/materials/cameras_&_ui/heart.material" type="Material" id=1]
+[ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://resources/materials/cameras_&_ui/hud_background.tres" type="Shader" id=3]
+[ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=4]
+[ext_resource path="res://scripts/cameras_&_ui/follow_camera.gd" type="Script" id=5]
+[ext_resource path="res://scripts/cameras_&_ui/resizing_arrow.gd" type="Script" id=6]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://resources/meshes/cameras_&_ui/heart.tres" type="ArrayMesh" id=8]
+[ext_resource path="res://scripts/cameras_&_ui/msaa_viewport.gd" type="Script" id=9]
+[ext_resource path="res://resources/meshes/cameras_&_ui/hud_bullet.tres" type="ArrayMesh" id=10]
+[ext_resource path="res://resources/materials/cameras_&_ui/hud_bullet.material" type="Material" id=11]
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=11]
+resource_local_to_scene = true
+size = 9
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Heart:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BulletLeft/MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BulletMiddle/MeshInstance:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BulletRight/MeshInstance:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "default"
+length = 2.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Heart:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.01, 0.3, 1.2, 1.5 ),
+"transitions": PoolRealArray( 5.46416, 0.112657, 5.46416, 0.112657 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.1, 1.1, 1.1 ), Vector3( 1, 1, 1 ), Vector3( 1.1, 1.1, 1.1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BulletLeft/MeshInstance:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 120, 0 ), Vector3( 0, 240, 0 ), Vector3( 0, 360, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BulletMiddle/MeshInstance:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 120, 0 ), Vector3( 0, 240, 0 ), Vector3( 0, 360, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BulletRight/MeshInstance:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 120, 0 ), Vector3( 0, 240, 0 ), Vector3( 0, 360, 0 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 1, 1, 0, 1 )
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 0.352941, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.168627, 0.168627, 0, 1 )
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 0, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 1, 0, 0, 1 )
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color( 1, 0.141176, 0.141176, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.168627, 0, 0, 1 )
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color( 1, 0, 0, 1 )
+border_blend = true
+
+[sub_resource type="DynamicFont" id=12]
+size = 9
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[node name="RootSpatial" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97449, 0.642507 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.44908, 2.03236, -4.39379 )
+fov = 75.0
+far = 1000.0
+script = ExtResource( 5 )
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Camera"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="Control" type="Control" parent="Camera/AspectRatioContainer"]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="TimerBackground" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+material = SubResource( 17 )
+anchor_left = 0.011
+anchor_top = 0.02
+anchor_right = 0.113
+anchor_bottom = 0.2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Above" type="Label" parent="Camera/AspectRatioContainer/Control/TimerBackground"]
+anchor_right = 1.0
+anchor_bottom = 0.2
+margin_bottom = 12.958
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Stage 2"
+align = 1
+valign = 1
+script = ExtResource( 4 )
+
+[node name="TimeLeft" type="Label" parent="Camera/AspectRatioContainer/Control/TimerBackground"]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "100"
+align = 1
+valign = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 40.0
+
+[node name="RearMirror" type="ViewportContainer" parent="Camera/AspectRatioContainer/Control"]
+anchor_left = 0.35
+anchor_top = 0.02
+anchor_right = 0.65
+anchor_bottom = 0.2
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Camera/AspectRatioContainer/Control/RearMirror"]
+size = Vector2( 192, 64 )
+handle_input_locally = false
+render_target_update_mode = 0
+shadow_atlas_size = 4096
+script = ExtResource( 9 )
+
+[node name="Camera" type="Camera" parent="Camera/AspectRatioContainer/Control/RearMirror/Viewport"]
+fov = 75.0
+far = 200.0
+
+[node name="ArrowBackground" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+material = SubResource( 17 )
+anchor_left = 0.887
+anchor_top = 0.02
+anchor_right = 0.989
+anchor_bottom = 0.2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Control" type="Control" parent="Camera/AspectRatioContainer/Control/ArrowBackground"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Camera/AspectRatioContainer/Control/ArrowBackground/Control"]
+color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+antialiased = true
+polygon = PoolVector2Array( 0, -25, -15, 20, 0, 10, 15, 20 )
+script = ExtResource( 6 )
+
+[node name="ResourcesBackground" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+material = SubResource( 17 )
+anchor_left = 0.011
+anchor_top = 0.8
+anchor_right = 0.3
+anchor_bottom = 0.98
+color = Color( 0, 0, 0, 1 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Camera/AspectRatioContainer/Control/ResourcesBackground"]
+anchor_right = 0.25
+anchor_bottom = 1.0
+margin_right = -0.240002
+margin_bottom = -0.791901
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer"]
+size = Vector2( 46, 64 )
+own_world = true
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 9 )
+
+[node name="Camera" type="Camera" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport"]
+far = 3.0
+
+[node name="Heart" type="MeshInstance" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.268861, -0.391, -1.578 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 1 )
+
+[node name="BulletLeft" type="Spatial" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+transform = Transform( 0.990476, 0.137687, 0, -0.137687, 0.990476, 0, 0, 0, 1, -0.06, 0.597, -1.666 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera/BulletLeft"]
+mesh = ExtResource( 10 )
+material/0 = ExtResource( 11 )
+
+[node name="BulletMiddle" type="Spatial" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+transform = Transform( 0.911238, 0.41188, 0, -0.41188, 0.911238, 0, 0, 0, 1, 0.242, 0.407, -1.666 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera/BulletMiddle"]
+mesh = ExtResource( 10 )
+material/0 = ExtResource( 11 )
+
+[node name="BulletRight" type="Spatial" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+transform = Transform( 0.840235, 0.542222, 0, -0.542222, 0.840235, 0, 0, 0, 1, 0.405, 0.062, -1.666 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera/BulletRight"]
+mesh = ExtResource( 10 )
+material/0 = ExtResource( 11 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+transform = Transform( 0.995033, 0.0793292, 0.0601294, -0.0950495, 0.93662, 0.337208, -0.0295679, -0.341249, 0.939508, 0, 0, 0 )
+light_energy = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera"]
+playback_process_mode = 0
+anims/RESET = SubResource( 18 )
+anims/default = SubResource( 19 )
+
+[node name="AmmoBar" type="ProgressBar" parent="Camera/AspectRatioContainer/Control/ResourcesBackground"]
+anchor_left = 0.26
+anchor_top = 0.2
+anchor_right = 0.95
+anchor_bottom = 0.45
+custom_styles/fg = SubResource( 15 )
+custom_styles/bg = SubResource( 16 )
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="ProgressBar" parent="Camera/AspectRatioContainer/Control/ResourcesBackground"]
+anchor_left = 0.26
+anchor_top = 0.55
+anchor_right = 0.95
+anchor_bottom = 0.8
+custom_styles/fg = SubResource( 13 )
+custom_styles/bg = SubResource( 14 )
+percent_visible = false
+
+[node name="ScoresBackground" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+material = SubResource( 17 )
+anchor_left = 0.7
+anchor_top = 0.8
+anchor_right = 0.989
+anchor_bottom = 0.98
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Placement1" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.02
+anchor_top = 0.03
+anchor_right = 0.02
+anchor_bottom = 0.03
+custom_fonts/font = SubResource( 12 )
+text = "?th"
+script = ExtResource( 4 )
+
+[node name="Placement2" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.02
+anchor_top = 0.28
+anchor_right = 0.02
+anchor_bottom = 0.28
+custom_fonts/font = SubResource( 12 )
+text = "?th"
+script = ExtResource( 4 )
+
+[node name="Placement3" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.02
+anchor_top = 0.53
+anchor_right = 0.02
+anchor_bottom = 0.53
+custom_fonts/font = SubResource( 12 )
+text = "?th"
+script = ExtResource( 4 )
+
+[node name="Placement4" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.02
+anchor_top = 0.78
+anchor_right = 0.02
+anchor_bottom = 0.78
+custom_fonts/font = SubResource( 12 )
+text = "?th"
+script = ExtResource( 4 )
+
+[node name="Name1" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.17
+anchor_top = 0.03
+anchor_right = 0.17
+anchor_bottom = 0.03
+custom_fonts/font = SubResource( 12 )
+text = "Unknown"
+script = ExtResource( 4 )
+
+[node name="Name2" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.17
+anchor_top = 0.28
+anchor_right = 0.17
+anchor_bottom = 0.28
+custom_fonts/font = SubResource( 12 )
+text = "Unknown"
+script = ExtResource( 4 )
+
+[node name="Name3" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.17
+anchor_top = 0.53
+anchor_right = 0.17
+anchor_bottom = 0.53
+custom_fonts/font = SubResource( 12 )
+text = "Unknown"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name4" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.17
+anchor_top = 0.78
+anchor_right = 0.17
+anchor_bottom = 0.78
+custom_fonts/font = SubResource( 12 )
+text = "Unknown"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score1" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.644
+anchor_top = 0.03
+anchor_right = 0.644
+anchor_bottom = 0.03
+custom_fonts/font = SubResource( 12 )
+text = "0€"
+script = ExtResource( 4 )
+
+[node name="Score2" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.644
+anchor_top = 0.28
+anchor_right = 0.644
+anchor_bottom = 0.28
+custom_fonts/font = SubResource( 12 )
+text = "0€"
+script = ExtResource( 4 )
+
+[node name="Score3" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.644
+anchor_top = 0.53
+anchor_right = 0.644
+anchor_bottom = 0.53
+custom_fonts/font = SubResource( 12 )
+text = "0€"
+script = ExtResource( 4 )
+
+[node name="Score4" type="Label" parent="Camera/AspectRatioContainer/Control/ScoresBackground"]
+anchor_left = 0.644
+anchor_top = 0.78
+anchor_right = 0.644
+anchor_bottom = 0.78
+custom_fonts/font = SubResource( 12 )
+text = "0€"
+script = ExtResource( 4 )
+
+[node name="InterpolationTarget" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.71783 )

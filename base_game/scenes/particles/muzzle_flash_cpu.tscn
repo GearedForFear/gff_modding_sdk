@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/materials/particles/muzzle_flash.material" type="Material" id=1]
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 1 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.671591 ), 0.0, 0.0, 0, 0, Vector2( 0.173913, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="CPUParticles" type="CPUParticles"]
+portal_mode = 3
+cast_shadow = 0
+emitting = false
+amount = 1
+lifetime = 0.1
+mesh = SubResource( 4 )
+gravity = Vector3( 0, 0, 0 )
+angle = 360.0
+angle_random = 1.0
+scale_amount_curve = SubResource( 1 )
+color = Color( 1, 0.968627, 0.443137, 1 )

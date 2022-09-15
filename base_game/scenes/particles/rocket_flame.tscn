@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://resources/materials/particles/rocket_flame.material" type="Material" id=1]
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0, 0.571429, 1 )
+colors = PoolColorArray( 1, 0.921829, 0.148438, 1, 0.99707, 0.307621, 0.0350533, 1, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="Curve" id=15]
+_data = [ Vector2( 0, 0.763636 ), 0.0, 0.250909, 0, 0, Vector2( 1, 1 ), 1.61283e-07, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=16]
+curve = SubResource( 15 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+direction = Vector3( 0, 0, 1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 4.0
+angle = 360.0
+angle_random = 1.0
+scale_curve = SubResource( 16 )
+color_ramp = SubResource( 14 )
+
+[sub_resource type="QuadMesh" id=18]
+material = ExtResource( 1 )
+
+[node name="Particles" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 0.52789, -2.65967 )
+portal_mode = 3
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.5
+preprocess = 0.2
+draw_order = 1
+process_material = SubResource( 17 )
+draw_pass_1 = SubResource( 18 )

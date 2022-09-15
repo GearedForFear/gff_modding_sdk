@@ -1,0 +1,1461 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
+[ext_resource path="res://scripts/cameras_&_ui/current_settings.gd" type="Script" id=2]
+[ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/fonts/Robtronika-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
+[ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 9
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[node name="RootControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource( 7 )
+__meta__ = {
+"__editor_plugin_screen__": "2D"
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.07
+anchor_top = 0.07
+anchor_right = 0.07
+anchor_bottom = 0.07
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Geared for Fear"
+
+[node name="BackgroundShader" type="ColorRect" parent="."]
+material = SubResource( 9 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+
+[node name="SettingsManager" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="CurrentSettings" type="Label" parent="."]
+visible = false
+anchor_left = 0.07
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.8
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 10 )
+autowrap = true
+script = ExtResource( 2 )
+
+[node name="BlackBar" type="ColorRect" parent="."]
+anchor_left = 0.55
+anchor_right = 0.95
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.588235 )
+
+[node name="MainButtons" type="VBoxContainer" parent="BlackBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="OnePlayer" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 101.0
+margin_right = 256.0
+margin_bottom = 120.0
+focus_neighbour_top = NodePath("../Settings")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1 Player"
+
+[node name="TwoPlayers" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 124.0
+margin_right = 256.0
+margin_bottom = 143.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2 Players"
+
+[node name="ThreePlayers" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 147.0
+margin_right = 256.0
+margin_bottom = 166.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "3 Players"
+
+[node name="FourPlayers" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 170.0
+margin_right = 256.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4 Players"
+
+[node name="FivePlayers" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 193.0
+margin_right = 256.0
+margin_bottom = 212.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "5 Players"
+
+[node name="SixPlayers" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 216.0
+margin_right = 256.0
+margin_bottom = 235.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "6 Players"
+
+[node name="Settings" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 239.0
+margin_right = 256.0
+margin_bottom = 258.0
+focus_neighbour_bottom = NodePath("../OnePlayer")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Settings"
+
+[node name="SettingsButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Graphics" type="Button" parent="BlackBar/SettingsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Graphics"
+
+[node name="GraphicsButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="WindowModes" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 90.0
+margin_right = 256.0
+margin_bottom = 109.0
+focus_neighbour_top = NodePath("../MaxRigidBodies")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Window Modes"
+
+[node name="Resolution" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 113.0
+margin_right = 256.0
+margin_bottom = 132.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Resolution"
+
+[node name="MSAA" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 136.0
+margin_right = 256.0
+margin_bottom = 155.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "MSAA"
+
+[node name="ToggleVsync" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Toggle Vsync"
+
+[node name="ViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 182.0
+margin_right = 256.0
+margin_bottom = 201.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "View Distance"
+
+[node name="RearViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 224.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Rear View D."
+
+[node name="FieldOfView" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 224.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Field of View"
+
+[node name="ShadowAmount" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 228.0
+margin_right = 256.0
+margin_bottom = 247.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Shadow Amount"
+
+[node name="MaxRigidBodies" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 251.0
+margin_right = 256.0
+margin_bottom = 270.0
+focus_neighbour_bottom = NodePath("../WindowModes")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Max R. Bodies"
+
+[node name="WindowModesButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Default" type="Button" parent="BlackBar/WindowModesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Fullscreen")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Default"
+
+[node name="Borderless" type="Button" parent="BlackBar/WindowModesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Borderless"
+
+[node name="Fullscreen" type="Button" parent="BlackBar/WindowModesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../Default")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Fullscreen"
+
+[node name="ResolutionButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Resolution1" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Resolution6")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Full"
+
+[node name="Resolution2" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Half"
+
+[node name="Resolution3" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1/3"
+
+[node name="Resolution4" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1/4"
+
+[node name="Resolution5" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1/5"
+
+[node name="Resolution6" type="Button" parent="BlackBar/ResolutionButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../Resolution1")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1/6"
+
+[node name="MSAAButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="MSAAOff" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../16x")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Off"
+
+[node name="2x" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2x"
+
+[node name="4x" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4x"
+
+[node name="8x" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "8x"
+
+[node name="16x" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../MSAAOff")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "16x"
+
+[node name="ViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.20001
+alignment = 1
+
+[node name="View100" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../View2000")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "100m"
+
+[node name="View200" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "200m"
+
+[node name="View350" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "350m"
+
+[node name="View500" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "500m"
+
+[node name="View750" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "750m"
+
+[node name="View1000" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1000m"
+
+[node name="View2000" type="Button" parent="BlackBar/ViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../View100")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2000m"
+
+[node name="RearViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.20001
+alignment = 1
+
+[node name="Rear25" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Rear2000")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "25m"
+
+[node name="Rear50" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "50m"
+
+[node name="Rear100" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "100m"
+
+[node name="Rear200" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "200m"
+
+[node name="Rear350" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "350m"
+
+[node name="Rear500" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "500m"
+
+[node name="Rear750" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "750m"
+
+[node name="Rear1000" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1000m"
+
+[node name="Rear2000" type="Button" parent="BlackBar/RearViewDistanceButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../Rear25")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2000m"
+
+[node name="FieldOfViewButtons" type="HBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Box1" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
+margin_right = 180.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="FOV45" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_right = 180.0
+margin_bottom = 19.0
+focus_neighbour_left = NodePath("../../Box3/FOV55")
+focus_neighbour_top = NodePath("../FOV135")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "45°"
+
+[node name="FOV60" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../../Box3/FOV70")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "60°"
+
+[node name="FOV75" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../../Box3/FOV85")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "75°"
+
+[node name="FOV90" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../../Box3/FOV100")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "90°"
+
+[node name="FOV105" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../../Box3/FOV115")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "105°"
+
+[node name="FOV120" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../../Box3/FOV130")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "120°"
+
+[node name="FOV135" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
+margin_top = 46.0
+margin_right = 180.0
+margin_bottom = 65.0
+focus_neighbour_left = NodePath("../../Box3/FOV145")
+focus_neighbour_bottom = NodePath("../FOV45")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "135°"
+
+[node name="Box2" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
+margin_right = 180.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="FOV50" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_right = 180.0
+margin_bottom = 19.0
+focus_neighbour_top = NodePath("../FOV140")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "50°"
+
+[node name="FOV65" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "65°"
+
+[node name="FOV80" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "80°"
+
+[node name="FOV95" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "95°"
+
+[node name="FOV110" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "110°"
+
+[node name="FOV125" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "125°"
+
+[node name="FOV140" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
+margin_top = 46.0
+margin_right = 180.0
+margin_bottom = 65.0
+focus_neighbour_bottom = NodePath("../FOV50")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "140°"
+
+[node name="Box3" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
+margin_right = 180.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="FOV55" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_right = 180.0
+margin_bottom = 19.0
+focus_neighbour_top = NodePath("../FOV145")
+focus_neighbour_right = NodePath("../../Box1/FOV45")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "55°"
+
+[node name="FOV70" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_right = NodePath("../../Box1/FOV60")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "70°"
+
+[node name="FOV85" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_right = NodePath("../../Box1/FOV75")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "85°"
+
+[node name="FOV100" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_right = NodePath("../../Box1/FOV90")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "100°"
+
+[node name="FOV115" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_right = NodePath("../../Box1/FOV105")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "115°"
+
+[node name="FOV130" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 23.0
+margin_right = 180.0
+margin_bottom = 42.0
+focus_neighbour_right = NodePath("../../Box1/FOV120")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "130°"
+
+[node name="FOV145" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
+margin_top = 46.0
+margin_right = 180.0
+margin_bottom = 65.0
+focus_neighbour_right = NodePath("../../Box1/FOV135")
+focus_neighbour_bottom = NodePath("../FOV55")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "145°"
+
+[node name="ShadowAmountButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.20001
+alignment = 1
+
+[node name="ShadowAmountNone" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../ShadowAmountUltimate")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "None"
+
+[node name="ShadowAmountExtraLow" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Extra Low"
+
+[node name="ShadowAmountLow" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Low"
+
+[node name="ShadowAmountDefault" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Default"
+
+[node name="ShadowAmountHigh" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "High"
+
+[node name="ShadowAmountUltimate" type="Button" parent="BlackBar/ShadowAmountButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../ShadowAmountNone")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Ultimate"
+
+[node name="MaxRigidBodiesButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.20001
+alignment = 1
+
+[node name="RigidLowest" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Rigid10000")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Lowest"
+
+[node name="Rigid50" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "50"
+
+[node name="Rigid100" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "100"
+
+[node name="Rigid200" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "200"
+
+[node name="Rigid350" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "350"
+
+[node name="Rigid500" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "500"
+
+[node name="Rigid750" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "750"
+
+[node name="Rigid1000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1000"
+
+[node name="Rigid4000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4000"
+
+[node name="Rigid10000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../RigidLowest")
+custom_colors/font_color_focus = Color( 1, 0.901961, 0, 1 )
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "10000"
+
+[connection signal="pressed" from="BlackBar/MainButtons/OnePlayer" to="." method="_on_OnePlayer_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/TwoPlayers" to="." method="_on_TwoPlayers_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/ThreePlayers" to="." method="_on_ThreePlayers_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/FourPlayers" to="." method="_on_FourPlayers_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/FivePlayers" to="." method="_on_FivePlayers_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/SixPlayers" to="." method="_on_SixPlayers_pressed"]
+[connection signal="pressed" from="BlackBar/MainButtons/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="BlackBar/SettingsButtons/Graphics" to="." method="_on_Graphics_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/WindowModes" to="." method="_on_WindowModes_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/Resolution" to="." method="_on_Resolution_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/MSAA" to="." method="_on_MSAA_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/ToggleVsync" to="." method="_on_ToggleVsync_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/ViewDistance" to="." method="_on_ViewDistance_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/RearViewDistance" to="." method="_on_RearViewDistance_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/FieldOfView" to="." method="_on_FieldOfView_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/ShadowAmount" to="." method="_on_ShadowAmount_pressed"]
+[connection signal="pressed" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="." method="_on_MaxRigidBodies_pressed"]
+[connection signal="pressed" from="BlackBar/WindowModesButtons/Default" to="." method="_on_Default_pressed"]
+[connection signal="pressed" from="BlackBar/WindowModesButtons/Borderless" to="." method="_on_Borderless_pressed"]
+[connection signal="pressed" from="BlackBar/WindowModesButtons/Fullscreen" to="." method="_on_Fullscreen_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution1" to="." method="_on_Resolution1_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution2" to="." method="_on_Resolution2_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution3" to="." method="_on_Resolution3_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution4" to="." method="_on_Resolution4_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution5" to="." method="_on_Resolution5_pressed"]
+[connection signal="pressed" from="BlackBar/ResolutionButtons/Resolution6" to="." method="_on_Resolution6_pressed"]
+[connection signal="pressed" from="BlackBar/MSAAButtons/MSAAOff" to="." method="_on_MSAAOff_pressed"]
+[connection signal="pressed" from="BlackBar/MSAAButtons/2x" to="." method="_on_2x_pressed"]
+[connection signal="pressed" from="BlackBar/MSAAButtons/4x" to="." method="_on_4x_pressed"]
+[connection signal="pressed" from="BlackBar/MSAAButtons/8x" to="." method="_on_8x_pressed"]
+[connection signal="pressed" from="BlackBar/MSAAButtons/16x" to="." method="_on_16x_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View100" to="." method="_on_View100_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View200" to="." method="_on_View200_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View350" to="." method="_on_View350_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View500" to="." method="_on_View500_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View750" to="." method="_on_View750_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View1000" to="." method="_on_View1000_pressed"]
+[connection signal="pressed" from="BlackBar/ViewDistanceButtons/View2000" to="." method="_on_View2000_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear25" to="." method="_on_Rear25_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear50" to="." method="_on_Rear50_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear100" to="." method="_on_Rear100_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear200" to="." method="_on_Rear200_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear350" to="." method="_on_Rear350_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear500" to="." method="_on_Rear500_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear750" to="." method="_on_Rear750_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear1000" to="." method="_on_Rear1000_pressed"]
+[connection signal="pressed" from="BlackBar/RearViewDistanceButtons/Rear2000" to="." method="_on_Rear2000_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV45" to="." method="_on_FOV45_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV60" to="." method="_on_FOV60_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV75" to="." method="_on_FOV75_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV90" to="." method="_on_FOV90_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV105" to="." method="_on_FOV105_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV120" to="." method="_on_FOV120_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV135" to="." method="_on_FOV135_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV50" to="." method="_on_FOV50_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV65" to="." method="_on_FOV65_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV80" to="." method="_on_FOV80_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV95" to="." method="_on_FOV95_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV110" to="." method="_on_FOV110_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV125" to="." method="_on_FOV125_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV140" to="." method="_on_FOV140_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV55" to="." method="_on_FOV55_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV70" to="." method="_on_FOV70_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV85" to="." method="_on_FOV85_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV100" to="." method="_on_FOV100_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV115" to="." method="_on_FOV115_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV130" to="." method="_on_FOV130_pressed"]
+[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV145" to="." method="_on_FOV145_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountNone" to="." method="_on_ShadowAmountNone_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountExtraLow" to="." method="_on_ShadowAmountExtraLow_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountLow" to="." method="_on_ShadowAmountLow_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountDefault" to="." method="_on_ShadowAmountDefault_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountHigh" to="." method="_on_ShadowAmountHigh_pressed"]
+[connection signal="pressed" from="BlackBar/ShadowAmountButtons/ShadowAmountUltimate" to="." method="_on_ShadowAmountUltimate_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/RigidLowest" to="." method="_on_RigidLowest_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid50" to="." method="_on_Rigid50_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid100" to="." method="_on_Rigid100_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid200" to="." method="_on_Rigid200_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid350" to="." method="_on_Rigid350_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid500" to="." method="_on_Rigid500_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid750" to="." method="_on_Rigid750_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid1000" to="." method="_on_Rigid1000_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid4000" to="." method="_on_Rigid4000_pressed"]
+[connection signal="pressed" from="BlackBar/MaxRigidBodiesButtons/Rigid10000" to="." method="_on_Rigid10000_pressed"]
