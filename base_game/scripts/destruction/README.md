@@ -111,16 +111,16 @@ This is the DeletionManager of the current track.
 
 ### Method Descriptions
 #### - void _ready()
-This method ...
+This method sets this Spatial as toplevel. Then, it starts the Animation "rotation".
 
 #### - void _on_Lifetime_timeout()
-This method ...
+This method disables this Node and queues it for deletion by the [deletion_manager](#--node-deletion_manager).
 
 #### - void _on_Area_body_entered(body)
-This method ...
+This method checks, if the body is a CombatVehicle and if the body is less than six metres away from the explosion. (The second condition should not be necessary, but it helps with incorrect collisions.) If true, it applies an impulse to the body and checks, if the body is the [shooter](#--combatvehicle-shooter). If false, it damages the body.
 
 #### - void _on_Area_area_entered(body)
-This method ...
+This method checks, if the body is in the group "destructible". If true, it [destroys](#--void-destroyvar-vehicle-combatvehicle-var-position-vector3-var-force-float)  the body.
 
 
 
@@ -128,3 +128,28 @@ This method ...
 extends MeshInstance<br>
 This is the Script of the root Node of [sparks.tscn](/base_game/scenes/destruction/sparks.tscn).
 
+### Properties
+| Type | Name |
+|---|---|
+| Node | [deletion_manager](#--node-deletion_manager-2) |
+
+### Methods
+| Return Type | Name |
+|---|---|
+| void | [_ready()](#--void-_ready-2) |
+| void | [_on_AnimationPlayer_animation_finished(_anim_name)](#--void-_on_animationplayer_animation_finished_anim_name) |
+| void | [_on_VisibilityNotifier_screen_exited()](#--void-_on_visibilitynotifier_screen_exited-1) |
+
+### Property Descriptions
+#### - Node deletion_manager
+This is the DeletionManager of the current track.
+
+### Method Descriptions
+#### - void _ready()
+This method sets this Spatial as toplevel. Then, it starts the Animation "sparks".
+
+#### - void _on_AnimationPlayer_animation_finished(_anim_name)
+This method disables this Node and queues it for deletion by the [deletion_manager](#--node-deletion_manager).
+
+#### - void _on_VisibilityNotifier_screen_exited()
+This method disables this Node and queues it for deletion by the [deletion_manager](#--node-deletion_manager).
