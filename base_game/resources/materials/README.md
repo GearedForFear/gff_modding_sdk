@@ -39,22 +39,22 @@ This folder contains the Materials of all vehicle parts, except weapons.
 ### Contents
 | Name | Description | Type |
 |---|---|---|
-| ca_wheel.material | For Wheels | SpatialMaterial |
-| chains_awe.material | For Main Body | SpatialMaterial |
-| eb_wheel.material | For Wheels | SpatialMaterial |
-| eternal_bond.material | For Main Body | SpatialMaterial |
-| fungibber.material | For Main Body | SpatialMaterial |
-| fu_wheel.material | For Wheels | SpatialMaterial |
-| restless.material | For Main Body | SpatialMaterial |
-| restless_door.material | For Part | SpatialMaterial |
-| restless_rocket.material | For Part | SpatialMaterial |
-| re_wheel.material | For Wheels | SpatialMaterial |
-| sd_wheel.material | For Wheels | SpatialMaterial |
-| suicide_door.material | For Main Body | SpatialMaterial |
-| turbulence.material | For Main Body | SpatialMaterial |
-| tu_wheel.material | For Wheels | SpatialMaterial |
-| warm_welcome.material | For Main Body | SpatialMaterial |
-| ww_wheel.material | For Wheels | SpatialMaterial |
+| ca_wheel.material | For wheels | SpatialMaterial |
+| chains_awe.material | For main body | SpatialMaterial |
+| eb_wheel.material | For wheels | SpatialMaterial |
+| eternal_bond.material | For main body | SpatialMaterial |
+| fungibber.material | For main body | SpatialMaterial |
+| fu_wheel.material | For wheels | SpatialMaterial |
+| restless.material | For main body | SpatialMaterial |
+| restless_door.material | For part | SpatialMaterial |
+| restless_rocket.material | For part | SpatialMaterial |
+| re_wheel.material | For wheels | SpatialMaterial |
+| sd_wheel.material | For wheels | SpatialMaterial |
+| suicide_door.material | For main body | SpatialMaterial |
+| turbulence.material | For main body | SpatialMaterial |
+| tu_wheel.material | For wheels | SpatialMaterial |
+| warm_welcome.material | For main body | SpatialMaterial |
+| ww_wheel.material | For wheels | SpatialMaterial |
 
 
 
@@ -64,4 +64,4 @@ This folder contains the Materials of different parts of the tracks.
 ### Contents
 | Name | Description | Type |
 |---|---|---|
-| maps/usa.material | For Terrain and Rocks | SpatialMaterial |
+| maps/usa.material | For terrain and rocks | SpatialMaterial |
