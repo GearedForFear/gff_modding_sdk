@@ -20,7 +20,7 @@ This folder contains all Scripts for Cameras, Viewports, menu elements and hud e
 
 ## main.gd
 extends Control<br>
-This is the Script for the root Node of [main.tscn](/base_game/scenes/cameras_&_ui/main.tscn). It controls the main menu.
+This is the Script of the root Node of [main.tscn](/base_game/scenes/cameras_&_ui/main.tscn). It controls the main menu.
 
 ### Properties
 | Type | Name |
@@ -41,6 +41,7 @@ This is the Script for the root Node of [main.tscn](/base_game/scenes/cameras_&_
 | void | [active(var b: bool)](#--void-activevar-b-bool) |
 | void | [instantiate_vehicles(var spawns: Array, var first_vehicle: int)](#--void-instantiate_vehiclesvar-spawns-array-var-first_vehicle-int) |
 | void | [switch_buttons(var from: BoxContainer, var to: BoxContainer)](#--void-switch_buttonsvar-from-boxcontainer-var-to-boxcontainer) |
+| void | [various signal methods](#--void-various-signal-methods) |
 
 ### Property Descriptions
 #### - Spatial track
@@ -68,7 +69,7 @@ This method loads any installed mods. Then, it changes the game's background col
 This method checks, if there is any "ui_accept_" Input. If true, it creates a "ui_accept" Input. Then, it does the same for all other ui Inputs. (There are multiple Inputs for each ui action, because some menus should only take Inputs from one specific player. The main menu takes Inputs from all players, so this method combines the different versions of those Inputs into one.) Next, it checks for the "ui_cancel" Input. If true, it [switches to the previous menu](#--void-switch_buttonsvar-from-boxcontainer-var-to-boxcontainer) or quits the game.
 
 #### - void prepare()
-This method checks if [resources_loaded](#--bool-resources_loaded) is false. This should only be the case, if the game was just started. In that case, this method should load all Resources from the paths in [always_loaded](#--onready-array-always_loaded) and replace the paths in that Array with the actual Resources. All of those Resources should be PackedScenes. Then, this method instaniates the track and the vehicles for spawn points 7-12. (Spawn points 7-12 never have player vehicles.)
+This method checks if [resources_loaded](#--bool-resources_loaded) is false. This should only be the case, if the game was just started. In that case, this method should load all Resources from the paths in [always_loaded](#--onready-array-always_loaded) and replace the paths in that Array with the actual Resources. All of those Resources should be PackedScenes. Then, this method instaniates the track and the vehicles for spawn points 7-12. (Those spawn points never have player vehicles.)
 
 #### - void play(player_amount: int)
 This method hides the main menu. Then, it waits for the [thread](#--onready-thread-thread). Next, it adjusts the ViewportContainers, based on the player_amount. After that, it adds one or more controller select menus to spawn points. Then, this Node [deactivates itself.](#--void-activevar-b-bool) Next, it may instantiate vehicles at spawn points 2-6, depending on the player_amount.
@@ -81,6 +82,9 @@ This method adds a vehicle to each spawn point of the Array. The order of vehicl
 
 #### - void switch_buttons(var from: BoxContainer, var to: BoxContainer)
 This method changes the visibility of both Containers, to switch menus. Then, it makes the first Button of the menu the focused Control.
+
+#### - void various signal methods
+These methods have different purposes, such as [starting a new round](#--void-playplayer_amount-int) or [switching to a different menu.](#--void-switch_buttonsvar-from-boxcontainer-var-to-boxcontainer)
 
 ## msaa_viewport.gd
 
