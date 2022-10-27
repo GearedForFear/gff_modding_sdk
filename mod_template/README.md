@@ -1,3 +1,3 @@
 # Mod Template
-This folder contains the complete project files for a simple mod. It needs to be [exported as a PCK file.]()<br>
+This folder contains the complete project files for a simple mod. It needs to be [exported as a PCK file.](//docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html)<br>
 When loading a mod, the game will create an instance of "res://scenes/mod.tscn". This scene does not exist in the base game files, so the game will crash, if the mod does not have a scene of that name (unless another mod has it, that was loaded before). The instance is added to the RootControl of the main scene. Lastly, the "modify()" method of that instance is called. The root Node of the scene needs to have that method (but it does not need to do anything).
