@@ -65,9 +65,9 @@ func _process(_delta):
 								"res://scenes/vehicles/suicide_door.tscn", \
 								"PackedScene").instance()
 					4:
-						vehicle = ResourceLoader.load(\
-								"res://scenes/vehicles/fungibber.tscn", \
-								"PackedScene").instance()
+						return#vehicle = ResourceLoader.load(\
+								#"res://scenes/vehicles/fungibber.tscn", \
+								#"PackedScene").instance()
 					_:
 						return
 			category_names.ROCKET:
@@ -81,9 +81,9 @@ func _process(_delta):
 								"res://scenes/vehicles/turbulence.tscn", \
 								"PackedScene").instance()
 					2:
-						vehicle = ResourceLoader.load(\
-								"res://scenes/vehicles/eternal_bond.tscn", \
-								"PackedScene").instance()
+						return#vehicle = ResourceLoader.load(\
+								#"res://scenes/vehicles/eternal_bond.tscn", \
+								#"PackedScene").instance()
 					_:
 						return
 			category_names.SWITCH:
