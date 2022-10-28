@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/vehicles/turbulence.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/meshes/vehicles/turbulence_wing_big.tres" type="ArrayMesh" id=6]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/meshes/vehicles/turbulence_wing_small.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/materials/vehicles/tu_wheel.material" type="Material" id=11]
 [ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=14]
@@ -61,6 +63,54 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 0.321569, 1 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/BigWingMeshLeft:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Body/BigWingMeshRight:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Body/SmallWingMeshLeft:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/SmallWingMeshRight:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=16]
 resource_name = "death"
@@ -99,6 +149,112 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "in_out"
+length = 0.3
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BigWingMeshLeft:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.27, 0.3 ),
+"transitions": PoolRealArray( 2, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( -0.07, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/BigWingMeshRight:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.27, 0.3 ),
+"transitions": PoolRealArray( 2, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0.07, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/SmallWingMeshLeft:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.27, 0.3 ),
+"transitions": PoolRealArray( 1.5, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.5, -0.2, 0 ), Vector3( 0.025, 0.01, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/SmallWingMeshRight:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.27, 0.3 ),
+"transitions": PoolRealArray( 1.5, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, -0.2, 0 ), Vector3( -0.025, 0.01, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "out_in"
+length = 0.3
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BigWingMeshLeft:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector3( -0.07, 0, 0 ), Vector3( -1, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/BigWingMeshRight:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector3( 0.07, 0, 0 ), Vector3( 1, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/SmallWingMeshLeft:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1.5, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -0.5, -0.2, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/SmallWingMeshRight:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1.5, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.5, -0.2, 0 ) ]
 }
 
 [node name="RootSpatial" type="Spatial"]
@@ -190,6 +346,30 @@ portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 17 )
 
+[node name="BigWingMeshLeft" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 6 )
+skeleton = NodePath("../..")
+
+[node name="BigWingMeshRight" type="MeshInstance" parent="Body"]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 6 )
+skeleton = NodePath("../..")
+
+[node name="SmallWingMeshLeft" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.2, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../..")
+
+[node name="SmallWingMeshRight" type="MeshInstance" parent="Body"]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.2, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../..")
+
 [node name="ExplosionMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
 visible = false
@@ -197,6 +377,15 @@ portal_mode = 3
 cast_shadow = 0
 mesh = SubResource( 15 )
 material/0 = ExtResource( 14 )
+
+[node name="ShotPositionMiddle" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 0.959849, 0.280516, 0, -0.280516, 0.959849, 2.38419e-07, 1.15068, -0.650591 )
+
+[node name="ShotPositionLeft" type="Position3D" parent="Body"]
+transform = Transform( 0.949595, -0.0879358, 0.300892, 0, 0.959849, 0.280516, -0.313479, -0.266377, 0.911468, 0.830571, 1.00299, -0.754119 )
+
+[node name="ShotPositionRight" type="Position3D" parent="Body"]
+transform = Transform( 0.949595, 0.0879358, -0.300892, 0, 0.959849, 0.280516, 0.313479, -0.266377, 0.911468, -0.831, 1.003, -0.754 )
 
 [node name="DeathParticles" parent="Body" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761875, 1.56746 )
@@ -280,15 +469,27 @@ transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, -0.727, 0.222303, 2.7456
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
 anims/death = SubResource( 16 )
+anims/in_out = SubResource( 17 )
+anims/out_in = SubResource( 18 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 3.0
 one_shot = true
 
-[node name="GunTimer" type="Timer" parent="."]
+[node name="MiddleTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.08
+wait_time = 0.23
+one_shot = true
+
+[node name="LeftTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.23
+one_shot = true
+
+[node name="RightTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.23
 one_shot = true
 
 [node name="StuckTimer" type="Timer" parent="."]
@@ -296,5 +497,7 @@ process_mode = 0
 wait_time = 30.0
 
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
-[connection signal="timeout" from="GunTimer" to="Body" method="_on_GunTimer_timeout"]
+[connection signal="timeout" from="MiddleTimer" to="Body" method="_on_MiddleTimer_timeout"]
+[connection signal="timeout" from="LeftTimer" to="Body" method="_on_LeftTimer_timeout"]
+[connection signal="timeout" from="RightTimer" to="Body" method="_on_RightTimer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

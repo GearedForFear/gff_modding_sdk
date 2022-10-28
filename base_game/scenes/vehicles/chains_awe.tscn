@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://resources/meshes/weapon_components/chainsaw_launcher.tres" type="ArrayMesh" id=17]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/particles/chainsaw_sparks.tscn" type="PackedScene" id=20]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -28,6 +29,9 @@ points = PoolVector3Array( 0.96, 0.875, 3.31, -0.96, 0.875, 3.31, 0.865, 1.716, 
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
+
+[sub_resource type="BoxShape" id=24]
+extents = Vector3( 0.0752258, 0.270823, 0.246891 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -66,6 +70,54 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0.321569, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/ChainsawFrontLeft:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.939801, -0.0185963 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Body/ChainsawFrontLeft:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Body/ChainsawBackLeft:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.939801, -0.357919 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/ChainsawBackLeft:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=16]
@@ -107,6 +159,281 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=19]
+resource_name = "left_saws_active"
+length = 0.1
+loop = true
+step = 0.016
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontLeft:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.016, 0.032, 0.048, 0.064, 0.08, 0.096 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.197079, -0.0185963 ), Vector3( 1.09967, 0.230209, -0.0185963 ), Vector3( 1.09967, 0.197079, -0.0185963 ), Vector3( 1.09967, 0.230209, -0.0185963 ), Vector3( 1.09967, 0.197079, -0.0185963 ), Vector3( 1.09967, 0.230209, -0.0185963 ), Vector3( 1.09967, 0.197079, -0.0185963 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawBackLeft:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.016, 0.032, 0.048, 0.064, 0.08, 0.096 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.1, 0.23, -0.358 ), Vector3( 1.1, 0.19687, -0.358 ), Vector3( 1.1, 0.23, -0.358 ), Vector3( 1.1, 0.19687, -0.358 ), Vector3( 1.1, 0.23, -0.358 ), Vector3( 1.1, 0.19687, -0.358 ), Vector3( 1.1, 0.23, -0.358 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "left_saws_down"
+length = 0.05
+step = 0.016
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontLeft:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.939801, -0.0185963 ), Vector3( 1.09967, 0.45117, -0.0185963 ), Vector3( 1.09967, 0.230209, -0.0185963 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawFrontLeft:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1.5 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/ChainsawBackLeft:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.939801, -0.357919 ), Vector3( 1.1, 0.451, -0.358 ), Vector3( 1.1, 0.23, -0.358 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/ChainsawBackLeft:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1.5 ), Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "left_saws_up"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontLeft:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.09967, 0.230209, -0.0185963 ), Vector3( 1.1, 0.25, -0.019 ), Vector3( 1.1, 1, -0.019 ), Vector3( 1.1, 0.94, -0.019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawBackLeft:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.1, 0.23, -0.358 ), Vector3( 1.1, 0.25, -0.358 ), Vector3( 1.1, 1, -0.358 ), Vector3( 1.1, 0.94, -0.358 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontRight:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.94, -0.019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawFrontRight:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/ChainsawBackRight:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.94, -0.358322 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/ChainsawBackRight:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "right_saws_active"
+length = 0.1
+loop = true
+step = 0.016
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontRight:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.016, 0.032, 0.048, 0.064, 0.08, 0.096 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.197, -0.019 ), Vector3( -1.1, 0.23, -0.019 ), Vector3( -1.1, 0.197, -0.019 ), Vector3( -1.1, 0.23, -0.019 ), Vector3( -1.1, 0.197, -0.019 ), Vector3( -1.1, 0.23, -0.019 ), Vector3( -1.1, 0.197, -0.019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawBackRight:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.016, 0.032, 0.048, 0.064, 0.08, 0.096 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.23, -0.358 ), Vector3( -1.1, 0.197, -0.358 ), Vector3( -1.1, 0.23, -0.358 ), Vector3( -1.1, 0.197, -0.358 ), Vector3( -1.1, 0.23, -0.358 ), Vector3( -1.1, 0.197, -0.358 ), Vector3( -1.1, 0.23, -0.358 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "right_saws_down"
+length = 0.05
+step = 0.016
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontRight:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.94, -0.019 ), Vector3( -1.1, 0.451, -0.019 ), Vector3( -1.1, 0.23, -0.019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawFrontRight:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1.55 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/ChainsawBackRight:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.94, -0.358322 ), Vector3( -1.1, 0.451, -0.358 ), Vector3( -1.1, 0.23, -0.358 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/ChainsawBackRight:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.016, 0.048 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1.5 ), Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "right_saws_up"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ChainsawFrontRight:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.23, -0.019 ), Vector3( -1.1, 0.25, -0.019 ), Vector3( -1.1, 1, -0.019 ), Vector3( -1.1, 0.94, -0.019 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ChainsawBackRight:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.1, 0.23, -0.358 ), Vector3( -1.1, 0.25, -0.358 ), Vector3( -1.1, 1, -0.358 ), Vector3( -1.1, 0.94, -0.358322 ) ]
+}
+
 [node name="RootSpatial" type="Spatial"]
 _import_path = NodePath(".")
 __meta__ = {
@@ -120,7 +447,7 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
-transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.924886, 0.161023, 2.41128 )
+transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, 2.411 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.4
@@ -137,7 +464,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
-transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.161023, 2.4115 )
+transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, 2.411 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.4
@@ -154,7 +481,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
-transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925276, 0.161, -2.15999 )
+transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, -2.16 )
 use_as_traction = true
 wheel_roll_influence = 0.4
 wheel_radius = 0.36
@@ -170,7 +497,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
-transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.161023, -2.16043 )
+transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, -2.16 )
 use_as_traction = true
 wheel_roll_influence = 0.4
 wheel_radius = 0.36
@@ -204,7 +531,7 @@ mesh = SubResource( 15 )
 material/0 = ExtResource( 14 )
 
 [node name="ChainsawFrontLeft" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, 1, 1, 4.37114e-08, -4.37114e-08, 1.09967, 0.939801, -0.0185963 )
+transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.0185963 )
 portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
@@ -216,7 +543,7 @@ mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
 
 [node name="ChainsawBackLeft" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, 1, 1, 4.37114e-08, -4.37114e-08, 1.09967, 0.939801, -0.357919 )
+transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.357919 )
 portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
@@ -238,13 +565,45 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.686228, 3.32398 )
 [node name="ShotPositionLauncher" type="Position3D" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, -3.652e-08, 0.908566, 0.41774, 7.94294e-08, 0.41774, -0.908566, 0, 1.3432, -2.20725 )
 
+[node name="SawAreaLeft" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09968, -0.209553, -0.189 )
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/SawAreaLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171537, 0 )
+shape = SubResource( 24 )
+
+[node name="SawAreaRight" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, -0.21, -0.189 )
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/SawAreaRight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171537, 0 )
+shape = SubResource( 24 )
+
 [node name="MuzzleFlash" parent="Body" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.686228, 3.32398 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.686228, 3.32398 )
 one_shot = true
 
 [node name="CPUMuzzleFlash" parent="Body" instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.686228, 3.32398 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.686228, 3.32398 )
 one_shot = true
+
+[node name="SawSparksFrontLeft" parent="Body" instance=ExtResource( 20 )]
+transform = Transform( 0.833249, 0.552897, 0, -0.552897, 0.833249, 0, 0, 0, 1, 1.09949, -0.207887, -0.019 )
+
+[node name="SawSparksFrontRight" parent="Body" instance=ExtResource( 20 )]
+transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -1.099, -0.207739, -0.019 )
+
+[node name="SawSparksBackLeft" parent="Body" instance=ExtResource( 20 )]
+transform = Transform( 0.833249, 0.552897, 0, -0.552897, 0.833249, 0, 0, 0, 1, 1.09897, -0.207851, -0.358 )
+
+[node name="SawSparksBackRight" parent="Body" instance=ExtResource( 20 )]
+transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -1.099, -0.208, -0.358 )
 
 [node name="DeathParticles" parent="Body" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86689, 1.58121 )
@@ -288,6 +647,15 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.835,
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
 anims/death = SubResource( 16 )
+anims/left_saws_active = SubResource( 19 )
+anims/left_saws_down = SubResource( 17 )
+anims/left_saws_up = SubResource( 18 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 20 )
+anims/right_saws_active = SubResource( 23 )
+anims/right_saws_down = SubResource( 21 )
+anims/right_saws_up = SubResource( 22 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0
@@ -307,6 +675,8 @@ one_shot = true
 process_mode = 0
 wait_time = 30.0
 
+[connection signal="animation_finished" from="AnimationPlayer" to="Body" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer2" to="Body" method="_on_AnimationPlayer2_animation_finished"]
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
 [connection signal="timeout" from="SniperTimer" to="Body" method="_on_SniperTimer_timeout"]
 [connection signal="timeout" from="LauncherTimer" to="Body" method="_on_LauncherTimer_timeout"]
