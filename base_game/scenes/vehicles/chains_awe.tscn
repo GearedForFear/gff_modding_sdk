@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/particles/chainsaw_sparks.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/particles/chainsaw_sparks_cpu.tscn" type="PackedScene" id=21]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -603,6 +604,18 @@ transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -
 transform = Transform( 0.833249, 0.552897, 0, -0.552897, 0.833249, 0, 0, 0, 1, 1.09897, -0.207851, -0.358 )
 
 [node name="SawSparksBackRight" parent="Body" instance=ExtResource( 20 )]
+transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -1.099, -0.208, -0.358 )
+
+[node name="SawCPUSparksFrontLeft" parent="Body" instance=ExtResource( 21 )]
+transform = Transform( 0.833249, 0.552897, 0, -0.552897, 0.833249, 0, 0, 0, 1, 1.099, -0.208, -0.019 )
+
+[node name="SawCPUSparksFrontRight" parent="Body" instance=ExtResource( 21 )]
+transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -1.099, -0.208, -0.019 )
+
+[node name="SawCPUSparksBackLeft" parent="Body" instance=ExtResource( 21 )]
+transform = Transform( 0.833249, 0.552897, 0, -0.552897, 0.833249, 0, 0, 0, 1, 1.099, -0.208, -0.358 )
+
+[node name="SawCPUSparksBackRight" parent="Body" instance=ExtResource( 21 )]
 transform = Transform( 0.833249, -0.552897, 0, 0.552897, 0.833249, 0, 0, 0, 1, -1.099, -0.208, -0.358 )
 
 [node name="DeathParticles" parent="Body" instance=ExtResource( 6 )]
