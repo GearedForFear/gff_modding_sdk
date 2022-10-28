@@ -60,10 +60,10 @@ This method checks, if this scene is already [destroyed](#--bool-destroyed). If 
 This method checks, if the body is a [CombatVehicle]. If true, it [destroys](#--void-destroyvar-vehicle-combatvehicle-var-position-vector3-var-force-float) itself.
 
 #### - void _on_VisibilityNotifier_screen_entered()
-This method will be fixed in the future.
+Not documented, yet.
 
 #### - void _on_VisibilityNotifier_screen_exited()
-This method will be fixed in the future.
+Not documented, yet.
 
 
 
