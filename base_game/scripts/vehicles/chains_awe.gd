@@ -11,6 +11,12 @@ export var sniper_reward: int = 10
 export var sniper_burn: float = 0.4
 export var sniper_ammo_cost: float = 10.0
 
+export var saw_damage: float = 2.0
+export var saw_reward: int = 1
+export var saw_burn: float = 0.1
+export var saw_push: int = 50
+export var saw_ammo_cost: float = 0.12
+
 export var launcher_damage: float = 20.0
 export var launcher_reward: int = 20
 export var launcher_burn: float = 0.1
@@ -18,9 +24,8 @@ export var launcher_ammo_cost: float = 10.0
 
 var can_shoot_sniper: bool = true
 var can_shoot_launcher: bool = true
-
-onready var sniper_timer: Timer = get_node("../SniperTimer")
-onready var launcher_timer: Timer = get_node("../LauncherTimer")
+var left_saws_up: bool = true
+var right_saws_up: bool = true
 
 
 func _ready():
@@ -57,6 +62,16 @@ func _physics_process(_delta):
 			if can_shoot_sniper and ammo >= sniper_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
 				shoot_sniper()
+			if ammo >= saw_ammo_cost \
+					and Input.is_action_pressed(controls.weapon_left):
+				saw_left(true)
+			else:
+				saw_left(false)
+			if ammo >= saw_ammo_cost \
+					and Input.is_action_pressed(controls.weapon_right):
+				saw_right(true)
+			else:
+				saw_right(false)
 			if can_shoot_launcher and ammo >= launcher_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_back):
 				shoot_chainsaw()
@@ -65,7 +80,7 @@ func _physics_process(_delta):
 func shoot_sniper():
 	ammo -= sniper_ammo_cost
 	can_shoot_sniper = false
-	sniper_timer.start()
+	get_node("../SniperTimer").start()
 	
 	var new_bullet: Area = Sniper_Bullet.instance()
 	$ShotPositionSniper.add_child(new_bullet)
@@ -81,10 +96,62 @@ func shoot_sniper():
 		$CPUMuzzleFlash.emitting = true
 
 
+func saw_left(var b: bool):
+	if b:
+		ammo -= saw_ammo_cost
+		if left_saws_up:
+			get_node("../AnimationPlayer").play("left_saws_down")
+			left_saws_up = false
+		var overalpping: Array = $SawAreaLeft.get_overlapping_bodies()
+		overalpping.erase(self)
+		if overalpping.empty():
+			$SawSparksFrontLeft.emitting = false
+			$SawSparksBackLeft.emitting = false
+		else:
+			$SawSparksFrontLeft.emitting = true
+			$SawSparksBackLeft.emitting = true
+			apply_central_impulse(transform.basis.x * saw_push)
+			for n in overalpping:
+				if n.is_in_group("combat_vehicle"):
+					reward(n.damage(saw_damage, saw_reward, saw_burn, self))
+	else:
+		if not left_saws_up:
+			get_node("../AnimationPlayer").play("left_saws_up")
+			$SawSparksFrontLeft.emitting = false
+			$SawSparksBackLeft.emitting = false
+			left_saws_up = true
+
+
+func saw_right(var b: bool):
+	if b:
+		ammo -= saw_ammo_cost
+		if right_saws_up:
+			get_node("../AnimationPlayer2").play("right_saws_down")
+			right_saws_up = false
+		var overalpping: Array = $SawAreaRight.get_overlapping_bodies()
+		overalpping.erase(self)
+		if overalpping.empty():
+			$SawSparksFrontRight.emitting = false
+			$SawSparksBackRight.emitting = false
+		else:
+			$SawSparksFrontRight.emitting = true
+			$SawSparksBackRight.emitting = true
+			apply_central_impulse(transform.basis.x * -saw_push)
+			for n in overalpping:
+				if n.is_in_group("combat_vehicle"):
+					reward(n.damage(saw_damage, saw_reward, saw_burn, self))
+	else:
+		if not right_saws_up:
+			get_node("../AnimationPlayer2").play("right_saws_up")
+			$SawSparksFrontRight.emitting = false
+			$SawSparksBackRight.emitting = false
+			right_saws_up = true
+
+
 func shoot_chainsaw():
 	ammo -= launcher_ammo_cost
 	can_shoot_launcher = false
-	launcher_timer.start()
+	get_node("../LauncherTimer").start()
 	
 	var new_chainsaw: Area = Chainsaw.instance()
 	$ShotPositionLauncher.add_child(new_chainsaw)
@@ -101,3 +168,13 @@ func _on_SniperTimer_timeout():
 
 func _on_LauncherTimer_timeout():
 	can_shoot_launcher = true
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "left_saws_down":
+		get_node("../AnimationPlayer").play("left_saws_active")
+
+
+func _on_AnimationPlayer2_animation_finished(anim_name):
+	if anim_name == "right_saws_down":
+		get_node("../AnimationPlayer2").play("right_saws_active")
