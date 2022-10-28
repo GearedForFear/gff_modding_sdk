@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/materials/weapon_components/grenade.material" type="Material" id=1]
+[ext_resource path="res://resources/meshes/weapon_components/grenade.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://scripts/weapon_compontents/grenade.gd" type="Script" id=3]
+
+[sub_resource type="CylinderShape" id=1]
+height = 0.8
+radius = 0.4
+
+[node name="Area" type="Area" groups=["Bullet"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0 )
+portal_mode = 3
+cast_shadow = 0
+mesh = ExtResource( 2 )
+material/0 = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.4 )
+shape = SubResource( 1 )
+
+[node name="Lifetime" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="RayCast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, 0.5 )
+
+[connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
