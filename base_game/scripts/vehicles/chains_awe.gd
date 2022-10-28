@@ -105,11 +105,19 @@ func saw_left(var b: bool):
 		var overalpping: Array = $SawAreaLeft.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
-			$SawSparksFrontLeft.emitting = false
-			$SawSparksBackLeft.emitting = false
+			if gles3:
+				$SawSparksFrontLeft.emitting = false
+				$SawSparksBackLeft.emitting = false
+			else:
+				$SawCPUSparksFrontLeft.emitting = false
+				$SawCPUSparksBackLeft.emitting = false
 		else:
-			$SawSparksFrontLeft.emitting = true
-			$SawSparksBackLeft.emitting = true
+			if gles3:
+				$SawSparksFrontLeft.emitting = true
+				$SawSparksBackLeft.emitting = true
+			else:
+				$SawCPUSparksFrontLeft.emitting = true
+				$SawCPUSparksBackLeft.emitting = true
 			apply_central_impulse(transform.basis.x * saw_push)
 			for n in overalpping:
 				if n.is_in_group("combat_vehicle"):
@@ -117,9 +125,13 @@ func saw_left(var b: bool):
 	else:
 		if not left_saws_up:
 			get_node("../AnimationPlayer").play("left_saws_up")
-			$SawSparksFrontLeft.emitting = false
-			$SawSparksBackLeft.emitting = false
 			left_saws_up = true
+			if gles3:
+				$SawSparksFrontLeft.emitting = false
+				$SawSparksBackLeft.emitting = false
+			else:
+				$SawCPUSparksFrontLeft.emitting = false
+				$SawCPUSparksBackLeft.emitting = false
 
 
 func saw_right(var b: bool):
@@ -131,11 +143,19 @@ func saw_right(var b: bool):
 		var overalpping: Array = $SawAreaRight.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
-			$SawSparksFrontRight.emitting = false
-			$SawSparksBackRight.emitting = false
+			if gles3:
+				$SawSparksFrontRight.emitting = false
+				$SawSparksBackRight.emitting = false
+			else:
+				$SawCPUSparksFrontRight.emitting = false
+				$SawCPUSparksBackRight.emitting = false
 		else:
-			$SawSparksFrontRight.emitting = true
-			$SawSparksBackRight.emitting = true
+			if gles3:
+				$SawSparksFrontRight.emitting = true
+				$SawSparksBackRight.emitting = true
+			else:
+				$SawCPUSparksFrontRight.emitting = true
+				$SawCPUSparksBackRight.emitting = true
 			apply_central_impulse(transform.basis.x * -saw_push)
 			for n in overalpping:
 				if n.is_in_group("combat_vehicle"):
@@ -143,9 +163,13 @@ func saw_right(var b: bool):
 	else:
 		if not right_saws_up:
 			get_node("../AnimationPlayer2").play("right_saws_up")
-			$SawSparksFrontRight.emitting = false
-			$SawSparksBackRight.emitting = false
 			right_saws_up = true
+			if gles3:
+				$SawSparksFrontRight.emitting = false
+				$SawSparksBackRight.emitting = false
+			else:
+				$SawCPUSparksFrontRight.emitting = false
+				$SawCPUSparksBackRight.emitting = false
 
 
 func shoot_chainsaw():
