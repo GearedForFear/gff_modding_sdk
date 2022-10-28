@@ -46,8 +46,10 @@ func _on_Area_body_entered(body):
 
 
 func _on_VisibilityNotifier_screen_entered():
-	collision_layer = 1
+	collision_layer = 4
+	collision_mask = 1
 
 
 func _on_VisibilityNotifier_screen_exited():
 	collision_layer = 0
+	collision_mask = 0
