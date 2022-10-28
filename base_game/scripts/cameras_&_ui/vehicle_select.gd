@@ -9,20 +9,13 @@ var categories: Array
 var current_category: int = 0
 var current_vehicle: int = 0
 
-onready var unlocked: Array = [get_node("Nitro/SuicideDoor"), \
-		get_node("Rocket/WarmWelcome"), get_node("Switch/Restless")]
+onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
+		get_node("Nitro/SuicideDoor"), get_node("Rocket/WarmWelcome"), \
+		get_node("Rocket/Turbulence"), get_node("Switch/Restless")]
 
 
 func _ready():
 	categories.append_array(get_children())
-	
-	current_category = (current_category + 1) % categories.size()
-	for n in categories:
-		n.hide()
-	categories[current_category].show()
-	if current_vehicle > categories[current_category].get_child_count() - 2:
-		current_vehicle = categories[current_category].get_child_count() - 2
-	update_selection()
 
 
 func _process(_delta):
