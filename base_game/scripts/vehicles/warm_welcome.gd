@@ -11,13 +11,13 @@ const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
 
 export var bullet_damage: float = 2.0
 export var bullet_reward: int = 1
-export var bullet_burn: float = 0.4
-export var bullet_ammo_cost: float = 1.0
+export var bullet_burn: float = 0.2
+export var bullet_ammo_cost: float = 2.0
 
-export var flamethrower_damage: float = 0.5
+export var flamethrower_damage: float = 1.0
 export var flamethrower_reward: int = 1
-export var flamethrower_burn: float = 4.0
-export var flamethrower_push: int = 50
+export var flamethrower_burn: float = 1.0
+export var flamethrower_push: int = 250
 export var flamethrower_ammo_cost: float = 0.12
 
 export var jump_force: int = 100
@@ -89,8 +89,8 @@ func _physics_process(_delta):
 
 func shoot(var b: bool):
 	if b:
-		animation_player.play("gatling_gun_rotation")
-		animation_player.seek(0.0, false)
+		get_node("../AnimationPlayer").play("gatling_gun_rotation")
+		get_node("../AnimationPlayer").seek(0.0, false)
 		ammo -= bullet_ammo_cost
 		can_shoot = false
 		gun_timer.start()
