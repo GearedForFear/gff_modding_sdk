@@ -111,6 +111,7 @@ func respawn(vehicle: CombatVehicle):
 			"RespawnPoints/RespawnPoint0").global_transform
 	vehicle.reset_physics_interpolation()
 	vehicle.linear_velocity = Vector3.ZERO
+	vehicle.angular_velocity = Vector3.ZERO
 	for n in waypoints[waypoint].get_node("RespawnPoints").get_children():
 		if n.get_overlapping_bodies().size() == 0:
 			vehicle.global_transform = n.global_transform
