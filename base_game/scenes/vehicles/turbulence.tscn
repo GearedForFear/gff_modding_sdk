@@ -266,9 +266,14 @@ __meta__ = {
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 collision_mask = 3
+mass = 155.102
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
+base_health = 92.0
+base_engine_force = 456.0
 base_boost_type = 1
+nitro_force = 0.0
+rocket_force = 152.0
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00141, 0.16, 1.54582 )
