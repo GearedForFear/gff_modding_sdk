@@ -4,10 +4,10 @@ extends AmmoVehicle
 const Grenade: PackedScene \
 		= preload("res://scenes/weapon_components/grenade.tscn")
 
-export var damage: float = 20.0
-export var reward: int = 20
-export var burn: float = 0.1
-export var ammo_cost: float = 10.0
+export var damage: float = 44.0
+export var reward: int = 16
+export var burn: float = 10.0
+export var ammo_cost: float = 12.0
 
 var can_shoot_middle: bool = true
 var can_shoot_left: bool = true
