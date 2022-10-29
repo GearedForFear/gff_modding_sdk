@@ -65,7 +65,7 @@ func _physics_process(_delta):
 	
 	if glide:
 		apply_central_impulse(transform.basis.y * clamp((linear_velocity \
-				* Vector3(1, 0, 1)).length() - 20, 0, 10))
+				* Vector3(1, 0, 1)).length() - 20, 0, 10) * 3)
 
 
 func instantiate_grenade() -> Area:
