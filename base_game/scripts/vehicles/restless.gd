@@ -10,21 +10,21 @@ const CartridgeCase: PackedScene \
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
 
-export var shotgun_damage: float = 2.0
+export var shotgun_damage: float = 6.0
 export var shotgun_reward: int = 1
-export var shotgun_burn: float = 0.4
-export var shotgun_ammo_cost: float = 5.0
-export var shotgun_blast: float = 100.0
+export var shotgun_burn: float = 0.6
+export var shotgun_ammo_cost: float = 6.0
+export var shotgun_blast: float = 500.0
 
-export var sniper_damage: float = 20.0
-export var sniper_reward: int = 10
-export var sniper_burn: float = 0.4
-export var sniper_ammo_cost: float = 10.0
+export var sniper_damage: float = 40.0
+export var sniper_reward: int = 18
+export var sniper_burn: float = 4.0
+export var sniper_ammo_cost: float = 25.0
 
-export var lmg_damage: float = 2.0
+export var lmg_damage: float = 4.0
 export var lmg_reward: int = 1
 export var lmg_burn: float = 0.4
-export var lmg_ammo_cost: float = 1.0
+export var lmg_ammo_cost: float = 4.0
 
 var can_shoot_shotgun: bool = true
 var can_shoot_sniper: bool = true
