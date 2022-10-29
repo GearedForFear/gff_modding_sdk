@@ -4,10 +4,10 @@ extends AmmoVehicle
 const Missile: PackedScene \
 		= preload("res://scenes/weapon_components/missile.tscn")
 
-export var missile_damage: float = 25.0
-export var missile_reward: int = 30
-export var missile_burn: float = 8
-export var missile_ammo_cost: float = 10
+export var missile_damage: float = 40.0
+export var missile_reward: int = 15
+export var missile_burn: float = 10.0
+export var missile_ammo_cost: float = 10.0
 
 var can_shoot: bool = true
 var back_can_shoot: bool = true
