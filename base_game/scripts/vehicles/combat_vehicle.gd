@@ -29,7 +29,6 @@ var deletion_manager: Node
 
 onready var health: float = base_health
 onready var boost_type: int = base_boost_type
-onready var animation_player: AnimationPlayer = get_node("../AnimationPlayer")
 onready var gles3: bool = OS.get_current_video_driver() == 0
 
 
@@ -116,7 +115,7 @@ func _physics_process(_delta):
 						acceleration_factor = nitro_force
 						if $WheelBackLeft.is_in_contact() or \
 								$WheelBackRight.is_in_contact():
-							apply_impulse(-transform.basis.y * 2, transform.basis.z * 2)
+							apply_impulse(-transform.basis.y * weight / 200, transform.basis.z * 2)
 						
 						if gles3:
 							for n in $NitroParticles.get_children():
@@ -193,7 +192,7 @@ func _physics_process(_delta):
 				var impulse: float = clamp(steering * linear_velocity.length() \
 						/ 10, max_drift_right, max_drift_left)
 				apply_impulse(transform.basis.z * -0.8, transform.basis.x \
-						* impulse * -20)
+						* impulse * weight * -0.05)
 				max_drift_left = clamp(max_drift_left - impulse, 0, 20)
 				max_drift_right = clamp(max_drift_right - impulse, -20, 0)
 				
@@ -236,9 +235,9 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				health = 0
 			else:
 				alive = false
-				get_parent().get_node("RespawnTimer").start()
+				get_node("../RespawnTimer").start()
 				apply_central_impulse(transform.basis.y * 170)
-				animation_player.play("death")
+				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 5
 				score -= payout
 				if gles3:
