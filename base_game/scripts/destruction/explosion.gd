@@ -25,7 +25,7 @@ func _on_Area_body_entered(body):
 	if body.is_in_group("combat_vehicle") and global_transform.origin\
 			.distance_to(body.global_transform.origin) < 6:
 		body.apply_central_impulse((body.global_transform.origin \
-				- global_transform.origin).normalized() * 1000)
+				- global_transform.origin).normalized() * 5000)
 		if body != shooter:
 			var payout: int = body.damage(damage, reward, burn, shooter)
 			if payout > 0:
