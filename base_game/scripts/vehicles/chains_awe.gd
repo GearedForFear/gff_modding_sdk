@@ -6,21 +6,21 @@ const Sniper_Bullet: PackedScene \
 const Chainsaw: PackedScene \
 		= preload("res://scenes/weapon_components/chainsaw.tscn")
 
-export var sniper_damage: float = 20.0
-export var sniper_reward: int = 10
-export var sniper_burn: float = 0.4
-export var sniper_ammo_cost: float = 10.0
+export var sniper_damage: float = 40.0
+export var sniper_reward: int = 15
+export var sniper_burn: float = 4.0
+export var sniper_ammo_cost: float = 18.0
 
 export var saw_damage: float = 2.0
 export var saw_reward: int = 1
 export var saw_burn: float = 0.1
-export var saw_push: int = 50
+export var saw_push: int = 250
 export var saw_ammo_cost: float = 0.12
 
-export var launcher_damage: float = 20.0
+export var launcher_damage: float = 40.0
 export var launcher_reward: int = 20
 export var launcher_burn: float = 0.1
-export var launcher_ammo_cost: float = 10.0
+export var launcher_ammo_cost: float = 18.0
 
 var can_shoot_sniper: bool = true
 var can_shoot_launcher: bool = true
