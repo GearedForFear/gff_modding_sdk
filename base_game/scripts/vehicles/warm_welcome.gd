@@ -20,7 +20,7 @@ export var flamethrower_burn: float = 1.0
 export var flamethrower_push: int = 250
 export var flamethrower_ammo_cost: float = 0.12
 
-export var jump_force: int = 100
+export var jump_force: int = 300
 
 var can_shoot: bool = true
 
