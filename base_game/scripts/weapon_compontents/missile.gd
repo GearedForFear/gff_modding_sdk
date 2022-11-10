@@ -8,6 +8,7 @@ var reward: int
 var burn: float
 var shooter: CombatVehicle
 var target: Vector3
+var straight: bool
 var moving_target: bool
 var deletion_manager: Node
 var gles3: bool
@@ -26,13 +27,14 @@ func _ready():
 
 func _physics_process(_delta):
 	translation += transform.basis.z * 0.5
-	global_transform = global_transform.interpolate_with(\
-			global_transform.looking_at(target, Vector3.UP), 0.1)
-	if moving_target:
-		target = lerp(target, global_transform.origin - target.direction_to(\
-				shooter.global_transform.origin), 0.7)
-	else:
-		target.y += 0.3
+	if not straight:
+		global_transform = global_transform.interpolate_with(\
+				global_transform.looking_at(target, Vector3.UP), 0.1)
+		if moving_target:
+			target = lerp(target, global_transform.origin - target.direction_to(\
+					shooter.global_transform.origin), 0.7)
+		else:
+			target.y += 0.3
 
 
 func _on_Lifetime_timeout():
