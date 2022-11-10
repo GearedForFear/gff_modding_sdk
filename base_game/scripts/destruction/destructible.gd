@@ -32,6 +32,7 @@ func destroy(var vehicle: CombatVehicle, var position: Vector3, \
 			n.apply_central_impulse((n.global_transform.origin - position)\
 					.normalized() * force)
 		collision_layer = 0
+		$MeshInstance/StaticBody.collision_layer = 0
 		destroyed = true
 		set_process(false)
 		hide()
