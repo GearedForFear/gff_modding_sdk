@@ -1,0 +1,249 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/vehicles/eternal_bond_back.gd" type="Script" id=1]
+[ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/materials/vehicles/eternal_bond.material" type="Material" id=6]
+[ext_resource path="res://resources/materials/vehicles/eb_wheel.material" type="Material" id=7]
+[ext_resource path="res://resources/meshes/vehicles/eternal_bond_back.tres" type="ArrayMesh" id=8]
+[ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
+[ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=13]
+[ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=22]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.5
+
+[sub_resource type="ConvexPolygonShape" id=17]
+points = PoolVector3Array( 0.828, 1.36, 2.5, -0.828, 1.36, 2.5, 0.97, -0.002, 2.5, -0.97, -0.002, 2.5, 0.828, 1.36, -0.687, -0.828, 1.36, -0.687, 0.908, 0.851, -2.376, -0.908, 0.851, -2.376, 0.968, 0.284, -2.499, -0.968, 0.284, -2.499, 0.97, 0.041, -1.782, -0.97, 0.041, -1.782 )
+
+[sub_resource type="QuadMesh" id=15]
+resource_local_to_scene = true
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ExplosionMesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ExplosionMesh:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 0.321569, 1 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/ExplosionMesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/ExplosionMesh:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.105112, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 6, 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[node name="RootSpatial" type="Spatial"]
+_import_path = NodePath(".")
+visible = false
+__meta__ = {
+"__editor_plugin_screen__": "3D"
+}
+
+[node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.204, 0 )
+collision_layer = 0
+collision_mask = 0
+mass = 163.265
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+base_health = 75.0
+base_engine_force = 140.8
+base_boost_type = 2
+nitro_force = 0.0
+rocket_force = 0.0
+master_body = false
+
+[node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 2.01611 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 7 )
+
+[node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 2.01611 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 7 )
+
+[node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.33789 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 7 )
+
+[node name="WheelBackRight" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.33789 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+shape = SubResource( 17 )
+
+[node name="BodyMesh" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
+portal_mode = 3
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 6 )
+
+[node name="ExplosionMesh" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.765481, 2.5 )
+visible = false
+portal_mode = 3
+cast_shadow = 0
+mesh = SubResource( 15 )
+material/0 = ExtResource( 22 )
+
+[node name="DeathParticles" parent="Body" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01905, -1.68507 )
+
+[node name="DeathCPUParticles" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01905, -1.68507 )
+
+[node name="DriftParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
+
+[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -3.84182 )
+
+[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -3.84182 )
+
+[node name="DriftCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
+
+[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -3.842 )
+
+[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -3.842 )
+
+[node name="ShotPosition" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.747841, 2.5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/RESET = SubResource( 7 )
+anims/death = SubResource( 16 )
+
+[node name="RespawnTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="MissileTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
+[connection signal="timeout" from="MissileTimer" to="Body" method="_on_MissileTimer_timeout"]

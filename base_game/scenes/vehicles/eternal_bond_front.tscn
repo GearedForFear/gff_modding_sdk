@@ -1,13 +1,11 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/vehicles/eternal_bond_front.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/vehicles/eternal_bond.gd" type="Script" id=5]
 [ext_resource path="res://resources/materials/vehicles/eternal_bond.material" type="Material" id=6]
 [ext_resource path="res://resources/materials/vehicles/eb_wheel.material" type="Material" id=7]
-[ext_resource path="res://resources/meshes/vehicles/eternal_bond_back.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://resources/meshes/vehicles/eternal_bond_front.tres" type="ArrayMesh" id=10]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=11]
@@ -22,9 +20,6 @@ friction = 0.5
 
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( 0.865, 0.64, 2.368, -0.865, 0.64, 2.368, 0.828, 1.36, -0.038, -0.828, 1.36, -0.038, 0.828, 1.36, -2.5, -0.828, 1.36, -2.5, 0.918, 0.09, 2.49, -0.918, 0.09, 2.49, 0.97, -0.002, 2.163, -0.97, -0.002, 2.163, 0.97, -0.002, -2.5, -0.97, -0.002, -2.5 )
-
-[sub_resource type="ConvexPolygonShape" id=17]
-points = PoolVector3Array( 0.828, 1.36, 2.5, -0.828, 1.36, 2.5, 0.97, -0.002, 2.5, -0.97, -0.002, 2.5, 0.828, 1.36, -0.687, -0.828, 1.36, -0.687, 0.908, 0.851, -2.376, -0.908, 0.851, -2.376, 0.968, 0.284, -2.499, -0.968, 0.284, -2.499, 0.97, 0.041, -1.782, -0.97, 0.041, -1.782 )
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
@@ -109,24 +104,27 @@ tracks/2/keys = {
 
 [node name="RootSpatial" type="Spatial"]
 _import_path = NodePath(".")
+visible = false
 __meta__ = {
 "__editor_plugin_screen__": "3D"
 }
 
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.204, 0 )
-collision_mask = 3
-mass = 326.531
+collision_layer = 0
+collision_mask = 0
+mass = 163.265
 physics_material_override = SubResource( 1 )
-script = ExtResource( 5 )
-base_health = 150.0
-base_engine_force = 281.6
+script = ExtResource( 1 )
+base_health = 75.0
+base_engine_force = 140.8
 base_boost_type = 1
 nitro_force = 0.0
-rocket_force = 147.2
+rocket_force = 73.6
+master_body = false
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 4.222 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 1.722 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.4
@@ -143,7 +141,7 @@ mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 4.222 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 1.722 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.4
@@ -160,7 +158,7 @@ mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 0.868 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.632 )
 use_as_traction = true
 wheel_roll_influence = 0.4
 wheel_radius = 0.36
@@ -176,7 +174,7 @@ mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 0.868 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.632 )
 use_as_traction = true
 wheel_roll_influence = 0.4
 wheel_radius = 0.36
@@ -191,91 +189,32 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 
-[node name="WheelFrontLeft2" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -0.48389 )
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.36
-wheel_friction_slip = 2.0
-suspension_travel = 2.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft2"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-
-[node name="WheelFrontRight2" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -0.48389 )
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.36
-wheel_friction_slip = 2.0
-suspension_travel = 2.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight2"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-
-[node name="WheelBackLeft2" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -3.83789 )
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.36
-wheel_friction_slip = 2.0
-suspension_travel = 2.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft2"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-
-[node name="WheelBackRight2" type="VehicleWheel" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -3.83789 )
-use_as_traction = true
-wheel_roll_influence = 0.4
-wheel_radius = 0.36
-wheel_friction_slip = 2.0
-suspension_travel = 2.0
-suspension_stiffness = 40.0
-damping_compression = 0.88
-
-[node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight2"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
 shape = SubResource( 6 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, -2.5 )
-shape = SubResource( 17 )
-
-[node name="CameraBase" parent="Body" instance=ExtResource( 1 )]
-
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, -2.5 )
 portal_mode = 3
 mesh = ExtResource( 10 )
 material/0 = ExtResource( 6 )
 
-[node name="BodyMesh2" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
-portal_mode = 3
-mesh = ExtResource( 8 )
-material/0 = ExtResource( 6 )
+[node name="ShotPositionLeft" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.262, 2.498 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+collision_mask = 3
+
+[node name="ShotPositionRight" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499493, 0.262, 2.49801 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+
+[node name="CartridgeExitLeft" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.961467, 0.663603, 1.18968 )
+
+[node name="CartridgeExitRight" type="Position3D" parent="Body"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74227e-08, 0, -1, -0.961, 0.664011, 1.19 )
 
 [node name="ExplosionMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.765481, 2.5 )
@@ -285,25 +224,106 @@ cast_shadow = 0
 mesh = SubResource( 15 )
 material/0 = ExtResource( 22 )
 
-[node name="ShotPositionLeft" type="RayCast" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.262388, 4.998 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
+[node name="DeathParticles" parent="Body" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 1.528 )
 
-[node name="ShotPositionRight" type="RayCast" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499493, 0.261914, 4.99801 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
+[node name="DeathCPUParticles" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 1.528 )
 
-[node name="CartridgeExitLeft" type="Position3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.961467, 0.663603, 3.68968 )
+[node name="MuzzleFlashMGLeft" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.499, 0.202011, 2.498 )
 
-[node name="CartridgeExitRight" type="Position3D" parent="Body"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74227e-08, 0, -1, -0.961, 0.664011, 3.69 )
+[node name="MuzzleFlashMGRight" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.499, 0.202011, 2.498 )
+
+[node name="MuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, 0.893 )
+one_shot = true
+
+[node name="MuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, 0.893 )
+one_shot = true
+
+[node name="MuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, -0.968 )
+one_shot = true
+
+[node name="MuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, -0.968 )
+one_shot = true
+
+[node name="CPUMuzzleFlashMGLeft" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.202011, 2.498 )
+
+[node name="CPUMuzzleFlashMGRight" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499, 0.202011, 2.498 )
+
+[node name="CPUMuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, 0.893 )
+one_shot = true
+
+[node name="CPUMuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, 0.893 )
+one_shot = true
+
+[node name="CPUMuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, -0.97 )
+one_shot = true
+
+[node name="CPUMuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, -0.97 )
+one_shot = true
+
+[node name="DriftParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.634 )
+
+[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.634 )
+
+[node name="DriftCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.634 )
+
+[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.634 )
+
+[node name="RocketParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="Particles" parent="Body/RocketParticles" instance=ExtResource( 20 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.722921, -2.59606 )
+
+[node name="RocketCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="CPUParticles" parent="Body/RocketCPUParticles" instance=ExtResource( 21 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.723, -2.596 )
+
+[node name="ReverseRocketParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="Left" parent="Body/ReverseRocketParticles" instance=ExtResource( 20 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.721, 0.248, 2.534 )
+
+[node name="Right" parent="Body/ReverseRocketParticles" instance=ExtResource( 20 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.72132, 0.247823, 2.53404 )
+
+[node name="ReverseRocketCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
+
+[node name="Left" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 21 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.721, 0.248, 2.534 )
+
+[node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 21 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.72132, 0.247823, 2.53404 )
 
 [node name="ShotgunPositionFrontLeft" type="Spatial" parent="Body"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.948354, 0.517204, 3.39305 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.948354, 0.517204, 0.893 )
 
 [node name="ShotPositionUp" type="RayCast" parent="Body/ShotgunPositionFrontLeft"]
 transform = Transform( 1, 0, 0, 0, 0.994522, 0.104528, 0, -0.104528, 0.994522, 0, 0, 0 )
@@ -335,7 +355,7 @@ cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
 [node name="ShotgunPositionFrontRight" type="Spatial" parent="Body"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.948, 0.517, 3.393 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.948, 0.517, 0.893 )
 
 [node name="ShotPositionUp" type="RayCast" parent="Body/ShotgunPositionFrontRight"]
 transform = Transform( 1, 0, 0, 0, 0.994522, 0.104528, 0, -0.104528, 0.994522, 0, 0, 0 )
@@ -367,7 +387,7 @@ cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
 [node name="ShotgunPositionBackLeft" type="Spatial" parent="Body"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.948354, 0.517204, 1.53164 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.948354, 0.517204, -0.968 )
 
 [node name="ShotPositionUp" type="RayCast" parent="Body/ShotgunPositionBackLeft"]
 transform = Transform( 1, 0, 0, 0, 0.994522, 0.104528, 0, -0.104528, 0.994522, 0, 0, 0 )
@@ -399,7 +419,7 @@ cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
 [node name="ShotgunPositionBackRight" type="Spatial" parent="Body"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.948, 0.517, 1.53159 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.948, 0.517, -0.968 )
 
 [node name="ShotPositionUp" type="RayCast" parent="Body/ShotgunPositionBackRight"]
 transform = Transform( 1, 0, 0, 0, 0.994522, 0.104528, 0, -0.104528, 0.994522, 0, 0, 0 )
@@ -430,134 +450,6 @@ enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
-[node name="MuzzleFlashMGLeft" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.499, 0.202011, 4.998 )
-
-[node name="MuzzleFlashMGRight" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.499, 0.202011, 4.998 )
-
-[node name="MuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, 3.393 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, 3.393 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, 1.532 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, 1.532 )
-one_shot = true
-
-[node name="CPUMuzzleFlashMGLeft" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.202011, 4.998 )
-
-[node name="CPUMuzzleFlashMGRight" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499, 0.202011, 4.998 )
-
-[node name="CPUMuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, 3.393 )
-one_shot = true
-
-[node name="CPUMuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, 3.393 )
-one_shot = true
-
-[node name="CPUMuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, 1.532 )
-one_shot = true
-
-[node name="CPUMuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, 1.532 )
-one_shot = true
-
-[node name="DeathParticles" parent="Body" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 4.02779 )
-
-[node name="DeathCPUParticles" parent="Body" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 4.02779 )
-
-[node name="DriftParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.63366 )
-
-[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.63366 )
-
-[node name="Left2" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -2.98233 )
-
-[node name="Right2" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -2.98233 )
-
-[node name="Left3" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -6.33902 )
-
-[node name="Right3" parent="Body/DriftParticles" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -6.33902 )
-
-[node name="DriftCPUParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.634 )
-
-[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.634 )
-
-[node name="Left2" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -2.982 )
-
-[node name="Right2" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -2.982 )
-
-[node name="Left3" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -6.339 )
-
-[node name="Right3" parent="Body/DriftCPUParticles" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -6.339 )
-
-[node name="RocketParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/RocketParticles" instance=ExtResource( 20 )]
-transform = Transform( -0.55, 0, -1.50996e-07, 0, 0.55, 0, 8.30477e-08, 0, -1, 0.242928, 0.560859, -7.57398 )
-
-[node name="Right" parent="Body/RocketParticles" instance=ExtResource( 20 )]
-transform = Transform( -0.55, 0, -1.50996e-07, 0, 0.55, 0, 8.30477e-08, 0, -1, -0.243, 0.561, -7.574 )
-
-[node name="RocketCPUParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/RocketCPUParticles" instance=ExtResource( 21 )]
-transform = Transform( -0.55, 0, -1.50996e-07, 0, 0.55, 0, 8.30477e-08, 0, -1, 0.243, 0.561, -7.574 )
-
-[node name="Right" parent="Body/RocketCPUParticles" instance=ExtResource( 21 )]
-transform = Transform( -0.55, 0, -1.50996e-07, 0, 0.55, 0, 8.30477e-08, 0, -1, -0.243, 0.561, -7.574 )
-
-[node name="ReverseRocketParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/ReverseRocketParticles" instance=ExtResource( 20 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.721, 0.248, 2.534 )
-
-[node name="Right" parent="Body/ReverseRocketParticles" instance=ExtResource( 20 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.72132, 0.247823, 2.53404 )
-
-[node name="ReverseRocketCPUParticles" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )
-
-[node name="Left" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 21 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.721, 0.248, 2.534 )
-
-[node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 21 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.72132, 0.247823, 2.53404 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
@@ -583,12 +475,7 @@ process_mode = 0
 wait_time = 0.7
 one_shot = true
 
-[node name="StuckTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 30.0
-
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
 [connection signal="timeout" from="MachineGunTimer" to="Body" method="_on_MachineGunTimer_timeout"]
 [connection signal="timeout" from="ShotgunTimerLeft" to="Body" method="_on_ShotgunTimerLeft_timeout"]
 [connection signal="timeout" from="ShotgunTimerRight" to="Body" method="_on_ShotgunTimerRight_timeout"]
-[connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

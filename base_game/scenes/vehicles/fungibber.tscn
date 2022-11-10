@@ -129,18 +129,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.718, 1.045, 2.329 )
 
 [node name="DriftParticles" type="Spatial" parent="Body"]
 
-[node name="DriftParticlesLeft" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
 
-[node name="DriftParticlesRight" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 
 [node name="DriftCPUParticles" type="Spatial" parent="Body"]
 
-[node name="DriftCPUParticlesLeft" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
 
-[node name="DriftCPUParticlesRight" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 
 [node name="NitroParticles" type="Spatial" parent="Body"]

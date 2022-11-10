@@ -374,44 +374,44 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.971, 1.288 )
 
 [node name="DriftParticles" type="Spatial" parent="Body"]
 
-[node name="DriftParticlesLeft" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
 
-[node name="DriftParticlesRight" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 
 [node name="DriftCPUParticles" type="Spatial" parent="Body"]
 
-[node name="DriftCPUParticlesLeft" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
 
-[node name="DriftCPUParticlesRight" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 
 [node name="RocketParticles" type="Spatial" parent="Body"]
 
-[node name="RocketParticlesBack" parent="Body/RocketParticles" instance=ExtResource( 4 )]
+[node name="Particles" parent="Body/RocketParticles" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.38419e-07, 0.52789, -2.69937 )
 
 [node name="RocketCPUParticles" type="Spatial" parent="Body"]
 
-[node name="RocketCPUParticlesBack" parent="Body/RocketCPUParticles" instance=ExtResource( 7 )]
+[node name="CPUParticles" parent="Body/RocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.528, -2.699 )
 
 [node name="ReverseRocketParticles" type="Spatial" parent="Body"]
 
-[node name="RocketParticlesFrontLeft" parent="Body/ReverseRocketParticles" instance=ExtResource( 4 )]
+[node name="Left" parent="Body/ReverseRocketParticles" instance=ExtResource( 4 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.228525, 0.545199, 2.34392 )
 
-[node name="RocketParticlesFrontRight" parent="Body/ReverseRocketParticles" instance=ExtResource( 4 )]
+[node name="Right" parent="Body/ReverseRocketParticles" instance=ExtResource( 4 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.229, 0.545, 2.344 )
 
 [node name="ReverseRocketCPUParticles" type="Spatial" parent="Body"]
 
-[node name="RocketCPUParticlesFrontLeft" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
+[node name="Left" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.229, 0.545, 2.344 )
 
-[node name="RocketCPUParticlesFrontRight" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
+[node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.229, 0.545, 2.344 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
