@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/materials/cameras_&_ui/hud_background.tres" type="Shader" id=3]
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=4]
 [ext_resource path="res://scripts/cameras_&_ui/follow_camera.gd" type="Script" id=5]
-[ext_resource path="res://scripts/cameras_&_ui/resizing_arrow.gd" type="Script" id=6]
+[ext_resource path="res://scripts/cameras_&_ui/navigation_arrow.gd" type="Script" id=6]
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://resources/meshes/cameras_&_ui/heart.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://scripts/cameras_&_ui/msaa_viewport.gd" type="Script" id=9]
@@ -336,6 +336,16 @@ __meta__ = {
 [node name="HealthBar" type="ProgressBar" parent="Camera/AspectRatioContainer/Control/ResourcesBackground"]
 anchor_left = 0.26
 anchor_top = 0.55
+anchor_right = 0.95
+anchor_bottom = 0.8
+custom_styles/fg = SubResource( 13 )
+custom_styles/bg = SubResource( 14 )
+percent_visible = false
+
+[node name="HealthBar2" type="ProgressBar" parent="Camera/AspectRatioContainer/Control/ResourcesBackground"]
+visible = false
+anchor_left = 0.26
+anchor_top = 0.7
 anchor_right = 0.95
 anchor_bottom = 0.8
 custom_styles/fg = SubResource( 13 )
