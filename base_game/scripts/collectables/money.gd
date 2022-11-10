@@ -14,6 +14,8 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if shooter.replacement != null:
+		shooter = shooter.replacement
 	if speed_divisor < 0.15:
 		global_transform.origin = shooter.global_transform.origin
 	transform.origin += global_transform.origin.direction_to(\
