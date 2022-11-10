@@ -74,6 +74,7 @@ func instantiate_missile(var direction: int, var moving_target: bool) \
 	new_missile.target = global_transform.basis.y * 5 \
 			+ global_transform.basis.z * -30 + global_transform.origin \
 			+ global_transform.basis.x * direction
+	new_missile.straight = false
 	new_missile.moving_target = moving_target
 	new_missile.deletion_manager = deletion_manager
 	new_missile.gles3 = gles3
