@@ -26,7 +26,7 @@ This is the Script of the root Node of [money.tscn](/base_game/scenes/collectabl
 
 ### Property Descriptions
 #### - [CombatVehicle] shooter
-This is the attacking vehicle, that caused the instantiation of the money. Money moves towards the shooter.
+This is the attacking vehicle, that caused the instantiation of the money, or a replacement vehicle of the same player. Money moves towards the shooter.
 
 #### - [CombatVehicle] spawner
 This is the vehicle, that created this instance of money. Spawners cannot collect their own money.
@@ -46,7 +46,7 @@ This number determines the movement speed of the money. A higher number means sl
 This method sets this Spatial as toplevel. Then, it sets the [spawner](#--bool-resources_loaded).
 
 #### - void _process(_delta)
-This method checks, if the [speed_divisor](#--float-speed_divisor) is below 0.15. (This would mean, that the movement speed is very fast.) If true, it moves the money into the [shooter](#--combatvehicle-shooter). Then, it moves the money towards the [shooter](#--combatvehicle-shooter). Next, it reduces the [speed_divisor](#--float-speed_divisor) by 1%.
+This method checks, if the shooter has a replacement. If true, the replacement becomes the shooter. Then it checks, if the [speed_divisor](#--float-speed_divisor) is below 0.15. (This would mean, that the movement speed is very fast.) If true, it moves the money into the [shooter](#--combatvehicle-shooter). Next, it moves the money towards the [shooter](#--combatvehicle-shooter). After that, it reduces the [speed_divisor](#--float-speed_divisor) by 1%.
 
 #### - void _on_Area_body_entered(body)
 This method checks if the body is the [spawner](#--combatvehicle-spawner). If false, it [rewards] the body, disables itself and queues itself for deletion by the [deletion_manager](#--node-deletion_manager). (The body should always be a [CombatVehicle], because of this Area's collision_mask.)
