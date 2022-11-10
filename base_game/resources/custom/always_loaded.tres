@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-array = [ "res://scenes/vehicles/suicide_door.tscn", "res://scenes/vehicles/fungibber.tscn", "res://scenes/vehicles/warm_welcome.tscn", "res://scenes/vehicles/turbulence.tscn", "res://scenes/vehicles/eternal_bond.tscn", "res://scenes/vehicles/restless.tscn", "res://scenes/world/tracks/figure_8.tscn", "res://scenes/cameras_&_ui/controller_select.tscn" ]
+array = [ "res://scenes/vehicles/chains_awe.tscn", "res://scenes/vehicles/suicide_door.tscn", "res://scenes/vehicles/fungibber.tscn", "res://scenes/vehicles/warm_welcome.tscn", "res://scenes/vehicles/turbulence.tscn", "res://scenes/vehicles/eternal_bond.tscn", "res://scenes/vehicles/eternal_bond_front.tscn", "res://scenes/vehicles/eternal_bond_back.tscn", "res://scenes/vehicles/restless.tscn", "res://scenes/world/tracks/figure_8.tscn", "res://scenes/cameras_&_ui/controller_select.tscn" ]
