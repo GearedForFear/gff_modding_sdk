@@ -12,6 +12,7 @@ export var base_engine_force: float = 40.0
 export(boost_types) var base_boost_type: int = boost_types.NITRO
 export var nitro_force: float = 400.0
 export var rocket_force: float = 15.0
+export var master_body: bool = true
 
 var steer_target: float = 0.0
 var alive: bool = false
@@ -21,8 +22,8 @@ var score: int = 0
 var placement: int = 1
 var target: Spatial
 var driver_name: String = "Player"
-
 var controls: PlayerControls # null == cpu controlled
+var replacement: CombatVehicle
 var track: Spatial
 var gameplay_manager: Node
 var deletion_manager: Node
@@ -39,51 +40,41 @@ func _enter_tree():
 	deletion_manager.gameplay_rigid_bodies.append(self)
 	get_node("../AnimationPlayer").playback_speed *= \
 			ProjectSettings.get_setting("physics/common/physics_fps") / 60
-	if controls == null:
-		var viewport: Viewport = find_parent("Viewport")
-		if viewport != null:
-			viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
-			viewport.render_target_clear_mode = \
-					Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
-		deletion_manager.to_be_deleted.append($CameraBase)
-	else:
-		gameplay_manager.players.append(self)
-		match get_parent().get_parent().get_parent().get_parent().name:
-			"SpawnPoint1":
-				driver_name = "Player 1"
-			"SpawnPoint2":
-				driver_name = "Player 2"
-			"SpawnPoint3":
-				driver_name = "Player 3"
-			"SpawnPoint4":
-				driver_name = "Player 4"
-			"SpawnPoint5":
-				driver_name = "Player 5"
-			"SpawnPoint6":
-				driver_name = "Player 6"
-	if is_in_group("heist_target"):
-		global_transform.origin = track.get_node("TargetStartSpawn")\
-				.translation + get_parent().get_parent().translation.rotated(\
-				Vector3.UP, track.get_node("TargetStartSpawn").rotation.y)
-		rotation = track.get_node("TargetStartSpawn").rotation
-	else:
-		global_transform.origin = track.get_node("StartSpawns").translation \
-				+ get_parent().get_parent().translation.rotated(Vector3.UP, \
-				track.get_node("StartSpawns").rotation.y)
-		rotation = track.get_node("StartSpawns").rotation
-		gameplay_manager.pursuers.append(self)
-	reset_physics_interpolation()
-
-
-func _process(_delta):
-	if controls != null and alive:
-		var direction: Vector3 = global_transform.origin.direction_to(\
-				target.global_transform.origin)
-		var arrow: Polygon2D = \
-				$CameraBase/Camera/AspectRatioContainer/Control/ArrowBackground/Control/Polygon2D
-		arrow.transform.x = Vector2(direction.z, -direction.x).normalized()
-		arrow.transform.y = Vector2(direction.x, direction.z).normalized()
-		arrow.rotation += $CameraBase/Camera.rotation.y + PI
+	if master_body:
+		if controls == null:
+			var viewport: Viewport = find_parent("Viewport")
+			if viewport != null:
+				viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
+				viewport.render_target_clear_mode = \
+						Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
+			deletion_manager.to_be_deleted.append($CameraBase)
+		else:
+			gameplay_manager.players.append(self)
+			match get_node("../../../..").name:
+				"SpawnPoint1":
+					driver_name = "Player 1"
+				"SpawnPoint2":
+					driver_name = "Player 2"
+				"SpawnPoint3":
+					driver_name = "Player 3"
+				"SpawnPoint4":
+					driver_name = "Player 4"
+				"SpawnPoint5":
+					driver_name = "Player 5"
+				"SpawnPoint6":
+					driver_name = "Player 6"
+		if is_in_group("heist_target"):
+			global_transform.origin = track.get_node("TargetStartSpawn")\
+					.translation + get_node("../..").translation.rotated(\
+					Vector3.UP, track.get_node("TargetStartSpawn").rotation.y)
+			rotation = track.get_node("TargetStartSpawn").rotation
+		else:
+			global_transform.origin = track.get_node("StartSpawns").translation \
+					+ get_node("../..").translation.rotated(Vector3.UP, \
+					track.get_node("StartSpawns").rotation.y)
+			rotation = track.get_node("StartSpawns").rotation
+			gameplay_manager.pursuers.append(self)
+		reset_physics_interpolation()
 
 
 func _physics_process(_delta):
@@ -224,6 +215,8 @@ func _physics_process(_delta):
 					-abs(acceleration_factor) * 2, abs(acceleration_factor) * 2)
 		else:
 			engine_force = acceleration_factor
+	else:
+		engine_force = 0
 
 
 func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
@@ -236,7 +229,7 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			else:
 				alive = false
 				get_node("../RespawnTimer").start()
-				apply_central_impulse(transform.basis.y * 170)
+				apply_central_impulse(transform.basis.y * 900)
 				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 5
 				score -= payout
