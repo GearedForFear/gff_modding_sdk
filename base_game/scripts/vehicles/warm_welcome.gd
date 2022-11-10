@@ -24,8 +24,6 @@ export var jump_force: int = 300
 
 var can_shoot: bool = true
 
-onready var gun_timer: Timer = get_node("../GunTimer")
-
 
 func _ready():
 	if controls == null:
@@ -58,13 +56,13 @@ func _physics_process(_delta):
 					and right_collider.score >= 100)):
 				shoot(true)
 				get_node("../StuckTimer").start()
-			elif gun_timer.is_stopped():
+			elif get_node("../GunTimer").is_stopped():
 				shoot(false)
 		else:
 			if can_shoot and ammo >= bullet_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
 				shoot(true)
-			elif gun_timer.is_stopped():
+			elif get_node("../GunTimer").is_stopped():
 				shoot(false)
 			
 			if Input.is_action_pressed(controls.weapon_back):
@@ -93,7 +91,7 @@ func shoot(var b: bool):
 		get_node("../AnimationPlayer").seek(0.0, false)
 		ammo -= bullet_ammo_cost
 		can_shoot = false
-		gun_timer.start()
+		get_node("../GunTimer").start()
 		
 		var new_bullet: Area = Bullet.instance()
 		$ShotPositionLeft.add_child(new_bullet)
