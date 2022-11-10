@@ -49,8 +49,8 @@ func _physics_process(_delta):
 	
 	from_target.y = height
 	
-	pos = lerp(target + from_target, get_parent().get_node(\
-			"InterpolationTarget").get_global_transform().origin, 0.02)
+	pos = lerp(target + from_target, get_node("../InterpolationTarget")\
+			.get_global_transform().origin, 0.02)
 	
 	look_at_from_position(pos, target, Vector3.UP)
 	
