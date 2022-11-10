@@ -30,10 +30,6 @@ var can_shoot_shotgun: bool = true
 var can_shoot_sniper: bool = true
 var can_shoot_lmg: bool = true
 
-onready var shotgun_timer: Timer = get_node("../ShotgunTimer")
-onready var sniper_timer: Timer = get_node("../SniperTimer")
-onready var lmg_timer: Timer = get_node("../MachineGunTimer")
-
 
 func _ready():
 	if controls == null:
@@ -103,7 +99,7 @@ func _physics_process(_delta):
 					and collider_middle.score >= 100:
 				shoot_lmg(true)
 				get_node("../StuckTimer").start()
-			elif lmg_timer.is_stopped():
+			elif get_node("../MachineGunTimer").is_stopped():
 				shoot_lmg(false)
 		else:
 			if can_shoot_shotgun and ammo >= shotgun_ammo_cost \
@@ -115,7 +111,7 @@ func _physics_process(_delta):
 			if can_shoot_lmg and ammo >= lmg_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_right):
 				shoot_lmg(true)
-			elif lmg_timer.is_stopped():
+			elif get_node("../MachineGunTimer").is_stopped():
 				shoot_lmg(false)
 			if Input.is_action_just_pressed(controls.weapon_back):
 				if boost_type == boost_types.NITRO:
@@ -148,7 +144,7 @@ func _physics_process(_delta):
 func shoot_shotgun():
 	ammo -= shotgun_ammo_cost
 	can_shoot_shotgun = false
-	shotgun_timer.start()
+	get_node("../ShotgunTimer").start()
 	
 	apply_central_impulse(transform.basis.z * -shotgun_blast)
 	
@@ -201,7 +197,7 @@ func shoot_shotgun():
 func shoot_sniper():
 	ammo -= sniper_ammo_cost
 	can_shoot_sniper = false
-	sniper_timer.start()
+	get_node("../SniperTimer").start()
 	
 	var new_bullet: Area = Sniper_Bullet.instance()
 	$ShotPositionSniper.add_child(new_bullet)
@@ -227,7 +223,7 @@ func shoot_lmg(var b: bool):
 	if b:
 		ammo -= lmg_ammo_cost
 		can_shoot_lmg = false
-		lmg_timer.start()
+		get_node("../MachineGunTimer").start()
 		
 		var new_bullet: Area = Bullet.instance()
 		$ShotPositionMachineGun.add_child(new_bullet)
