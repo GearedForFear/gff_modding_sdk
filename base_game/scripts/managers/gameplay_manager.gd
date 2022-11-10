@@ -48,6 +48,7 @@ func _process(_delta):
 				bar.modulate = Color(1, 1, 1, 0.5)
 			else:
 				bar.modulate = Color(1, 1, 1, 1)
+			bar.max_value = n.base_health
 			
 			var scoreboard: ColorRect = ui.get_node("ScoresBackground")
 			scoreboard.get_node("Placement1").text = "1st"
