@@ -22,73 +22,85 @@ albedo_color = Color( 0, 0, 1, 1 )
 
 [node name="Spatial" type="Spatial"]
 
-[node name="SpawnPoint6" type="ViewportContainer" parent="."]
-stretch = true
-script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="SpawnPoint6"]
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="SpawnPosition" type="Position3D" parent="SpawnPoint6/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -4.5 )
-
-[node name="SpawnPoint5" type="ViewportContainer" parent="."]
-stretch = true
-script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="SpawnPoint5"]
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="SpawnPosition" type="Position3D" parent="SpawnPoint5/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.5 )
-
-[node name="SpawnPoint4" type="ViewportContainer" parent="."]
-stretch = true
-script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="SpawnPoint4"]
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="SpawnPosition" type="Position3D" parent="SpawnPoint4/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -14.5 )
-
-[node name="SpawnPoint3" type="ViewportContainer" parent="."]
-stretch = true
-script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="SpawnPoint3"]
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="SpawnPosition" type="Position3D" parent="SpawnPoint3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -15.5 )
-
-[node name="SpawnPoint2" type="ViewportContainer" parent="."]
-stretch = true
-script = ExtResource( 3 )
-
-[node name="Viewport" type="Viewport" parent="SpawnPoint2"]
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="SpawnPosition" type="Position3D" parent="SpawnPoint2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -24.5 )
-
 [node name="SpawnPoint1" type="ViewportContainer" parent="."]
+visible = false
 stretch = true
 script = ExtResource( 3 )
 
 [node name="Viewport" type="Viewport" parent="SpawnPoint1"]
 handle_input_locally = false
-render_target_update_mode = 3
+render_target_update_mode = 0
+audio_listener_enable_3d = true
 shadow_atlas_size = 4096
 script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint1/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -25.5 )
+
+[node name="SpawnPoint2" type="ViewportContainer" parent="."]
+visible = false
+stretch = true
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="SpawnPoint2"]
+handle_input_locally = false
+render_target_update_mode = 0
+audio_listener_enable_3d = true
+
+[node name="SpawnPosition" type="Position3D" parent="SpawnPoint2/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -24.5 )
+
+[node name="SpawnPoint3" type="ViewportContainer" parent="."]
+visible = false
+stretch = true
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="SpawnPoint3"]
+handle_input_locally = false
+render_target_update_mode = 0
+audio_listener_enable_3d = true
+
+[node name="SpawnPosition" type="Position3D" parent="SpawnPoint3/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -15.5 )
+
+[node name="SpawnPoint4" type="ViewportContainer" parent="."]
+visible = false
+stretch = true
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="SpawnPoint4"]
+handle_input_locally = false
+render_target_update_mode = 0
+audio_listener_enable_3d = true
+
+[node name="SpawnPosition" type="Position3D" parent="SpawnPoint4/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -14.5 )
+
+[node name="SpawnPoint5" type="ViewportContainer" parent="."]
+visible = false
+stretch = true
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="SpawnPoint5"]
+handle_input_locally = false
+render_target_update_mode = 0
+audio_listener_enable_3d = true
+
+[node name="SpawnPosition" type="Position3D" parent="SpawnPoint5/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.5 )
+
+[node name="SpawnPoint6" type="ViewportContainer" parent="."]
+visible = false
+stretch = true
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="SpawnPoint6"]
+handle_input_locally = false
+render_target_update_mode = 0
+audio_listener_enable_3d = true
+
+[node name="SpawnPosition" type="Position3D" parent="SpawnPoint6/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -4.5 )
 
 [node name="SpawnPoint7" type="Node" parent="."]
 

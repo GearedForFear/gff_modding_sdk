@@ -32,8 +32,8 @@ __meta__ = {
 [node name="Viewport" type="Viewport" parent="SpawnPoint"]
 size = Vector2( 640, 360 )
 handle_input_locally = false
-msaa = 4
 render_target_update_mode = 0
+audio_listener_enable_3d = true
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint/Viewport"]
 
