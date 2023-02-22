@@ -3,7 +3,7 @@ extends Control
 
 var track: Spatial
 var resources_loaded: bool = false
-var new_track_instantiated: bool = false
+var player_amount: int
 
 onready var always_loaded: Array = ResourceLoader.load(\
 		"res://resources/custom/always_loaded.tres", "Resource").array
@@ -24,6 +24,8 @@ func _ready():
 	VisualServer.set_default_clear_color(Color.black)
 	if thread.start(self, "prepare") != OK:
 		push_error("Thread did not start!")
+	AudioServer.set_bus_volume_db(1, linear2db(0.5))
+	AudioServer.set_bus_volume_db(2, linear2db(0.5))
 	$BlackBar/MainButtons/OnePlayer.grab_focus()
 
 
@@ -117,32 +119,62 @@ func _process(_delta):
 			get_tree().quit()
 		elif $BlackBar/SettingsButtons.visible:
 			$CurrentSettings.hide()
-			switch_buttons($BlackBar/SettingsButtons, $BlackBar/MainButtons)
+			switch_buttons($BlackBar/SettingsButtons, \
+					$BlackBar/MainButtons/Settings)
+			$ReturnAudio.play()
 		elif $BlackBar/GraphicsButtons.visible:
-			switch_buttons($BlackBar/GraphicsButtons, $BlackBar/SettingsButtons)
+			$BlackBar/Warning.hide()
+			switch_buttons($BlackBar/GraphicsButtons, \
+					$BlackBar/SettingsButtons/Graphics)
+			$ReturnAudio.play()
 		elif $BlackBar/WindowModesButtons.visible:
 			switch_buttons($BlackBar/WindowModesButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/WindowModes)
+			$ReturnAudio.play()
 		elif $BlackBar/ResolutionButtons.visible:
 			switch_buttons($BlackBar/ResolutionButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/Resolution)
+			$ReturnAudio.play()
 		elif $BlackBar/MSAAButtons.visible:
-			switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
+			switch_buttons($BlackBar/MSAAButtons, \
+					$BlackBar/GraphicsButtons/MSAA)
+			$ReturnAudio.play()
 		elif $BlackBar/ViewDistanceButtons.visible:
 			switch_buttons($BlackBar/ViewDistanceButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/ViewDistance)
+			$ReturnAudio.play()
 		elif $BlackBar/RearViewDistanceButtons.visible:
 			switch_buttons($BlackBar/RearViewDistanceButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/RearViewDistance)
+			$ReturnAudio.play()
 		elif $BlackBar/FieldOfViewButtons.visible:
 			switch_buttons($BlackBar/FieldOfViewButtons, \
-					$BlackBar/GraphicsButtons)
-		elif $BlackBar/ShadowAmountButtons.visible:
-			switch_buttons($BlackBar/ShadowAmountButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/FieldOfView)
+			$ReturnAudio.play()
+		elif $BlackBar/ShadowCastersButtons.visible:
+			switch_buttons($BlackBar/ShadowCastersButtons, \
+					$BlackBar/GraphicsButtons/ShadowCasters)
+			$ReturnAudio.play()
+		elif $BlackBar/ShadowDistanceButtons.visible:
+			switch_buttons($BlackBar/ShadowDistanceButtons, \
+					$BlackBar/GraphicsButtons/ShadowDistance)
+			$ReturnAudio.play()
 		elif $BlackBar/MaxRigidBodiesButtons.visible:
 			switch_buttons($BlackBar/MaxRigidBodiesButtons, \
-					$BlackBar/GraphicsButtons)
+					$BlackBar/GraphicsButtons/MaxRigidBodies)
+			$ReturnAudio.play()
+		elif $BlackBar/SoundButtons.visible:
+			switch_buttons($BlackBar/SoundButtons, \
+					$BlackBar/SettingsButtons/Sound)
+			$ReturnAudio.play()
+		elif $BlackBar/EffectsVolumeButtons.visible:
+			switch_buttons($BlackBar/EffectsVolumeButtons, \
+					$BlackBar/SoundButtons/EffectsVolume)
+			$ReturnAudio.play()
+		elif $BlackBar/MusicVolumeButtons.visible:
+			switch_buttons($BlackBar/MusicVolumeButtons, \
+					$BlackBar/SoundButtons/MusicVolume)
+			$ReturnAudio.play()
 
 
 func prepare():
@@ -162,16 +194,14 @@ func prepare():
 	spawns.append(track.get_node("StartSpawns/SpawnPoint10/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
-	instantiate_vehicles(spawns, 0)
-	new_track_instantiated = true
+	instantiate_vehicles(spawns, 6)
 
 
-func play(player_amount: int):
+func play():
 	$BlackBar/MainButtons.hide()
-	while not new_track_instantiated:
+	while thread.is_alive():
 		yield(get_tree(), "idle_frame")
-	if thread.is_active():
-		thread.wait_to_finish()
+	thread.wait_to_finish()
 	
 	var viewpoint_container: PlayerContainer
 	var screen1: Control
@@ -422,12 +452,177 @@ func play(player_amount: int):
 			add_child(track)
 	
 	active(false)
-	instantiate_vehicles(spawns, 0)
+	instantiate_vehicles(spawns, 1)
+
+
+func play_next(vehicle_data: Array):
+	track.queue_free()
+	yield(get_tree(), "idle_frame")
+	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
+			"PackedScene").instance()
+	
+	var viewpoint_container: PlayerContainer
+	
+	var spawns: Array = Array()
+	spawns.append(track.get_node("StartSpawns/SpawnPoint1/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint2/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint3/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint4/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint5/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint9/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint10/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
+	
+	vehicle_data.sort_custom(VehicleData, "sort_ascending")
+	for n in 12:
+		var data: VehicleData = vehicle_data[n]
+		var vehicle: Spatial = ResourceLoader.load(data.scene_resource).instance()
+		vehicle.get_node("Body").track = track
+		vehicle.get_node("Body").controls = data.controls
+		vehicle.get_node("Body").score = data.score
+		spawns[n].add_child(vehicle)
+		data.free()
+	
+	match player_amount:
+		1:
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.show()
+			
+			add_child(track)
+		2:
+			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
+					= 2
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.size_divisor = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
+			viewpoint_container.size_divisor = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			add_child(track)
+		3:
+			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
+					= 2
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
+			viewpoint_container.size_divisor = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.show()
+			
+			add_child(track)
+		4:
+			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
+					= 2
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.show()
+			
+			add_child(track)
+		5:
+			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
+					= 3
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(3, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint5")
+			viewpoint_container.size_divisor = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.show()
+			
+			add_child(track)
+		6:
+			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
+					= 3
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(3, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(3, 1)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint5")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.show()
+			
+			viewpoint_container = track.get_node("StartSpawns/SpawnPoint6")
+			viewpoint_container.size_divisor = Vector2(3, 2)
+			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.show()
+			
+			add_child(track)
 
 
 func active(var b: bool):
-	if b and thread.start(self, "prepare"):
-		push_error("Thread did not start!")
+	if b:
+		thread = Thread.new()
+		thread.start(self, "prepare")
 	$BlackBar/MainButtons/OnePlayer.grab_focus()
 	visible = b
 	$BlackBar/MainButtons.visible = b
@@ -469,422 +664,19 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 				vehicle = ResourceLoader.load(\
 						"res://scenes/vehicles/restless.tscn", \
 						"PackedScene").instance()
-		next_vehicle = (next_vehicle + 1) % 6
+			6:
+				vehicle = ResourceLoader.load(\
+						"res://scenes/vehicles/well_raised.tscn", \
+						"PackedScene").instance()
+		next_vehicle = (next_vehicle + 1) % 7
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
 
 
-func switch_buttons(var from: BoxContainer, var to: BoxContainer):
+func switch_buttons(var from: BoxContainer, var to: Control):
 	from.hide()
-	to.show()
-	if to.get_child(0).is_class("Button"):
-		to.get_child(0).grab_focus()
+	to.grab_focus()
+	if to.get_node("../..").is_class("ColorRect"):
+		to.get_parent().show()
 	else:
-		to.get_child(0).get_child(0).grab_focus()
-
-
-func _on_OnePlayer_pressed():
-	play(1)
-
-
-func _on_TwoPlayers_pressed():
-	play(2)
-
-
-func _on_ThreePlayers_pressed():
-	play(3)
-
-
-func _on_FourPlayers_pressed():
-	play(4)
-
-
-func _on_FivePlayers_pressed():
-	play(5)
-
-
-func _on_SixPlayers_pressed():
-	play(6)
-
-
-func _on_Settings_pressed():
-	$CurrentSettings.show()
-	switch_buttons($BlackBar/MainButtons, $BlackBar/SettingsButtons)
-
-
-func _on_Graphics_pressed():
-	switch_buttons($BlackBar/SettingsButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_WindowModes_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/WindowModesButtons)
-
-
-func _on_Resolution_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/ResolutionButtons)
-
-
-func _on_MSAA_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/MSAAButtons)
-
-
-func _on_ToggleVsync_pressed():
-	OS.vsync_enabled = !OS.vsync_enabled
-
-
-func _on_ViewDistance_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/ViewDistanceButtons)
-
-
-func _on_RearViewDistance_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/RearViewDistanceButtons)
-
-
-func _on_FieldOfView_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/FieldOfViewButtons)
-
-
-func _on_ShadowAmount_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/ShadowAmountButtons)
-
-
-func _on_MaxRigidBodies_pressed():
-	switch_buttons($BlackBar/GraphicsButtons, $BlackBar/MaxRigidBodiesButtons)
-
-
-func _on_Default_pressed():
-	OS.window_borderless = false
-	OS.window_fullscreen = false
-	switch_buttons($BlackBar/WindowModesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Borderless_pressed():
-	OS.window_borderless = true
-	OS.window_fullscreen = false
-	switch_buttons($BlackBar/WindowModesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Fullscreen_pressed():
-	OS.window_borderless = false
-	OS.window_fullscreen = true
-	switch_buttons($BlackBar/WindowModesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution1_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 1
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution2_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 2
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution3_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 3
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution4_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 4
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution5_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 5
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Resolution6_pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = 6
-	switch_buttons($BlackBar/ResolutionButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_MSAAOff_pressed():
-	get_node("/root/RootControl/SettingsManager").msaa = 0
-	switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_2x_pressed():
-	get_node("/root/RootControl/SettingsManager").msaa = 1
-	switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_4x_pressed():
-	get_node("/root/RootControl/SettingsManager").msaa = 2
-	switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_8x_pressed():
-	get_node("/root/RootControl/SettingsManager").msaa = 3
-	switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_16x_pressed():
-	get_node("/root/RootControl/SettingsManager").msaa = 4
-	switch_buttons($BlackBar/MSAAButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View100_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 100.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View200_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 200.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View350_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 350.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View500_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 500.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View750_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 750.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View1000_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 1000.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_View2000_pressed():
-	get_node("/root/RootControl/SettingsManager").view_distance = 2000.0
-	switch_buttons($BlackBar/ViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear25_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 25.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear50_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 50.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear100_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 100.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear200_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 200.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear350_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 350.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear500_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 500.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear750_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 750.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear1000_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 1000.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rear2000_pressed():
-	get_node("/root/RootControl/SettingsManager").rear_view_distance = 2000.0
-	switch_buttons($BlackBar/RearViewDistanceButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV45_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 45.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV50_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 50.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV55_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 55.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV60_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 60.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV65_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 65.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV70_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 70.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV75_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 75.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV80_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 80.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV85_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 85.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV90_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 90.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV95_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 95.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV100_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 100.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV105_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 105.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV110_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 110.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV115_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 115.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV120_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 120.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV125_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 125.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV130_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 130.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV135_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 135.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV140_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 140.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_FOV145_pressed():
-	get_node("/root/RootControl/SettingsManager").field_of_view = 145.0
-	switch_buttons($BlackBar/FieldOfViewButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountNone_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 0
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountExtraLow_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 1
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountLow_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 2
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountDefault_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 3
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountHigh_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 4
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_ShadowAmountUltimate_pressed():
-	get_node("/root/RootControl/SettingsManager").shadow_amount = 5
-	switch_buttons($BlackBar/ShadowAmountButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_RigidLowest_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 0
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid50_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 50
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid100_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 100
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid200_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 200
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid350_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 350
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid500_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 500
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid750_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 750
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid1000_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 1000
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid4000_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 4000
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
-
-
-func _on_Rigid10000_pressed():
-	get_node("/root/RootControl/SettingsManager").max_rigid_bodies = 10000
-	switch_buttons($BlackBar/MaxRigidBodiesButtons, $BlackBar/GraphicsButtons)
+		to.get_node("../..").show()
