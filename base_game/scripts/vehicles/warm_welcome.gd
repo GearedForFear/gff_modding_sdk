@@ -7,6 +7,8 @@ const CartridgeCase: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_case.tscn")
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
+const ShotSoundLMG: PackedScene \
+		= preload("res://scenes/weapon_components/shot_sound_lmg.tscn")
 const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
 
 export var bullet_damage: float = 2.0
@@ -28,7 +30,7 @@ var can_shoot: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Warm Welcome"
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
@@ -92,31 +94,39 @@ func shoot(var b: bool):
 		ammo -= bullet_ammo_cost
 		can_shoot = false
 		get_node("../GunTimer").start()
+		$GunRotationAudio.stream_paused = false
 		
 		var new_bullet: Area = Bullet.instance()
+		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
 		$ShotPositionLeft.add_child(new_bullet)
 		new_bullet.damage = bullet_damage
 		new_bullet.reward = bullet_reward
 		new_bullet.burn = bullet_burn
 		new_bullet.shooter = self
 		new_bullet.deletion_manager = deletion_manager
+		$ShotPositionLeft.add_child(new_sound)
+		new_sound.deletion_manager = deletion_manager
+		
 		new_bullet = Bullet.instance()
+		new_sound = ShotSoundLMG.instance()
 		$ShotPositionRight.add_child(new_bullet)
 		new_bullet.damage = bullet_damage
 		new_bullet.reward = bullet_reward
 		new_bullet.burn = bullet_burn
 		new_bullet.shooter = self
 		new_bullet.deletion_manager = deletion_manager
+		$ShotPositionRight.add_child(new_sound)
+		new_sound.deletion_manager = deletion_manager
 		
 		var new_case: RigidBody = CartridgeCase.instance()
 		$CartridgeExitLeft.add_child(new_case)
 		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x * 10)
+		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
 		deletion_manager.other_rigid_bodies.append(new_case)
 		new_case = CartridgeCase.instance()
 		$CartridgeExitRight.add_child(new_case)
 		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x * 10)
+		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
 		deletion_manager.other_rigid_bodies.append(new_case)
 		
 		var new_link: RigidBody = CartridgeLink.instance()
@@ -124,14 +134,14 @@ func shoot(var b: bool):
 		new_link.set_as_toplevel(true)
 		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
 				/ 10000, (new_case.transform.basis.x * -1 \
-				+ new_link.transform.basis.y) * 4)
+				+ new_link.transform.basis.y) * 0.004)
 		deletion_manager.other_rigid_bodies.append(new_link)
 		new_link = CartridgeLink.instance()
 		$CartridgeExitRight.add_child(new_link)
 		new_link.set_as_toplevel(true)
 		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
 				/ 10000, (new_case.transform.basis.x \
-				+ new_link.transform.basis.y) * 4)
+				+ new_link.transform.basis.y) * 0.004)
 		deletion_manager.other_rigid_bodies.append(new_link)
 		
 		if gles3:
@@ -141,6 +151,7 @@ func shoot(var b: bool):
 			$CPUMuzzleFlashLeft.emitting = true
 			$CPUMuzzleFlashRight.emitting = true
 	else:
+		$GunRotationAudio.stream_paused = true
 		if gles3:
 			$MuzzleFlashLeft.emitting = false
 			$MuzzleFlashRight.emitting = false
@@ -153,6 +164,8 @@ func jump():
 	if $WheelFrontLeft.is_in_contact() or $WheelFrontRight.is_in_contact() or \
 			$WheelBackLeft.is_in_contact() or $WheelBackRight.is_in_contact():
 		apply_central_impulse(transform.basis.y * jump_force)
+		if not $JumpAudio.playing or $JumpAudio.get_playback_position() > 0.3:
+			$JumpAudio.play()
 
 
 func flame_left(var b: bool):
@@ -161,6 +174,7 @@ func flame_left(var b: bool):
 		ammo -= flamethrower_ammo_cost
 		deal_flame_damage($FlameDamageFrontLeft)
 		deal_flame_damage($FlameDamageBackLeft)
+		$FlameAudioLeft.stream_paused = false
 		
 		if gles3:
 			$FlamethrowerParticlesFrontLeft.emitting = true
@@ -169,6 +183,7 @@ func flame_left(var b: bool):
 			$FlamethrowerCPUParticlesFrontLeft.emitting = true
 			$FlamethrowerCPUParticlesBackLeft.emitting = true
 	else:
+		$FlameAudioLeft.stream_paused = true
 		if gles3:
 			$FlamethrowerParticlesFrontLeft.emitting = false
 			$FlamethrowerParticlesBackLeft.emitting = false
@@ -183,6 +198,7 @@ func flame_right(var b: bool):
 		ammo -= flamethrower_ammo_cost
 		deal_flame_damage($FlameDamageFrontRight)
 		deal_flame_damage($FlameDamageBackRight)
+		$FlameAudioRight.stream_paused = false
 		
 		if gles3:
 			$FlamethrowerParticlesFrontRight.emitting = true
@@ -191,6 +207,7 @@ func flame_right(var b: bool):
 			$FlamethrowerCPUParticlesFrontRight.emitting = true
 			$FlamethrowerCPUParticlesBackRight.emitting = true
 	else:
+		$FlameAudioRight.stream_paused = true
 		if gles3:
 			$FlamethrowerParticlesFrontRight.emitting = false
 			$FlamethrowerParticlesBackRight.emitting = false
