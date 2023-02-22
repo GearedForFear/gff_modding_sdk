@@ -18,7 +18,7 @@ var glide: bool = false
 func _ready():
 	if controls == null:
 		driver_name = "Turbulence"
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
@@ -27,6 +27,14 @@ func _ready():
 		$WheelBackLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelBackRight/Mesh.cast_shadow = \
+				GeometryInstance.SHADOW_CASTING_SETTING_OFF
+		$BigWingMeshLeft.cast_shadow = \
+				GeometryInstance.SHADOW_CASTING_SETTING_OFF
+		$BigWingMeshRight.cast_shadow = \
+				GeometryInstance.SHADOW_CASTING_SETTING_OFF
+		$SmallWingMeshLeft.cast_shadow = \
+				GeometryInstance.SHADOW_CASTING_SETTING_OFF
+		$SmallWingMeshRight.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
@@ -41,6 +49,7 @@ func _physics_process(_delta):
 				can_shoot_middle = false
 				get_node("../MiddleTimer").start()
 				$ShotPositionMiddle.add_child(instantiate_grenade())
+				$ShotAudioMiddle.play()
 			
 			if can_shoot_left and ammo >= ammo_cost \
 					and Input.is_action_pressed(controls.weapon_left):
@@ -48,6 +57,7 @@ func _physics_process(_delta):
 				can_shoot_left = false
 				get_node("../LeftTimer").start()
 				$ShotPositionLeft.add_child(instantiate_grenade())
+				$ShotAudioLeft.play()
 			
 			if can_shoot_right and ammo >= ammo_cost \
 					and Input.is_action_pressed(controls.weapon_right):
@@ -55,12 +65,15 @@ func _physics_process(_delta):
 				can_shoot_right = false
 				get_node("../RightTimer").start()
 				$ShotPositionRight.add_child(instantiate_grenade())
+				$ShotAudioRight.play()
 			
 			if Input.is_action_just_pressed(controls.weapon_back):
 				if glide:
 					get_node("../AnimationPlayer").play("out_in")
+					$WingsOutAudio.play()
 				else:
 					get_node("../AnimationPlayer").play("in_out")
+					$WingsInAudio.play()
 				glide = !glide
 	
 	if glide:
