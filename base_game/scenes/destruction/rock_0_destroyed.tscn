@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_9.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_0.tres" type="ArrayMesh" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_1.tres" type="ArrayMesh" id=10]
 [ext_resource path="res://scripts/world/default_shadow_mesh.gd" type="Script" id=11]
 [ext_resource path="res://resources/materials/world/maps/usa.material" type="Material" id=12]
+[ext_resource path="res://resources/sounds/destruction/rock_impact_small_hit_03.wav" type="AudioStream" id=13]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( -0.566059, 0.0962735, -0.463646, 0.594262, -0.27229, 0.619752, 0.228571, 0.272558, -0.628988, -0.336447, -0.408165, 0.425628, -0.577964, 0.400785, -0.286343, 0.341228, -0.0197463, -0.503781, 0.418751, 0.541026, -0.329803, -0.327106, -0.016524, 0.54552, -0.511686, -0.31165, -0.253225, 0.0316375, 0.61726, -0.386914, 0.537247, -0.059298, -0.234139, 0.166685, -0.40534, 0.558372, 0.474946, 0.173181, 0.577128, -0.611743, 0.0180982, -0.449644, 0.410593, 0.51378, -0.038876, -0.261094, -0.0799614, 0.585878, -0.31735, -0.408504, 0.522928, -0.586411, 0.327875, -0.232715, 0.285641, 0.583489, -0.488385, 0.597332, -0.313363, 0.622921, 0.560492, -0.0408129, -0.196598, -0.385942, -0.28267, -0.285122, 0.48439, 0.135245, 0.608281, 0.385628, -0.276833, 0.627212, -0.512128, -0.292457, -0.292282, 0.166488, 0.211723, -0.617449, -0.589315, 0.387209, -0.311478, -0.334199, -0.077092, 0.557626, -0.448014, -0.344969, 0.0564963, 0.419432, 0.541722, -0.21402, -0.242106, -0.0214564, 0.587087, 0.0321821, -0.412932, 0.56668, -0.607644, 0.0381006, -0.466032, 0.0703641, 0.617743, -0.406643, 0.33473, -0.0364073, -0.475371, 0.284877, 0.504446, -0.525981, 0.109849, 0.62125, -0.409422, -0.528181, 0.269884, -0.0394217, 0.561742, -0.139316, 0.626602, -0.609268, 0.290402, -0.331162, 0.345609, -0.373985, 0.606114, 0.340988, 0.0382963, -0.503433, -0.426702, -0.304596, -0.248962, -0.160918, -0.365947, 0.191581, 0.27443, 0.565183, -0.188452, -0.320242, -0.158636, 0.567076, -0.606073, 0.0382776, -0.406803, 0.381717, 0.562414, -0.35074, 0.579885, -0.158279, 0.13581, 0.226042, 0.212547, -0.622244, 0.287351, 0.547003, -0.510895, -0.530366, 0.425707, -0.311107, -0.393024, 0.057692, 0.385066, -0.52985, -0.252432, -0.272086, -0.611792, 0.291175, -0.352109, -0.260966, -0.334091, 0.546382, 0.127378, -0.402323, 0.516513, 0.442759, -0.334002, 0.624656, 0.167285, 0.250868, -0.620285, 0.539709, -0.0731936, -0.189432, 0.500411, 0.115496, 0.603918, 0.443904, 0.135164, 0.606604, 0.443495, -0.197574, 0.62568, 0.246402, 0.310289, -0.604974 )
@@ -43,144 +44,161 @@ points = PoolVector3Array( 0.596021, 0.0250694, -0.149968, -0.523921, 0.631981, 
 [sub_resource type="ConvexPolygonShape" id=10]
 points = PoolVector3Array( 0.418552, 0.191439, -0.659508, 0.415072, 0.259577, -0.655309, -0.74353, 0.515253, -0.318671, -0.579907, -0.389536, -0.405318, 0.432889, 0.259799, 0.362427, 0.353378, -0.0819129, 0.217821, -0.465446, -0.258726, 0.398051, 0.08502, -0.235896, -0.561256, 0.156546, 0.294026, 0.465499, 0.553125, 0.190634, -0.37933, -0.468926, 0.0874856, 0.541799, 0.40874, -0.100319, -0.136839, 0.510483, 0.245211, -0.594725, 0.0700321, -0.222729, -0.585655, -0.463274, -0.274163, 0.37827, 0.392007, 0.0359055, 0.271758, -0.482254, -0.275674, 0.32822, 0.135475, 0.323978, 0.38883, -0.482979, -0.120444, 0.43284, 0.397837, -0.0851768, 0.0688328, 0.449014, 0.224896, 0.29262, 0.529, 0.240398, -0.239374, 0.223405, 0.275443, 0.444962, -0.449938, 0.070014, 0.556832, 0.155994, -0.15365, -0.585126, -0.551926, -0.379801, -0.41499, 0.406996, -0.0997477, -0.0687699, 0.467037, 0.225134, -0.655588, 0.363802, 0.277003, -0.638513, 0.450814, -0.033667, -0.155425, 0.546493, 0.206328, -0.444211, -0.499545, -0.292836, 0.207241, 0.237354, -0.0997159, 0.253391, 0.381207, -0.0508043, 0.224323, 0.276243, 0.293485, 0.429876, 0.555496, 0.208395, -0.363232, 0.400195, 0.260545, 0.3812, -0.709227, 0.503648, -0.329201, 0.101555, 0.324103, 0.38904, -0.465083, 0.0181812, 0.535859, 0.539635, 0.238543, -0.439949, 0.433106, 0.190739, 0.328047, -0.0675295, 0.209021, 0.5044, -0.222314, -0.308037, -0.498496, 0.153352, -0.202346, -0.494046, -0.455821, -0.284395, 0.26856, -0.372547, -0.251613, 0.371127, -0.482397, -0.0164328, 0.466842, -0.433169, 0.0874222, 0.557907, -0.590801, -0.331227, -0.400642, -0.724525, 0.432942, -0.328264, -0.644799, 0.494056, -0.323185, 0.458454, 0.256584, -0.646199, 0.218646, 0.30591, 0.437294, 0.432194, -0.0678455, -0.103419, -0.570381, 0.243387, 0.225526, 0.461967, 0.0016022, -0.222675, 0.336536, -0.1325, -0.203362 )
 
-[node name="Spatial" type="Spatial"]
+[node name="RootSpatial" type="Spatial"]
 
-[node name="RigidBody" type="RigidBody" parent="."]
+[node name="Bodies" type="Spatial" parent="."]
+
+[node name="RigidBody" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.623, 0.903, 0.574 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody"]
 portal_mode = 3
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody"]
 shape = SubResource( 1 )
 
-[node name="RigidBody2" type="RigidBody" parent="."]
+[node name="RigidBody2" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.924, 0.35, 0.742 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody2"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody2"]
 portal_mode = 3
 mesh = ExtResource( 10 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody2"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody2"]
 shape = SubResource( 2 )
 
-[node name="RigidBody3" type="RigidBody" parent="."]
+[node name="RigidBody3" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.877, 0.231, -0.53 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody3"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody3"]
 portal_mode = 3
 mesh = ExtResource( 3 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody3"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody3"]
 shape = SubResource( 3 )
 
-[node name="RigidBody4" type="RigidBody" parent="."]
+[node name="RigidBody4" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.822, 0.574, -0.234 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody4"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody4"]
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody4"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody4"]
 shape = SubResource( 4 )
 
-[node name="RigidBody5" type="RigidBody" parent="."]
+[node name="RigidBody5" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.402, 0.713, -0.085 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody5"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody5"]
 portal_mode = 3
 mesh = ExtResource( 4 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody5"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody5"]
 shape = SubResource( 5 )
 
-[node name="RigidBody6" type="RigidBody" parent="."]
+[node name="RigidBody6" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.343, 0.286, 0.691 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody6"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody6"]
 portal_mode = 3
 mesh = ExtResource( 5 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody6"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody6"]
 shape = SubResource( 6 )
 
-[node name="RigidBody7" type="RigidBody" parent="."]
+[node name="RigidBody7" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237, 0.183, -0.646 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody7"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody7"]
 portal_mode = 3
 mesh = ExtResource( 8 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody7"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody7"]
 shape = SubResource( 7 )
 
-[node name="RigidBody8" type="RigidBody" parent="."]
+[node name="RigidBody8" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.037, 0.782, -0.893 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody8"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody8"]
 portal_mode = 3
 mesh = ExtResource( 7 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody8"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody8"]
 shape = SubResource( 8 )
 
-[node name="RigidBody9" type="RigidBody" parent="."]
+[node name="RigidBody9" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.339, 0.722, 0.747 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody9"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody9"]
 portal_mode = 3
 mesh = ExtResource( 6 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody9"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody9"]
 shape = SubResource( 9 )
 
-[node name="RigidBody10" type="RigidBody" parent="."]
+[node name="RigidBody10" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.772, 1.227, -0.29 )
 collision_layer = 4
 collision_mask = 6
+mass = 0.102041
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody10"]
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody10"]
 portal_mode = 3
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody10"]
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody10"]
 shape = SubResource( 10 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 13 )
+autoplay = true
+bus = "Effects"

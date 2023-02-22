@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/materials/destruction/explosion.material" type="Material" id=1]
 [ext_resource path="res://resources/meshes/destruction/explosion.tres" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/destruction/explosion.gd" type="Script" id=3]
+[ext_resource path="res://resources/sounds/destruction/explosion_large_07.wav" type="AudioStream" id=4]
 
 [sub_resource type="SphereShape" id=1]
 radius = 3.0
@@ -83,8 +84,29 @@ material/0 = ExtResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+portal_mode = 3
+light_color = Color( 1, 0.376471, 0, 1 )
+light_energy = 16.0
+light_specular = 0.0
+omni_range = 16.0
+omni_attenuation = 4.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_size = 7.0
+autoplay = true
+bus = "Effects"
+
+[node name="CollisionTime" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+autostart = true
+
 [node name="Lifetime" type="Timer" parent="."]
 process_mode = 0
+wait_time = 3.0
 one_shot = true
 autostart = true
 
@@ -94,4 +116,5 @@ anims/rotation = SubResource( 3 )
 
 [connection signal="area_entered" from="." to="." method="_on_Area_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="CollisionTime" to="." method="_on_CollisionTime_timeout"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
