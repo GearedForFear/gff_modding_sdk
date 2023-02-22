@@ -15,7 +15,7 @@ var other_half: AmmoVehicle
 
 func _ready():
 	set_as_toplevel(true)
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
