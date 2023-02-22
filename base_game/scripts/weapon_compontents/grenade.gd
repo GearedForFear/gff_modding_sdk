@@ -19,6 +19,8 @@ func _ready():
 	$Lifetime.wait_time *= 60.0 \
 			/ ProjectSettings.get_setting("physics/common/physics_fps")
 	$Lifetime.start()
+	if get_node("/root/RootControl/SettingsManager").shadow_casters >= 4:
+		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
 
 
 func _physics_process(_delta):
