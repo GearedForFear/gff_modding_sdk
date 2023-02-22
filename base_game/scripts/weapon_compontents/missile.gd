@@ -19,7 +19,7 @@ func _ready():
 	$Lifetime.wait_time *= 60.0 \
 			/ ProjectSettings.get_setting("physics/common/physics_fps")
 	$Lifetime.start()
-	if get_node("/root/RootControl/SettingsManager").shadow_amount >= 4:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters >= 4:
 		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
 	$Particles.emitting = gles3
 	$CPUParticles.emitting = !gles3
@@ -29,7 +29,7 @@ func _physics_process(_delta):
 	translation += transform.basis.z * 0.5
 	if not straight:
 		global_transform = global_transform.interpolate_with(\
-				global_transform.looking_at(target, Vector3.UP), 0.1)
+				global_transform.looking_at(target, Vector3.UP), 0.15)
 		if moving_target:
 			target = lerp(target, global_transform.origin - target.direction_to(\
 					shooter.global_transform.origin), 0.7)
