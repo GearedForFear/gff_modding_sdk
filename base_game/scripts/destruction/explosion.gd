@@ -15,9 +15,13 @@ func _ready():
 	$AnimationPlayer.play("rotation")
 
 
+func _on_CollisionTime_timeout():
+	hide()
+	$CollisionShape.disabled = true
+
+
 func _on_Lifetime_timeout():
 	set_process(false)
-	hide()
 	deletion_manager.to_be_deleted.append(self)
 
 
