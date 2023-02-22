@@ -18,7 +18,7 @@ var right_can_shoot: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Suicide Door"
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
@@ -54,14 +54,14 @@ func _physics_process(_delta):
 				ammo -= missile_ammo_cost
 				left_can_shoot = false
 				get_node("../LeftTimer").start()
-				$ShotPositionLeft.add_child(instantiate_missile(-5, false))
+				$ShotPositionLeft.add_child(instantiate_missile(-10, false))
 				
 			if right_can_shoot and ammo >= missile_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_right):
 				ammo -= missile_ammo_cost
 				right_can_shoot = false
 				get_node("../RightTimer").start()
-				$ShotPositionRight.add_child(instantiate_missile(5, false))
+				$ShotPositionRight.add_child(instantiate_missile(10, false))
 
 
 func instantiate_missile(var direction: int, var moving_target: bool) \
