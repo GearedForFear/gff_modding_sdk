@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -9,12 +9,14 @@
 [ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
 [ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
 [ext_resource path="res://scenes/world/decorations/rock_0.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/world/directional_light.gd" type="Script" id=10]
+[ext_resource path="res://scenes/world/decorations/rock_1.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
 sky_horizon_color = Color( 0.717647, 0.87451, 1, 1 )
-ground_bottom_color = Color( 0.890196, 0.694118, 0.541176, 1 )
-ground_horizon_color = Color( 0.937255, 0.792157, 0.682353, 1 )
+ground_bottom_color = Color( 0.8, 0.604, 0.464, 1 )
+ground_horizon_color = Color( 0.909804, 0.752941, 0.631373, 1 )
 sun_latitude = 32.0
 sun_longitude = -100.0
 
@@ -22,7 +24,9 @@ sun_longitude = -100.0
 background_mode = 2
 background_sky = SubResource( 9 )
 ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.5
 ambient_light_sky_contribution = 0.4
+tonemap_mode = 3
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 21.0438, 18.2348, 34.6246 )
@@ -46,6 +50,7 @@ transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.67
 light_energy = 0.5
 shadow_enabled = true
 directional_shadow_max_distance = 200.0
+script = ExtResource( 10 )
 
 [node name="GameplayManager" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -56,6 +61,7 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
+visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 131.076, 0, 225.855 )
@@ -483,16 +489,26 @@ script = ExtResource( 5 )
 
 [node name="StartSpawns" parent="." instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 250, 0, 250 )
+visible = false
 
 [node name="TargetStartSpawn" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 195.547, -0.7585, 247.552 )
+visible = false
 
 [node name="Rock0" parent="." instance=ExtResource( 9 )]
-transform = Transform( 0.168558, 1.47358e-08, -0.985692, -8.74228e-08, 1, 0, -0.985692, -8.61719e-08, -0.168558, 68.857, -0.758, 169.471 )
+transform = Transform( 0.444229, 0, 0.895913, 0, 1, 0, -0.895913, 0, 0.444229, 68.4793, -0.823318, 169.935 )
 global_culling = true
 
 [node name="Rock1" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.899642, 0, -0.436629, 0, 1, 0, 0.436629, 0, 0.899642, 69.6893, -0.7585, 173.159 )
+global_culling = true
+
+[node name="Rock2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.4683, -0.758499, 173.343 )
+global_culling = true
+
+[node name="Rock3" parent="." instance=ExtResource( 11 )]
+transform = Transform( -0.80874, 0, -0.588166, 0, 1, 0, 0.588166, 0, -0.80874, 48.6669, -0.758499, 161.092 )
 global_culling = true
 
 [connection signal="timeout" from="GameplayManager/Timer" to="GameplayManager" method="_on_Timer_timeout"]
