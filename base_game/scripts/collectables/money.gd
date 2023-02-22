@@ -28,4 +28,8 @@ func _on_Area_body_entered(body):
 		body.reward(reward)
 		set_process(false)
 		hide()
-		deletion_manager.to_be_deleted.append(self)
+		$AudioStreamPlayer3D.play()
+
+
+func _on_AudioStreamPlayer3D_finished():
+	deletion_manager.to_be_deleted.append(self)
