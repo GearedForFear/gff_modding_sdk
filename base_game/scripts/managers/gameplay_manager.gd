@@ -36,13 +36,7 @@ func _process(_delta):
 					"CameraBase/Camera/AspectRatioContainer/Control")
 			ui.get_node("TimerBackground/TimeLeft").text = \
 					String(int(get_node("Timer").time_left))
-			var bar: ProgressBar = ui.get_node("ResourcesBackground/AmmoBar")
-			bar.value = n.ammo
-			if n.ammo == 100:
-				bar.modulate = Color(1, 1, 1, 0.5)
-			else:
-				bar.modulate = Color(1, 1, 1, 1)
-			bar = ui.get_node("ResourcesBackground/HealthBar")
+			var bar: ProgressBar = ui.get_node("ResourcesBackground/HealthBar")
 			bar.value = n.health
 			if n.health == n.base_health:
 				bar.modulate = Color(1, 1, 1, 0.5)
@@ -110,14 +104,14 @@ func _physics_process(_delta):
 func respawn(vehicle: CombatVehicle):
 	vehicle.global_transform = waypoints[waypoint].get_node(\
 			"RespawnPoints/RespawnPoint0").global_transform
-	vehicle.reset_physics_interpolation()
 	vehicle.linear_velocity = Vector3.ZERO
 	vehicle.angular_velocity = Vector3.ZERO
+	vehicle.sleeping = false
 	for n in waypoints[waypoint].get_node("RespawnPoints").get_children():
 		if n.get_overlapping_bodies().size() == 0:
 			vehicle.global_transform = n.global_transform
-			vehicle.reset_physics_interpolation()
 			break
+	vehicle.reset_physics_interpolation()
 
 
 func waypoint_entered(entered: Area, body: CombatVehicle):
@@ -146,5 +140,15 @@ func placement_to_string(placement: int) -> String:
 
 
 func _on_Timer_timeout():
-	get_parent().queue_free()
-	get_node("../..").active(true)
+	var pursuer_data: Array = Array()
+	for n in pursuers:
+		var data = VehicleData.new()
+		data.scene_resource = n.scene_resource
+		data.controls = n.controls
+		if n.controls == null:
+			data.spawn = 6
+		else:
+			data.spawn = n.get_node("../../../..").get_position_in_parent()
+		data.score = n.score
+		pursuer_data.append(data)
+	get_node("../..").play_next(pursuer_data)
