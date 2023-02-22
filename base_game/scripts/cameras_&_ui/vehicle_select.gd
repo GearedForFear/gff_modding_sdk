@@ -12,7 +12,7 @@ var current_vehicle: int = 0
 onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
 		get_node("Nitro/SuicideDoor"), get_node("Rocket/WarmWelcome"), \
 		get_node("Rocket/Turbulence"), get_node("Rocket/EternalBond"), \
-		get_node("Switch/Restless")]
+		get_node("Switch/Restless"), get_node("Burst/WellRaised")]
 
 
 func _ready():
@@ -28,6 +28,7 @@ func _process(_delta):
 		if current_vehicle > categories[current_category].get_child_count() - 2:
 			current_vehicle = categories[current_category].get_child_count() - 2
 		update_selection()
+		get_node("../LeftRightAudio").play()
 	
 	if Input.is_action_just_pressed(controls.ui_left):
 		current_category -= 1
@@ -39,20 +40,22 @@ func _process(_delta):
 		if current_vehicle > categories[current_category].get_child_count() - 2:
 			current_vehicle = categories[current_category].get_child_count() - 2
 		update_selection()
+		get_node("../LeftRightAudio").play()
 	
 	if Input.is_action_just_pressed(controls.ui_down):
 		current_vehicle = (current_vehicle + 1) \
 				% (categories[current_category].get_child_count() - 1)
 		update_selection()
+		get_node("../UpDownAudio").play()
 	
 	if Input.is_action_just_pressed(controls.ui_up):
 		current_vehicle -= 1
 		if current_vehicle == -1:
 			current_vehicle = categories[current_category].get_child_count() - 2
 		update_selection()
+		get_node("../UpDownAudio").play()
 	
 	if Input.is_action_just_pressed(controls.ui_accept):
-		get_node("/root/RootControl").new_track_instantiated = false
 		var vehicle: Spatial
 		match current_category:
 			category_names.NITRO:
@@ -96,7 +99,13 @@ func _process(_delta):
 					_:
 						return
 			category_names.BURST:
-				return
+				match current_vehicle:
+					0:
+						vehicle = ResourceLoader.load(\
+								"res://scenes/vehicles/well_raised.tscn", \
+								"PackedScene").instance()
+					_:
+						return
 			category_names.OVERCHARGE:
 				return
 		vehicle.get_node("Body").controls = controls
@@ -106,8 +115,8 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed(controls.ui_cancel):
 		get_node("/root/RootControl").track.queue_free()
-		get_node("/root/RootControl").new_track_instantiated = false
 		get_node("/root/RootControl").active(true)
+		get_node("/root/RootControl/ReturnAudio").play()
 
 
 func update_selection():
