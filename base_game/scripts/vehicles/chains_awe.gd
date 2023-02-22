@@ -5,6 +5,8 @@ const Sniper_Bullet: PackedScene \
 		= preload("res://scenes/weapon_components/sniper_bullet.tscn")
 const Chainsaw: PackedScene \
 		= preload("res://scenes/weapon_components/chainsaw.tscn")
+const ShotSoundSniper: PackedScene \
+		= preload("res://scenes/weapon_components/shot_sound_sniper.tscn")
 
 export var sniper_damage: float = 40.0
 export var sniper_reward: int = 15
@@ -31,7 +33,7 @@ var right_saws_up: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Chain's Awe"
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
@@ -90,6 +92,10 @@ func shoot_sniper():
 	new_bullet.shooter = self
 	new_bullet.deletion_manager = deletion_manager
 	
+	var new_sound: AudioStreamPlayer3D = ShotSoundSniper.instance()
+	$ShotPositionSniper.add_child(new_sound)
+	new_sound.deletion_manager = deletion_manager
+	
 	if gles3:
 		$MuzzleFlash.emitting = true
 	else:
@@ -97,6 +103,7 @@ func shoot_sniper():
 
 
 func saw_left(var b: bool):
+	$ChainsawAudioLeft.stream_paused = not b
 	if b:
 		ammo -= saw_ammo_cost
 		if left_saws_up:
@@ -105,6 +112,7 @@ func saw_left(var b: bool):
 		var overalpping: Array = $SawAreaLeft.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
+			$CuttingAudioLeft.stream_paused = true
 			if gles3:
 				$SawSparksFrontLeft.emitting = false
 				$SawSparksBackLeft.emitting = false
@@ -112,6 +120,7 @@ func saw_left(var b: bool):
 				$SawCPUSparksFrontLeft.emitting = false
 				$SawCPUSparksBackLeft.emitting = false
 		else:
+			$CuttingAudioLeft.stream_paused = false
 			if gles3:
 				$SawSparksFrontLeft.emitting = true
 				$SawSparksBackLeft.emitting = true
@@ -121,11 +130,17 @@ func saw_left(var b: bool):
 			apply_central_impulse(transform.basis.x * saw_push)
 			for n in overalpping:
 				if n.is_in_group("combat_vehicle"):
-					reward(n.damage(saw_damage, saw_reward, saw_burn, self))
+					var payout: int = n.damage(saw_damage, saw_reward, \
+							saw_burn, self)
+					reward(payout)
+					if payout > 0 and (not $MoneyAudioRight.playing \
+							or $MoneyAudioRight.get_playback_position() > 0.1):
+						$MoneyAudioRight.play()
 	else:
 		if not left_saws_up:
 			get_node("../AnimationPlayer").play("left_saws_up")
 			left_saws_up = true
+			$CuttingAudioLeft.stream_paused = true
 			if gles3:
 				$SawSparksFrontLeft.emitting = false
 				$SawSparksBackLeft.emitting = false
@@ -135,6 +150,7 @@ func saw_left(var b: bool):
 
 
 func saw_right(var b: bool):
+	$ChainsawAudioRight.stream_paused = not b
 	if b:
 		ammo -= saw_ammo_cost
 		if right_saws_up:
@@ -143,6 +159,7 @@ func saw_right(var b: bool):
 		var overalpping: Array = $SawAreaRight.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
+			$CuttingAudioRight.stream_paused = true
 			if gles3:
 				$SawSparksFrontRight.emitting = false
 				$SawSparksBackRight.emitting = false
@@ -150,6 +167,7 @@ func saw_right(var b: bool):
 				$SawCPUSparksFrontRight.emitting = false
 				$SawCPUSparksBackRight.emitting = false
 		else:
+			$CuttingAudioRight.stream_paused = false
 			if gles3:
 				$SawSparksFrontRight.emitting = true
 				$SawSparksBackRight.emitting = true
@@ -159,11 +177,17 @@ func saw_right(var b: bool):
 			apply_central_impulse(transform.basis.x * -saw_push)
 			for n in overalpping:
 				if n.is_in_group("combat_vehicle"):
-					reward(n.damage(saw_damage, saw_reward, saw_burn, self))
+					var payout: int = n.damage(saw_damage, saw_reward, \
+							saw_burn, self)
+					reward(payout)
+					if payout > 0 and (not $MoneyAudioRight.playing \
+							or $MoneyAudioRight.get_playback_position() > 0.1):
+						$MoneyAudioRight.play()
 	else:
 		if not right_saws_up:
 			get_node("../AnimationPlayer2").play("right_saws_up")
 			right_saws_up = true
+			$CuttingAudioRight.stream_paused = true
 			if gles3:
 				$SawSparksFrontRight.emitting = false
 				$SawSparksBackRight.emitting = false
@@ -176,6 +200,7 @@ func shoot_chainsaw():
 	ammo -= launcher_ammo_cost
 	can_shoot_launcher = false
 	get_node("../LauncherTimer").start()
+	$LauncherAudio.play()
 	
 	var new_chainsaw: Area = Chainsaw.instance()
 	$ShotPositionLauncher.add_child(new_chainsaw)
