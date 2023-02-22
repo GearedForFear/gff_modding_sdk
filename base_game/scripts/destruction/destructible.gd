@@ -4,6 +4,7 @@ extends Area
 export var parts_path: String \
 		= "res://scenes/destruction/rock_0_destroyed.tscn"
 export var global_culling: bool = false
+export var force_factor: float = 0.1
 
 var destroyed: bool = false
 var deletion_manager: Node
@@ -22,6 +23,7 @@ func destroy(var vehicle: CombatVehicle, var position: Vector3, \
 	if not destroyed:
 		var new_parts: Spatial = parts.instance()
 		add_child(new_parts)
+		new_parts = new_parts.get_node("Bodies")
 		for n in new_parts.get_children():
 			var correct_transform = n.global_transform
 			n.set_as_toplevel(true)
@@ -30,13 +32,13 @@ func destroy(var vehicle: CombatVehicle, var position: Vector3, \
 			deletion_manager.other_rigid_bodies.append(n)
 			n.global_transform = correct_transform
 			n.apply_central_impulse((n.global_transform.origin - position)\
-					.normalized() * force)
+					.normalized() * force * force_factor)
+		deletion_manager.to_be_deleted.append(new_parts)
 		collision_layer = 0
 		$MeshInstance/StaticBody.collision_layer = 0
 		destroyed = true
 		set_process(false)
 		hide()
-		deletion_manager.to_be_deleted.append(self)
 
 
 func _on_Area_body_entered(body):
