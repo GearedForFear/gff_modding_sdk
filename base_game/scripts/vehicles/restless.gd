@@ -9,6 +9,12 @@ const CartridgeCase: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_case.tscn")
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
+const ShotSoundShotgun: PackedScene \
+		= preload("res://scenes/weapon_components/shot_sound_shotgun.tscn")
+const ShotSoundSniper: PackedScene \
+		= preload("res://scenes/weapon_components/shot_sound_sniper.tscn")
+const ShotSoundLMG: PackedScene \
+		= preload("res://scenes/weapon_components/shot_sound_lmg.tscn")
 
 export var shotgun_damage: float = 6.0
 export var shotgun_reward: int = 1
@@ -34,7 +40,7 @@ var can_shoot_lmg: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Restless"
-	if get_node("/root/RootControl/SettingsManager").shadow_amount <= 1:
+	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
 		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 		$WheelFrontLeft/Mesh.cast_shadow = \
 				GeometryInstance.SHADOW_CASTING_SETTING_OFF
@@ -117,6 +123,7 @@ func _physics_process(_delta):
 				if boost_type == boost_types.NITRO:
 					boost_type = boost_types.ROCKET
 					get_node("../AnimationPlayer").play("nitro_rocket")
+					$OpenAudio.play()
 					if gles3:
 						for n in $NitroParticles.get_children():
 							n.emitting = false
@@ -126,6 +133,9 @@ func _physics_process(_delta):
 				else:
 					boost_type = boost_types.NITRO
 					get_node("../AnimationPlayer").play("rocket_nitro")
+					$CloseAudio.play()
+					$RocketAudio.stream_paused = true
+					$ReverseRocketAudio.stream_paused = true
 					if gles3:
 						for n in $RocketParticles.get_children():
 							n.emitting = false
@@ -188,6 +198,10 @@ func shoot_shotgun():
 	new_bullet.shooter = self
 	new_bullet.deletion_manager = deletion_manager
 	
+	var new_sound: AudioStreamPlayer3D = ShotSoundShotgun.instance()
+	$ShotPositionShotgunMiddle.add_child(new_sound)
+	new_sound.deletion_manager = deletion_manager
+	
 	if gles3:
 		$MuzzleFlashShotgun.emitting = true
 	else:
@@ -207,10 +221,14 @@ func shoot_sniper():
 	new_bullet.shooter = self
 	new_bullet.deletion_manager = deletion_manager
 	
+	var new_sound: AudioStreamPlayer3D = ShotSoundSniper.instance()
+	$ShotPositionSniper.add_child(new_sound)
+	new_sound.deletion_manager = deletion_manager
+	
 	var new_case: RigidBody = CartridgeCase.instance()
 	$CartridgeExitSniper.add_child(new_case)
 	new_case.set_as_toplevel(true)
-	new_case.apply_central_impulse(new_case.transform.basis.x * 10)
+	new_case.apply_central_impulse(new_case.transform.basis.x / 100)
 	deletion_manager.other_rigid_bodies.append(new_case)
 	
 	if gles3:
@@ -233,10 +251,14 @@ func shoot_lmg(var b: bool):
 		new_bullet.shooter = self
 		new_bullet.deletion_manager = deletion_manager
 		
+		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
+		$ShotPositionMachineGun.add_child(new_sound)
+		new_sound.deletion_manager = deletion_manager
+		
 		var new_case: RigidBody = CartridgeCase.instance()
 		$CartridgeExitMachineGun.add_child(new_case)
 		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x * 10)
+		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
 		deletion_manager.other_rigid_bodies.append(new_case)
 		
 		var new_link: RigidBody = CartridgeLink.instance()
@@ -244,7 +266,7 @@ func shoot_lmg(var b: bool):
 		new_link.set_as_toplevel(true)
 		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
 				/ 10000, (new_case.transform.basis.x \
-				+ new_link.transform.basis.y) * 4)
+				+ new_link.transform.basis.y) * 0.004)
 		deletion_manager.other_rigid_bodies.append(new_link)
 		
 		if gles3:
