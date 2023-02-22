@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/meshes/weapon_components/missile.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://scripts/weapon_compontents/missile.gd" type="Script" id=2]
 [ext_resource path="res://resources/materials/weapon_components/missile.material" type="Material" id=3]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/sounds/weapon_components/sci-fi_vehicle_spaceship_jet_engine_loop2.wav" type="AudioStream" id=6]
 
 [sub_resource type="CylinderShape" id=2]
 height = 1.0
@@ -28,7 +29,7 @@ shape = SubResource( 2 )
 
 [node name="Lifetime" type="Timer" parent="."]
 process_mode = 0
-wait_time = 2.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 
@@ -40,6 +41,12 @@ transform = Transform( -0.25, 0, -4.76454e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.54
 
 [node name="CPUParticles" parent="." instance=ExtResource( 5 )]
 transform = Transform( -0.25, 0, -3.7749e-08, 0, 0.25, 0, 3.7749e-08, 0, -0.25, 0, 0, -0.2 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
+stream = ExtResource( 6 )
+autoplay = true
+bus = "Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
