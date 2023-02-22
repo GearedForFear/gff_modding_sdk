@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -21,6 +21,15 @@
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/particles/chainsaw_sparks.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/particles/chainsaw_sparks_cpu.tscn" type="PackedScene" id=21]
+[ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=22]
+[ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=23]
+[ext_resource path="res://resources/sounds/vehicles/tyre_skid_loop_01.wav" type="AudioStream" id=24]
+[ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_01.wav" type="AudioStream" id=25]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=26]
+[ext_resource path="res://resources/sounds/weapon_components/weapon_cannon_shot_04.wav" type="AudioStream" id=27]
+[ext_resource path="res://resources/sounds/weapon_components/gun_auto_barrel_spin_med_loop.wav" type="AudioStream" id=28]
+[ext_resource path="res://resources/sounds/weapon_components/engine_generator_loop_04.wav" type="AudioStream" id=29]
+[ext_resource path="res://resources/sounds/collectables/retro_collect_pickup_coin_25.wav" type="AudioStream" id=30]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -451,6 +460,7 @@ base_health = 116.0
 base_engine_force = 264.0
 nitro_force = 3080.0
 rocket_force = 0.0
+scene_resource = "res://scenes/vehicles/chains_awe.tscn"
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, 2.411 )
@@ -464,10 +474,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 26 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, 2.411 )
@@ -481,10 +493,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 26 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, -2.16 )
@@ -497,10 +511,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 26 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, -2.16 )
@@ -513,10 +529,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 26 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 shape = SubResource( 6 )
@@ -660,6 +678,82 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.83433
 
 [node name="Right" parent="Body/NitroCPUParticles" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.835, 0.139961, -3.35128 )
+
+[node name="ChainsawAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
+stream = ExtResource( 29 )
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="ChainsawAudioRight" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
+stream = ExtResource( 29 )
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="CuttingAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
+stream = ExtResource( 28 )
+unit_size = 1.5
+pitch_scale = 3.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="CuttingAudioRight" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
+stream = ExtResource( 28 )
+unit_size = 1.5
+pitch_scale = 3.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="MoneyAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19031, 0.261378, -0.188984 )
+stream = ExtResource( 30 )
+unit_size = 0.2
+bus = "Effects"
+
+[node name="MoneyAudioRight" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19, 0.261, -0.189 )
+stream = ExtResource( 30 )
+unit_size = 0.2
+bus = "Effects"
+
+[node name="LauncherAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 27 )
+unit_size = 1.5
+bus = "Effects"
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.802801, 2.47673 )
+stream = ExtResource( 25 )
+unit_size = 0.4
+autoplay = true
+bus = "Effects"
+
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 24 )
+unit_size = 0.4
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138223, -3.30983 )
+stream = ExtResource( 23 )
+unit_size = 0.8
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 22 )
+unit_size = 4.0
+bus = "Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

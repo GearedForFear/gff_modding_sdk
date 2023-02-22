@@ -1,16 +1,22 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scripts/vehicles/eternal_bond_front.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/sounds/vehicles/sci-fi_vehicle_spaceship_jet_engine_loop3.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/materials/vehicles/eternal_bond.material" type="Material" id=6]
 [ext_resource path="res://resources/materials/vehicles/eb_wheel.material" type="Material" id=7]
+[ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://resources/meshes/vehicles/eternal_bond_front.tres" type="ArrayMesh" id=10]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=13]
+[ext_resource path="res://resources/sounds/vehicles/tyre_skid_loop_01.wav" type="AudioStream" id=14]
+[ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_02.wav" type="AudioStream" id=15]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=16]
+[ext_resource path="res://resources/sounds/vehicles/car_window_open_close_whir_04.wav" type="AudioStream" id=17]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=21]
 [ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=22]
@@ -122,6 +128,7 @@ base_boost_type = 1
 nitro_force = 0.0
 rocket_force = 73.6
 master_body = false
+scene_resource = "res://scenes/vehicles/eternal_bond.tscn"
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 1.722 )
@@ -135,10 +142,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 1.722 )
@@ -152,10 +161,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.632 )
@@ -168,10 +179,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.632 )
@@ -184,10 +197,12 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
@@ -449,6 +464,46 @@ transform = Transform( 0.994522, 0, -0.104528, 0, 1, 0, 0.104528, 0, 0.994522, 0
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
+
+[node name="SplitAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 17 )
+unit_size = 3.0
+bus = "Effects"
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.592, 4.208 )
+stream = ExtResource( 15 )
+unit_size = 0.4
+autoplay = true
+bus = "Effects"
+
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 14 )
+unit_size = 0.4
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743316, -2.50047 )
+stream = ExtResource( 5 )
+unit_size = 0.7
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="ReverseRocketAudio" type="AudioStreamPlayer3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.246, 2.493 )
+stream = ExtResource( 5 )
+unit_size = 0.7
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 8 )
+unit_size = 4.0
+bus = "Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
