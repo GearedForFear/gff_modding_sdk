@@ -12,6 +12,8 @@ const ShotSoundLMG: PackedScene \
 const ShotSoundShotgun: PackedScene \
 		= preload("res://scenes/weapon_components/shot_sound_shotgun.tscn")
 
+enum cartridge_out {NONE, LINK, CASE}
+
 export var bullet_damage: float = 2.5
 export var bullet_reward: int = 1
 export var bullet_burn: float = 0.25
@@ -27,6 +29,7 @@ var can_shoot_lmg: bool = true
 var can_shoot_shotgun_left: bool = true
 var can_shoot_shotgun_right: bool = true
 var together: bool = true
+var next_out: int = cartridge_out.NONE
 
 onready var front_half: Spatial \
 		= preload("res://scenes/vehicles/eternal_bond_front.tscn").instance()
@@ -37,25 +40,6 @@ onready var back_half: Spatial \
 func _ready():
 	if controls == null:
 		driver_name = "Eternal Bond"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$BodyMesh2.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft2/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight2/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft2/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight2/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 	
 	var body: AmmoVehicle = front_half.get_child(0)
 	body.controls = controls
@@ -69,9 +53,45 @@ func _ready():
 	front_half.get_child(0).other_half = body
 	add_child(front_half)
 	add_child(back_half)
+	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
+			.max_value = base_health / 2
+	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
+			.max_value = base_health / 2
 
 
 func _physics_process(_delta):
+	match next_out:
+		cartridge_out.LINK:
+			var new_link: RigidBody = CartridgeLink.instance()
+			$CartridgeExitLeft.add_child(new_link)
+			new_link.set_as_toplevel(true)
+			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
+					- 10) / 10000, (new_link.transform.basis.x \
+					+ new_link.transform.basis.y / 2) / 150)
+			deletion_manager.other_rigid_bodies.append(new_link)
+			new_link = CartridgeLink.instance()
+			$CartridgeExitRight.add_child(new_link)
+			new_link.set_as_toplevel(true)
+			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
+					- 10) / 10000, (new_link.transform.basis.x \
+					+ new_link.transform.basis.y / 2) / 150)
+			deletion_manager.other_rigid_bodies.append(new_link)
+			
+			next_out = cartridge_out.CASE
+		cartridge_out.CASE:
+			var new_case: RigidBody = CartridgeCase.instance()
+			$CartridgeExitLeft.add_child(new_case)
+			new_case.set_as_toplevel(true)
+			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
+			deletion_manager.other_rigid_bodies.append(new_case)
+			new_case = CartridgeCase.instance()
+			$CartridgeExitRight.add_child(new_case)
+			new_case.set_as_toplevel(true)
+			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
+			deletion_manager.other_rigid_bodies.append(new_case)
+			
+			next_out = cartridge_out.NONE
+	
 	if alive:
 		if controls == null:
 			var left_collider: PhysicsBody = $ShotPositionLeft.get_collider()
@@ -107,9 +127,11 @@ func _physics_process(_delta):
 
 func shoot(var b: bool):
 	if b:
+		ammo -= bullet_ammo_cost
 		can_shoot_lmg = false
 		get_node("../MachineGunTimer").start()
-
+		next_out = cartridge_out.LINK
+		
 		var new_bullet: Area = Bullet.instance()
 		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
 		$ShotPositionLeft.add_child(new_bullet)
@@ -131,35 +153,7 @@ func shoot(var b: bool):
 		new_bullet.deletion_manager = deletion_manager
 		$ShotPositionRight.add_child(new_sound)
 		new_sound.deletion_manager = deletion_manager
-
-		var new_case: RigidBody = CartridgeCase.instance()
-		$CartridgeExitLeft.add_child(new_case)
-		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-		deletion_manager.other_rigid_bodies.append(new_case)
-		new_case = CartridgeCase.instance()
-		$CartridgeExitRight.add_child(new_case)
-		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-		deletion_manager.other_rigid_bodies.append(new_case)
-
-		var new_link: RigidBody = CartridgeLink.instance()
-		$CartridgeExitLeft.add_child(new_link)
-		new_link.set_as_toplevel(true)
-		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
-				/ 10000, (new_case.transform.basis.x * -1 \
-				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
-		new_link = CartridgeLink.instance()
-		$CartridgeExitRight.add_child(new_link)
-		new_link.set_as_toplevel(true)
-		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
-				/ 10000, (new_case.transform.basis.x \
-				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
-
-		ammo -= bullet_ammo_cost
-
+		
 		if gles3:
 			$MuzzleFlashMGLeft.emitting = true
 			$MuzzleFlashMGRight.emitting = true
@@ -246,6 +240,7 @@ func split(var b: bool):
 	master_body = not b
 	$BodyMesh.visible = not b
 	$BodyMesh2.visible = not b
+	$ScoreLabel.visible = not b
 	$WheelFrontLeft.visible = not b
 	$WheelFrontRight.visible = not b
 	$WheelBackLeft.visible = not b
@@ -260,12 +255,16 @@ func split(var b: bool):
 	$ReverseRocketCPUParticles.visible = not b
 	front_half.visible = b
 	back_half.visible = b
+	get_viewport().stop()
+	
 	if b:
 		var body: AmmoVehicle = front_half.get_child(0)
 		body.linear_velocity = linear_velocity
 		body.angular_velocity = angular_velocity
 		body.engine_force = engine_force
 		body.health = health / 2
+		body.acid_duration = acid_duration / 2
+		body.acid_cause = acid_cause
 		body.ammo = ammo
 		body.collision_layer = 1
 		body.collision_mask = 3
@@ -273,7 +272,7 @@ func split(var b: bool):
 		body.replacement = null
 		body.global_transform = global_transform
 		
-		body.global_transform.origin += transform.basis.z * 2.5
+		body.global_translation += transform.basis.z * 2.5
 		body.score = score
 		body.master_body = true
 		body.steering = steering
@@ -282,20 +281,17 @@ func split(var b: bool):
 		var camera: Spatial = $CameraBase
 		remove_child(camera)
 		body.add_child(camera)
-		camera.get_node("Camera").global_transform.origin \
-				= camera.get_node("InterpolationTarget").global_transform.origin
+		camera.get_node("Camera").global_translation \
+				= camera.get_node("InterpolationTarget").global_translation
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar"\
-				).anchor_bottom = 0.65
+				"Camera/AspectRatioContainer/Control/Resources/HealthBar"\
+				).hide()
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2"\
+				"Camera/AspectRatioContainer/Control/Resources/HealthBarTop"\
 				).show()
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2"\
-				).anchor_top = 0.7
-		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2"\
-				).anchor_bottom = 0.8
+				"Camera/AspectRatioContainer/Control/Resources/HealthBarBottom"\
+				).show()
 		var array_position: int = gameplay_manager.players.find(self)
 		gameplay_manager.players.remove(array_position)
 		gameplay_manager.players.insert(array_position, body)
@@ -308,24 +304,32 @@ func split(var b: bool):
 		body.angular_velocity = angular_velocity
 		body.engine_force = engine_force
 		body.health = health / 2
+		body.acid_duration = acid_duration / 2
+		body.acid_cause = acid_cause
 		body.collision_layer = 1
 		body.collision_mask = 3
 		body.alive = true
 		body.replacement = null
 		body.global_transform = global_transform
 		
-		body.global_transform.origin -= transform.basis.z * 2.5
+		body.global_translation -= transform.basis.z * 2.5
 		body.can_shoot = false
 		back_half.get_node("MissileTimer").start()
-		body.score = 0
+		body.score = score
 		collision_layer = 0
 		collision_mask = 0
+		acid_duration = 0
+		acid_cause = null
 	else:
 		var body: AmmoVehicle = front_half.get_child(0)
 		body.collision_layer = 0
 		body.collision_mask = 0
 		body.alive = false
 		body.replacement = self
+		acid_duration = body.acid_duration
+		acid_cause = body.acid_cause
+		body.acid_duration = 0
+		body.acid_cause = null
 		if gles3:
 			body.get_node("DeathParticles").restart()
 			body.get_node("DeathParticles").emitting = false
@@ -341,13 +345,13 @@ func split(var b: bool):
 		body.remove_child(camera)
 		add_child(camera)
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar"\
-				).anchor_top = 0.55
+				"Camera/AspectRatioContainer/Control/Resources/HealthBar"\
+				).show()
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar"\
-				).anchor_bottom = 0.8
+				"Camera/AspectRatioContainer/Control/Resources/HealthBarTop"\
+				).hide()
 		camera.get_node(\
-				"Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2"\
+				"Camera/AspectRatioContainer/Control/Resources/HealthBarBottom"\
 				).hide()
 		var array_position: int = gameplay_manager.players.find(body)
 		gameplay_manager.players.remove(array_position)
@@ -361,6 +365,11 @@ func split(var b: bool):
 		body.collision_mask = 0
 		body.alive = false
 		body.replacement = self
+		acid_duration += body.acid_duration
+		if acid_cause == null:
+			acid_cause = body.acid_cause
+		body.acid_duration = 0
+		body.acid_cause = null
 		if gles3:
 			body.get_node("DeathParticles").restart()
 			body.get_node("DeathParticles").emitting = false
@@ -368,7 +377,6 @@ func split(var b: bool):
 			body.get_node("DeathCPUParticles").restart()
 			body.get_node("DeathCPUParticles").emitting = false
 		
-		score += body.score
 		health = clamp(front_half.get_child(0).health, 0, 1000) \
 				+ clamp(body.health, 0, 1000) 
 		ammo = front_half.get_child(0).ammo
@@ -392,6 +400,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 5
 				score -= payout
+				acid_duration = 0
+				acid_cause = null
 				if gles3:
 					$DeathParticles.emitting = true
 				else:
