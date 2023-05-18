@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/materials/weapon_components/grenade.material" type="Material" id=1]
 [ext_resource path="res://resources/meshes/weapon_components/grenade.tres" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/weapon_compontents/grenade.gd" type="Script" id=3]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=4]
 
 [sub_resource type="CylinderShape" id=1]
-height = 0.8
-radius = 0.4
+height = 0.7
+radius = 0.109
 
 [node name="Area" type="Area" groups=["Bullet"]]
 collision_layer = 8
@@ -16,12 +17,13 @@ script = ExtResource( 3 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0 )
 portal_mode = 3
-cast_shadow = 0
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 1 )
+script = ExtResource( 4 )
+required_setting = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.4 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.35 )
 shape = SubResource( 1 )
 
 [node name="Lifetime" type="Timer" parent="."]

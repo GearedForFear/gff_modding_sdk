@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/meshes/weapon_components/missile.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://scripts/weapon_compontents/missile.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resources/sounds/weapon_components/sci-fi_vehicle_spaceship_jet_engine_loop2.wav" type="AudioStream" id=6]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=7]
 
 [sub_resource type="CylinderShape" id=2]
 height = 1.0
@@ -22,6 +23,8 @@ portal_mode = 3
 cast_shadow = 0
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 3 )
+script = ExtResource( 7 )
+required_setting = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.5 )
@@ -29,7 +32,7 @@ shape = SubResource( 2 )
 
 [node name="Lifetime" type="Timer" parent="."]
 process_mode = 0
-wait_time = 4.0
+wait_time = 30.0
 one_shot = true
 autostart = true
 
