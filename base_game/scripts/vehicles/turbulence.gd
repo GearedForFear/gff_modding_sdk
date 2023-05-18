@@ -18,24 +18,6 @@ var glide: bool = false
 func _ready():
 	if controls == null:
 		driver_name = "Turbulence"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$BigWingMeshLeft.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$BigWingMeshRight.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$SmallWingMeshLeft.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$SmallWingMeshRight.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
