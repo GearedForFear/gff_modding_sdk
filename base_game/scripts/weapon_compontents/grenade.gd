@@ -3,8 +3,6 @@ extends Area
 
 const Explosion: PackedScene = preload("res://scenes/destruction/explosion.tscn")
 
-export var speed: float = 0.8
-
 var damage: float
 var reward: int
 var burn: float
@@ -19,18 +17,19 @@ func _ready():
 	$Lifetime.wait_time *= 60.0 \
 			/ ProjectSettings.get_setting("physics/common/physics_fps")
 	$Lifetime.start()
-	if get_node("/root/RootControl/SettingsManager").shadow_casters >= 4:
-		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
 
 
 func _physics_process(_delta):
-	translation += transform.basis.z * speed
-	transform.basis.z = transform.basis.z.linear_interpolate(Vector3.DOWN, 0.01)
-	interpolation_weight *= 1.1
+	translation += transform.basis.z * 0.7
+	global_transform = global_transform.interpolate_with(global_transform.\
+			looking_at(global_translation - global_transform.basis.z \
+			+ Vector3.UP, Vector3.UP), interpolation_weight)
+	interpolation_weight *= 1.02
 
 
 func _on_Lifetime_timeout():
 	set_process(false)
+	set_physics_process(false)
 	hide()
 	deletion_manager.to_be_deleted.append(self)
 
@@ -52,5 +51,6 @@ func _on_Area_body_entered(body):
 			if $RayCast.get_collision_point() == Vector3.ZERO:
 				new_explosion.global_transform.origin = global_transform.origin
 		set_process(false)
+		set_physics_process(false)
 		hide()
 		deletion_manager.to_be_deleted.append(self)
