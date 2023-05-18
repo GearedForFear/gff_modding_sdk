@@ -268,7 +268,7 @@ func _physics_process(_delta):
 					n.emitting = true
 		else:
 			if gles3:
-				for n in $AcidParticles.get_children():
+				for n in $AcidCPUParticles.get_children():
 					n.emitting = false
 			else:
 				for n in $DriftCPUParticles.get_children():
