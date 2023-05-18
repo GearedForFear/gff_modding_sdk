@@ -9,7 +9,7 @@ var waypoint: int = 0
 onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
-func _process(delta):
+func _process(_delta):
 	if pursuers.size() == 12 and $Timer.is_stopped():
 		if get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
 				.get_child_count() == 0:
