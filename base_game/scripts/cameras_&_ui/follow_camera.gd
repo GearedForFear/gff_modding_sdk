@@ -1,21 +1,21 @@
 extends Camera
 
 
-export var base_min_distance: float = 3.0
-export var base_max_distance: float = 6.0
-export var height: float = 1.5
+const BASE_MIN_DISTANCE: float = 3.0
+const BASE_MAX_DISTANCE: float = 6.0
 
 var animation_player: AnimationPlayer
 var rear_mirror_camera: Camera
+var y_velocity: float = 0.0
 
-onready var min_distance: float = base_min_distance
-onready var max_distance: float = base_max_distance
+onready var min_distance: float = BASE_MIN_DISTANCE
+onready var max_distance: float = BASE_MAX_DISTANCE
 
 
 func _enter_tree():
 	var settings_manager: Node = get_node("/root/RootControl/SettingsManager")
 	animation_player = \
-			$AspectRatioContainer/Control/ResourcesBackground/ViewportContainer/Viewport/Camera/AnimationPlayer
+			$AspectRatioContainer/Control/Resources/ViewportContainer/Viewport/Camera/AnimationPlayer
 	animation_player.play("default")
 	rear_mirror_camera \
 			= $AspectRatioContainer/Control/RearMirror/Viewport/Camera
@@ -31,14 +31,14 @@ func _enter_tree():
 
 
 func _physics_process(_delta):
-	var target = get_parent().get_global_transform().origin
-	var pos = get_global_transform().origin
+	var target = get_parent().global_translation
+	var pos = global_translation
 	var from_target = pos - target
 	var velocity: float = get_node("../..").linear_velocity.length()
 	
-	min_distance = base_min_distance + \
+	min_distance = BASE_MIN_DISTANCE + \
 			velocity / 10
-	max_distance = base_max_distance + \
+	max_distance = BASE_MAX_DISTANCE + \
 			velocity / 10
 	
 	# Check ranges.
@@ -47,10 +47,12 @@ func _physics_process(_delta):
 	elif from_target.length() > max_distance:
 		from_target = from_target.normalized() * max_distance
 	
-	from_target.y = height
+	y_velocity = lerp(y_velocity, \
+			clamp(get_node("../..").linear_velocity.y, -20, 2), 0.2)
+	from_target.y = y_velocity * -0.3 + 1.5
 	
 	pos = lerp(target + from_target, get_node("../InterpolationTarget")\
-			.get_global_transform().origin, 0.02)
+			.global_translation, 0.02)
 	
 	look_at_from_position(pos, target, Vector3.UP)
 	
