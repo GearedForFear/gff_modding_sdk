@@ -14,6 +14,8 @@ const ShotSoundLMG: PackedScene \
 const ShotSoundShotgun: PackedScene \
 		= preload("res://scenes/weapon_components/shot_sound_shotgun.tscn")
 
+enum cartridge_out {NONE, LINK, CASE}
+
 export var bullet_damage: float = 8.0
 export var bullet_reward: int = 1
 export var bullet_burn: float = 0.2
@@ -35,30 +37,34 @@ var can_shoot_sides: bool = true
 var can_shoot_shotgun: bool = true
 var remaining_shots_middle: int = 0
 var remaining_shots_sides: int = 0
+var next_out_middle: int = cartridge_out.NONE
+var next_out_sides: int = cartridge_out.NONE
 
 
 func _ready():
 	if controls == null:
 		driver_name = "Well Raised"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$MGMeshLeft.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$MGMeshMiddle.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$MGMeshRight.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
+	match next_out_middle:
+		cartridge_out.LINK:
+			instantiate_cartridge($MGMeshMiddle, true)
+			next_out_middle = cartridge_out.CASE
+		cartridge_out.CASE:
+			instantiate_cartridge($MGMeshMiddle, false)
+			next_out_middle = cartridge_out.NONE
+	
+	match next_out_sides:
+		cartridge_out.LINK:
+			instantiate_cartridge($MGMeshLeft, true)
+			instantiate_cartridge($MGMeshRight, true)
+			next_out_sides = cartridge_out.CASE
+		cartridge_out.CASE:
+			instantiate_cartridge($MGMeshLeft, false)
+			instantiate_cartridge($MGMeshRight, false)
+			next_out_sides = cartridge_out.NONE
+	
 	if alive:
 		if controls == null:
 			var left_collider: PhysicsBody = $MGMeshLeft/ShotPosition.get_collider()
@@ -109,7 +115,8 @@ func _physics_process(_delta):
 		else:
 			get_node("../GunTriggerTimer").start()
 	else:
-		pass
+		shoot_middle(false)
+		shoot_sides(false)
 
 
 func get_shots() -> int:
@@ -130,6 +137,7 @@ func shoot_middle(var b: bool):
 		can_shoot_middle = false
 		get_node("../ShotTimerMiddle").start()
 		remaining_shots_middle -= 1
+		next_out_middle = cartridge_out.LINK
 	shoot_front(b, $MGMeshMiddle)
 
 
@@ -139,6 +147,7 @@ func shoot_sides(var b: bool):
 		can_shoot_sides = false
 		get_node("../ShotTimerSides").start()
 		remaining_shots_sides -= 1
+		next_out_sides = cartridge_out.LINK
 	shoot_front(b, $MGMeshLeft)
 	shoot_front(b, $MGMeshRight)
 
@@ -198,21 +207,6 @@ func shoot_front(var b: bool, var gun: MeshInstance):
 		gun.get_node("ShotPosition").add_child(new_sound)
 		new_sound.deletion_manager = deletion_manager
 		
-		var new_case: RigidBody = CartridgeCase.instance()
-		gun.get_node("CartridgeExit").add_child(new_case)
-		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x * -0.006 \
-				+ new_case.transform.basis.y * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_case)
-		
-		var new_link: RigidBody = CartridgeLink.instance()
-		gun.get_node("CartridgeExit").add_child(new_link)
-		new_link.set_as_toplevel(true)
-		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
-				/ 10000, (new_link.transform.basis.x * -1 \
-				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
-		
 		if gles3:
 			gun.get_node("MuzzleFlash").emitting = true
 		else:
@@ -258,6 +252,24 @@ func shoot_shotgun(var gun: Spatial):
 	var new_sound: AudioStreamPlayer3D = ShotSoundShotgun.instance()
 	gun.add_child(new_sound)
 	new_sound.deletion_manager = deletion_manager
+
+
+func instantiate_cartridge(var gun: MeshInstance, var link: bool):
+	if link:
+		var new_link: RigidBody = CartridgeLink.instance()
+		gun.get_node("CartridgeExit").add_child(new_link)
+		new_link.set_as_toplevel(true)
+		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
+				/ 10000, (new_link.transform.basis.x * -1 \
+				+ new_link.transform.basis.y) * 0.004)
+		deletion_manager.other_rigid_bodies.append(new_link)
+	else:
+		var new_case: RigidBody = CartridgeCase.instance()
+		gun.get_node("CartridgeExit").add_child(new_case)
+		new_case.set_as_toplevel(true)
+		new_case.apply_central_impulse(new_case.transform.basis.x * -0.006 \
+				+ new_case.transform.basis.y * 0.004)
+		deletion_manager.other_rigid_bodies.append(new_case)
 
 
 func _on_GunTriggerTimer_timeout():
