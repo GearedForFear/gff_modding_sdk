@@ -9,7 +9,7 @@ var waypoint: int = 0
 onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
-func _process(_delta):
+func _process(delta):
 	if pursuers.size() == 12 and $Timer.is_stopped():
 		if get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
 				.get_child_count() == 0:
@@ -34,17 +34,8 @@ func _process(_delta):
 		for n in players:
 			var ui: Control = n.get_node(\
 					"CameraBase/Camera/AspectRatioContainer/Control")
-			ui.get_node("TimerBackground/TimeLeft").text = \
-					String(int(get_node("Timer").time_left))
-			var bar: ProgressBar = ui.get_node("ResourcesBackground/HealthBar")
-			bar.value = n.health
-			if n.health == n.base_health:
-				bar.modulate = Color(1, 1, 1, 0.5)
-			else:
-				bar.modulate = Color(1, 1, 1, 1)
-			bar.max_value = n.base_health
 			
-			var scoreboard: ColorRect = ui.get_node("ScoresBackground")
+			var scoreboard: ColorRect = ui.get_node("Scores")
 			scoreboard.get_node("Placement1").text = "1st"
 			scoreboard.get_node("Name1").text = pursuers[0].driver_name
 			scoreboard.get_node("Score1").text = String(pursuers[0].score) + "€"
