@@ -14,6 +14,8 @@ const ShotSoundShotgun: PackedScene \
 const Back: PackedScene \
 		= preload("res://scenes/vehicles/eternal_bond_back.tscn")
 
+enum cartridge_out {NONE, LINK, CASE}
+
 export var bullet_damage: float = 2.5
 export var bullet_reward: int = 1
 export var bullet_burn: float = 0.25
@@ -29,25 +31,48 @@ var can_shoot: bool = true
 var other_half: AmmoVehicle
 var can_shoot_shotgun_left: bool = true
 var can_shoot_shotgun_right: bool = true
+var next_out: int = cartridge_out.NONE
 
 
 func _ready():
 	target = get_node("../..").target
 	driver_name = get_node("../..").driver_name
 	set_as_toplevel(true)
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
+	match next_out:
+		cartridge_out.LINK:
+			var new_link: RigidBody = CartridgeLink.instance()
+			$CartridgeExitLeft.add_child(new_link)
+			new_link.set_as_toplevel(true)
+			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
+					- 10) / 10000, (new_link.transform.basis.x \
+					+ new_link.transform.basis.y / 2) / 150)
+			deletion_manager.other_rigid_bodies.append(new_link)
+			new_link = CartridgeLink.instance()
+			$CartridgeExitRight.add_child(new_link)
+			new_link.set_as_toplevel(true)
+			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
+					- 10) / 10000, (new_link.transform.basis.x \
+					+ new_link.transform.basis.y / 2) / 150)
+			deletion_manager.other_rigid_bodies.append(new_link)
+			
+			next_out = cartridge_out.CASE
+		cartridge_out.CASE:
+			var new_case: RigidBody = CartridgeCase.instance()
+			$CartridgeExitLeft.add_child(new_case)
+			new_case.set_as_toplevel(true)
+			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
+			deletion_manager.other_rigid_bodies.append(new_case)
+			new_case = CartridgeCase.instance()
+			$CartridgeExitRight.add_child(new_case)
+			new_case.set_as_toplevel(true)
+			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
+			deletion_manager.other_rigid_bodies.append(new_case)
+			
+			next_out = cartridge_out.NONE
+	
 	if alive:
 		if controls == null:
 			var left_collider: PhysicsBody = $ShotPositionLeft.get_collider()
@@ -77,20 +102,18 @@ func _physics_process(_delta):
 		shoot(false)
 	
 	if master_body:
-		var bar: ProgressBar = get_node(\
-				"CameraBase/Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2")
-		bar.value = other_half.health
-		if other_half.health == base_health:
-			bar.modulate = Color(1, 1, 1, 0.5)
-		else:
-			bar.modulate = Color(1, 1, 1, 1)
-		bar.max_value = base_health
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
+			.value = health
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
+			.value = other_half.health
 
 
 func shoot(var b: bool):
 	if b:
+		ammo -= bullet_ammo_cost
 		can_shoot = false
 		get_node("../MachineGunTimer").start()
+		next_out = cartridge_out.LINK
 		
 		var new_bullet: Area = Bullet.instance()
 		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
@@ -113,34 +136,6 @@ func shoot(var b: bool):
 		new_bullet.deletion_manager = deletion_manager
 		$ShotPositionRight.add_child(new_sound)
 		new_sound.deletion_manager = deletion_manager
-		
-		var new_case: RigidBody = CartridgeCase.instance()
-		$CartridgeExitLeft.add_child(new_case)
-		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-		deletion_manager.other_rigid_bodies.append(new_case)
-		new_case = CartridgeCase.instance()
-		$CartridgeExitRight.add_child(new_case)
-		new_case.set_as_toplevel(true)
-		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-		deletion_manager.other_rigid_bodies.append(new_case)
-		
-		var new_link: RigidBody = CartridgeLink.instance()
-		$CartridgeExitLeft.add_child(new_link)
-		new_link.set_as_toplevel(true)
-		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
-				/ 10000, (new_case.transform.basis.x * -1 \
-				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
-		new_link = CartridgeLink.instance()
-		$CartridgeExitRight.add_child(new_link)
-		new_link.set_as_toplevel(true)
-		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
-				/ 10000, (new_case.transform.basis.x \
-				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
-		
-		ammo -= bullet_ammo_cost
 		
 		if gles3:
 			$MuzzleFlashMGLeft.emitting = true
@@ -236,22 +231,18 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 10
 				score -= payout
+				other_half.score = score
+				acid_duration = 0
+				acid_cause = null
 				if gles3:
 					$DeathParticles.emitting = true
 				else:
 					$DeathCPUParticles.emitting = true
 				if other_half.alive:
-					other_half.score = score
 					other_half.master_body = true
 					master_body = false
 					replacement = other_half
-					var bar: ProgressBar = \
-							$CameraBase/Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar
-					bar.anchor_top = 0.7
-					bar.anchor_bottom = 0.8
-					bar = $CameraBase/Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2
-					bar.anchor_top = 0.55
-					bar.anchor_bottom = 0.65
+					get_viewport().stop()
 					var camera: Spatial = $CameraBase
 					remove_child(camera)
 					other_half.add_child(camera)
@@ -270,6 +261,16 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					get_node("../RespawnTimer").start()
 				return payout
 	return 0
+
+
+func reward(amount: int):
+	score += amount
+	other_half.score = score
+	health = clamp(health + amount, 0.0, base_health)
+	acid_duration = 0
+	acid_cause = null
+	if controls == null:
+		get_node("../StuckTimer").start()
 
 
 func _on_MachineGunTimer_timeout():
