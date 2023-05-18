@@ -7,7 +7,7 @@ var view_distance: float = 1000.0
 var rear_view_distance: float = 200.0
 var field_of_view: float = 75.0
 var shadow_casters: int = 3
-var shadow_distance: int = 200
+var shadow_distance: float = 200.0
 var max_rigid_bodies: int = 100
 
 var split_screen_divisor: int = 1
