@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/cameras_&_ui/vehicle_select.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
@@ -7,13 +7,33 @@
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=5]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_07.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_06.wav" type="AudioStream" id=7]
+[ext_resource path="res://scripts/cameras_&_ui/vehicle_preview.gd" type="Script" id=8]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://scripts/cameras_&_ui/vehicle_stats.gd" type="Script" id=10]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=11]
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 4 )
+
+[sub_resource type="Environment" id=13]
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.4
+
+[sub_resource type="World" id=14]
+environment = SubResource( 13 )
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 5, 1, 10 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 40
 font_data = ExtResource( 2 )
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = ExtResource( 4 )
+[sub_resource type="DynamicFont" id=16]
+size = 9
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 36
@@ -36,26 +56,109 @@ __meta__ = {
 "__editor_plugin_screen__": "2D"
 }
 
-[node name="Title" type="Label" parent="."]
-anchor_left = 0.07
-anchor_top = 0.07
-anchor_right = 0.07
-anchor_bottom = 0.07
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 8 )
-text = "Geared for Fear"
-script = ExtResource( 5 )
-base_font_size = 40.0
-menu = true
-
 [node name="BackgroundShader" type="ColorRect" parent="."]
 material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_top = 0.1
+anchor_right = 0.6
+anchor_bottom = 0.7
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 384, 216 )
+own_world = true
+world = SubResource( 14 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 11 )
+
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]
+visible = false
+script = ExtResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ViewportContainer/Viewport/Spatial/StaticBody"]
+shape = SubResource( 15 )
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 2.5, 1, 6.5 )
+fov = 50.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 0.939693, -0.17101, 0.296198, 0, 0.866025, 0.5, -0.34202, -0.469846, 0.813798, 0, 0, 0 )
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="Name" type="Label" parent="."]
+anchor_left = 0.07
+anchor_top = 0.07
+anchor_right = 0.07
+anchor_bottom = 0.07
+margin_right = 243.0
+margin_bottom = 50.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Chain's Awe"
+script = ExtResource( 5 )
+base_font_size = 40.0
+menu = true
+
+[node name="Unavailable" type="Label" parent="."]
+visible = false
+anchor_left = 0.096
+anchor_top = 0.213
+anchor_right = 0.475
+anchor_bottom = 0.484
+rect_rotation = 8.5
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Unavailable in this Game Mode"
+align = 1
+autowrap = true
+script = ExtResource( 5 )
+base_font_size = 40.0
+menu = true
+
+[node name="StatNames" type="Label" parent="."]
+anchor_left = 0.07
+anchor_top = 0.66
+anchor_right = 0.175
+anchor_bottom = 0.93
+custom_fonts/font = SubResource( 16 )
+text = "Armor:
+Speed:
+Weight:
+Nitro:
+Rocket:
+Burst:
+Overcharge:"
+autowrap = true
+script = ExtResource( 5 )
+menu = true
+
+[node name="StatValues" type="Label" parent="."]
+anchor_left = 0.18
+anchor_top = 0.66
+anchor_right = 0.21
+anchor_bottom = 0.93
+custom_fonts/font = SubResource( 16 )
+text = "58
+30
+55
+35
+-
+-
+-"
+autowrap = true
+script = ExtResource( 10 )
 
 [node name="BlackBar" type="ColorRect" parent="."]
 anchor_left = 0.6
@@ -85,7 +188,6 @@ base_font_size = 36.0
 menu = true
 
 [node name="ChainsAwe" type="Label" parent="BlackBar/Nitro"]
-modulate = Color( 1, 0.901961, 0, 1 )
 margin_top = 143.0
 margin_right = 179.0
 margin_bottom = 157.0
