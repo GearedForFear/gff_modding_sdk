@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scripts/cameras_&_ui/msaa_viewport.gd" type="Script" id=1]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=1]
 [ext_resource path="res://scripts/world/editor_only.gd" type="Script" id=2]
 [ext_resource path="res://scripts/cameras_&_ui/player_container.gd" type="Script" id=3]
 
@@ -37,6 +37,11 @@ script = ExtResource( 1 )
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint1/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -25.5 )
 
+[node name="Timer" type="Timer" parent="SpawnPoint1/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
+
 [node name="SpawnPoint2" type="ViewportContainer" parent="."]
 visible = false
 stretch = true
@@ -46,9 +51,16 @@ script = ExtResource( 3 )
 handle_input_locally = false
 render_target_update_mode = 0
 audio_listener_enable_3d = true
+shadow_atlas_size = 4096
+script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint2/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -24.5 )
+
+[node name="Timer" type="Timer" parent="SpawnPoint2/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
 
 [node name="SpawnPoint3" type="ViewportContainer" parent="."]
 visible = false
@@ -59,9 +71,16 @@ script = ExtResource( 3 )
 handle_input_locally = false
 render_target_update_mode = 0
 audio_listener_enable_3d = true
+shadow_atlas_size = 4096
+script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint3/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -15.5 )
+
+[node name="Timer" type="Timer" parent="SpawnPoint3/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
 
 [node name="SpawnPoint4" type="ViewportContainer" parent="."]
 visible = false
@@ -72,9 +91,16 @@ script = ExtResource( 3 )
 handle_input_locally = false
 render_target_update_mode = 0
 audio_listener_enable_3d = true
+shadow_atlas_size = 4096
+script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint4/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -14.5 )
+
+[node name="Timer" type="Timer" parent="SpawnPoint4/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
 
 [node name="SpawnPoint5" type="ViewportContainer" parent="."]
 visible = false
@@ -85,9 +111,16 @@ script = ExtResource( 3 )
 handle_input_locally = false
 render_target_update_mode = 0
 audio_listener_enable_3d = true
+shadow_atlas_size = 4096
+script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint5/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.5 )
+
+[node name="Timer" type="Timer" parent="SpawnPoint5/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
 
 [node name="SpawnPoint6" type="ViewportContainer" parent="."]
 visible = false
@@ -98,9 +131,16 @@ script = ExtResource( 3 )
 handle_input_locally = false
 render_target_update_mode = 0
 audio_listener_enable_3d = true
+shadow_atlas_size = 4096
+script = ExtResource( 1 )
 
 [node name="SpawnPosition" type="Position3D" parent="SpawnPoint6/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -4.5 )
+
+[node name="Timer" type="Timer" parent="SpawnPoint6/Viewport"]
+process_mode = 0
+wait_time = 0.03
+one_shot = true
 
 [node name="SpawnPoint7" type="Node" parent="."]
 
@@ -227,3 +267,10 @@ cast_shadow = 0
 mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 5 )
+
+[connection signal="timeout" from="SpawnPoint1/Viewport/Timer" to="SpawnPoint1/Viewport" method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnPoint2/Viewport/Timer" to="SpawnPoint2/Viewport" method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnPoint3/Viewport/Timer" to="SpawnPoint3/Viewport" method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnPoint4/Viewport/Timer" to="SpawnPoint4/Viewport" method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnPoint5/Viewport/Timer" to="SpawnPoint5/Viewport" method="_on_Timer_timeout"]
+[connection signal="timeout" from="SpawnPoint6/Viewport/Timer" to="SpawnPoint6/Viewport" method="_on_Timer_timeout"]
