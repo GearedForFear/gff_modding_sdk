@@ -84,9 +84,10 @@ func _enter_tree():
 
 func _physics_process(_delta):
 	if master_body and controls != null \
-			and Input.is_action_just_released(controls.pause):
-		gameplay_manager.get_parent().queue_free()
-		get_node("/root/RootControl").active(true)
+			and Input.is_action_just_pressed(controls.pause):
+		$CameraBase/Camera/AspectRatioContainer/Control/Pause/VBoxContainer.\
+				open(true)
+		get_tree().paused = true
 	
 	if alive:
 		var acceleration_factor: float = 0.0
@@ -112,8 +113,9 @@ func _physics_process(_delta):
 						acceleration_factor = nitro_force
 						if $WheelBackLeft.is_in_contact() or \
 								$WheelBackRight.is_in_contact():
-							apply_impulse(-transform.basis.y * weight / 200, transform.basis.z * 2)
-						$NitroAudio.stream_paused = false
+							apply_impulse(-transform.basis.y * weight / 200, \
+									transform.basis.z * 2)
+						$LoopingAudio/NitroAudio.stream_paused = false
 						if gles3:
 							for n in $NitroParticles.get_children():
 								n.emitting = true
@@ -124,8 +126,8 @@ func _physics_process(_delta):
 						if Input.is_action_pressed(controls.reverse):
 							apply_central_impulse(transform.basis.z \
 									* -rocket_force)
-							$RocketAudio.stream_paused = true
-							$ReverseRocketAudio.stream_paused = false
+							$LoopingAudio/RocketAudio.stream_paused = true
+							$LoopingAudio/ReverseRocketAudio.stream_paused = false
 							if gles3:
 								for n in $ReverseRocketParticles.get_children():
 									n.emitting = true
@@ -139,8 +141,8 @@ func _physics_process(_delta):
 						else:
 							apply_central_impulse(transform.basis.z \
 									* rocket_force)
-							$RocketAudio.stream_paused = false
-							$ReverseRocketAudio.stream_paused = true
+							$LoopingAudio/RocketAudio.stream_paused = false
+							$LoopingAudio/ReverseRocketAudio.stream_paused = true
 							if gles3:
 								for n in $RocketParticles.get_children():
 									n.emitting = true
@@ -155,7 +157,7 @@ func _physics_process(_delta):
 			else:
 				match boost_type:
 					boost_types.NITRO:
-						$NitroAudio.stream_paused = true
+						$LoopingAudio/NitroAudio.stream_paused = true
 						if gles3:
 							for n in $NitroParticles.get_children():
 								n.emitting = false
@@ -163,8 +165,8 @@ func _physics_process(_delta):
 							for n in $NitroCPUParticles.get_children():
 								n.emitting = false
 					boost_types.ROCKET:
-						$RocketAudio.stream_paused = true
-						$ReverseRocketAudio.stream_paused = true
+						$LoopingAudio/RocketAudio.stream_paused = true
+						$LoopingAudio/ReverseRocketAudio.stream_paused = true
 						if gles3:
 							for n in $RocketParticles.get_children():
 								n.emitting = false
@@ -180,8 +182,8 @@ func _physics_process(_delta):
 					and boost_type == boost_types.BURST:
 				var lv: int = burst()
 				burst_duration = 6 * lv
-				$BurstAudio.unit_size = lv * 0.5
-				$BurstAudio.play()
+				$LoopingAudio/BurstAudio.unit_size = lv * 0.5
+				$LoopingAudio/BurstAudio.play()
 			if burst_duration > 0:
 				burst_duration -= 1
 				acceleration_factor = burst_force * 1000
@@ -223,7 +225,7 @@ func _physics_process(_delta):
 						* impulse * weight * -0.05)
 				max_drift_left = clamp(max_drift_left - impulse, 0, 20)
 				max_drift_right = clamp(max_drift_right - impulse, -20, 0)
-				$DriftAudio.stream_paused = false
+				$LoopingAudio/DriftAudio.stream_paused = false
 				if gles3:
 					for n in $DriftParticles.get_children():
 						n.emitting = true
@@ -231,7 +233,7 @@ func _physics_process(_delta):
 					for n in $DriftCPUParticles.get_children():
 						n.emitting = true
 			else:
-				$DriftAudio.stream_paused = true
+				$LoopingAudio/DriftAudio.stream_paused = true
 				if gles3:
 					for n in $DriftParticles.get_children():
 						n.emitting = false
@@ -240,6 +242,7 @@ func _physics_process(_delta):
 						n.emitting = false
 			
 			if Input.is_action_just_pressed(controls.respawn):
+				get_viewport().stop()
 				gameplay_manager.respawn(self)
 		
 		steer_target *= STEER_LIMIT
@@ -257,15 +260,30 @@ func _physics_process(_delta):
 		if acid_duration > 0:
 			damage(0.1, 0, 0.0, acid_cause)
 			acid_duration -= 1
+			if gles3:
+				for n in $AcidParticles.get_children():
+					n.emitting = true
+			else:
+				for n in $DriftCPUParticles.get_children():
+					n.emitting = true
+		else:
+			if gles3:
+				for n in $AcidParticles.get_children():
+					n.emitting = false
+			else:
+				for n in $DriftCPUParticles.get_children():
+					n.emitting = false
 	else:
 		engine_force = 0.0
 	
 	if engine_force == 0.0:
-		$EngineAudio.unit_size = lerp($EngineAudio.unit_size, 0.1, 0.03)
+		$LoopingAudio/EngineAudio.unit_size = \
+				lerp($LoopingAudio/EngineAudio.unit_size, 0.1, 0.03)
 	else:
-		$EngineAudio.unit_size = lerp($EngineAudio.unit_size, 1.0, 0.9)
-	$EngineAudio.pitch_scale = clamp(linear_velocity.length() / 20, 1, 3)
-	
+		$LoopingAudio/EngineAudio.unit_size = \
+				lerp($LoopingAudio/EngineAudio.unit_size, 1.0, 0.9)
+	$LoopingAudio/EngineAudio.pitch_scale = \
+			clamp(linear_velocity.length() / 20, 1, 3)
 
 
 func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
@@ -282,6 +300,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 5
 				score -= payout
+				acid_duration = 0
+				acid_cause = null
 				$DeathAudio.play()
 				if gles3:
 					$DeathParticles.emitting = true
@@ -306,6 +326,12 @@ func burst() -> int: #overridden in level_vehicle.gd
 	return 0
 
 
+func pause_looping_audio():
+	for n in gameplay_manager.pursuers:
+		for audio in n.get_node("LoopingAudio").get_children():
+			audio.stream_paused = true
+
+
 func _on_RespawnTimer_timeout():
 	alive = true
 	health = base_health
@@ -315,6 +341,8 @@ func _on_RespawnTimer_timeout():
 		$DeathParticles.emitting = false
 	else:
 		$DeathCPUParticles.emitting = false
+	if controls != null:
+		get_viewport().stop()
 	gameplay_manager.respawn(self)
 
 
