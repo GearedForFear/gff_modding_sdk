@@ -15,16 +15,6 @@ var other_half: AmmoVehicle
 
 func _ready():
 	set_as_toplevel(true)
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
@@ -38,10 +28,10 @@ func _physics_process(_delta):
 				shoot()
 	
 	if master_body:
-		var bar: ProgressBar = get_node(\
-				"CameraBase/Camera/AspectRatioContainer/Control/ResourcesBackground/HealthBar2")
-		bar.value = 0
-		bar.modulate = Color(1, 1, 1, 1)
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
+			.value = other_half.health
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
+			.value = health
 
 
 func shoot():
@@ -77,6 +67,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 10
 				score -= payout
+				acid_duration = 0
+				acid_cause = null
 				if gles3:
 					$DeathParticles.emitting = true
 				else:
@@ -88,6 +80,16 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					get_node("../RespawnTimer").start()
 				return payout
 	return 0
+
+
+func reward(amount: int):
+	score += amount
+	other_half.score = score
+	health = clamp(health + amount, 0.0, base_health)
+	acid_duration = 0
+	acid_cause = null
+	if controls == null:
+		get_node("../StuckTimer").start()
 
 
 func _on_MissileTimer_timeout():
