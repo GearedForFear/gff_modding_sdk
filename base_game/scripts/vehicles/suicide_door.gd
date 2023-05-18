@@ -18,16 +18,6 @@ var right_can_shoot: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Suicide Door"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
@@ -72,7 +62,7 @@ func instantiate_missile(var direction: int, var moving_target: bool) \
 	new_missile.burn = missile_burn
 	new_missile.shooter = self
 	new_missile.target = global_transform.basis.y * 5 \
-			+ global_transform.basis.z * -30 + global_transform.origin \
+			+ global_transform.basis.z * -30 + global_translation \
 			+ global_transform.basis.x * direction
 	new_missile.straight = false
 	new_missile.moving_target = moving_target
