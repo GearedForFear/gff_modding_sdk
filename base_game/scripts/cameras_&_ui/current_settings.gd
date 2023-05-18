@@ -55,6 +55,8 @@ func _process(_delta):
 			4:
 				text += "\nShadow Casters: High"
 			5:
+				text += "\nShadow Casters: Extra High"
+			6:
 				text += "\nShadow Casters: Ultimate"
 		
 		text += "\nShadow Distance: " + String(get_node(\
