@@ -1,9 +1,11 @@
 extends Control
 
 
+var config: ConfigFile = ConfigFile.new()
 var track: Spatial
 var resources_loaded: bool = false
 var player_amount: int
+var next_tracks: PoolStringArray
 
 onready var always_loaded: Array = ResourceLoader.load(\
 		"res://resources/custom/always_loaded.tres", "Resource").array
@@ -24,9 +26,31 @@ func _ready():
 	VisualServer.set_default_clear_color(Color.black)
 	if thread.start(self, "prepare") != OK:
 		push_error("Thread did not start!")
-	AudioServer.set_bus_volume_db(1, linear2db(0.5))
-	AudioServer.set_bus_volume_db(2, linear2db(0.5))
 	$BlackBar/MainButtons/OnePlayer.grab_focus()
+	
+	# Apply settings
+	config.load("user://config.cfg")
+	var settings: Node = $SettingsManager
+	OS.window_borderless = config.get_value("graphics", "borderless", false)
+	OS.window_fullscreen = config.get_value("graphics", "fullscreen", false)
+	settings.resolution = config.get_value("graphics", "resolution", 1)
+	settings.msaa = config.get_value("graphics", "msaa", 0)
+	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
+	settings.view_distance = \
+			config.get_value("graphics", "view_distance", 1000.0)
+	settings.rear_view_distance = \
+			config.get_value("graphics", "rear_view_distance", 200.0)
+	settings.field_of_view = config.get_value("graphics", "field_of_view", 75)
+	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
+	settings.shadow_distance = config.get_value("graphics", "shadow_distance", 200.0)
+	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
+			config.get_value("graphics", "shadow_quality", 4096))
+	settings.max_rigid_bodies = \
+			config.get_value("graphics", "max_rigid_bodies", 100)
+	AudioServer.set_bus_volume_db(1, \
+			linear2db(config.get_value("audio", "sound", 0.5)))
+	AudioServer.set_bus_volume_db(2, \
+			linear2db(config.get_value("audio", "music", 0.5)))
 
 
 func _process(_delta):
@@ -185,8 +209,15 @@ func prepare():
 		always_loaded.clear()
 		always_loaded.append_array(resources)
 		resources_loaded = true
-	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
+	track = ResourceLoader.load("res://scenes/world/tracks/twisted.tscn", \
+	#track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
 			"PackedScene").instance()
+	next_tracks.clear()
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
@@ -458,8 +489,11 @@ func play():
 func play_next(vehicle_data: Array):
 	track.queue_free()
 	yield(get_tree(), "idle_frame")
-	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
-			"PackedScene").instance()
+	if next_tracks.empty():
+		active(true)
+		return
+	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
+	next_tracks.remove(0)
 	
 	var viewpoint_container: PlayerContainer
 	
