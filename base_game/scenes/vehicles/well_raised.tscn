@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/vehicles/well_raised.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/well_raised.tres" type="ArrayMesh" id=11]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=12]
 [ext_resource path="res://resources/meshes/weapon_components/light_machine_gun_wr.tres" type="ArrayMesh" id=13]
 [ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
@@ -18,8 +19,11 @@
 [ext_resource path="res://resources/materials/vehicles/well_raised.material" type="Material" id=17]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=20]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=22]
 [ext_resource path="res://resources/sounds/vehicles/tyre_skid_loop_01.wav" type="AudioStream" id=23]
+[ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=24]
 [ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_01.wav" type="AudioStream" id=25]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=26]
 
@@ -31,6 +35,10 @@ points = PoolVector3Array( 0.864, 0.649, 2.623, -0.864, 0.649, 2.623, 0.751, 1.1
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
+
+[sub_resource type="DynamicFont" id=19]
+size = 9
+font_data = ExtResource( 21 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -117,7 +125,7 @@ __meta__ = {
 }
 
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159672, 0 )
 collision_mask = 3
 mass = 200.0
 physics_material_override = SubResource( 1 )
@@ -142,12 +150,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.859, 0.18458, 1.44958 )
@@ -161,12 +174,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, -1.59422 )
@@ -179,12 +197,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.859, 0.18458, -1.59388 )
@@ -197,30 +220,40 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0730863, -0.230929 )
 shape = SubResource( 6 )
 
 [node name="CameraBase" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0730863, -0.230929 )
 portal_mode = 3
 mesh = ExtResource( 11 )
 material/0 = ExtResource( 17 )
+script = ExtResource( 12 )
+required_setting = 2
 
 [node name="MGMeshLeft" type="MeshInstance" parent="Body"]
 transform = Transform( 0.99088, 0, 0.134747, 0, 1, 0, -0.134747, 0, 0.99088, 0.352, 0.982, 1.056 )
 portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
+script = ExtResource( 12 )
+required_setting = 4
 
 [node name="ShotPosition" type="RayCast" parent="Body/MGMeshLeft"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
@@ -242,6 +275,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.982433, 1.09124 )
 portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
+script = ExtResource( 12 )
+required_setting = 4
 
 [node name="ShotPosition" type="RayCast" parent="Body/MGMeshMiddle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
@@ -263,6 +298,8 @@ transform = Transform( 0.99088, 0, -0.134747, 0, 1, 0, 0.134747, 0, 0.99088, -0.
 portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
+script = ExtResource( 12 )
+required_setting = 4
 
 [node name="ShotPosition" type="RayCast" parent="Body/MGMeshRight"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
@@ -278,6 +315,24 @@ transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 1.00959 )
 
 [node name="CPUMuzzleFlash" parent="Body/MGMeshRight" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00959 )
+
+[node name="ExplosionMesh" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+visible = false
+portal_mode = 3
+cast_shadow = 0
+mesh = SubResource( 15 )
+material/0 = ExtResource( 14 )
+
+[node name="ScoreLabel" type="Label3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+portal_mode = 3
+pixel_size = 0.003
+billboard = 1
+double_sided = false
+fixed_size = true
+font = SubResource( 19 )
+script = ExtResource( 24 )
 
 [node name="ShotgunPositionFrontLeft" type="Spatial" parent="Body"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.920094, 0.66275, 0.591818 )
@@ -531,14 +586,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.91933
 [node name="CPUMuzzleFlashBackRight" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.919, 0.741728, -1.23541 )
 
-[node name="ExplosionMesh" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
-visible = false
-portal_mode = 3
-cast_shadow = 0
-mesh = SubResource( 15 )
-material/0 = ExtResource( 14 )
-
 [node name="DeathParticles" parent="Body" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.970645, 1.28847 )
 
@@ -577,29 +624,36 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.42260
 [node name="Right" parent="Body/BurstCPUParticles" instance=ExtResource( 6 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.423, 0.269, -2.774 )
 
-[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="AcidParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657562, 0 )
+
+[node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 20 )]
+
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 22 )
+unit_size = 4.0
+bus = "Effects"
+
+[node name="LoopingAudio" type="Spatial" parent="Body"]
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503774, 1.6412 )
 stream = ExtResource( 25 )
 unit_size = 0.4
 autoplay = true
 bus = "Effects"
 
-[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 stream = ExtResource( 23 )
 unit_size = 0.4
 autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="BurstAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="BurstAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.270128, -2.73565 )
 stream = ExtResource( 5 )
 unit_size = 0.8
-bus = "Effects"
-
-[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource( 22 )
-unit_size = 4.0
 bus = "Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

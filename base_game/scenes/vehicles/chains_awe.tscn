@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -30,6 +30,10 @@
 [ext_resource path="res://resources/sounds/weapon_components/gun_auto_barrel_spin_med_loop.wav" type="AudioStream" id=28]
 [ext_resource path="res://resources/sounds/weapon_components/engine_generator_loop_04.wav" type="AudioStream" id=29]
 [ext_resource path="res://resources/sounds/collectables/retro_collect_pickup_coin_25.wav" type="AudioStream" id=30]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=31]
+[ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=33]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=34]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -39,6 +43,10 @@ points = PoolVector3Array( 0.96, 0.875, 3.31, -0.96, 0.875, 3.31, 0.865, 1.716, 
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
+
+[sub_resource type="DynamicFont" id=19]
+size = 9
+font_data = ExtResource( 34 )
 
 [sub_resource type="BoxShape" id=24]
 extents = Vector3( 0.0752258, 0.270823, 0.246891 )
@@ -169,8 +177,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=19]
-resource_name = "left_saws_active"
+[sub_resource type="Animation" id=25]
 length = 0.1
 loop = true
 step = 0.016
@@ -460,6 +467,7 @@ base_health = 116.0
 base_engine_force = 264.0
 nitro_force = 3080.0
 rocket_force = 0.0
+burst_force = 0.0
 scene_resource = "res://scenes/vehicles/chains_awe.tscn"
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
@@ -474,12 +482,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, 2.411 )
@@ -493,12 +506,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, -2.16 )
@@ -511,12 +529,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, -2.16 )
@@ -529,22 +552,69 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 shape = SubResource( 6 )
 
 [node name="CameraBase" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 portal_mode = 3
 mesh = ExtResource( 11 )
 material/0 = ExtResource( 9 )
+script = ExtResource( 31 )
+required_setting = 2
+
+[node name="ChainsawFrontLeft" type="MeshInstance" parent="Body"]
+transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.0185963 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 31 )
+required_setting = 4
+
+[node name="ChainsawFrontRight" type="MeshInstance" parent="Body"]
+transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.019 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 31 )
+required_setting = 4
+
+[node name="ChainsawBackLeft" type="MeshInstance" parent="Body"]
+transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.357919 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 31 )
+required_setting = 4
+
+[node name="ChainsawBackRight" type="MeshInstance" parent="Body"]
+transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.358322 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 31 )
+required_setting = 4
+
+[node name="ChainsawLauncher" type="MeshInstance" parent="Body"]
+portal_mode = 3
+mesh = ExtResource( 17 )
+material/0 = ExtResource( 16 )
+script = ExtResource( 31 )
+required_setting = 4
 
 [node name="ExplosionMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
@@ -554,40 +624,28 @@ cast_shadow = 0
 mesh = SubResource( 15 )
 material/0 = ExtResource( 14 )
 
-[node name="ChainsawFrontLeft" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.0185963 )
+[node name="ScoreLabel" type="Label3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 12 )
-
-[node name="ChainsawFrontRight" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.019 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 12 )
-
-[node name="ChainsawBackLeft" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.357919 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 12 )
-
-[node name="ChainsawBackRight" type="MeshInstance" parent="Body"]
-transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.358322 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 12 )
-
-[node name="ChainsawLauncher" type="MeshInstance" parent="Body"]
-portal_mode = 3
-mesh = ExtResource( 17 )
-material/0 = ExtResource( 16 )
+pixel_size = 0.003
+billboard = 1
+double_sided = false
+fixed_size = true
+font = SubResource( 19 )
+script = ExtResource( 33 )
 
 [node name="ShotPositionSniper" type="RayCast" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.686228, 3.32398 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
 
 [node name="ShotPositionLauncher" type="Position3D" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, -3.652e-08, 0.908566, 0.41774, 7.94294e-08, 0.41774, -0.908566, 0, 1.3432, -2.20725 )
+
+[node name="LauncherRay" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.686228, -3.32547 )
+enabled = true
+cast_to = Vector3( 0, 0, -10 )
 
 [node name="SawAreaLeft" type="Area" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09968, -0.209553, -0.189 )
@@ -679,37 +737,10 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.83433
 [node name="Right" parent="Body/NitroCPUParticles" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.835, 0.139961, -3.35128 )
 
-[node name="ChainsawAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
-stream = ExtResource( 29 )
-autoplay = true
-stream_paused = true
-bus = "Effects"
+[node name="AcidParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.930328, 0 )
 
-[node name="ChainsawAudioRight" type="AudioStreamPlayer3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
-stream = ExtResource( 29 )
-autoplay = true
-stream_paused = true
-bus = "Effects"
-
-[node name="CuttingAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
-stream = ExtResource( 28 )
-unit_size = 1.5
-pitch_scale = 3.0
-autoplay = true
-stream_paused = true
-bus = "Effects"
-
-[node name="CuttingAudioRight" type="AudioStreamPlayer3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
-stream = ExtResource( 28 )
-unit_size = 1.5
-pitch_scale = 3.0
-autoplay = true
-stream_paused = true
-bus = "Effects"
+[node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 32 )]
 
 [node name="MoneyAudioLeft" type="AudioStreamPlayer3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19031, 0.261378, -0.188984 )
@@ -728,21 +759,60 @@ stream = ExtResource( 27 )
 unit_size = 1.5
 bus = "Effects"
 
-[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 22 )
+unit_size = 4.0
+bus = "Effects"
+
+[node name="LoopingAudio" type="Spatial" parent="Body"]
+
+[node name="ChainsawAudioLeft" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
+stream = ExtResource( 29 )
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="ChainsawAudioRight" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
+stream = ExtResource( 29 )
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="CuttingAudioLeft" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0979, 0.0445196, -0.188984 )
+stream = ExtResource( 28 )
+unit_size = 1.5
+pitch_scale = 3.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="CuttingAudioRight" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.098, 0.045, -0.189 )
+stream = ExtResource( 28 )
+unit_size = 1.5
+pitch_scale = 3.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.802801, 2.47673 )
 stream = ExtResource( 25 )
 unit_size = 0.4
 autoplay = true
 bus = "Effects"
 
-[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 stream = ExtResource( 24 )
 unit_size = 0.4
 autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138223, -3.30983 )
 stream = ExtResource( 23 )
 unit_size = 0.8
@@ -750,16 +820,11 @@ autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource( 22 )
-unit_size = 4.0
-bus = "Effects"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
 anims/death = SubResource( 16 )
-anims/left_saws_active = SubResource( 19 )
+anims/left_saws_active = SubResource( 25 )
 anims/left_saws_down = SubResource( 17 )
 anims/left_saws_up = SubResource( 18 )
 
@@ -787,6 +852,14 @@ one_shot = true
 process_mode = 0
 wait_time = 30.0
 
+[connection signal="screen_entered" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_entered"]
+[connection signal="screen_exited" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="screen_entered" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_entered"]
+[connection signal="screen_exited" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="screen_entered" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_entered"]
+[connection signal="screen_exited" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="screen_entered" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_entered"]
+[connection signal="screen_exited" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_screen_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="Body" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer2" to="Body" method="_on_AnimationPlayer2_animation_finished"]
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]

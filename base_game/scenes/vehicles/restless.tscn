@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -33,6 +33,10 @@
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=31]
 [ext_resource path="res://resources/sounds/vehicles/hydraulic_strut_air_gas_shock_door_04.wav" type="AudioStream" id=32]
 [ext_resource path="res://resources/sounds/vehicles/hydraulic_strut_air_gas_shock_door_05.wav" type="AudioStream" id=33]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=34]
+[ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=35]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=36]
+[ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=37]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -42,6 +46,10 @@ points = PoolVector3Array( 0.925, 0.485, 2.458, -0.925, 0.485, 2.458, 0.888, 1.0
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
+
+[sub_resource type="DynamicFont" id=19]
+size = 9
+font_data = ExtResource( 36 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -116,6 +124,30 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector3( -2.15536e-07, 90, 4.937 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/RocketMeshLeft:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Body/RocketMeshRight:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=16]
@@ -197,6 +229,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector3( -2.15536e-07, 90, 4.937 ), Vector3( 0, 204.506, 4.937 ), Vector3( 0, 201.744, 4.937 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/RocketMeshLeft:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Body/RocketMeshRight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=18]
 resource_name = "rocket_nitro"
@@ -238,6 +294,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector3( 0, 201.744, 4.937 ), Vector3( 0, 88.437, 4.937 ), Vector3( 0, 90, 4.937 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/RocketMeshLeft:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Body/RocketMeshRight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="RootSpatial" type="Spatial"]
 _import_path = NodePath(".")
@@ -246,7 +326,7 @@ __meta__ = {
 }
 
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181778, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.174144, 0 )
 collision_mask = 3
 mass = 183.673
 physics_material_override = SubResource( 1 )
@@ -255,6 +335,7 @@ base_engine_force = 165.6
 base_boost_type = 2
 nitro_force = 4320.0
 rocket_force = 113.4
+burst_force = 0.0
 scene_resource = "res://scenes/vehicles/restless.tscn"
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
@@ -269,12 +350,16 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.101966, 1.58692 )
@@ -288,12 +373,16 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.101966, -1.23149 )
@@ -306,12 +395,16 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.101966, -1.23115 )
@@ -324,6 +417,7 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
@@ -331,45 +425,63 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
+
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 shape = SubResource( 6 )
 
 [node name="CameraBase" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 portal_mode = 3
 mesh = ExtResource( 5 )
 material/0 = ExtResource( 6 )
+script = ExtResource( 34 )
+required_setting = 2
 
 [node name="SniperMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.52865, 0.717167, 1.41345 )
 portal_mode = 3
 mesh = ExtResource( 21 )
 material/0 = ExtResource( 20 )
+script = ExtResource( 34 )
+required_setting = 4
 
 [node name="MachineGunMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.529, 0.717, 1.413 )
 portal_mode = 3
 mesh = ExtResource( 23 )
 material/0 = ExtResource( 22 )
+script = ExtResource( 34 )
+required_setting = 4
 
 [node name="RocketMeshLeft" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0 )
+visible = false
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 25 )
+script = ExtResource( 34 )
+required_setting = 4
 
 [node name="RocketMeshRight" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0 )
+visible = false
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 25 )
+script = ExtResource( 34 )
+required_setting = 4
 
 [node name="DoorMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -4.3873e-08, 1.39595e-11, 1, 0.0860603, 0.99629, 3.76181e-09, -0.99629, 0.0860603, -4.37114e-08, -0.646664, 0.683186, -2.40856 )
 portal_mode = 3
 mesh = ExtResource( 16 )
 material/0 = ExtResource( 13 )
+script = ExtResource( 34 )
+required_setting = 4
 
 [node name="ExplosionMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
@@ -378,6 +490,16 @@ portal_mode = 3
 cast_shadow = 0
 mesh = SubResource( 15 )
 material/0 = ExtResource( 14 )
+
+[node name="ScoreLabel" type="Label3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+portal_mode = 3
+pixel_size = 0.003
+billboard = 1
+double_sided = false
+fixed_size = true
+font = SubResource( 19 )
+script = ExtResource( 37 )
 
 [node name="ShotPositionShotgunUp" type="RayCast" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.377985, 2.48896 )
@@ -512,6 +634,11 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 1.038, 0.293, -0.27 )
 [node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -1.038, 0.293, -0.27 )
 
+[node name="AcidParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668589, 0 )
+
+[node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 35 )]
+
 [node name="OpenAudio" type="AudioStreamPlayer3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526351, -1.38123 )
 stream = ExtResource( 33 )
@@ -522,21 +649,28 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526351, -1.38123 )
 stream = ExtResource( 32 )
 bus = "Effects"
 
-[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 28 )
+unit_size = 4.0
+bus = "Effects"
+
+[node name="LoopingAudio" type="Spatial" parent="Body"]
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.423825, 1.61274 )
 stream = ExtResource( 30 )
 unit_size = 0.4
 autoplay = true
 bus = "Effects"
 
-[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 stream = ExtResource( 29 )
 unit_size = 0.4
 autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138223, -2.53466 )
 stream = ExtResource( 27 )
 unit_size = 0.8
@@ -544,7 +678,7 @@ autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="RocketAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.636645, -2.43567 )
 stream = ExtResource( 26 )
 unit_size = 0.7
@@ -552,17 +686,12 @@ autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="ReverseRocketAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="ReverseRocketAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292929, -0.268647 )
 stream = ExtResource( 26 )
 unit_size = 0.7
 autoplay = true
 stream_paused = true
-bus = "Effects"
-
-[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource( 28 )
-unit_size = 4.0
 bus = "Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

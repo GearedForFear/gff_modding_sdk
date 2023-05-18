@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/vehicles/suicide_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -17,7 +17,11 @@
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=16]
 [ext_resource path="res://resources/materials/vehicles/suicide_door.material" type="Material" id=17]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=18]
 [ext_resource path="res://resources/meshes/vehicles/suicide_door.tres" type="ArrayMesh" id=19]
+[ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=20]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=21]
+[ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=22]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -27,6 +31,10 @@ points = PoolVector3Array( 0.942, 0.759, 2.528, -0.942, 0.759, 2.528, 0.876, 1.3
 
 [sub_resource type="QuadMesh" id=15]
 resource_local_to_scene = true
+
+[sub_resource type="DynamicFont" id=19]
+size = 9
+font_data = ExtResource( 21 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -113,15 +121,16 @@ __meta__ = {
 }
 
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181792, 0 )
 collision_mask = 3
 mass = 257.143
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 124.0
 base_engine_force = 262.08
-nitro_force = 4752.0
+nitro_force = 4737.6
 rocket_force = 0.0
+burst_force = 0.0
 scene_resource = "res://scenes/vehicles/suicide_door.tscn"
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
@@ -136,12 +145,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877, 0.161023, 1.9783 )
@@ -155,12 +169,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.877, 0.161, -1.375 )
@@ -173,12 +192,17 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877, 0.161023, -1.37544 )
@@ -191,22 +215,30 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+pause_mode = 2
 physics_interpolation_mode = 1
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 shape = SubResource( 6 )
 
 [node name="CameraBase" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 17 )
+script = ExtResource( 18 )
+required_setting = 2
 
 [node name="ExplosionMesh" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
@@ -215,6 +247,16 @@ portal_mode = 3
 cast_shadow = 0
 mesh = SubResource( 15 )
 material/0 = ExtResource( 14 )
+
+[node name="ScoreLabel" type="Label3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+portal_mode = 3
+pixel_size = 0.003
+billboard = 1
+double_sided = false
+fixed_size = true
+font = SubResource( 19 )
+script = ExtResource( 22 )
 
 [node name="ShotPositionFront" type="Position3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.14033, -1.64765 )
@@ -266,30 +308,37 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.685, 
 [node name="Right" parent="Body/NitroCPUParticles" instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.685, 0.374, -2.675 )
 
-[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="AcidParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.899393, 0 )
+
+[node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 20 )]
+
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 9 )
+unit_size = 4.0
+bus = "Effects"
+
+[node name="LoopingAudio" type="Spatial" parent="Body"]
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574206, 1.80683 )
 stream = ExtResource( 13 )
 unit_size = 0.4
 autoplay = true
 bus = "Effects"
 
-[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 stream = ExtResource( 12 )
 unit_size = 0.4
 autoplay = true
 stream_paused = true
 bus = "Effects"
 
-[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37405, -2.5871 )
 stream = ExtResource( 11 )
 autoplay = true
 stream_paused = true
-bus = "Effects"
-
-[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource( 9 )
-unit_size = 4.0
 bus = "Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
