@@ -26,6 +26,7 @@ size = Vector2( 0.02, 0.3 )
 
 [node name="Particles" type="Particles"]
 portal_mode = 3
+cast_shadow = 0
 emitting = false
 amount = 16
 lifetime = 0.1

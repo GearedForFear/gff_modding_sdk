@@ -15,6 +15,7 @@ colors = PoolColorArray( 0, 1, 1, 0, 0, 0.0302734, 1, 1, 0, 0, 1, 0.486275, 0.29
 
 [node name="CPUParticles" type="CPUParticles"]
 portal_mode = 3
+cast_shadow = 0
 emitting = false
 amount = 16
 lifetime = 0.5

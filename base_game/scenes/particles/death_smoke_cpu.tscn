@@ -12,7 +12,7 @@ _data = [ Vector2( 0, 0.854545 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 
 offsets = PoolRealArray( 0, 0.23871, 0.645161, 1 )
 colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, 0, 0 )
 
-[node name="Particles" type="CPUParticles"]
+[node name="CPUParticles" type="CPUParticles"]
 portal_mode = 3
 cast_shadow = 0
 emitting = false
