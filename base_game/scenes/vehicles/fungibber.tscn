@@ -186,6 +186,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 
 [node name="AcidParticles" type="Spatial" parent="Body"]
 
+[node name="AcidCPUParticles" type="Spatial" parent="Body"]
+
 [node name="LoopingAudio" type="Spatial" parent="Body"]
 
 [node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]

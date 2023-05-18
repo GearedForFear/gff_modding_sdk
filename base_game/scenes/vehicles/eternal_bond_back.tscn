@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scripts/vehicles/eternal_bond_back.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=15]
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=16]
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=17]
+[ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=18]
 [ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=22]
 
 [sub_resource type="PhysicsMaterial" id=1]
@@ -285,6 +286,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -3.842 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761882, 0 )
 
 [node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 15 )]
+
+[node name="AcidCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761882, 0 )
+
+[node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 18 )]
 
 [node name="ShotPosition" type="Position3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.747841, 2.5 )
