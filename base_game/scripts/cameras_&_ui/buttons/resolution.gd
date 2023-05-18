@@ -3,6 +3,9 @@ extends Button
 
 export var resolution: int = 1
 
+onready var root_control: Control = get_node("/root/RootControl")
+onready var config: ConfigFile = root_control.config
+
 
 func _draw():
 	text = String(round(OS.window_size.x / resolution)) + " x " \
@@ -10,7 +13,9 @@ func _draw():
 
 
 func _pressed():
-	get_node("/root/RootControl/SettingsManager").resolution = resolution
-	get_node("/root/RootControl").switch_buttons(get_parent(), \
+	root_control.get_node("SettingsManager").resolution = resolution
+	config.set_value("graphics", "resolution", resolution)
+	config.save("user://config.cfg")
+	root_control.switch_buttons(get_parent(), \
 			get_node("../../GraphicsButtons/Resolution"))
-	get_node("/root/RootControl/ButtonPressAudio").play()
+	root_control.get_node("ButtonPressAudio").play()
