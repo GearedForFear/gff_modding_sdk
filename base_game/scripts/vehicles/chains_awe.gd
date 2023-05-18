@@ -33,21 +33,6 @@ var right_saws_up: bool = true
 func _ready():
 	if controls == null:
 		driver_name = "Chain's Awe"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$ChainsawFrontLeft.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$ChainsawFrontRight.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$ChainsawBackLeft.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$ChainsawBackRight.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$ChainsawLauncher.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 
 func _physics_process(_delta):
@@ -59,6 +44,14 @@ func _physics_process(_delta):
 					and collider.is_in_group("combat_vehicle") \
 					and collider.score >= 100:
 				shoot_sniper()
+				get_node("../StuckTimer").start()
+			
+			collider = $LauncherRay.get_collider()
+			if can_shoot_launcher and ammo >= launcher_ammo_cost and \
+					collider != null \
+					and collider.is_in_group("combat_vehicle") \
+					and collider.score >= 100:
+				shoot_chainsaw()
 				get_node("../StuckTimer").start()
 		else:
 			if can_shoot_sniper and ammo >= sniper_ammo_cost \
@@ -103,7 +96,7 @@ func shoot_sniper():
 
 
 func saw_left(var b: bool):
-	$ChainsawAudioLeft.stream_paused = not b
+	$LoopingAudio/ChainsawAudioLeft.stream_paused = not b
 	if b:
 		ammo -= saw_ammo_cost
 		if left_saws_up:
@@ -112,7 +105,7 @@ func saw_left(var b: bool):
 		var overalpping: Array = $SawAreaLeft.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
-			$CuttingAudioLeft.stream_paused = true
+			$LoopingAudio/CuttingAudioLeft.stream_paused = true
 			if gles3:
 				$SawSparksFrontLeft.emitting = false
 				$SawSparksBackLeft.emitting = false
@@ -120,7 +113,7 @@ func saw_left(var b: bool):
 				$SawCPUSparksFrontLeft.emitting = false
 				$SawCPUSparksBackLeft.emitting = false
 		else:
-			$CuttingAudioLeft.stream_paused = false
+			$LoopingAudio/CuttingAudioLeft.stream_paused = false
 			if gles3:
 				$SawSparksFrontLeft.emitting = true
 				$SawSparksBackLeft.emitting = true
@@ -140,7 +133,7 @@ func saw_left(var b: bool):
 		if not left_saws_up:
 			get_node("../AnimationPlayer").play("left_saws_up")
 			left_saws_up = true
-			$CuttingAudioLeft.stream_paused = true
+			$LoopingAudio/CuttingAudioLeft.stream_paused = true
 			if gles3:
 				$SawSparksFrontLeft.emitting = false
 				$SawSparksBackLeft.emitting = false
@@ -150,7 +143,7 @@ func saw_left(var b: bool):
 
 
 func saw_right(var b: bool):
-	$ChainsawAudioRight.stream_paused = not b
+	$LoopingAudio/ChainsawAudioRight.stream_paused = not b
 	if b:
 		ammo -= saw_ammo_cost
 		if right_saws_up:
@@ -159,7 +152,7 @@ func saw_right(var b: bool):
 		var overalpping: Array = $SawAreaRight.get_overlapping_bodies()
 		overalpping.erase(self)
 		if overalpping.empty():
-			$CuttingAudioRight.stream_paused = true
+			$LoopingAudio/CuttingAudioRight.stream_paused = true
 			if gles3:
 				$SawSparksFrontRight.emitting = false
 				$SawSparksBackRight.emitting = false
@@ -167,7 +160,7 @@ func saw_right(var b: bool):
 				$SawCPUSparksFrontRight.emitting = false
 				$SawCPUSparksBackRight.emitting = false
 		else:
-			$CuttingAudioRight.stream_paused = false
+			$LoopingAudio/CuttingAudioRight.stream_paused = false
 			if gles3:
 				$SawSparksFrontRight.emitting = true
 				$SawSparksBackRight.emitting = true
@@ -187,7 +180,7 @@ func saw_right(var b: bool):
 		if not right_saws_up:
 			get_node("../AnimationPlayer2").play("right_saws_up")
 			right_saws_up = true
-			$CuttingAudioRight.stream_paused = true
+			$LoopingAudio/CuttingAudioRight.stream_paused = true
 			if gles3:
 				$SawSparksFrontRight.emitting = false
 				$SawSparksBackRight.emitting = false
