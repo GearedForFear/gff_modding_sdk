@@ -9,16 +9,6 @@ onready var gun_timer: Timer = get_node("../GunTimer")
 func _ready():
 	if controls == null:
 		driver_name = "Fungibber"
-	if get_node("/root/RootControl/SettingsManager").shadow_casters <= 1:
-		$BodyMesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelFrontRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackLeft/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
-		$WheelBackRight/Mesh.cast_shadow = \
-				GeometryInstance.SHADOW_CASTING_SETTING_OFF
 	score = 1000
 
 
