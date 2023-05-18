@@ -1,7 +1,7 @@
 extends ProgressBar
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	var ammo: float = get_node("../../../../../..").ammo
 	value = ammo
 	if ammo == 100:
