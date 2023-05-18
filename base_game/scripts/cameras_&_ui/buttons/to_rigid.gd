@@ -3,7 +3,7 @@ extends Button
 
 func _pressed():
 	get_node("/root/RootControl").switch_buttons(get_parent(), \
-			get_node("../../MaxRigidBodiesButtons/RigidLowest"))
+			get_node("../../MaxRigidBodiesButtons/Rigid100"))
 	get_node("/root/RootControl/ButtonPressAudio").play()
 
 
