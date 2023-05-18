@@ -19,8 +19,6 @@ func _ready():
 	$Lifetime.wait_time *= 60.0 \
 			/ ProjectSettings.get_setting("physics/common/physics_fps")
 	$Lifetime.start()
-	if get_node("/root/RootControl/SettingsManager").shadow_casters >= 4:
-		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
 	$Particles.emitting = gles3
 	$CPUParticles.emitting = !gles3
 
@@ -39,6 +37,7 @@ func _physics_process(_delta):
 
 func _on_Lifetime_timeout():
 	set_process(false)
+	set_physics_process(false)
 	hide()
 	deletion_manager.to_be_deleted.append(self)
 
@@ -60,5 +59,6 @@ func _on_Area_body_entered(body):
 			if $RayCast.get_collision_point() == Vector3.ZERO:
 				new_explosion.global_transform.origin = global_transform.origin
 		set_process(false)
+		set_physics_process(false)
 		hide()
 		deletion_manager.to_be_deleted.append(self)
