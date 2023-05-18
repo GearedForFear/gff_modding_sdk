@@ -9,7 +9,7 @@ onready var max_rigid_bodies: int \
 		= get_node("/root/RootControl/SettingsManager").max_rigid_bodies
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	var total_rigid_bodies: int = gameplay_rigid_bodies.size() \
 			+ other_rigid_bodies.size()
 	if total_rigid_bodies > max_rigid_bodies:
