@@ -1,9 +1,9 @@
+class_name VehicleSelect
 extends ColorRect
 
 
 enum category_names {NITRO, ROCKET, SWITCH, BURST, OVERCHARGE}
 
-var control_setup: int
 var controls: PlayerControls
 var categories: Array
 var current_category: int = 0
@@ -110,6 +110,7 @@ func _process(_delta):
 				return
 		vehicle.get_node("Body").controls = controls
 		vehicle.get_node("Body").track = get_node("../../../..")
+		get_node("../../Viewport").stop()
 		get_node("../../Viewport/SpawnPosition").add_child(vehicle)
 		get_parent().queue_free()
 	
@@ -126,8 +127,11 @@ func update_selection():
 	var selection: Label = categories[current_category]\
 			.get_child(current_vehicle + 1)
 	if unlocked.has(selection):
-		selection.modulate = Color("ffe600")
+		selection.modulate = Color.white
 	else:
 		selection.modulate = Color("960000")
+	get_node("../ViewportContainer/Viewport/Spatial").update_vehicle(\
+			current_category, current_vehicle)
+	get_node("../Name").text = selection.text
 	get_node("../PageNumber").text = "Page " + String(current_category + 1) \
 			+ "/5"
