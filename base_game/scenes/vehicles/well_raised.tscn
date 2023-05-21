@@ -575,17 +575,21 @@ one_shot = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.919, 0.741728, -1.23541 )
 one_shot = true
 
-[node name="CPUMuzzleFlashFrontLeft" parent="Body" instance=ExtResource( 2 )]
+[node name="CPUMuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.943789, 0.66275, 0.591818 )
+one_shot = true
 
-[node name="CPUMuzzleFlashFrontRight" parent="Body" instance=ExtResource( 2 )]
+[node name="CPUMuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.944, 0.66275, 0.591818 )
+one_shot = true
 
-[node name="CPUMuzzleFlashBackLeft" parent="Body" instance=ExtResource( 2 )]
+[node name="CPUMuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.919331, 0.741728, -1.23541 )
+one_shot = true
 
-[node name="CPUMuzzleFlashBackRight" parent="Body" instance=ExtResource( 2 )]
+[node name="CPUMuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.919, 0.741728, -1.23541 )
+one_shot = true
 
 [node name="DeathParticles" parent="Body" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.970645, 1.28847 )
