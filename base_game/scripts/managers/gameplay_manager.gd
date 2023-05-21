@@ -93,6 +93,9 @@ func _physics_process(_delta):
 
 
 func respawn(vehicle: CombatVehicle):
+	if not vehicle.master_body:
+		vehicle.split(false)
+	
 	vehicle.global_transform = waypoints[waypoint].get_node(\
 			"RespawnPoints/RespawnPoint0").global_transform
 	vehicle.linear_velocity = Vector3.ZERO
