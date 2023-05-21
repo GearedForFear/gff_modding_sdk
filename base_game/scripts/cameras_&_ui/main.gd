@@ -209,14 +209,13 @@ func prepare():
 		always_loaded.clear()
 		always_loaded.append_array(resources)
 		resources_loaded = true
-	track = ResourceLoader.load("res://scenes/world/tracks/twisted.tscn", \
-	#track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
+	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
 			"PackedScene").instance()
 	next_tracks.clear()
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
