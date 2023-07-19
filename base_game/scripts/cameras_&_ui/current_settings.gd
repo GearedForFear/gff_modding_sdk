@@ -59,14 +59,16 @@ func _process(_delta):
 			6:
 				text += "\nShadow Casters: Ultimate"
 		
-		text += "\nShadow Distance: " + String(get_node(\
-				"/root/RootControl/SettingsManager").shadow_distance) + "m"
+		var tex_size: String = String(get_node(\
+				"/root/RootControl/SettingsManager").max_texture_size)
+		text += "\nMax Texture Size: " + tex_size + "*" + tex_size
 		
 		if get_node("/root/RootControl/SettingsManager").max_rigid_bodies == 0:
 			text += "\nMax Rigid Bodies: Lowest"
 		else:
 			text += "\nMax Rigid Bodies: " + String(\
-					get_node("/root/RootControl/SettingsManager").max_rigid_bodies)
+					get_node("/root/RootControl/SettingsManager")\
+					.max_rigid_bodies)
 		
 		text += "\n\nSound Effects Volume: " + String(round(db2linear(\
 				AudioServer.get_bus_volume_db(1)) * 100)) + "%"
