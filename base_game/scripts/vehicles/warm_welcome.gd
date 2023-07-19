@@ -1,16 +1,6 @@
 extends AmmoVehicle
 
 
-const Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/bullet.tscn")
-const CartridgeCase: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_case.tscn")
-const CartridgeLink: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_link.tscn")
-const ShotSoundLMG: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_lmg.tscn")
-const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
-
 enum cartridge_out {NONE, LINK, CASE}
 
 export var bullet_damage: float = 2.0
@@ -38,33 +28,25 @@ func _ready():
 func _physics_process(_delta):
 	match next_out:
 		cartridge_out.LINK:
-			var new_link: RigidBody = CartridgeLink.instance()
-			$CartridgeExitLeft.add_child(new_link)
-			new_link.set_as_toplevel(true)
+			var new_link: DynamicShadowBody = pools.get_cartridge_link()
+			new_link.start($CartridgeExitLeft.global_transform)
 			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
 					- 10) / 10000, (new_link.transform.basis.x \
 					+ new_link.transform.basis.y / 2) / 150)
-			deletion_manager.other_rigid_bodies.append(new_link)
-			new_link = CartridgeLink.instance()
-			$CartridgeExitRight.add_child(new_link)
-			new_link.set_as_toplevel(true)
+			new_link = pools.get_cartridge_link()
+			new_link.start($CartridgeExitRight.global_transform)
 			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
 					- 10) / 10000, (new_link.transform.basis.x \
 					+ new_link.transform.basis.y / 2) / 150)
-			deletion_manager.other_rigid_bodies.append(new_link)
 			
 			next_out = cartridge_out.CASE
 		cartridge_out.CASE:
-			var new_case: RigidBody = CartridgeCase.instance()
-			$CartridgeExitLeft.add_child(new_case)
-			new_case.set_as_toplevel(true)
+			var new_case: DynamicShadowBody = pools.get_cartridge_case()
+			new_case.start($CartridgeExitLeft.global_transform)
 			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-			deletion_manager.other_rigid_bodies.append(new_case)
-			new_case = CartridgeCase.instance()
-			$CartridgeExitRight.add_child(new_case)
-			new_case.set_as_toplevel(true)
+			new_case = pools.get_cartridge_case()
+			new_case.start($CartridgeExitRight.global_transform)
 			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-			deletion_manager.other_rigid_bodies.append(new_case)
 			
 			next_out = cartridge_out.NONE
 	
@@ -118,27 +100,15 @@ func shoot(var b: bool):
 		$LoopingAudio/GunRotationAudio.stream_paused = false
 		next_out = cartridge_out.LINK
 		
-		var new_bullet: Area = Bullet.instance()
-		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
-		$ShotPositionLeft.add_child(new_bullet)
-		new_bullet.damage = bullet_damage
-		new_bullet.reward = bullet_reward
-		new_bullet.burn = bullet_burn
-		new_bullet.shooter = self
-		new_bullet.deletion_manager = deletion_manager
-		$ShotPositionLeft.add_child(new_sound)
-		new_sound.deletion_manager = deletion_manager
+		var new_bullet: Area = pools.get_bullet()
+		new_bullet.start($ShotPositionLeft.global_transform, bullet_damage, \
+				bullet_reward, bullet_burn, self)
+		new_bullet.play_audio_lmg()
 		
-		new_bullet = Bullet.instance()
-		new_sound = ShotSoundLMG.instance()
-		$ShotPositionRight.add_child(new_bullet)
-		new_bullet.damage = bullet_damage
-		new_bullet.reward = bullet_reward
-		new_bullet.burn = bullet_burn
-		new_bullet.shooter = self
-		new_bullet.deletion_manager = deletion_manager
-		$ShotPositionRight.add_child(new_sound)
-		new_sound.deletion_manager = deletion_manager
+		new_bullet = pools.get_bullet()
+		new_bullet.start($ShotPositionRight.global_transform, bullet_damage, \
+				bullet_reward, bullet_burn, self)
+		new_bullet.play_audio_lmg()
 		
 		if gles3:
 			$MuzzleFlashLeft.emitting = true
@@ -218,14 +188,9 @@ func deal_flame_damage(var a: Area):
 			var payout: int = n.damage(flamethrower_damage, \
 					flamethrower_reward, flamethrower_burn, self)
 			if payout > 0:
-				var new_money: Area = Money.instance()
-				new_money.shooter = self
-				new_money.reward = payout
-				new_money.deletion_manager = deletion_manager
-				new_money.speed_divisor = 2
-				n.add_child(new_money)
-				new_money.global_translation = a.global_translation \
-						+ a.global_transform.basis.x * 2
+				var new_money: Area = pools.get_money()
+				new_money.start(global_transform, self, n, payout)
+				new_money.speed_divisor = 2.0
 
 
 func _on_GunTimer_timeout():
