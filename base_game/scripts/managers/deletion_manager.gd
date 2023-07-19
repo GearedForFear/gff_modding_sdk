@@ -17,11 +17,14 @@ func _process(delta):
 		for n in range(clamp(total_rigid_bodies - max_rigid_bodies, 0, \
 				other_rigid_bodies.size()) - 1, -1, -1):
 			var delete_body: RigidBody = other_rigid_bodies[n]
-			delete_body.set_process(false)
-			delete_body.set_physics_process(false)
-			delete_body.hide()
 			other_rigid_bodies.remove(n)
-			to_be_deleted.append(delete_body)
+			if delete_body.is_in_group("pool_body"):
+				delete_body.stop()
+			else:
+				delete_body.set_process(false)
+				delete_body.set_physics_process(false)
+				delete_body.hide()
+				to_be_deleted.append(delete_body)
 	
 	if delete or delta > 0.016:
 		for n in to_be_deleted.size() / 30 + 1:
