@@ -35,9 +35,6 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="RayCast" type="RayCast" parent="."]
-cast_to = Vector3( 0, 0, 0.5 )
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
 unit_size = 0.3

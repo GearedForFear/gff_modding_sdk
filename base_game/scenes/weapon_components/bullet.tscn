@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/materials/weapon_components/bullet_shader.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/weapon_compontents/bullet.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/destruction/bullet_impact_metal_light_07.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sounds/weapon_components/gun_rifle_sniper_shot_03.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/weapon_components/gun_machinegun_auto_heavy_shot_00_last_with_tail_01.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/weapon_components/gun_shotgun_sawed_off_shot_04.wav" type="AudioStream" id=6]
+[ext_resource path="res://resources/sounds/destruction/bullet_impact_metal_heavy_01.wav" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/destruction/bullet_impact_metal_heavy_02.wav" type="AudioStream" id=8]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.03
@@ -40,8 +46,36 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="RayCast" type="RayCast" parent="."]
-cast_to = Vector3( 0, 0, 1 )
+[node name="ShotAudioLMG" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+bus = "Effects"
+
+[node name="ShotAudioShotgun" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+bus = "Effects"
+
+[node name="ShotAudioSniper" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_size = 1.4
+bus = "Effects"
+
+[node name="ImpactAudioLight" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+bus = "Effects"
+
+[node name="ImpactAudioMedium" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 7 )
+bus = "Effects"
+
+[node name="ImpactAudioHeavy" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 8 )
+bus = "Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
+[connection signal="finished" from="ShotAudioLMG" to="." method="_on_ShotAudioLMG_finished"]
+[connection signal="finished" from="ShotAudioShotgun" to="." method="_on_ShotAudioShotgun_finished"]
+[connection signal="finished" from="ShotAudioSniper" to="." method="_on_ShotAudioSniper_finished"]
+[connection signal="finished" from="ImpactAudioLight" to="." method="_on_ImpactAudioLight_finished"]
+[connection signal="finished" from="ImpactAudioMedium" to="." method="_on_ImpactAudioMedium_finished"]
+[connection signal="finished" from="ImpactAudioHeavy" to="." method="_on_ImpactAudioHeavy_finished"]
