@@ -9,6 +9,8 @@ export var force_factor: float = 0.1
 var destroyed: bool = false
 var deletion_manager: Node
 var parts: PackedScene
+var visible_on: Array
+var shadow: bool
 
 
 func _ready():
@@ -16,6 +18,8 @@ func _ready():
 	if global_culling:
 		$MeshInstance.portal_mode = CullInstance.PORTAL_MODE_GLOBAL
 		$VisibilityNotifier.portal_mode = CullInstance.PORTAL_MODE_GLOBAL
+	shadow = $MeshInstance.cast_shadow \
+			== GeometryInstance.SHADOW_CASTING_SETTING_ON
 
 
 func destroy(var vehicle: CombatVehicle, var position: Vector3, \
@@ -48,11 +52,19 @@ func _on_Area_body_entered(body):
 				body.linear_velocity.length())
 
 
-func _on_VisibilityNotifier_screen_entered():
-	collision_layer = 4
-	collision_mask = 1
+func _on_VisibilityNotifier_camera_entered(camera):
+	visible_on.append(camera)
+	if not visible_on.empty():
+		collision_layer = 4
+		collision_mask = 1
+		if shadow:
+			$MeshInstance.cast_shadow \
+					= GeometryInstance.SHADOW_CASTING_SETTING_ON
 
 
-func _on_VisibilityNotifier_screen_exited():
-	collision_layer = 0
-	collision_mask = 0
+func _on_VisibilityNotifier_camera_exited(camera):
+	visible_on.erase(camera)
+	if visible_on.empty():
+		collision_layer = 0
+		collision_mask = 0
+		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
