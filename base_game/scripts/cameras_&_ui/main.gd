@@ -42,9 +42,10 @@ func _ready():
 			config.get_value("graphics", "rear_view_distance", 200.0)
 	settings.field_of_view = config.get_value("graphics", "field_of_view", 75)
 	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
-	settings.shadow_distance = config.get_value("graphics", "shadow_distance", 200.0)
+	settings.shadow_distance = \
+			config.get_value("graphics", "shadow_distance",200.0)
 	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
-			config.get_value("graphics", "shadow_quality", 4096))
+			config.get_value("graphics", "max_texture_size", 4096))
 	settings.max_rigid_bodies = \
 			config.get_value("graphics", "max_rigid_bodies", 100)
 	AudioServer.set_bus_volume_db(1, \
@@ -179,9 +180,9 @@ func _process(_delta):
 			switch_buttons($BlackBar/ShadowCastersButtons, \
 					$BlackBar/GraphicsButtons/ShadowCasters)
 			$ReturnAudio.play()
-		elif $BlackBar/ShadowDistanceButtons.visible:
-			switch_buttons($BlackBar/ShadowDistanceButtons, \
-					$BlackBar/GraphicsButtons/ShadowDistance)
+		elif $BlackBar/TextureSizeButtons.visible:
+			switch_buttons($BlackBar/TextureSizeButtons, \
+					$BlackBar/GraphicsButtons/TextureSize)
 			$ReturnAudio.play()
 		elif $BlackBar/MaxRigidBodiesButtons.visible:
 			switch_buttons($BlackBar/MaxRigidBodiesButtons, \
