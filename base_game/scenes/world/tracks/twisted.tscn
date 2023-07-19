@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -9,12 +9,13 @@
 [ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
 [ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
 [ext_resource path="res://scripts/world/tornado_area.gd" type="Script" id=9]
-[ext_resource path="res://scripts/world/directional_light.gd" type="Script" id=10]
+[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=10]
 [ext_resource path="res://resources/sounds/world/wind_general_gusty_low_loop_02.wav" type="AudioStream" id=11]
 [ext_resource path="res://resources/meshes/world/decorations/tornado.tres" type="ArrayMesh" id=12]
 [ext_resource path="res://resources/materials/world/decorations/desert_tornado.material" type="Material" id=13]
 [ext_resource path="res://scripts/world/tornado.gd" type="Script" id=14]
 [ext_resource path="res://scripts/world/tornado_audio.gd" type="Script" id=15]
+[ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.756863, 0.435294, 0.223529, 1 )
@@ -143,7 +144,10 @@ transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87
 light_color = Color( 1, 0.960784, 0.796078, 1 )
 light_energy = 0.25
 shadow_enabled = true
-directional_shadow_max_distance = 200.0
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.2
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_max_distance = 500.0
 script = ExtResource( 10 )
 
 [node name="GameplayManager" type="Node" parent="."]
@@ -155,6 +159,7 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
+visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 0.588985, 0, 0.808144, 0, 1, 0, -0.808144, 0, 0.588985, -164.83, 0, 319.911 )
@@ -502,6 +507,8 @@ transform = Transform( -0.591001, 0, -0.806672, 0, 1, 0, 0.806672, 0, -0.591001,
 [node name="DeletionManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 5 )
+
+[node name="Pools" parent="." instance=ExtResource( 16 )]
 
 [node name="StartSpawns" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.912184, 0, -0.40978, 0, 1, 0, 0.40978, 0, 0.912184, -78.89, -0.744, 240.774 )
