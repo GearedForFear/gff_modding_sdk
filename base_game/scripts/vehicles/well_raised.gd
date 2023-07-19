@@ -1,19 +1,6 @@
 extends LevelVehicle
 
 
-const Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/bullet.tscn")
-const AcidBullet: PackedScene \
-		= preload("res://scenes/weapon_components/acid_bullet.tscn")
-const CartridgeCase: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_case.tscn")
-const CartridgeLink: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_link.tscn")
-const ShotSoundLMG: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_lmg.tscn")
-const ShotSoundShotgun: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_shotgun.tscn")
-
 enum cartridge_out {NONE, LINK, CASE}
 
 export var bullet_damage: float = 8.0
@@ -192,20 +179,15 @@ func shoot_front(var b: bool, var gun: MeshInstance):
 	if b:
 		var new_bullet: Area
 		if level == 5:
-			new_bullet = AcidBullet.instance()
+			new_bullet = pools.get_acid_bullet()
+			new_bullet.start(gun.get_node("ShotPosition").global_transform, \
+					acid_bullet_damage, bullet_reward, bullet_burn, self)
 			new_bullet.acid_duration = acid_bullet_duration
-			new_bullet.damage = acid_bullet_damage
 		else:
-			new_bullet = Bullet.instance()
-			new_bullet.damage = bullet_damage
-		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
-		gun.get_node("ShotPosition").add_child(new_bullet)
-		new_bullet.reward = bullet_reward
-		new_bullet.burn = bullet_burn
-		new_bullet.shooter = self
-		new_bullet.deletion_manager = deletion_manager
-		gun.get_node("ShotPosition").add_child(new_sound)
-		new_sound.deletion_manager = deletion_manager
+			new_bullet = pools.get_bullet()
+			new_bullet.start(gun.get_node("ShotPosition").global_transform, \
+					bullet_damage, bullet_reward, bullet_burn, self)
+		new_bullet.play_audio_lmg()
 		
 		if gles3:
 			gun.get_node("MuzzleFlash").emitting = true
@@ -239,37 +221,30 @@ func shoot_shotgun(var gun: Spatial):
 	for n in shot_positions:
 		var new_bullet: Area
 		if level == 5:
-			new_bullet = AcidBullet.instance()
+			new_bullet = pools.get_acid_bullet()
+			new_bullet.start(n.global_transform, shotgun_acid_damage, \
+					shotgun_reward, shotgun_burn, self)
+			new_bullet.acid_duration = shotgun_acid_duration
 		else:
-			new_bullet = Bullet.instance()
-		n.add_child(new_bullet)
-		new_bullet.damage = shotgun_damage
-		new_bullet.reward = shotgun_reward
-		new_bullet.burn = shotgun_burn
-		new_bullet.shooter = self
-		new_bullet.deletion_manager = deletion_manager
-	
-	var new_sound: AudioStreamPlayer3D = ShotSoundShotgun.instance()
-	gun.add_child(new_sound)
-	new_sound.deletion_manager = deletion_manager
+			new_bullet = pools.get_bullet()
+			new_bullet.start(n.global_transform, shotgun_damage, \
+					shotgun_reward, shotgun_burn, self)
+		if n.name == "ShotPositionLeft":
+			new_bullet.play_audio_shotgun()
 
 
 func instantiate_cartridge(var gun: MeshInstance, var link: bool):
 	if link:
-		var new_link: RigidBody = CartridgeLink.instance()
-		gun.get_node("CartridgeExit").add_child(new_link)
-		new_link.set_as_toplevel(true)
+		var new_link: DynamicShadowBody = pools.get_cartridge_link()
+		new_link.start(gun.get_node("CartridgeExit").global_transform)
 		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
 				/ 10000, (new_link.transform.basis.x * -1 \
 				+ new_link.transform.basis.y) * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_link)
 	else:
-		var new_case: RigidBody = CartridgeCase.instance()
-		gun.get_node("CartridgeExit").add_child(new_case)
-		new_case.set_as_toplevel(true)
+		var new_case: DynamicShadowBody = pools.get_cartridge_case()
+		new_case.start(gun.get_node("CartridgeExit").global_transform)
 		new_case.apply_central_impulse(new_case.transform.basis.x * -0.006 \
 				+ new_case.transform.basis.y * 0.004)
-		deletion_manager.other_rigid_bodies.append(new_case)
 
 
 func _on_GunTriggerTimer_timeout():
