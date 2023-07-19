@@ -1,14 +1,7 @@
 extends Area
 
 
-const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
-const Sparks: PackedScene = preload("res://scenes/destruction/sparks.tscn")
-const ImpactLight: PackedScene \
-		= preload("res://scenes/destruction/bullet_impact_light.tscn")
-const ImpactMedium: PackedScene \
-		= preload("res://scenes/destruction/bullet_impact_medium.tscn")
-const ImpactHeavy: PackedScene \
-		= preload("res://scenes/destruction/bullet_impact_heavy.tscn")
+enum bullet_types {NORMAL, SNIPER, ACID, ACID_SNIPER}
 
 export var speed: float = 1.0
 
@@ -17,63 +10,135 @@ var reward: int
 var burn: float
 var acid_duration: int = 0
 var shooter: CombatVehicle
-var deletion_manager: Node
 
+var timer_finished: bool = false
+var shot_audio_playing: bool = false
+var impact_audio_playing: bool = false
+var bullet_type: int
+
+onready var pools: Node = get_node("../..")
 
 func _ready():
-	set_as_toplevel(true)
 	$Lifetime.wait_time *= 60.0 \
 			/ ProjectSettings.get_setting("physics/common/physics_fps")
-	$Lifetime.start()
+	match $MeshInstance.get_active_material(0).get_shader_param("ColorUniform"):
+		Color.yellow:
+			if speed == 1.0:
+				bullet_type = bullet_types.NORMAL
+			else:
+				bullet_type = bullet_types.SNIPER
+		Color(0.384314, 1, 0):
+			bullet_type = bullet_types.ACID
 
 
 func _physics_process(_delta):
 	translation += transform.basis.z * speed
 
 
-func _on_Lifetime_timeout():
-	set_process(false)
-	hide()
-	deletion_manager.to_be_deleted.append(self)
+func _process(_delta):
+	if timer_finished and not shot_audio_playing and not impact_audio_playing:
+		set_process(false)
+		match bullet_type:
+			bullet_types.NORMAL:
+				pools.bullets_available.append(self)
+			bullet_types.SNIPER:
+				pools.sniper_bullets_available.append(self)
+			bullet_types.ACID:
+				pools.acid_bullets_available.append(self)
+
+
+func start(global_transform: Transform, damage: float, reward: int, \
+		burn: float, shooter: CombatVehicle):
+	self.global_transform = global_transform
+	self.damage = damage
+	self.reward = reward
+	self.burn = burn
+	acid_duration = 0
+	self.shooter = shooter
+	collision_layer = 8
+	collision_mask = 3
+	set_physics_process(true)
+	set_process(true)
+	show()
+	reset_physics_interpolation()
+	$Lifetime.start()
+
+
+func play_audio_lmg():
+	$ShotAudioLMG.play()
+	$ShotAudioLMG.set_as_toplevel(true)
+	$ShotAudioLMG.global_transform = global_transform
+	shot_audio_playing = true
+
+
+func play_audio_shotgun():
+	$ShotAudioShotgun.play()
+	$ShotAudioShotgun.set_as_toplevel(true)
+	$ShotAudioShotgun.global_transform = global_transform
+	shot_audio_playing = true
+
+
+func play_audio_sniper():
+	$ShotAudioSniper.play()
+	$ShotAudioSniper.set_as_toplevel(true)
+	$ShotAudioSniper.global_transform = global_transform
+	shot_audio_playing = true
 
 
 func _on_Area_body_entered(body):
 	if body != shooter:
 		if body.is_in_group("combat_vehicle"):
-			var impact: AudioStreamPlayer3D
 			if body.alive == false:
-				impact = ImpactLight.instance()
+				$ImpactAudioLight.play()
 			elif damage < 20:
-				impact = ImpactMedium.instance()
+				$ImpactAudioMedium.play()
 			else:
-				impact = ImpactHeavy.instance()
-			impact.deletion_manager = deletion_manager
-			body.add_child(impact)
+				$ImpactAudioHeavy.play()
+			impact_audio_playing = true
 			
-			$RayCast.force_raycast_update()
-			var payout: int = body.damage(damage, reward, burn, shooter)
 			if acid_duration > 0:
 				body.acid_duration += acid_duration
 				body.acid_cause = shooter
-			if payout > 0:
-				var new_money: Area = Money.instance()
-				new_money.shooter = shooter
-				new_money.reward = payout
-				new_money.deletion_manager = deletion_manager
-				body.add_child(new_money)
-				new_money.global_transform.origin = \
-						$RayCast.get_collision_point()
-				if $RayCast.get_collision_point() == Vector3.ZERO:
-					new_money.global_transform.origin = global_transform.origin
 			
-			var new_sparks: MeshInstance = Sparks.instance()
-			new_sparks.deletion_manager = deletion_manager
-			body.add_child(new_sparks)
-			new_sparks.global_transform = global_transform
-			new_sparks.rotation.z = randi() / TAU
-			new_sparks.global_transform.origin = $RayCast.get_collision_point()
-			if $RayCast.get_collision_point() == Vector3.ZERO:
-				new_sparks.global_transform.origin = global_transform.origin
-		set_process(false)
+			rotation.z = randi() / TAU
+			pools.get_sparks().start(global_transform)
+			
+			var payout: int = body.damage(damage, reward, burn, shooter)
+			if payout > 0:
+				pools.get_money().start(global_transform, shooter, body, payout)
+		set_physics_process(false)
 		hide()
-		deletion_manager.to_be_deleted.append(self)
+		collision_layer = 0
+		collision_mask = 0
+
+
+func _on_Lifetime_timeout():
+	timer_finished = true
+	set_physics_process(false)
+	hide()
+	collision_layer = 0
+	collision_mask = 0
+
+
+func _on_ShotAudioLMG_finished():
+	shot_audio_playing = false
+
+
+func _on_ShotAudioShotgun_finished():
+	shot_audio_playing = false
+
+
+func _on_ShotAudioSniper_finished():
+	shot_audio_playing = false
+
+
+func _on_ImpactAudioLight_finished():
+	impact_audio_playing = false
+
+
+func _on_ImpactAudioMedium_finished():
+	impact_audio_playing = false
+
+
+func _on_ImpactAudioHeavy_finished():
+	impact_audio_playing = false
