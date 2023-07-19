@@ -1,21 +1,6 @@
 extends AmmoVehicle
 
 
-const Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/bullet.tscn")
-const Sniper_Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/sniper_bullet.tscn")
-const CartridgeCase: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_case.tscn")
-const CartridgeLink: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_link.tscn")
-const ShotSoundShotgun: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_shotgun.tscn")
-const ShotSoundSniper: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_sniper.tscn")
-const ShotSoundLMG: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_lmg.tscn")
-
 enum cartridge_out {NONE, LINK, CASE}
 
 export var shotgun_damage: float = 6.0
@@ -49,31 +34,25 @@ func _ready():
 
 func _physics_process(_delta):
 	if sniper_case_out:
-		var new_case: RigidBody = CartridgeCase.instance()
-		$CartridgeExitSniper.add_child(new_case)
-		new_case.set_as_toplevel(true)
+		var new_case: DynamicShadowBody = pools.get_cartridge_case()
+		new_case.start($CartridgeExitSniper.global_transform)
 		new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-		deletion_manager.other_rigid_bodies.append(new_case)
 		
 		sniper_case_out = false
 	
 	match next_out:
 		cartridge_out.LINK:
-			var new_link: RigidBody = CartridgeLink.instance()
-			$CartridgeExitMachineGun.add_child(new_link)
-			new_link.set_as_toplevel(true)
+			var new_link: DynamicShadowBody = pools.get_cartridge_link()
+			new_link.start($CartridgeExitMachineGun.global_transform)
 			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
 					- 10) / 10000, (new_link.transform.basis.x \
 					+ new_link.transform.basis.y / 2) / 150)
-			deletion_manager.other_rigid_bodies.append(new_link)
 			
 			next_out = cartridge_out.CASE
 		cartridge_out.CASE:
-			var new_case: RigidBody = CartridgeCase.instance()
-			$CartridgeExitMachineGun.add_child(new_case)
-			new_case.set_as_toplevel(true)
+			var new_case: DynamicShadowBody = pools.get_cartridge_case()
+			new_case.start($CartridgeExitMachineGun.global_transform)
 			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
-			deletion_manager.other_rigid_bodies.append(new_case)
 			
 			next_out = cartridge_out.NONE
 	
@@ -177,49 +156,22 @@ func shoot_shotgun():
 	
 	apply_central_impulse(transform.basis.z * -shotgun_blast)
 	
-	var new_bullet: Area = Bullet.instance()
-	$ShotPositionShotgunUp.add_child(new_bullet)
-	new_bullet.damage = shotgun_damage
-	new_bullet.reward = shotgun_reward
-	new_bullet.burn = shotgun_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
+	pools.get_bullet().start($ShotPositionShotgunUp.global_transform, \
+			shotgun_damage, shotgun_reward, shotgun_burn, self)
 	
-	new_bullet = Bullet.instance()
-	$ShotPositionShotgunDown.add_child(new_bullet)
-	new_bullet.damage = shotgun_damage
-	new_bullet.reward = shotgun_reward
-	new_bullet.burn = shotgun_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
+	pools.get_bullet().start($ShotPositionShotgunDown.global_transform, \
+			shotgun_damage, shotgun_reward, shotgun_burn, self)
 	
-	new_bullet = Bullet.instance()
-	$ShotPositionShotgunLeft.add_child(new_bullet)
-	new_bullet.damage = shotgun_damage
-	new_bullet.reward = shotgun_reward
-	new_bullet.burn = shotgun_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
+	pools.get_bullet().start($ShotPositionShotgunLeft.global_transform, \
+			shotgun_damage, shotgun_reward, shotgun_burn, self)
 	
-	new_bullet = Bullet.instance()
-	$ShotPositionShotgunMiddle.add_child(new_bullet)
-	new_bullet.damage = shotgun_damage
-	new_bullet.reward = shotgun_reward
-	new_bullet.burn = shotgun_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
+	var new_bullet: Area = pools.get_bullet()
+	new_bullet.start($ShotPositionShotgunMiddle.global_transform, shotgun_damage, \
+			shotgun_reward, shotgun_burn, self)
+	new_bullet.play_audio_shotgun()
 	
-	new_bullet = Bullet.instance()
-	$ShotPositionShotgunRight.add_child(new_bullet)
-	new_bullet.damage = shotgun_damage
-	new_bullet.reward = shotgun_reward
-	new_bullet.burn = shotgun_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
-	
-	var new_sound: AudioStreamPlayer3D = ShotSoundShotgun.instance()
-	$ShotPositionShotgunMiddle.add_child(new_sound)
-	new_sound.deletion_manager = deletion_manager
+	pools.get_bullet().start($ShotPositionShotgunRight.global_transform, \
+			shotgun_damage, shotgun_reward, shotgun_burn, self)
 	
 	if gles3:
 		$MuzzleFlashShotgun.emitting = true
@@ -232,17 +184,10 @@ func shoot_sniper():
 	can_shoot_sniper = false
 	get_node("../SniperTimer").start()
 	
-	var new_bullet: Area = Sniper_Bullet.instance()
-	$ShotPositionSniper.add_child(new_bullet)
-	new_bullet.damage = sniper_damage
-	new_bullet.reward = sniper_reward
-	new_bullet.burn = sniper_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
-	
-	var new_sound: AudioStreamPlayer3D = ShotSoundSniper.instance()
-	$ShotPositionSniper.add_child(new_sound)
-	new_sound.deletion_manager = deletion_manager
+	var new_bullet: Area = pools.get_bullet()
+	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
+			sniper_reward, sniper_burn, self)
+	new_bullet.play_audio_sniper()
 	
 	sniper_case_out = true
 	
@@ -259,17 +204,10 @@ func shoot_lmg(var b: bool):
 		get_node("../MachineGunTimer").start()
 		next_out = cartridge_out.LINK
 		
-		var new_bullet: Area = Bullet.instance()
-		$ShotPositionMachineGun.add_child(new_bullet)
-		new_bullet.damage = lmg_damage
-		new_bullet.reward = lmg_reward
-		new_bullet.burn = lmg_burn
-		new_bullet.shooter = self
-		new_bullet.deletion_manager = deletion_manager
-		
-		var new_sound: AudioStreamPlayer3D = ShotSoundLMG.instance()
-		$ShotPositionMachineGun.add_child(new_sound)
-		new_sound.deletion_manager = deletion_manager
+		var new_bullet: Area = pools.get_bullet()
+		new_bullet.start($ShotPositionMachineGun.global_transform, lmg_damage, \
+				lmg_reward, lmg_burn, self)
+		new_bullet.play_audio_lmg()
 		
 		if gles3:
 			$MuzzleFlashMachineGun.emitting = true
