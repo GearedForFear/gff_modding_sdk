@@ -34,8 +34,9 @@ shape = SubResource( 2 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00945595, 0.332726, -0.00462071 )
-aabb = AABB( -0.428351, -0.367045, -0.432258, 0.856702, 0.734093, 0.864517 )
+aabb = AABB( -1.5, -1.5, -1.5, 3, 3, 3 )
+max_distance = 200.0
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
-[connection signal="screen_entered" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="camera_entered" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_exited"]
