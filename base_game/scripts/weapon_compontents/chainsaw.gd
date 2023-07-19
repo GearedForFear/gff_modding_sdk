@@ -1,14 +1,12 @@
 extends Area
 
 
-const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
-const Sparks: PackedScene = preload("res://scenes/destruction/sparks.tscn")
-
 var damage: float
 var reward: int
 var burn: float
 var shooter: CombatVehicle
 var deletion_manager: Node
+var pools: Node
 
 var interpolation_weight: float = 0.05
 
@@ -38,26 +36,12 @@ func delete():
 func _on_Area_body_entered(body):
 	if body != shooter:
 		if body.is_in_group("combat_vehicle"):
-			$RayCast.force_raycast_update()
+			rotation.z = randi() / TAU
+			pools.get_sparks().start(global_transform)
+			
 			var payout: int = body.damage(damage, reward, burn, shooter)
 			if payout > 0:
-				var new_money: Area = Money.instance()
-				new_money.shooter = shooter
-				new_money.reward = payout
-				new_money.deletion_manager = deletion_manager
-				body.add_child(new_money)
-				new_money.global_transform.origin = \
-						$RayCast.get_collision_point()
-				if $RayCast.get_collision_point() == Vector3.ZERO:
-					new_money.global_transform.origin = global_transform.origin
-			var new_sparks: MeshInstance = Sparks.instance()
-			new_sparks.deletion_manager = deletion_manager
-			body.add_child(new_sparks)
-			new_sparks.global_transform = global_transform
-			new_sparks.rotation.z = randi() / TAU
-			new_sparks.global_transform.origin = $RayCast.get_collision_point()
-			if $RayCast.get_collision_point() == Vector3.ZERO:
-				new_sparks.global_transform.origin = global_transform.origin
+				pools.get_money().start(global_transform, shooter, body, payout)
 			$ImpactVehicle.play()
 		else:
 			$ImpactGround.play()
