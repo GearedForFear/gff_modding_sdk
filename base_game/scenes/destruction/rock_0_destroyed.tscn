@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_9.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_0.tres" type="ArrayMesh" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://resources/materials/world/maps/usa.material" type="Material" id=12]
 [ext_resource path="res://resources/sounds/destruction/rock_impact_small_hit_03.wav" type="AudioStream" id=13]
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_10.tres" type="ArrayMesh" id=14]
+[ext_resource path="res://scripts/world/dynamic_shadow_body.gd" type="Script" id=15]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 0.226331, -0.503896, -0.673164, 0.218112, -0.0447003, -0.654324, -0.787241, 0.228575, -0.35749, -0.505062, -0.436856, 0.42359, 0.480729, -0.484407, 0.379262, 0.296596, 0.571303, 0.332702, 0.689796, -0.324778, -0.448699, -0.535809, -0.514503, -0.429325, -0.690763, 0.572177, 0.103729, 0.344312, -0.117452, 0.588292, -0.551453, 0.20401, 0.538661, 0.524285, 0.226614, -0.148409, 0.271818, 0.362862, 0.581477, 0.669246, -0.511095, -0.195829, -0.752138, 0.293754, -0.375062, -0.34603, -0.507449, 0.310304, 0.452713, -0.0471139, -0.602611, 0.20485, 0.594241, 0.309772, -0.62532, -0.441624, -0.40379, -0.529711, -0.39258, 0.448259, 0.397985, -0.331366, 0.552343, 0.413738, -0.509703, -0.633629, -0.739329, 0.504953, -0.0570104, -0.553921, 0.343061, 0.541523, -0.252617, 0.59116, 0.26223, -0.718098, -0.14117, -0.380828, 0.503063, -0.506848, 0.332768, -0.04745, 0.182348, 0.589884, 0.301795, -0.515071, -0.685968, 0.525235, -0.116478, -0.583992, 0.404788, 0.428254, 0.101251, 0.698215, -0.4688, -0.31355, -0.788604, 0.367882, -0.265419, 0.20676, 0.367144, 0.589893, 0.0661685, -0.00157463, -0.625068, -0.594455, -0.480524, -0.421652, -0.532399, -0.41813, 0.427878, 0.675764, -0.227291, -0.418396, -0.527116, 0.592183, 0.125647, 0.314907, -0.0694101, -0.668386, 0.62224, -0.302613, -0.542135, -0.57751, 0.366307, 0.495927, -0.416953, 0.320936, 0.566611, 0.516232, 0.133871, -0.304911, 0.337434, 0.51931, 0.282736, 0.39022, -0.278706, 0.564993, 0.341621, -0.505595, 0.354831, 0.670108, -0.511762, -0.311787, 0.27304, 0.455714, 0.492318, -0.576204, 0.388521, 0.471693, -0.597883, -0.48381, -0.378064, -0.69471, 0.552391, 0.127671, -0.770942, 0.315012, -0.350618, 0.67932, -0.251353, -0.374866, -0.688443, -0.20802, -0.285821, 0.28023, 0.546211, 0.249189, -0.368585, -0.506893, 0.287092, -0.323045, -0.392575, 0.471257, 0.66803, -0.302364, -0.495676, 0.503344, 0.219918, -0.188774, 0.528174, -0.140348, -0.586755, 0.343047, -0.277779, 0.563239, 0.296322, 0.548051, 0.37843, 0.32094, -0.370522, -0.678757 )
@@ -57,6 +58,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395224, 0.520886, 0.598731 
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody"]
 portal_mode = 3
@@ -67,11 +69,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody"]
 shape = SubResource( 1 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody2" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.462494, 0.988339, 1.08518 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody2"]
 portal_mode = 3
@@ -82,11 +89,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody2"]
 shape = SubResource( 2 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody2"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody3" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.471746, 1.02789, -0.00445203 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody3"]
 portal_mode = 3
@@ -97,11 +109,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody3"]
 shape = SubResource( 3 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody3"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody4" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.134035, 0.980774, -0.678241 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody4"]
 portal_mode = 3
@@ -112,11 +129,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody4"]
 shape = SubResource( 4 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody4"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody5" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765326, 0.0609412, -0.175976 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody5"]
 portal_mode = 3
@@ -127,11 +149,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody5"]
 shape = SubResource( 5 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody5"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody6" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.716902, 0.628632, -0.12299 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody6"]
 portal_mode = 3
@@ -142,11 +169,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody6"]
 shape = SubResource( 6 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody6"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody7" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44533, 0.523322, 0.766356 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody7"]
 portal_mode = 3
@@ -157,11 +189,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody7"]
 shape = SubResource( 7 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody7"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody8" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305136, 1.13646, 0.809509 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody8"]
 portal_mode = 3
@@ -172,11 +209,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody8"]
 shape = SubResource( 8 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody8"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody9" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80997, 0.453121, -0.430279 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody9"]
 portal_mode = 3
@@ -187,11 +229,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody9"]
 shape = SubResource( 9 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody9"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody10" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.176359, 0.306995, -0.595392 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody10"]
 portal_mode = 3
@@ -202,11 +249,16 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody10"]
 shape = SubResource( 10 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody10"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
 [node name="RigidBody11" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04012, 0.142694, 0.119696 )
 collision_layer = 4
 collision_mask = 6
 mass = 0.102041
+script = ExtResource( 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody11"]
 portal_mode = 3
@@ -216,6 +268,10 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody11"]
 shape = SubResource( 11 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody11"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 13 )
