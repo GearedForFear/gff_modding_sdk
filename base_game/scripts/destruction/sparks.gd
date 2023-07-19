@@ -2,20 +2,37 @@ extends MeshInstance
 
 
 var deletion_manager: Node
+var visible_on: Array
+
+onready var pools: Node = get_node("../..")
 
 
-func _ready():
-	set_as_toplevel(true)
+func start(global_transform: Transform):
+	self.global_transform = global_transform
+	set_physics_process(true)
+	set_process(true)
+	show()
+	reset_physics_interpolation()
 	$AnimationPlayer.play("sparks")
 
 
+func stop():
+	$AnimationPlayer.stop()
+	set_physics_process(false)
+	set_process(false)
+	hide()
+	pools.sparks_available.append(self)
+
+
+func _on_VisibilityNotifier_camera_entered(camera):
+	visible_on.append(camera)
+
+
+func _on_VisibilityNotifier_camera_exited(camera):
+	visible_on.erase(camera)
+	if visible_on.empty() and $AnimationPlayer.is_playing():
+		stop()
+
+
 func _on_AnimationPlayer_animation_finished(_anim_name):
-	set_process(false)
-	hide()
-	deletion_manager.to_be_deleted.append(self)
-
-
-func _on_VisibilityNotifier_screen_exited():
-	set_process(false)
-	hide()
-	deletion_manager.to_be_deleted.append(self)
+	stop()
