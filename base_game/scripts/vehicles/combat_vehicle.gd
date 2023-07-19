@@ -32,6 +32,7 @@ var replacement: CombatVehicle
 var track: Spatial
 var gameplay_manager: Node
 var deletion_manager: Node
+var pools: Node
 
 onready var health: float = base_health
 onready var boost_type: int = base_boost_type
@@ -41,6 +42,7 @@ onready var gles3: bool = OS.get_current_video_driver() == 0
 func _enter_tree():
 	gameplay_manager = track.get_node("GameplayManager")
 	deletion_manager = track.get_node("DeletionManager")
+	pools = track.get_node("Pools")
 	target = gameplay_manager.get_node("NonPlayerPath/Waypoint0")
 	deletion_manager.gameplay_rigid_bodies.append(self)
 	get_node("../AnimationPlayer").playback_speed *= \
