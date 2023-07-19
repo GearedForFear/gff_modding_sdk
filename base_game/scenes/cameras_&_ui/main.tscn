@@ -8,7 +8,7 @@
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_distance.gd" type="Script" id=9]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/texture_size.gd" type="Script" id=9]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=10]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/volume.gd" type="Script" id=11]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/resolution.gd" type="Script" id=12]
@@ -381,7 +381,7 @@ text = "Shadow Casters"
 script = ExtResource( 10 )
 selection = "../../ShadowCastersButtons/Default"
 
-[node name="ShadowDistance" type="Button" parent="BlackBar/GraphicsButtons"]
+[node name="TextureSize" type="Button" parent="BlackBar/GraphicsButtons"]
 margin_top = 251.0
 margin_right = 256.0
 margin_bottom = 270.0
@@ -392,9 +392,9 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "Shadow Dist."
+text = "Texture Size"
 script = ExtResource( 10 )
-selection = "../../ShadowDistanceButtons/Shadow200"
+selection = "../../TextureSizeButtons/4096"
 
 [node name="MaxRigidBodies" type="Button" parent="BlackBar/GraphicsButtons"]
 margin_top = 274.0
@@ -1357,18 +1357,18 @@ text = "Ultimate"
 script = ExtResource( 5 )
 shadow_casters = 6
 
-[node name="ShadowDistanceButtons" type="VBoxContainer" parent="BlackBar"]
+[node name="TextureSizeButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 7.20001
 alignment = 1
 
-[node name="Shadow200" type="Button" parent="BlackBar/ShadowDistanceButtons"]
+[node name="2048" type="Button" parent="BlackBar/TextureSizeButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Shadow800")
+focus_neighbour_top = NodePath("../16384")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1376,10 +1376,26 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "200m"
+text = "2048"
+script = ExtResource( 9 )
+shadow_distance = 62.5
+max_texture_size = 2048
+
+[node name="4096" type="Button" parent="BlackBar/TextureSizeButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4096"
 script = ExtResource( 9 )
 
-[node name="Shadow400" type="Button" parent="BlackBar/ShadowDistanceButtons"]
+[node name="8192" type="Button" parent="BlackBar/TextureSizeButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
@@ -1390,16 +1406,16 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "400m"
+text = "8192"
 script = ExtResource( 9 )
-shadow_distance = 400.0
-shadow_quality = 8192
+shadow_distance = 250.0
+max_texture_size = 8192
 
-[node name="Shadow800" type="Button" parent="BlackBar/ShadowDistanceButtons"]
+[node name="16384" type="Button" parent="BlackBar/TextureSizeButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../Shadow200")
+focus_neighbour_bottom = NodePath("../2048")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1407,10 +1423,10 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "800m"
+text = "16384"
 script = ExtResource( 9 )
-shadow_distance = 800.0
-shadow_quality = 16384
+shadow_distance = 500.0
+max_texture_size = 16384
 
 [node name="MaxRigidBodiesButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
