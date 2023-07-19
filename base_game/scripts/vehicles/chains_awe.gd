@@ -1,12 +1,8 @@
 extends AmmoVehicle
 
 
-const Sniper_Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/sniper_bullet.tscn")
 const Chainsaw: PackedScene \
 		= preload("res://scenes/weapon_components/chainsaw.tscn")
-const ShotSoundSniper: PackedScene \
-		= preload("res://scenes/weapon_components/shot_sound_sniper.tscn")
 
 export var sniper_damage: float = 40.0
 export var sniper_reward: int = 15
@@ -77,17 +73,10 @@ func shoot_sniper():
 	can_shoot_sniper = false
 	get_node("../SniperTimer").start()
 	
-	var new_bullet: Area = Sniper_Bullet.instance()
-	$ShotPositionSniper.add_child(new_bullet)
-	new_bullet.damage = sniper_damage
-	new_bullet.reward = sniper_reward
-	new_bullet.burn = sniper_burn
-	new_bullet.shooter = self
-	new_bullet.deletion_manager = deletion_manager
-	
-	var new_sound: AudioStreamPlayer3D = ShotSoundSniper.instance()
-	$ShotPositionSniper.add_child(new_sound)
-	new_sound.deletion_manager = deletion_manager
+	var new_bullet: Area = pools.get_sniper_bullet()
+	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
+			sniper_reward, sniper_burn, self)
+	new_bullet.play_audio_sniper()
 	
 	if gles3:
 		$MuzzleFlash.emitting = true
@@ -202,6 +191,7 @@ func shoot_chainsaw():
 	new_chainsaw.burn = launcher_burn
 	new_chainsaw.shooter = self
 	new_chainsaw.deletion_manager = deletion_manager
+	new_chainsaw.pools = pools
 
 
 func _on_SniperTimer_timeout():
