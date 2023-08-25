@@ -10,9 +10,10 @@ var current_category: int = 0
 var current_vehicle: int = 0
 
 onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
-		get_node("Nitro/SuicideDoor"), get_node("Rocket/WarmWelcome"), \
-		get_node("Rocket/Turbulence"), get_node("Rocket/EternalBond"), \
-		get_node("Switch/Restless"), get_node("Burst/WellRaised")]
+		get_node("Nitro/SuicideDoor"), get_node("Nitro/GraveMistake"), \
+		get_node("Rocket/WarmWelcome"), get_node("Rocket/Turbulence"), \
+		get_node("Rocket/EternalBond"), get_node("Switch/Restless"), \
+		get_node("Burst/WellRaised")]
 
 
 func _ready():
@@ -67,6 +68,10 @@ func _process(_delta):
 					1:
 						vehicle = ResourceLoader.load(\
 								"res://scenes/vehicles/suicide_door.tscn", \
+								"PackedScene").instance()
+					2:
+						vehicle = ResourceLoader.load(\
+								"res://scenes/vehicles/grave_mistake.tscn", \
 								"PackedScene").instance()
 					4:
 						return#vehicle = ResourceLoader.load(\
