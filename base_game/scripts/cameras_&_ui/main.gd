@@ -44,8 +44,9 @@ func _ready():
 	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
 	settings.shadow_distance = \
 			config.get_value("graphics", "shadow_distance",200.0)
+	settings.max_texture_size = config.get_value("graphics", "max_texture_size", 4096)
 	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
-			config.get_value("graphics", "max_texture_size", 4096))
+			settings.max_texture_size)
 	settings.max_rigid_bodies = \
 			config.get_value("graphics", "max_rigid_bodies", 100)
 	AudioServer.set_bus_volume_db(1, \
@@ -230,6 +231,9 @@ func prepare():
 
 func play():
 	$BlackBar/MainButtons.hide()
+	var rr: int = OS.get_screen_refresh_rate()
+	get_tree().physics_interpolation = rr != 29 and rr != 30 and rr != 59 \
+			and rr != 60
 	while thread.is_alive():
 		yield(get_tree(), "idle_frame")
 	thread.wait_to_finish()
@@ -684,21 +688,25 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 						"PackedScene").instance()
 			2:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/warm_welcome.tscn", \
+						"res://scenes/vehicles/grave_mistake.tscn", \
 						"PackedScene").instance()
 			3:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/turbulence.tscn", \
+						"res://scenes/vehicles/warm_welcome.tscn", \
 						"PackedScene").instance()
 			4:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/eternal_bond.tscn", \
+						"res://scenes/vehicles/turbulence.tscn", \
 						"PackedScene").instance()
 			5:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/restless.tscn", \
+						"res://scenes/vehicles/eternal_bond.tscn", \
 						"PackedScene").instance()
 			6:
+				vehicle = ResourceLoader.load(\
+						"res://scenes/vehicles/restless.tscn", \
+						"PackedScene").instance()
+			7:
 				vehicle = ResourceLoader.load(\
 						"res://scenes/vehicles/well_raised.tscn", \
 						"PackedScene").instance()
