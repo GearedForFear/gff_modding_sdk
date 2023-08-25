@@ -43,7 +43,7 @@ func _enter_tree():
 
 
 func _physics_process(_delta):
-	global_translation = get_parent().global_translation + Vector3(0, 2, 0)
+	global_translation = get_parent().global_translation + Vector3(0, height, 0)
 	var score: float = get_parent().score
 	text = String(score) + "€"
 	score /= clamp(gameplay_manager.pursuers[0].score, 100, 1_000_000)
