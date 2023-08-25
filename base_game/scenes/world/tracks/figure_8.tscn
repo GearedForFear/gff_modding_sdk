@@ -40,6 +40,7 @@ flags_transparent = true
 albedo_color = Color( 1, 1, 0, 0.54902 )
 
 [node name="RootSpatial" type="Spatial"]
+physics_interpolation_mode = 2
 
 [node name="Map" parent="." instance=ExtResource( 4 )]
 

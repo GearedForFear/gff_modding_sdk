@@ -133,6 +133,7 @@ tracks/2/keys = {
 }
 
 [node name="RootSpatial" type="Spatial"]
+physics_interpolation_mode = 2
 
 [node name="Map" parent="." instance=ExtResource( 4 )]
 
