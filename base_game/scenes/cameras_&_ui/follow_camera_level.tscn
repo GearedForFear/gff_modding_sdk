@@ -235,6 +235,7 @@ shadow_atlas_size = 4096
 script = ExtResource( 9 )
 
 [node name="Camera" type="Camera" parent="Camera/AspectRatioContainer/Control/RearMirror/Viewport"]
+physics_interpolation_mode = 2
 fov = 75.0
 far = 200.0
 
@@ -335,6 +336,7 @@ shadow_atlas_size = 4096
 script = ExtResource( 9 )
 
 [node name="Camera" type="Camera" parent="Camera/AspectRatioContainer/Control/Resources/ViewportContainer/Viewport"]
+physics_interpolation_mode = 2
 far = 3.0
 
 [node name="Heart" type="MeshInstance" parent="Camera/AspectRatioContainer/Control/Resources/ViewportContainer/Viewport/Camera"]

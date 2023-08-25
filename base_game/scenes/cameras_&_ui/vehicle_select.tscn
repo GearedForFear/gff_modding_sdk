@@ -78,6 +78,7 @@ render_target_update_mode = 3
 script = ExtResource( 11 )
 
 [node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]
+physics_interpolation_mode = 2
 visible = false
 script = ExtResource( 8 )
 
