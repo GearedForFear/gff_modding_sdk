@@ -2,6 +2,7 @@ extends DirectionalLight
 
 
 func _ready():
-	directional_shadow_normal_bias = OS.window_size.x / OS.window_size.y / 2
-	directional_shadow_max_distance \
-			= get_node("/root/RootControl/SettingsManager").shadow_distance
+	var settings_manager: Node = get_node("/root/RootControl/SettingsManager")
+	directional_shadow_max_distance = settings_manager.shadow_distance \
+			* OS.window_size.y * 10000 / OS.window_size.x \
+			/ pow(settings_manager.field_of_view, 2)
