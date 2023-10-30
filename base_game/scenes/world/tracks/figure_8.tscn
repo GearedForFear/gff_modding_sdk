@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scripts/world/main_light.gd" type="Script" id=10]
 [ext_resource path="res://scenes/world/decorations/rock_1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/world/environment.gd" type="Script" id=13]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
@@ -28,6 +29,11 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 0.5
 ambient_light_sky_contribution = 0.4
 tonemap_mode = 3
+ss_reflections_enabled = true
+ss_reflections_max_steps = 512
+ss_reflections_fade_in = 1e-05
+ss_reflections_fade_out = 1e-05
+ss_reflections_roughness = false
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 21.0438, 18.2348, 34.6246 )
@@ -46,6 +52,7 @@ physics_interpolation_mode = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
+script = ExtResource( 13 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
@@ -504,18 +511,22 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 195.547
 [node name="Rock0" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.444229, 0, 0.895913, 0, 1, 0, -0.895913, 0, 0.444229, 68.4793, -0.823318, 169.935 )
 global_culling = true
+can_have_shadow = false
 
 [node name="Rock1" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.899642, 0, -0.436629, 0, 1, 0, 0.436629, 0, 0.899642, 69.6893, -0.7585, 173.159 )
 global_culling = true
+can_have_shadow = false
 
 [node name="Rock2" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.4683, -0.758499, 173.343 )
 global_culling = true
+can_have_shadow = false
 
 [node name="Rock3" parent="." instance=ExtResource( 11 )]
 transform = Transform( -0.80874, 0, -0.588166, 0, 1, 0, 0.588166, 0, -0.80874, 48.6669, -0.758499, 161.092 )
 global_culling = true
+can_have_shadow = false
 
 [connection signal="timeout" from="GameplayManager/Timer" to="GameplayManager" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint0/Area" to="GameplayManager/NonPlayerPath/Waypoint0/Area" method="_on_Area_body_entered"]
