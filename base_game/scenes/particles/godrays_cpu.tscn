@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/meshes/world/decorations/godray.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://resources/materials/world/decorations/godray.material" type="Material" id=2]
+
+[sub_resource type="Curve" id=3]
+max_value = 5.0
+_data = [ Vector2( 0, 1.09091 ), 0.0, 2.64935, 0, 0, Vector2( 1, 4.86364 ), 4.43823, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.534137, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="CPUParticles" type="CPUParticles"]
+material_override = ExtResource( 2 )
+emitting = false
+lifetime = 20.0
+preprocess = 20.0
+lifetime_randomness = 0.1
+mesh = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 9.0
+gravity = Vector3( 0, 0, 0 )
+scale_amount = 50.0
+scale_amount_random = 0.1
+scale_amount_curve = SubResource( 3 )
+color = Color( 1, 1, 1, 0.207843 )
+color_ramp = SubResource( 1 )
