@@ -32,7 +32,7 @@ func _ready():
 	config.load("user://config.cfg")
 	var settings: Node = $SettingsManager
 	OS.window_borderless = config.get_value("graphics", "borderless", false)
-	OS.window_fullscreen = config.get_value("graphics", "fullscreen", false)
+	OS.window_fullscreen = config.get_value("graphics", "fullscreen", true)
 	settings.resolution = config.get_value("graphics", "resolution", 1)
 	settings.msaa = config.get_value("graphics", "msaa", 0)
 	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
@@ -44,7 +44,9 @@ func _ready():
 	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
 	settings.shadow_distance = \
 			config.get_value("graphics", "shadow_distance",200.0)
-	settings.max_texture_size = config.get_value("graphics", "max_texture_size", 4096)
+	settings.reflections = config.get_value("graphics", "reflections", 0)
+	settings.max_texture_size = config.get_value("graphics", \
+			"max_texture_size", 4096)
 	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
 			settings.max_texture_size)
 	settings.max_rigid_bodies = \
@@ -165,6 +167,10 @@ func _process(_delta):
 			switch_buttons($BlackBar/MSAAButtons, \
 					$BlackBar/GraphicsButtons/MSAA)
 			$ReturnAudio.play()
+		elif $BlackBar/ReflectionsButtons.visible:
+			switch_buttons($BlackBar/ReflectionsButtons, \
+					$BlackBar/GraphicsButtons/Reflections)
+			$ReturnAudio.play()
 		elif $BlackBar/ViewDistanceButtons.visible:
 			switch_buttons($BlackBar/ViewDistanceButtons, \
 					$BlackBar/GraphicsButtons/ViewDistance)
@@ -211,12 +217,12 @@ func prepare():
 		always_loaded.clear()
 		always_loaded.append_array(resources)
 		resources_loaded = true
-	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
+	track = ResourceLoader.load("res://scenes/world/tracks/glacier.tscn", \
 			"PackedScene").instance()
 	next_tracks.clear()
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
 	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	var spawns: Array = Array()
