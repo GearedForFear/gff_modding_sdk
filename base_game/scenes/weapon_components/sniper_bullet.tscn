@@ -23,6 +23,7 @@ shader_param/ColorUniform = Color( 1, 1, 0, 1 )
 radius = 0.03
 
 [node name="Area" type="Area" groups=["Bullet"]]
+visible = false
 collision_layer = 8
 collision_mask = 3
 script = ExtResource( 2 )
