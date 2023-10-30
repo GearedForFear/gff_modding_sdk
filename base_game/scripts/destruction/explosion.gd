@@ -1,8 +1,6 @@
 extends Area
 
 
-const Money: PackedScene = preload("res://scenes/collectables/money.tscn")
-
 var damage: float
 var reward: int
 var burn: float
@@ -33,11 +31,8 @@ func _on_Area_body_entered(body):
 		if body != shooter:
 			var payout: int = body.damage(damage, reward, burn, shooter)
 			if payout > 0:
-				var new_money: Area = Money.instance()
-				new_money.shooter = shooter
-				new_money.reward = payout
-				new_money.deletion_manager = deletion_manager
-				body.add_child(new_money)
+				deletion_manager.get_node("../Pools").get_money().start(\
+						global_transform, shooter, body, payout)
 
 
 func _on_Area_area_entered(area):
