@@ -8,6 +8,11 @@ onready var root_control: Control = get_node("/root/RootControl")
 onready var config: ConfigFile = root_control.config
 
 
+func _ready():
+	if max_texture_size >= 16384 and OS.has_feature("32"):
+		disabled = true
+
+
 func _pressed():
 	root_control.get_node("SettingsManager").shadow_distance = shadow_distance
 	root_control.get_node("SettingsManager").max_texture_size = max_texture_size
