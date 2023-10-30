@@ -3,23 +3,16 @@ extends Label
 
 func _process(_delta):
 	if visible:
+		var settings_manager: Node = get_node("/root/RootControl/SettingsManager")
 		text = "Current Settings:"
 		
-		if OS.window_fullscreen:
-			text += "\nFullscreen"
-		elif OS.window_borderless:
-			text += "\nBorderless Window"
-		else:
-			text += "\nDefault Window"
+		text += "\nResolution: " + String(round(OS.window_size.x \
+				/ settings_manager.resolution)) + " x " + String(round(\
+				OS.window_size.y / settings_manager.resolution))
 		
-		text += "\n" + String(round(OS.window_size.x \
-				/ get_node("/root/RootControl/SettingsManager").resolution)) \
-				+ " x " + String(round(OS.window_size.y \
-				/ get_node("/root/RootControl/SettingsManager").resolution))
-		
-		match get_node("/root/RootControl/SettingsManager").msaa:
+		match settings_manager.msaa:
 			0:
-				text += "\nMSAA Off"
+				text += "\nNo MSAA"
 			1:
 				text += "\n2x MSAA"
 			2:
@@ -29,21 +22,35 @@ func _process(_delta):
 			4:
 				text += "\n16x MSAA"
 		
+		match settings_manager.reflections:
+			0:
+				text += "\nNo Screen-space Reflections"
+			64:
+				text += "\nReflections: High"
+			128:
+				text += "\nReflections: Extra High"
+			256:
+				text += "\nReflections: Ultra"
+			512:
+				text += "\nReflections: Ultimate"
+			_:#If the user edits the config file
+				text += "\nReflections: Custom"
+		
 		if OS.vsync_enabled:
 			text += "\nVsync On"
 		else:
 			text += "\nVsync Off"
 		
-		text += "\nView Distance: " + String(get_node(\
-				"/root/RootControl/SettingsManager").view_distance) + "m"
+		text += "\nView Distance: " + String(settings_manager.view_distance) \
+				+ "m"
 		
-		text += "\nRear View Distance: " + String(get_node(\
-				"/root/RootControl/SettingsManager").rear_view_distance) + "m"
+		text += "\nRear View Distance: " + String(\
+				settings_manager.rear_view_distance) + "m"
 		
-		text += "\nField of View: " + String(get_node(\
-				"/root/RootControl/SettingsManager").field_of_view) + "°"
+		text += "\nField of View: " + String(settings_manager.field_of_view) \
+				+ "°"
 		
-		match get_node("/root/RootControl/SettingsManager").shadow_casters:
+		match settings_manager.shadow_casters:
 			0:
 				text += "\nNo Shadows"
 			1:
@@ -59,15 +66,18 @@ func _process(_delta):
 			6:
 				text += "\nShadow Casters: Ultimate"
 		
-		var tex_size: String = String(get_node(\
-				"/root/RootControl/SettingsManager").max_texture_size)
-		text += "\nMax Texture Size: " + tex_size + "*" + tex_size
+		text += "\nShadow Distance: " + String(round(\
+				settings_manager.shadow_distance * OS.window_size.y * 10000 \
+				/ OS.window_size.x / pow(settings_manager.field_of_view, 2))) \
+				+ "m"
 		
-		if get_node("/root/RootControl/SettingsManager").max_rigid_bodies == 0:
+		var tex_size: String = String(settings_manager.max_texture_size)
+		text += "\nMax Texture Size: " + tex_size + " x " + tex_size
+		
+		if settings_manager.max_rigid_bodies == 0:
 			text += "\nMax Rigid Bodies: Lowest"
 		else:
-			text += "\nMax Rigid Bodies: " + String(\
-					get_node("/root/RootControl/SettingsManager")\
+			text += "\nMax Rigid Bodies: " + String(settings_manager\
 					.max_rigid_bodies)
 		
 		text += "\n\nSound Effects Volume: " + String(round(db2linear(\
