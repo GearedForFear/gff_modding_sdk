@@ -1,9 +1,20 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://resources/materials/destruction/explosion.material" type="Material" id=1]
+[ext_resource path="res://resources/materials/destruction/explosion.gdshader" type="Shader" id=1]
 [ext_resource path="res://resources/meshes/destruction/explosion.tres" type="ArrayMesh" id=2]
 [ext_resource path="res://scripts/destruction/explosion.gd" type="Script" id=3]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_07.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/images/explosion.tres" type="Texture" id=5]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 1 )
+shader_param/dithering = 0.0
+shader_param/texture_albedo = ExtResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 1 )
+shader_param/dithering = 1.0
+shader_param/texture_albedo = ExtResource( 5 )
 
 [sub_resource type="SphereShape" id=1]
 radius = 3.0
@@ -39,6 +50,7 @@ tracks/1/keys = {
 resource_name = "rotation"
 length = 0.9
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("MeshInstance:rotation_degrees")
 tracks/0/interp = 1
@@ -73,13 +85,13 @@ script = ExtResource( 3 )
 portal_mode = 3
 cast_shadow = 0
 mesh = ExtResource( 2 )
-material/0 = ExtResource( 1 )
+material/0 = SubResource( 4 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 portal_mode = 3
 cast_shadow = 0
 mesh = ExtResource( 2 )
-material/0 = ExtResource( 1 )
+material/0 = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

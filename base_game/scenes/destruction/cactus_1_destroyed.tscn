@@ -43,8 +43,8 @@ points = PoolVector3Array( 0.166504, -0.167112, -0.0146817, -0.240111, 0.0488227
 
 [node name="RigidBody" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.132631, 0.06847, 0.0471563 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -63,8 +63,8 @@ max_distance = 150.0
 
 [node name="RigidBody2" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106914, 0.127819, 0.0542612 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -83,8 +83,8 @@ max_distance = 150.0
 
 [node name="RigidBody3" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.129988, 0.287118, -0.111946 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -103,8 +103,8 @@ max_distance = 150.0
 
 [node name="RigidBody4" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15556, 0.457741, 0.0407513 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -123,8 +123,8 @@ max_distance = 150.0
 
 [node name="RigidBody5" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0928033, 0.487391, -0.0358959 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -143,8 +143,8 @@ max_distance = 150.0
 
 [node name="RigidBody6" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0213178, 0.103286, -0.164287 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -163,8 +163,8 @@ max_distance = 150.0
 
 [node name="RigidBody7" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.142617, 0.312002, -0.172022 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
@@ -183,8 +183,8 @@ max_distance = 150.0
 
 [node name="RigidBody8" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0211619, 0.293705, 0.236528 )
-collision_layer = 4
-collision_mask = 6
+collision_layer = 0
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 
