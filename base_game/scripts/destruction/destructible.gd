@@ -5,6 +5,7 @@ export var parts_path: String \
 		= "res://scenes/destruction/rock_0_destroyed.tscn"
 export var global_culling: bool = false
 export var force_factor: float = 0.1
+export var can_have_shadow: bool = true
 
 var destroyed: bool = false
 var deletion_manager: Node
@@ -18,6 +19,8 @@ func _ready():
 	if global_culling:
 		$MeshInstance.portal_mode = CullInstance.PORTAL_MODE_GLOBAL
 		$VisibilityNotifier.portal_mode = CullInstance.PORTAL_MODE_GLOBAL
+	if not can_have_shadow:
+		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 	shadow = $MeshInstance.cast_shadow \
 			== GeometryInstance.SHADOW_CASTING_SETTING_ON
 
