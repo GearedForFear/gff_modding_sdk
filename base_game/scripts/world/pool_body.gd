@@ -16,7 +16,8 @@ func start(global_transform: Transform):
 	self.global_transform = global_transform
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
-	collision_mask = 22
+	collision_layer = 4
+	collision_mask = 18
 	set_physics_process(true)
 	set_process(true)
 	show()
@@ -25,6 +26,7 @@ func start(global_transform: Transform):
 
 
 func stop():
+	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
 	set_process(false)
