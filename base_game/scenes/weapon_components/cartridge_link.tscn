@@ -12,8 +12,8 @@ extents = Vector3( 0.08, 0.035, 0.075 )
 
 [node name="RigidBody" type="RigidBody" groups=["pool_body"]]
 visible = false
-collision_layer = 0
-collision_mask = 22
+collision_layer = 4
+collision_mask = 18
 mass = 0.00102041
 script = ExtResource( 3 )
 

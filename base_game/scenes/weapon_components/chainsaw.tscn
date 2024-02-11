@@ -13,9 +13,13 @@ radius = 0.061
 height = 0.43
 
 [node name="Area" type="Area" groups=["Bullet"]]
+visible = false
 collision_layer = 8
 collision_mask = 3
 script = ExtResource( 3 )
+speed = 0.3
+arc_interpolation_base = 0.05
+arc_interpolation_update = 1.01
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.000578597 )
@@ -39,7 +43,6 @@ autostart = true
 stream = ExtResource( 4 )
 unit_size = 0.3
 pitch_scale = 3.0
-autoplay = true
 bus = "Effects"
 
 [node name="ImpactVehicle" type="AudioStreamPlayer3D" parent="."]

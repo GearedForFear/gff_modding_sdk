@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/meshes/weapon_components/missile.tres" type="ArrayMesh" id=1]
-[ext_resource path="res://scripts/weapon_compontents/missile.gd" type="Script" id=2]
+[ext_resource path="res://scripts/weapon_compontents/homing_missile.gd" type="Script" id=2]
 [ext_resource path="res://resources/materials/weapon_components/missile.material" type="Material" id=3]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=5]
@@ -13,9 +13,12 @@ height = 1.0
 radius = 0.03
 
 [node name="Area" type="Area" groups=["Bullet"]]
+visible = false
 collision_layer = 8
 collision_mask = 3
 script = ExtResource( 2 )
+explosive_type = 1
+speed = 0.5
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
@@ -48,7 +51,6 @@ transform = Transform( -0.25, 0, -3.7749e-08, 0, 0.25, 0, 3.7749e-08, 0, -0.25, 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
 stream = ExtResource( 6 )
-autoplay = true
 bus = "Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
