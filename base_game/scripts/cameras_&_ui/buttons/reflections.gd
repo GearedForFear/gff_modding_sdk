@@ -20,3 +20,5 @@ func _pressed():
 	root_control.switch_buttons(get_parent(), \
 			get_node("../../GraphicsButtons/Reflections"))
 	root_control.get_node("ButtonPressAudio").play()
+	get_node("/root/RootControl/Precompiler/Viewport/Camera/WorldEnvironment")\
+			._ready()
