@@ -5,7 +5,7 @@ extends ViewportContainer
 export var base_size: Vector2 = Vector2(640, 360)
 
 var size_divisor: Vector2 = Vector2.ONE
-var screen_position: Vector2 = Vector2.ONE
+var screen_position: Vector2 = Vector2.ZERO
 
 
 func _enter_tree():
@@ -17,4 +17,4 @@ func _enter_tree():
 			/ window_size.y, 100), clamp(base_size.y / window_size.y, \
 			base_size.x / window_size.x, 100))
 	stretch_shrink = get_node("/root/RootControl/SettingsManager").resolution
-	rect_position = base_size - base_size * screen_position / size_divisor
+	rect_position = OS.window_size * rect_scale * screen_position / size_divisor
