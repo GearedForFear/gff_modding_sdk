@@ -1,10 +1,8 @@
-[gd_scene load_steps=109 format=2]
+[gd_scene load_steps=107 format=2]
 
 [ext_resource path="res://scripts/pools.gd" type="Script" id=1]
 [ext_resource path="res://scenes/destruction/sparks.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/collectables/money.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/weapon_components/acid_bullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/weapon_components/sniper_bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/collectibles/money.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/weapon_components/bullet.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/weapon_components/cartridge_case.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/weapon_components/cartridge_link.tscn" type="PackedScene" id=8]
@@ -814,149 +812,15 @@ script = ExtResource( 1 )
 
 [node name="Area100" parent="Bullets" instance=ExtResource( 6 )]
 
-[node name="SniperBullets" type="Node" parent="."]
+[node name="Grenades" type="Node" parent="."]
 
-[node name="Area" parent="SniperBullets" instance=ExtResource( 5 )]
+[node name="Missiles" type="Node" parent="."]
 
-[node name="Area2" parent="SniperBullets" instance=ExtResource( 5 )]
+[node name="Buzzsaws" type="Node" parent="."]
 
-[node name="Area3" parent="SniperBullets" instance=ExtResource( 5 )]
+[node name="Chainsaws" type="Node" parent="."]
 
-[node name="Area4" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area5" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area6" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area7" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area8" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area9" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area10" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area11" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area12" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area13" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area14" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area15" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area16" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area17" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area18" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area19" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="Area20" parent="SniperBullets" instance=ExtResource( 5 )]
-
-[node name="AcidBullets" type="Node" parent="."]
-
-[node name="Area" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area2" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area3" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area4" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area5" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area6" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area7" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area8" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area9" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area10" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area11" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area12" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area13" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area14" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area15" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area16" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area17" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area18" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area19" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area20" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area21" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area22" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area23" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area24" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area25" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area26" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area27" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area28" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area29" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area30" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area31" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area32" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area33" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area34" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area35" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area36" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area37" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area38" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area39" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area40" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area41" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area42" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area43" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area44" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area45" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area46" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area47" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area48" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area49" parent="AcidBullets" instance=ExtResource( 4 )]
-
-[node name="Area50" parent="AcidBullets" instance=ExtResource( 4 )]
+[node name="Explosions" type="Node" parent="."]
 
 [node name="Money" type="Node" parent="."]
 
