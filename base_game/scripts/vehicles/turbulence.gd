@@ -1,9 +1,6 @@
 extends AmmoVehicle
 
 
-const Grenade: PackedScene \
-		= preload("res://scenes/weapon_components/grenade.tscn")
-
 export var damage: float = 44.0
 export var reward: int = 16
 export var burn: float = 10.0
@@ -30,7 +27,8 @@ func _physics_process(_delta):
 				ammo -= ammo_cost
 				can_shoot_middle = false
 				get_node("../MiddleTimer").start()
-				$ShotPositionMiddle.add_child(instantiate_grenade())
+				pools.get_grenade().start($ShotPositionMiddle.global_transform, \
+						damage, reward, burn, self)
 				$ShotAudioMiddle.play()
 			
 			if can_shoot_left and ammo >= ammo_cost \
@@ -38,7 +36,8 @@ func _physics_process(_delta):
 				ammo -= ammo_cost
 				can_shoot_left = false
 				get_node("../LeftTimer").start()
-				$ShotPositionLeft.add_child(instantiate_grenade())
+				pools.get_grenade().start($ShotPositionLeft.global_transform, \
+						damage, reward, burn, self)
 				$ShotAudioLeft.play()
 			
 			if can_shoot_right and ammo >= ammo_cost \
@@ -46,7 +45,8 @@ func _physics_process(_delta):
 				ammo -= ammo_cost
 				can_shoot_right = false
 				get_node("../RightTimer").start()
-				$ShotPositionRight.add_child(instantiate_grenade())
+				pools.get_grenade().start($ShotPositionRight.global_transform, \
+						damage, reward, burn, self)
 				$ShotAudioRight.play()
 			
 			if Input.is_action_just_pressed(controls.weapon_back):
@@ -61,16 +61,6 @@ func _physics_process(_delta):
 	if glide:
 		apply_central_impulse(transform.basis.y * clamp((linear_velocity \
 				* Vector3(1, 0, 1)).length() - 20, 0, 10) * 3)
-
-
-func instantiate_grenade() -> Area:
-	var new_grenade: Area = Grenade.instance()
-	new_grenade.damage = damage
-	new_grenade.reward = reward
-	new_grenade.burn = burn
-	new_grenade.shooter = self
-	new_grenade.deletion_manager = deletion_manager
-	return new_grenade
 
 
 func _on_MiddleTimer_timeout():
