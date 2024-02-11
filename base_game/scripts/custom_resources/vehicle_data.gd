@@ -3,6 +3,7 @@ extends Object
 
 
 var scene_resource: String
+var driver_name: String
 var controls: PlayerControls
 var spawn: int
 var score:int
