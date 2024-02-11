@@ -1,9 +1,6 @@
 extends AmmoVehicle
 
 
-const Chainsaw: PackedScene \
-		= preload("res://scenes/weapon_components/chainsaw.tscn")
-
 export var sniper_damage: float = 40.0
 export var sniper_reward: int = 15
 export var sniper_burn: float = 4.0
@@ -24,6 +21,8 @@ var can_shoot_sniper: bool = true
 var can_shoot_launcher: bool = true
 var left_saws_up: bool = true
 var right_saws_up: bool = true
+var left_saws_active: bool = false
+var right_saws_active: bool = false
 
 
 func _ready():
@@ -53,19 +52,15 @@ func _physics_process(_delta):
 			if can_shoot_sniper and ammo >= sniper_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
 				shoot_sniper()
-			if ammo >= saw_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_left):
-				saw_left(true)
-			else:
-				saw_left(false)
-			if ammo >= saw_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_right):
-				saw_right(true)
-			else:
-				saw_right(false)
+			left_saws_active = ammo >= saw_ammo_cost \
+					and Input.is_action_pressed(controls.weapon_left)
+			right_saws_active = ammo >= saw_ammo_cost \
+					and Input.is_action_pressed(controls.weapon_right)
 			if can_shoot_launcher and ammo >= launcher_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_back):
 				shoot_chainsaw()
+	saw_left(left_saws_active)
+	saw_right(right_saws_active and (not alive or ammo >= saw_ammo_cost))
 
 
 func shoot_sniper():
@@ -73,7 +68,7 @@ func shoot_sniper():
 	can_shoot_sniper = false
 	get_node("../SniperTimer").start()
 	
-	var new_bullet: Area = pools.get_sniper_bullet()
+	var new_bullet: StraightProjectile = pools.get_sniper_bullet()
 	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
 			sniper_reward, sniper_burn, self)
 	new_bullet.play_audio_sniper()
@@ -87,13 +82,14 @@ func shoot_sniper():
 func saw_left(var b: bool):
 	$LoopingAudio/ChainsawAudioLeft.stream_paused = not b
 	if b:
-		ammo -= saw_ammo_cost
+		if alive:
+			ammo -= saw_ammo_cost
 		if left_saws_up:
 			get_node("../AnimationPlayer").play("left_saws_down")
 			left_saws_up = false
-		var overalpping: Array = $SawAreaLeft.get_overlapping_bodies()
-		overalpping.erase(self)
-		if overalpping.empty():
+		var overlapping: Array = $SawAreaLeft.get_overlapping_bodies()
+		overlapping.erase(self)
+		if overlapping.empty():
 			$LoopingAudio/CuttingAudioLeft.stream_paused = true
 			if gles3:
 				$SawSparksFrontLeft.emitting = false
@@ -110,7 +106,7 @@ func saw_left(var b: bool):
 				$SawCPUSparksFrontLeft.emitting = true
 				$SawCPUSparksBackLeft.emitting = true
 			apply_central_impulse(transform.basis.x * saw_push)
-			for n in overalpping:
+			for n in overlapping:
 				if n.is_in_group("combat_vehicle"):
 					var payout: int = n.damage(saw_damage, saw_reward, \
 							saw_burn, self)
@@ -134,13 +130,14 @@ func saw_left(var b: bool):
 func saw_right(var b: bool):
 	$LoopingAudio/ChainsawAudioRight.stream_paused = not b
 	if b:
-		ammo -= saw_ammo_cost
+		if alive:
+			ammo -= saw_ammo_cost
 		if right_saws_up:
 			get_node("../AnimationPlayer2").play("right_saws_down")
 			right_saws_up = false
-		var overalpping: Array = $SawAreaRight.get_overlapping_bodies()
-		overalpping.erase(self)
-		if overalpping.empty():
+		var overlapping: Array = $SawAreaRight.get_overlapping_bodies()
+		overlapping.erase(self)
+		if overlapping.empty():
 			$LoopingAudio/CuttingAudioRight.stream_paused = true
 			if gles3:
 				$SawSparksFrontRight.emitting = false
@@ -157,7 +154,7 @@ func saw_right(var b: bool):
 				$SawCPUSparksFrontRight.emitting = true
 				$SawCPUSparksBackRight.emitting = true
 			apply_central_impulse(transform.basis.x * -saw_push)
-			for n in overalpping:
+			for n in overlapping:
 				if n.is_in_group("combat_vehicle"):
 					var payout: int = n.damage(saw_damage, saw_reward, \
 							saw_burn, self)
@@ -184,14 +181,9 @@ func shoot_chainsaw():
 	get_node("../LauncherTimer").start()
 	$LauncherAudio.play()
 	
-	var new_chainsaw: Area = Chainsaw.instance()
-	$ShotPositionLauncher.add_child(new_chainsaw)
-	new_chainsaw.damage = launcher_damage
-	new_chainsaw.reward = launcher_reward
-	new_chainsaw.burn = launcher_burn
-	new_chainsaw.shooter = self
-	new_chainsaw.deletion_manager = deletion_manager
-	new_chainsaw.pools = pools
+	var new_chainsaw: ArcProjectile = pools.get_chainsaw()
+	new_chainsaw.start($ShotPositionLauncher.global_transform, launcher_damage,\
+			launcher_reward, launcher_burn, self)
 
 
 func _on_SniperTimer_timeout():
