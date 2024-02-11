@@ -5,7 +5,7 @@ var controls: PlayerControls
 var current_option: int = 0
 var just_opened: bool = false
 
-onready var vehicle: VehicleBody = get_node("../../../../../..")
+onready var vehicle: CombatVehicle = get_node("../../../../../..")
 
 
 func _ready():
@@ -65,6 +65,7 @@ func _physics_process(_delta):
 func open(b: bool):
 	visible = b
 	get_parent().visible = b
+	vehicle.track.get_node("ShaderManager").set_parameters(not b)
 	if b:
 		current_option = 0
 		just_opened = true
