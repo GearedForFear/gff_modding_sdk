@@ -84,7 +84,7 @@ func _process(_delta):
 				if Input.is_action_just_released(n):
 					var next_select: Control = Vehicle_select.instance()
 					next_select.get_node("BlackBar").controls = load(\
-							"res://resources/custom/player_controls/player_55.tres")
+							"res://resources/custom/player_controls/player_5.tres")
 					next_select.get_node("BlackBar").anchor_left = anchor_left
 					get_parent().get_parent().add_child(next_select)
 					if next != null:
