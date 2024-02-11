@@ -10,6 +10,8 @@ var next_tracks: PoolStringArray
 onready var always_loaded: Array = ResourceLoader.load(\
 		"res://resources/custom/always_loaded.tres", "Resource").array
 onready var thread: Thread = Thread.new()
+onready var settings_manager: Node \
+		= get_node("/root/RootControl/SettingsManager")
 
 
 func _ready():
@@ -36,8 +38,12 @@ func _ready():
 	settings.resolution = config.get_value("graphics", "resolution", 1)
 	settings.msaa = config.get_value("graphics", "msaa", 0)
 	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
+	settings.mirror_rate_reduced = config.get_value("graphics", \
+			"mirror_rate_reduced", true)
+	settings.transform_interpolation = config.get_value("graphics", \
+			"transform_interpolation", true)
 	settings.view_distance = \
-			config.get_value("graphics", "view_distance", 1000.0)
+			config.get_value("graphics", "view_distance", 2500.0)
 	settings.rear_view_distance = \
 			config.get_value("graphics", "rear_view_distance", 200.0)
 	settings.field_of_view = config.get_value("graphics", "field_of_view", 75)
@@ -144,8 +150,10 @@ func _process(_delta):
 	
 	if Input.is_action_just_released("ui_cancel"):
 		if $BlackBar/MainButtons.visible:
-			get_tree().quit()
+			$BlackBar/MainButtons/Quit.grab_focus()
 		elif $BlackBar/SettingsButtons.visible:
+			$Names.show()
+			$Scores.show()
 			$CurrentSettings.hide()
 			switch_buttons($BlackBar/SettingsButtons, \
 					$BlackBar/MainButtons/Settings)
@@ -210,20 +218,22 @@ func _process(_delta):
 
 
 func prepare():
+	$Loading.show()
 	if not resources_loaded:
+		$Precompiler.add_materials()
 		var resources: Array = Array()
 		for n in always_loaded:
 			resources.append(ResourceLoader.load(n, "PackedScene"))
 		always_loaded.clear()
 		always_loaded.append_array(resources)
 		resources_loaded = true
-	track = ResourceLoader.load("res://scenes/world/tracks/glacier.tscn", \
+	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
 			"PackedScene").instance()
 	next_tracks.clear()
-	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
+	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
+	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
@@ -233,13 +243,14 @@ func prepare():
 	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
 	instantiate_vehicles(spawns, 6)
+	$Loading.hide()
 
 
 func play():
 	$BlackBar/MainButtons.hide()
 	var rr: int = OS.get_screen_refresh_rate()
-	get_tree().physics_interpolation = rr != 29 and rr != 30 and rr != 59 \
-			and rr != 60
+	get_tree().physics_interpolation = settings_manager.transform_interpolation\
+			and rr != 29 and rr != 30 and rr != 59 and rr != 60
 	while thread.is_alive():
 		yield(get_tree(), "idle_frame")
 	thread.wait_to_finish()
@@ -257,8 +268,7 @@ func play():
 	
 	match player_amount:
 		1:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 1
+			settings_manager.split_screen_divisor = 1
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			screen1 = controller_select.instance()
@@ -279,12 +289,10 @@ func play():
 			spawns.append(track.get_node(\
 					"StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
 		2:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(1, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
 			screen1 = controller_select.instance()
 			screen1.get_node("BlackBar").active = true
 			viewpoint_container.add_child(screen1)
@@ -292,6 +300,7 @@ func play():
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			screen2 = controller_select.instance()
 			viewpoint_container.add_child(screen2)
 			viewpoint_container.show()
@@ -309,12 +318,10 @@ func play():
 			spawns.append(track.get_node(\
 					"StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
 		3:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
 			screen1 = controller_select.instance()
 			screen1.get_node("BlackBar").active = true
 			viewpoint_container.add_child(screen1)
@@ -322,14 +329,14 @@ func play():
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			screen2 = controller_select.instance()
 			viewpoint_container.add_child(screen2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(1, 2)
-			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			screen3 = controller_select.instance()
 			viewpoint_container.add_child(screen3)
 			viewpoint_container.show()
@@ -346,12 +353,10 @@ func play():
 			spawns.append(track.get_node(\
 					"StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
 		4:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
 			screen1 = controller_select.instance()
 			screen1.get_node("BlackBar").active = true
 			viewpoint_container.add_child(screen1)
@@ -359,14 +364,14 @@ func play():
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			screen2 = controller_select.instance()
 			viewpoint_container.add_child(screen2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			screen3 = controller_select.instance()
 			viewpoint_container.add_child(screen3)
 			viewpoint_container.show()
@@ -389,12 +394,10 @@ func play():
 			spawns.append(track.get_node(\
 					"StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
 		5:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 3
+			settings_manager.split_screen_divisor = 3
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 2)
 			screen1 = controller_select.instance()
 			screen1.get_node("BlackBar").active = true
 			viewpoint_container.add_child(screen1)
@@ -402,21 +405,21 @@ func play():
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			screen2 = controller_select.instance()
 			viewpoint_container.add_child(screen2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(2, 0)
 			screen3 = controller_select.instance()
 			viewpoint_container.add_child(screen3)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			screen4 = controller_select.instance()
 			viewpoint_container.add_child(screen4)
 			viewpoint_container.show()
@@ -438,12 +441,10 @@ func play():
 			spawns.append(track.get_node(\
 					"StartSpawns/SpawnPoint6/Viewport/SpawnPosition"))
 		6:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 3
+			settings_manager.split_screen_divisor = 3
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 2)
 			screen1 = controller_select.instance()
 			screen1.get_node("BlackBar").active = true
 			viewpoint_container.add_child(screen1)
@@ -451,35 +452,35 @@ func play():
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			screen2 = controller_select.instance()
 			viewpoint_container.add_child(screen2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(2, 0)
 			screen3 = controller_select.instance()
 			viewpoint_container.add_child(screen3)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			screen4 = controller_select.instance()
 			viewpoint_container.add_child(screen4)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint5")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(1, 1)
 			screen5 = controller_select.instance()
 			viewpoint_container.add_child(screen5)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint6")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.screen_position = Vector2(2, 1)
 			screen6 = controller_select.instance()
 			viewpoint_container.add_child(screen6)
 			viewpoint_container.show()
@@ -499,7 +500,17 @@ func play():
 func play_next(vehicle_data: Array):
 	track.queue_free()
 	yield(get_tree(), "idle_frame")
+	
 	if next_tracks.empty():
+		vehicle_data.sort_custom(VehicleData, "sort_ascending")
+		$Title.text = vehicle_data[0].driver_name + " Wins"
+		$Names.text = ""
+		$Scores.text = ""
+		for n in 12:
+			var data: VehicleData = vehicle_data[n]
+			$Names.text += data.driver_name + "\n"
+			$Scores.text += String(data.score) + "€\n"
+			data.free()
 		active(true)
 		return
 	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
@@ -538,56 +549,51 @@ func play_next(vehicle_data: Array):
 			
 			add_child(track)
 		2:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(1, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			viewpoint_container.show()
 			
 			add_child(track)
 		3:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(1, 2)
-			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			viewpoint_container.show()
 			
 			add_child(track)
 		4:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 2
+			settings_manager.split_screen_divisor = 2
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
@@ -597,27 +603,25 @@ func play_next(vehicle_data: Array):
 			
 			add_child(track)
 		5:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 3
+			settings_manager.split_screen_divisor = 3
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(2, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
 			viewpoint_container.size_divisor = Vector2(2, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint5")
@@ -627,37 +631,35 @@ func play_next(vehicle_data: Array):
 			
 			add_child(track)
 		6:
-			get_node("/root/RootControl/SettingsManager").split_screen_divisor \
-					= 3
+			settings_manager.split_screen_divisor = 3
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint1")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 2)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint2")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 2)
+			viewpoint_container.screen_position = Vector2(1, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint3")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 2)
+			viewpoint_container.screen_position = Vector2(2, 0)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint4")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(3, 1)
+			viewpoint_container.screen_position = Vector2(0, 1)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint5")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(2, 1)
+			viewpoint_container.screen_position = Vector2(1, 1)
 			viewpoint_container.show()
 			
 			viewpoint_container = track.get_node("StartSpawns/SpawnPoint6")
 			viewpoint_container.size_divisor = Vector2(3, 2)
-			viewpoint_container.screen_position = Vector2(1, 1)
+			viewpoint_container.screen_position = Vector2(2, 1)
 			viewpoint_container.show()
 			
 			add_child(track)
@@ -698,25 +700,29 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 						"PackedScene").instance()
 			3:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/warm_welcome.tscn", \
+						"res://scenes/vehicles/metal_undertow.tscn", \
 						"PackedScene").instance()
 			4:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/turbulence.tscn", \
+						"res://scenes/vehicles/warm_welcome.tscn", \
 						"PackedScene").instance()
 			5:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/eternal_bond.tscn", \
+						"res://scenes/vehicles/turbulence.tscn", \
 						"PackedScene").instance()
 			6:
 				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/restless.tscn", \
+						"res://scenes/vehicles/eternal_bond.tscn", \
 						"PackedScene").instance()
 			7:
 				vehicle = ResourceLoader.load(\
+						"res://scenes/vehicles/restless.tscn", \
+						"PackedScene").instance()
+			8:
+				vehicle = ResourceLoader.load(\
 						"res://scenes/vehicles/well_raised.tscn", \
 						"PackedScene").instance()
-		next_vehicle = (next_vehicle + 1) % 7
+		next_vehicle = (next_vehicle + 1) % 9
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
 
