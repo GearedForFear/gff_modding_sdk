@@ -3,6 +3,11 @@ extends Label
 
 func _process(_delta):
 	if visible:
+		var vsync: bool = OS.vsync_enabled
+		var rr: int = OS.get_screen_refresh_rate()
+		var standard_frame_rate: bool = rr == 29 or rr == 30 or rr == 59 \
+			or rr == 60
+		
 		var settings_manager: Node = get_node("/root/RootControl/SettingsManager")
 		text = "Current Settings:"
 		
@@ -36,10 +41,26 @@ func _process(_delta):
 			_:#If the user edits the config file
 				text += "\nReflections: Custom"
 		
-		if OS.vsync_enabled:
+		if vsync:
 			text += "\nVsync On"
 		else:
 			text += "\nVsync Off"
+		
+		if settings_manager.mirror_rate_reduced:
+			text += "\nSplit-Screen Rear View Mirror: Reduced Frame Rate"
+		else:
+			text += "\nSplit-Screen Rear View Mirror: Full Frame Rate"
+		
+		if settings_manager.transform_interpolation:
+			if vsync:
+				if standard_frame_rate:
+					text += "\nTransform Interpolation: Automatic (Off)"
+				else:
+					text += "\nTransform Interpolation: Automatic (On)"
+			else:
+				text += "\nTransform Interpolation: Automatic"
+		else:
+			text += "\nTransform Interpolation: Always Off"
 		
 		text += "\nView Distance: " + String(settings_manager.view_distance) \
 				+ "m"
