@@ -5,37 +5,52 @@ var damage: float
 var reward: int
 var burn: float
 var shooter: CombatVehicle
-var deletion_manager: Node
+
+onready var pools: Node = get_node("../..")
 
 
-func _ready():
-	set_as_toplevel(true)
-	$AnimationPlayer.play("rotation")
-
-
-func _on_CollisionTime_timeout():
-	hide()
-	$CollisionShape.disabled = true
+func start(global_transform: Transform, damage: float, reward: int, \
+		burn: float, shooter: CombatVehicle):
+	self.global_transform = global_transform
+	self.damage = damage
+	self.reward = reward
+	self.burn = burn
+	self.shooter = shooter
+	$MeshInstance.rotation = Vector3(randf(), randf(), randf())
+	$MeshInstance2.rotation = Vector3(randf(), randf(), randf())
+	collision_layer = 8
+	collision_mask = 3
+	set_physics_process(true)
+	set_process(true)
+	show()
+	reset_physics_interpolation()
+	$OmniLight.global_translation = global_translation + Vector3(0, 0.2, 0)
+	$Lifetime.start()
 
 
 func _on_Lifetime_timeout():
-	set_process(false)
-	deletion_manager.to_be_deleted.append(self)
+	set_physics_process(false)
+	hide()
+	collision_layer = 0
+	collision_mask = 0
 
 
-func _on_Area_body_entered(body):
-	if body.is_in_group("combat_vehicle") and global_transform.origin\
-			.distance_to(body.global_transform.origin) < 6:
+func _on_Area_body_entered(body: PhysicsBody):
+	if body.is_in_group("combat_vehicle"):
 		body.apply_central_impulse((body.global_transform.origin \
 				- global_transform.origin).normalized() * 5000)
 		if body != shooter:
 			var payout: int = body.damage(damage, reward, burn, shooter)
 			if payout > 0:
-				deletion_manager.get_node("../Pools").get_money().start(\
-						global_transform, shooter, body, payout)
+				pools.get_money().start(global_transform, shooter, body, payout)
 
 
 func _on_Area_area_entered(area):
 	if area.is_in_group("destructible"):
-		area.deletion_manager = deletion_manager
+		area.deletion_manager = pools.get_node("../DeletionManager")
 		area.destroy(shooter, global_transform.origin, 40.0)
+
+
+func _on_AudioStreamPlayer3D_finished():
+	set_process(false)
+	pools.explosions_available.append(self)
