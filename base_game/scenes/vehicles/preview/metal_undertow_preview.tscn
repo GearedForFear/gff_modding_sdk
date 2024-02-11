@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
+[ext_resource path="res://resources/materials/vehicles/metal_undertow.material" type="Material" id=2]
+[ext_resource path="res://resources/meshes/vehicles/metal_undertow.tres" type="ArrayMesh" id=3]
+[ext_resource path="res://resources/materials/vehicles/mu_wheel.material" type="Material" id=4]
+[ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.5
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( 0.837, 0.731, 2.412, -0.837, 0.731, 2.412, 0.661, 1.285, 0.771, -0.661, 1.285, 0.771, 0.661, 1.322, -0.622, -0.661, 1.322, -0.622, 0.825, 0.859, -2.365, -0.825, 0.859, -2.365, 0.898, 0.235, -2.495, -0.898, 0.235, -2.495, 0.924, 0, 1.081, -0.924, 0, 1.081 )
+
+[node name="Body" type="VehicleBody" groups=["combat_vehicle"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+collision_mask = 3
+mass = 175.51
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+base_health = 106.0
+base_engine_force = 185.76
+nitro_force = 3096.0
+rocket_force = 0.0
+burst_force = 0.0
+
+[node name="WheelFrontLeft" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799597, 0.130678, 1.7008 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.324
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
+pause_mode = 2
+transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 4 )
+
+[node name="WheelFrontRight" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.130678, 1.70102 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.324
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
+pause_mode = 2
+transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 4 )
+
+[node name="WheelBackLeft" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799987, 0.130655, -1.26664 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.324
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
+pause_mode = 2
+transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 4 )
+
+[node name="WheelBackRight" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.130678, -1.26708 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.324
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
+pause_mode = 2
+transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 6 )
+
+[node name="BodyMesh" type="MeshInstance" parent="."]
+portal_mode = 3
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 2 )
