@@ -34,6 +34,7 @@ portal_mode = 3
 cast_shadow = 0
 emitting = false
 amount = 16
+visibility_aabb = AABB( -500, -500, -500, 1000, 1000, 1000 )
 local_coords = false
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 2 )
