@@ -7,6 +7,8 @@ const SD_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/suicide_door_preview.tscn")
 const GM_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/grave_mistake_preview.tscn")
+const MU_PREVIEW: PackedScene \
+		= preload("res://scenes/vehicles/preview/metal_undertow_preview.tscn")
 const FU_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/fungibber_preview.tscn")
 const WW_PREVIEW: PackedScene \
@@ -42,6 +44,8 @@ func update_vehicle(category: int, vehicle: int):
 					preview_vehicle = SD_PREVIEW.instance()
 				2:
 					preview_vehicle = GM_PREVIEW.instance()
+				3:
+					preview_vehicle = MU_PREVIEW.instance()
 				4:
 					preview_vehicle = FU_PREVIEW.instance()
 					show_unavailable(true)
