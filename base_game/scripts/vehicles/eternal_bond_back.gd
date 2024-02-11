@@ -1,9 +1,6 @@
 extends AmmoVehicle
 
 
-const Missile: PackedScene \
-		= preload("res://scenes/weapon_components/missile.tscn")
-
 export var missile_damage: float = 40.0
 export var missile_reward: int = 15
 export var missile_burn: float = 10.0
@@ -38,16 +35,9 @@ func shoot():
 	can_shoot = false
 	get_node("../MissileTimer").start()
 	
-	var new_missile: Area = Missile.instance()
-	new_missile.damage = missile_damage
-	new_missile.reward = missile_reward
-	new_missile.burn = missile_burn
-	new_missile.shooter = self
-	new_missile.straight = true
-	new_missile.deletion_manager = deletion_manager
-	new_missile.gles3 = gles3
-	$ShotPosition.add_child(new_missile)
-	
+	var new_missile: StraightProjectile = pools.get_straight_missile()
+	new_missile.start($ShotPosition.global_transform, missile_damage, \
+			missile_reward, missile_burn, self)
 	if master_body:
 		ammo -= missile_ammo_cost
 	else:
@@ -64,14 +54,15 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			else:
 				alive = false
 				apply_central_impulse(transform.basis.y * 900)
-				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 10
 				score -= payout
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
+					$ExplosionParticles.emitting = true
 					$DeathParticles.emitting = true
 				else:
+					$ExplosionCPUParticles.emitting = true
 					$DeathCPUParticles.emitting = true
 				if other_half.alive:
 					pass
