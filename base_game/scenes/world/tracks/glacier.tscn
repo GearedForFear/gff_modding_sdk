@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/particles/godrays_cpu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scripts/world/particle_parent.gd" type="Script" id=14]
+[ext_resource path="res://scripts/managers/shader_manager.gd" type="Script" id=15]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.0509804, 0.129412, 0.290196, 1 )
@@ -488,6 +489,10 @@ transform = Transform( 0.534826, 0, -0.844965, 0, 1, 0, 0.844965, 0, 0.534826, -
 pause_mode = 2
 script = ExtResource( 5 )
 
+[node name="ShaderManager" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 15 )
+
 [node name="Pools" parent="." instance=ExtResource( 12 )]
 
 [node name="StartSpawns" parent="." instance=ExtResource( 2 )]
@@ -505,6 +510,7 @@ transform = Transform( 1, 7.45058e-09, -2.23517e-08, -7.45058e-09, 1, 0, 7.45058
 portal_mode = 3
 
 [node name="CPU" parent="Godrays" instance=ExtResource( 13 )]
+portal_mode = 3
 
 [connection signal="timeout" from="GameplayManager/Timer" to="GameplayManager" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint0/Area" to="GameplayManager/NonPlayerPath/Waypoint0/Area" method="_on_Area_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/world/decorations/rock_1.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scripts/world/environment.gd" type="Script" id=13]
+[ext_resource path="res://scripts/managers/shader_manager.gd" type="Script" id=14]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
@@ -73,7 +74,6 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
-visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 131.076, 0, 225.855 )
@@ -395,10 +395,10 @@ script = ExtResource( 6 )
 [node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint9"]
 
 [node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint9/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.994135, 0, 0.108156, 0, 1, 0, -0.108156, 0, -0.994135, 11.5653, 1.26097, 45.451 )
+transform = Transform( -0.885184, 0, -0.465244, 0, 1, 0, 0.465244, 0, -0.885184, 25.3665, 1.11138, 23.0532 )
 
 [node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint9/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.985272, 0, 0.171, 0, 1, 0, -0.171, 0, -0.985272, 6.00902, 1.60263, 38.2308 )
+transform = Transform( -0.954387, 0, -0.298575, 0, 1, 0, 0.298575, 0, -0.954387, 29.7044, 1.14081, 33.4653 )
 
 [node name="Waypoint10" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( -0.586655, 0, -0.809837, 0, 1, 0, 0.809837, 0, -0.586655, 429.956, 31.3673, 444.951 )
@@ -423,10 +423,10 @@ script = ExtResource( 6 )
 [node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint10"]
 
 [node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint10/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.999857, 0, -0.0169294, 0, 1, 0, 0.0169294, 0, -0.999857, 28.6464, 1.74062, 37.057 )
+transform = Transform( -0.563584, 0, -0.82606, 0, 1, 0, 0.82606, 0, -0.563584, 18.3963, 1.11935, 1.00061 )
 
 [node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint10/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.999392, 0, -0.0349002, 0, 1, 0, 0.0349002, 0, -0.999392, 34.901, 1.60262, 45.0039 )
+transform = Transform( -0.67626, 0, -0.736665, 0, 1, 0, 0.736665, 0, -0.67626, 28.7142, 1.08736, 10.329 )
 
 [node name="Waypoint11" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 0.979701, 0, -0.200462, 0, 1, 0, 0.200462, 0, 0.979701, 450.922, 31.3673, 356.394 )
@@ -439,11 +439,11 @@ monitorable = false
 script = ExtResource( 7 )
 
 [node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint11/Area"]
-transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.3345, 16.3941, -12.2942 )
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -20.3759, 9.36832, -0.696991 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint11/Area"]
-transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -17.334, 16.394, -12.294 )
+transform = Transform( 0.824116, 0, -0.566421, 0, 1, 0, 0.566421, 0, 0.824116, -20.3753, 9.36821, -0.696808 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 script = ExtResource( 6 )
@@ -499,6 +499,10 @@ transform = Transform( -0.380828, 0, -0.924647, 0, 1, 0, 0.924647, 0, -0.380828,
 [node name="DeletionManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 5 )
+
+[node name="ShaderManager" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 14 )
 
 [node name="Pools" parent="." instance=ExtResource( 12 )]
 
