@@ -193,7 +193,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
 [node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.921751, 3.20609 )
 stream = ExtResource( 4 )
-unit_size = 0.4
+unit_size = 0.1
 autoplay = true
 bus = "Effects"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -13,7 +13,7 @@
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=11]
 [ext_resource path="res://resources/materials/vehicles/re_wheel.material" type="Material" id=12]
 [ext_resource path="res://resources/materials/vehicles/restless_door.material" type="Material" id=13]
-[ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=14]
+[ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/restless_door.tres" type="ArrayMesh" id=16]
 [ext_resource path="res://scenes/particles/nitro_flame_cpu.tscn" type="PackedScene" id=17]
@@ -38,15 +38,13 @@
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=36]
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=37]
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=38]
+[ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=39]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
 
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( 0.925, 0.485, 2.458, -0.925, 0.485, 2.458, 0.888, 1.094, 0.4, -0.888, 1.094, 0.4, 0.888, 1.094, -2.377, -0.888, 1.094, -2.377, 0.937, 0.067, 2.455, -0.937, 0.067, 2.455, 0.937, 0.079, -2.452, -0.937, 0.079, -2.452 )
-
-[sub_resource type="QuadMesh" id=15]
-resource_local_to_scene = true
 
 [sub_resource type="DynamicFont" id=19]
 size = 9
@@ -55,7 +53,7 @@ font_data = ExtResource( 36 )
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/ExplosionMesh:visible")
+tracks/0/path = NodePath("Body/RocketMeshLeft:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -64,10 +62,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ Vector3( -0.01, 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/ExplosionMesh:mesh:size")
+tracks/1/path = NodePath("Body/RocketMeshRight:translation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -76,10 +74,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector3( 0.01, 0, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
+tracks/2/path = NodePath("Body/DoorMesh:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -88,10 +86,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 0.321569, 1 ) ]
+"values": [ Vector3( -2.15536e-07, 90, 4.937 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Body/RocketMeshLeft:translation")
+tracks/3/path = NodePath("Body/RocketMeshLeft:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -100,10 +98,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( -0.01, 0, 0 ) ]
+"values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Body/RocketMeshRight:translation")
+tracks/4/path = NodePath("Body/RocketMeshRight:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -112,82 +110,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0.01, 0, 0 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Body/DoorMesh:rotation_degrees")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( -2.15536e-07, 90, 4.937 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Body/RocketMeshLeft:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
 "values": [ false ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("Body/RocketMeshRight:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "death"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/ExplosionMesh:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/ExplosionMesh:mesh:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.105112, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 6, 6 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -484,14 +407,6 @@ material/0 = ExtResource( 13 )
 script = ExtResource( 34 )
 required_setting = 4
 
-[node name="ExplosionMesh" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
-visible = false
-portal_mode = 3
-cast_shadow = 0
-mesh = SubResource( 15 )
-material/0 = ExtResource( 14 )
-
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 portal_mode = 3
@@ -570,6 +485,12 @@ one_shot = true
 
 [node name="CPUMuzzleFlashMachineGun" parent="Body" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.528901, 0.717882, 2.26525 )
+
+[node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+
+[node name="ExplosionCPUParticles" parent="Body" instance=ExtResource( 39 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
 
 [node name="DeathParticles" parent="Body" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.711978, 1.47142 )
@@ -665,7 +586,7 @@ bus = "Effects"
 [node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.423825, 1.61274 )
 stream = ExtResource( 30 )
-unit_size = 0.4
+unit_size = 0.1
 autoplay = true
 bus = "Effects"
 
@@ -703,7 +624,6 @@ bus = "Effects"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
-anims/death = SubResource( 16 )
 anims/nitro_rocket = SubResource( 17 )
 anims/rocket_nitro = SubResource( 18 )
 

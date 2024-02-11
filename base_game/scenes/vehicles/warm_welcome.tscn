@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scripts/vehicles/warm_welcome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -13,7 +13,7 @@
 [ext_resource path="res://resources/materials/vehicles/warm_welcome.material" type="Material" id=11]
 [ext_resource path="res://resources/materials/vehicles/ww_wheel.material" type="Material" id=12]
 [ext_resource path="res://resources/materials/weapon_components/gatling_gun.material" type="Material" id=13]
-[ext_resource path="res://resources/materials/destruction/death_explosion.material" type="Material" id=14]
+[ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/weapon_components/gatling_gun.tres" type="ArrayMesh" id=16]
 [ext_resource path="res://resources/meshes/vehicles/warm_welcome.tres" type="ArrayMesh" id=17]
@@ -32,15 +32,13 @@
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=30]
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=31]
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=33]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
 
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( 0.942, 0.646, 2.246, -0.942, 0.646, 2.246, 0.732, 1.283, 0.105, -0.732, 1.283, 0.105, 0.704, 1.271, -1.112, -0.704, 1.271, -1.112, 0.942, 0.903, -2.501, -0.942, 0.903, -2.501, 0.942, 0.178, -2.516, -0.942, 0.178, -2.516, 0.942, 0.032, 2.195, -0.942, 0.032, 2.195 )
-
-[sub_resource type="QuadMesh" id=15]
-resource_local_to_scene = true
 
 [sub_resource type="DynamicFont" id=19]
 size = 9
@@ -75,81 +73,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector3( 90, -4.78527e-21, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/ExplosionMesh:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Body/ExplosionMesh:mesh:size")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 0.321569, 1 ) ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "death"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/ExplosionMesh:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/ExplosionMesh:mesh:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.105112, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 6, 6 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/ExplosionMesh:material/0:albedo_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 0.490196, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -323,14 +246,6 @@ material/0 = ExtResource( 13 )
 script = ExtResource( 28 )
 required_setting = 4
 
-[node name="ExplosionMesh" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
-visible = false
-portal_mode = 3
-cast_shadow = 0
-mesh = SubResource( 15 )
-material/0 = ExtResource( 14 )
-
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 portal_mode = 3
@@ -430,6 +345,12 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.944, 
 [node name="FlamethrowerCPUParticlesBackRight" parent="Body" instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.944, 0.853, -0.883 )
 
+[node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+
+[node name="ExplosionCPUParticles" parent="Body" instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+
 [node name="DeathParticles" parent="Body" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.970645, 1.28847 )
 
@@ -526,7 +447,7 @@ bus = "Effects"
 [node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503774, 1.6412 )
 stream = ExtResource( 25 )
-unit_size = 0.4
+unit_size = 0.1
 autoplay = true
 bus = "Effects"
 
@@ -556,7 +477,6 @@ bus = "Effects"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
-anims/death = SubResource( 16 )
 anims/gatling_gun_rotation = SubResource( 8 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
