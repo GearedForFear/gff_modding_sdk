@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://resources/meshes/world/decorations/godray.tres" type="ArrayMesh" id=1]
-[ext_resource path="res://resources/materials/world/decorations/godray.material" type="Material" id=2]
+[ext_resource path="res://resources/meshes/particles/godray.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://resources/materials/particles/godray.material" type="Material" id=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.534137, 1 )
