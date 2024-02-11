@@ -179,15 +179,16 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			else:
 				alive = false
 				apply_central_impulse(transform.basis.y * 900)
-				get_node("../AnimationPlayer").play("death")
 				var payout: int = score / 10
 				score -= payout
 				other_half.score = score
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
+					$ExplosionParticles.emitting = true
 					$DeathParticles.emitting = true
 				else:
+					$ExplosionCPUParticles.emitting = true
 					$DeathCPUParticles.emitting = true
 				if other_half.alive:
 					other_half.master_body = true
