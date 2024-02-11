@@ -1,4 +1,4 @@
-# Collectables
+# Collectibles
 This folder contains all Scripts for items, that a can be collected.
 
 ### Contents
