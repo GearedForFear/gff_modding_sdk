@@ -11,4 +11,8 @@ func _enter_tree():
 
 
 func _physics_process(_delta):
-	ammo = clamp(ammo + 0.1, 0, 100)
+	if ammo != 100.0:
+		var reload: float = 0.1
+		if linear_velocity.length() < 5.0:
+			reload = 0.3
+		ammo = min(ammo + reload, 100.0)
