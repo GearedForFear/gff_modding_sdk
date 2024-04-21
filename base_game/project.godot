@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/vehicles/ammo_vehicle.gd"
 }, {
+"base": "Projectile",
+"class": "ArcProjectile",
+"language": "GDScript",
+"path": "res://scripts/weapon_compontents/arc_projectile.gd"
+}, {
 "base": "Resource",
 "class": "ArrayResource",
 "language": "GDScript",
@@ -44,12 +49,27 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/custom_resources/player_controls.gd"
 }, {
+"base": "Area",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://scripts/weapon_compontents/projectile.gd"
+}, {
 "base": "MeshInstance",
 "class": "ShadowSetter",
 "language": "GDScript",
 "path": "res://scripts/world/shadow_setter.gd"
 }, {
-"base": "Object",
+"base": "Projectile",
+"class": "StraightProjectile",
+"language": "GDScript",
+"path": "res://scripts/weapon_compontents/straight_projectile.gd"
+}, {
+"base": "Viewport",
+"class": "SubViewport",
+"language": "GDScript",
+"path": "res://scripts/cameras_&_ui/sub_viewport.gd"
+}, {
+"base": "Reference",
 "class": "VehicleData",
 "language": "GDScript",
 "path": "res://scripts/custom_resources/vehicle_data.gd"
@@ -61,13 +81,17 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AmmoVehicle": "",
+"ArcProjectile": "",
 "ArrayResource": "",
 "CombatVehicle": "",
 "DynamicShadowBody": "",
 "LevelVehicle": "",
 "PlayerContainer": "",
 "PlayerControls": "",
+"Projectile": "",
 "ShadowSetter": "",
+"StraightProjectile": "",
+"SubViewport": "",
 "VehicleData": "",
 "VehicleSelect": ""
 }
@@ -846,7 +870,6 @@ turn_right_6_strength={
 3d_physics/layer_2="Terrain"
 3d_physics/layer_3="Decoration"
 3d_physics/layer_4="Projectiles"
-3d_physics/layer_5="Force Area"
 
 [physics]
 
