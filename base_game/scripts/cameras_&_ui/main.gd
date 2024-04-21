@@ -232,9 +232,6 @@ func prepare():
 	next_tracks.clear()
 	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
 	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
-	next_tracks.append("res://scenes/world/tracks/figure_8.tscn")
-	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
@@ -502,7 +499,7 @@ func play_next(vehicle_data: Array):
 	yield(get_tree(), "idle_frame")
 	
 	if next_tracks.empty():
-		vehicle_data.sort_custom(VehicleData, "sort_ascending")
+		vehicle_data.sort_custom(VehicleData, "sort_score")
 		$Title.text = vehicle_data[0].driver_name + " Wins"
 		$Names.text = ""
 		$Scores.text = ""
@@ -532,7 +529,7 @@ func play_next(vehicle_data: Array):
 	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
 	
-	vehicle_data.sort_custom(VehicleData, "sort_ascending")
+	vehicle_data.sort_custom(VehicleData, "sort_spawn")
 	for n in 12:
 		var data: VehicleData = vehicle_data[n]
 		var vehicle: Spatial = ResourceLoader.load(data.scene_resource).instance()
