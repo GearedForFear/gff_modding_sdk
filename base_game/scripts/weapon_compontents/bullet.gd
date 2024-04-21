@@ -13,25 +13,30 @@ enum bullet_types {NORMAL, ACID}
 
 func set_type(var sniper: bool, var bullet_type: int):
 	if sniper:
-		$MeshInstance.hide()
-		$CollisionShape.disabled = true
-		$SniperMesh.show()
-		$SniperCollision.disabled = false
-		speed = 2.0
+		if speed != 2.0:
+			speed = 2.0
+			$MeshInstance.hide()
+			$CollisionShape.disabled = true
+			$SniperMesh.show()
+			$SniperCollision.disabled = false
 		match bullet_type:
 			bullet_types.NORMAL:
 				$SniperMesh.material_override = SNIPER_MATERIAL
 	else:
-		$MeshInstance.show()
-		$CollisionShape.disabled = false
-		$SniperMesh.hide()
-		$SniperCollision.disabled = true
-		speed = 1.0
+		if speed != 1.0:
+			speed = 1.0
+			$MeshInstance.show()
+			$CollisionShape.disabled = false
+			$SniperMesh.hide()
+			$SniperCollision.disabled = true
 		match bullet_type:
 			bullet_types.NORMAL:
 				$MeshInstance.material_override = NORMAL_MATERIAL
 			bullet_types.ACID:
 				$MeshInstance.material_override = ACID_MATERIAL
+	
+	if (bullet_type != bullet_types.ACID and acid_duration != 0):
+		acid_duration = 0
 
 
 func impact_audio(var body: PhysicsBody):
