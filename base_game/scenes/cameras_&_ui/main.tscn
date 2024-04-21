@@ -189,7 +189,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="."]
 anchor_left = 0.07
 anchor_top = 0.07
-anchor_right = 0.53
+anchor_right = 0.6
 anchor_bottom = 0.07
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -876,10 +876,10 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="MSAAOff" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../16x")
+margin_top = 136.0
+margin_right = 256.0
+margin_bottom = 155.0
+focus_neighbour_top = NodePath("../8x")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -891,9 +891,9 @@ text = "Off"
 script = ExtResource( 18 )
 
 [node name="2x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -906,9 +906,9 @@ script = ExtResource( 18 )
 msaa = 1
 
 [node name="4x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+margin_top = 182.0
+margin_right = 256.0
+margin_bottom = 201.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -921,9 +921,10 @@ script = ExtResource( 18 )
 msaa = 2
 
 [node name="8x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 224.0
+focus_neighbour_bottom = NodePath("../MSAAOff")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -935,34 +936,17 @@ text = "8x"
 script = ExtResource( 18 )
 msaa = 3
 
-[node name="16x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../MSAAOff")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "16x"
-script = ExtResource( 18 )
-msaa = 4
-
 [node name="ReflectionsButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="Off" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Ultimate")
+margin_top = 90.0
+margin_right = 256.0
+margin_bottom = 109.0
+focus_neighbour_top = NodePath("../Reflections32768")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -973,10 +957,10 @@ custom_styles/normal = SubResource( 8 )
 text = "Off"
 script = ExtResource( 25 )
 
-[node name="High" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+[node name="Reflections64" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 113.0
+margin_right = 256.0
+margin_bottom = 132.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -984,14 +968,14 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "High"
+text = "64"
 script = ExtResource( 25 )
 reflections = 64
 
-[node name="ExtraHigh" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+[node name="Reflections128" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 136.0
+margin_right = 256.0
+margin_bottom = 155.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -999,14 +983,14 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "Extra High"
+text = "128"
 script = ExtResource( 25 )
 reflections = 128
 
-[node name="Ultra" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+[node name="Reflections256" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1014,14 +998,59 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "Ultra"
+text = "256"
 script = ExtResource( 25 )
 reflections = 256
 
-[node name="Ultimate" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
+[node name="Reflections512" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 182.0
+margin_right = 256.0
+margin_bottom = 201.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "512"
+script = ExtResource( 25 )
+reflections = 512
+
+[node name="Reflections1024" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 224.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1024"
+script = ExtResource( 25 )
+reflections = 1024
+
+[node name="Reflections2048" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 228.0
+margin_right = 256.0
+margin_bottom = 247.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2048"
+script = ExtResource( 25 )
+reflections = 2048
+
+[node name="Reflections32768" type="Button" parent="BlackBar/ReflectionsButtons"]
+margin_top = 251.0
+margin_right = 256.0
+margin_bottom = 270.0
 focus_neighbour_bottom = NodePath("../Off")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
@@ -1030,15 +1059,14 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "Ultimate"
+text = "32768"
 script = ExtResource( 25 )
-reflections = 512
+reflections = 32768
 
 [node name="ViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="View100" type="Button" parent="BlackBar/ViewDistanceButtons"]
@@ -1151,7 +1179,6 @@ distance = 2500.0
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="Rear25" type="Button" parent="BlackBar/RearViewDistanceButtons"]
@@ -1646,7 +1673,6 @@ field_of_view = 145
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="None" type="Button" parent="BlackBar/ShadowCastersButtons"]
@@ -1759,7 +1785,6 @@ shadow_casters = 6
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="2048" type="Button" parent="BlackBar/TextureSizeButtons"]
@@ -1830,7 +1855,6 @@ max_texture_size = 16384
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 7.20001
 alignment = 1
 
 [node name="RigidLowest" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
