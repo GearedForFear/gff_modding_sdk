@@ -24,22 +24,17 @@ func _process(_delta):
 				text += "\n4x MSAA"
 			3:
 				text += "\n8x MSAA"
-			4:
-				text += "\n16x MSAA"
 		
-		match settings_manager.reflections:
-			0:
-				text += "\nNo Screen-space Reflections"
-			64:
-				text += "\nReflections: High"
-			128:
-				text += "\nReflections: Extra High"
-			256:
-				text += "\nReflections: Ultra"
-			512:
-				text += "\nReflections: Ultimate"
-			_:#If the user edits the config file
-				text += "\nReflections: Custom"
+		var reflections: int = settings_manager.reflections
+		if reflections == 0:
+			text += "\nNo Screen-space Reflections"
+		else:
+			text += "\nReflection Range: " + String(reflections)
+			var reflection_cap: int = OS.window_size.x \
+					/ get_node("/root/RootControl/SettingsManager").resolution \
+					/ 4
+			if reflections > reflection_cap:
+				text += " (Capped to " + String(reflection_cap) + ")"
 		
 		if vsync:
 			text += "\nVsync On"
