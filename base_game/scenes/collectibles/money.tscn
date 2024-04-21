@@ -20,6 +20,7 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 portal_mode = 3
+cast_shadow = 0
 mesh = SubResource( 2 )
 material/0 = ExtResource( 2 )
 
