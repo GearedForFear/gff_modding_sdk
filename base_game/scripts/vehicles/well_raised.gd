@@ -88,22 +88,18 @@ func _physics_process(_delta):
 					shoot_left()
 				elif Input.is_action_pressed(controls.weapon_right):
 					shoot_right()
-		
-		if remaining_shots_middle > 0 and can_shoot_middle:
-			shoot_middle(true)
-			shoot_sides(false)
-		elif remaining_shots_sides > 0 and can_shoot_sides:
-			shoot_middle(false)
-			shoot_sides(true)
-		elif get_node("../ShotTimerMiddle").is_stopped() \
-				and get_node("../ShotTimerSides").is_stopped():
-			shoot_middle(false)
-			shoot_sides(false)
-		else:
-			get_node("../GunTriggerTimer").start()
-	else:
+	if remaining_shots_middle > 0 and can_shoot_middle:
+		shoot_middle(true)
+		shoot_sides(false)
+	elif remaining_shots_sides > 0 and can_shoot_sides:
+		shoot_middle(false)
+		shoot_sides(true)
+	elif get_node("../ShotTimerMiddle").is_stopped() \
+			and get_node("../ShotTimerSides").is_stopped():
 		shoot_middle(false)
 		shoot_sides(false)
+	else:
+		get_node("../GunTriggerTimer").start()
 
 
 func get_shots() -> int:
