@@ -39,10 +39,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/custom_resources/player_controls.gd"
 }, {
-"base": "Object",
+"base": "MeshInstance",
+"class": "ShadowSetter",
+"language": "GDScript",
+"path": "res://scripts/world/shadow_setter.gd"
+}, {
+"base": "Reference",
 "class": "VehicleData",
 "language": "GDScript",
-"path": "res://scripts/vehicles/vehicle_data.gd"
+"path": "res://scripts/custom_resources/vehicle_data.gd"
+}, {
+"base": "ColorRect",
+"class": "VehicleSelect",
+"language": "GDScript",
+"path": "res://scripts/cameras_&_ui/vehicle_select.gd"
 } ]
 _global_script_class_icons={
 "AmmoVehicle": "",
@@ -51,7 +61,9 @@ _global_script_class_icons={
 "LevelVehicle": "",
 "PlayerContainer": "",
 "PlayerControls": "",
-"VehicleData": ""
+"ShadowSetter": "",
+"VehicleData": "",
+"VehicleSelect": ""
 }
 
 [application]
