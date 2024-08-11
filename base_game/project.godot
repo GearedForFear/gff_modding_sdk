@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "VehicleData",
 "language": "GDScript",
-"path": "res://scripts/vehicles/vehicle_data.gd"
+"path": "res://scripts/custom_resources/vehicle_data.gd"
 } ]
 _global_script_class_icons={
 "AmmoVehicle": "",
