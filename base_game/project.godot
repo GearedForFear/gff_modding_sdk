@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cameras_&_ui/sub_viewport.gd"
 }, {
-"base": "Reference",
+"base": "Object",
 "class": "VehicleData",
 "language": "GDScript",
 "path": "res://scripts/custom_resources/vehicle_data.gd"
