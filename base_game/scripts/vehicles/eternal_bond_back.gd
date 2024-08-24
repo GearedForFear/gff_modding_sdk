@@ -15,20 +15,18 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if alive:
-		ammo = other_half.ammo
-		if controls == null:
-			pass
-		else:
-			if can_shoot and ammo >= missile_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_back):
-				shoot()
-	
 	if master_body:
 		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
 			.value = other_half.health
 		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
 			.value = health
+	else:
+		ammo = other_half.ammo
+		
+	if alive:
+		if can_shoot and ammo >= missile_ammo_cost \
+				and Input.is_action_pressed(controls.weapon_back):
+			shoot()
 
 
 func shoot():

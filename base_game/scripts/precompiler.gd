@@ -22,6 +22,15 @@ func add_materials():
 			materials.append(ResourceLoader.load(material_path, "Material"))
 
 
+func emit_particles():
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		for n in $Viewport/Camera/Particles.get_children():
+			n.emitting = true
+	else:
+		for n in $Viewport/Camera/CPUParticles.get_children():
+			n.emitting = true
+
+
 func _on_Precompiler_visibility_changed():
 	var rendering: bool = get_parent().visible
 	set_process(rendering)

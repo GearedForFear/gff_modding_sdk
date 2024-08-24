@@ -61,9 +61,13 @@ material/0 = ExtResource( 9 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1 )
 shape = SubResource( 4 )
 
+[node name="RayCast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, 1 )
+collision_mask = 3
+
 [node name="Lifetime" type="Timer" parent="."]
 process_mode = 0
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 autostart = true
 

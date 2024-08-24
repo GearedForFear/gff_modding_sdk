@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/meshes/particles/godray.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://resources/materials/particles/godray.material" type="Material" id=2]
+[ext_resource path="res://scripts/particles/standard_particles.gd" type="Script" id=3]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.534137, 1 )
@@ -36,3 +37,4 @@ preprocess = 20.0
 visibility_aabb = AABB( -19.1648, -8.30158, -257.828, 38.3296, 16.6032, 280.766 )
 process_material = SubResource( 5 )
 draw_pass_1 = ExtResource( 1 )
+script = ExtResource( 3 )

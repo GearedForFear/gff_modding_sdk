@@ -26,7 +26,7 @@ onready var StraightMissileScript: GDScript \
 		= load("res://scripts/weapon_compontents/straight_missile.gd")
 onready var gles3: bool = OS.get_current_video_driver() == 0
 
-enum bullet_types {NORMAL, ACID}
+enum bullet_types {NORMAL, ACID, RICOCHET}
 
 onready var money_available: Array = $Money.get_children()
 onready var sparks_available: Array = $Sparks.get_children()
@@ -80,6 +80,17 @@ func get_acid_bullet() -> StraightProjectile:
 	else:
 		return_value = bullets_available.pop_back()
 	return_value.set_type(false, bullet_types.ACID)
+	return return_value
+
+
+func get_ricochet_bullet() -> StraightProjectile:
+	var return_value: StraightProjectile
+	if bullets_available.empty():
+		return_value = Bullet.instance()
+		$Bullets.add_child(return_value)
+	else:
+		return_value = bullets_available.pop_back()
+	return_value.set_type(false, bullet_types.RICOCHET)
 	return return_value
 
 

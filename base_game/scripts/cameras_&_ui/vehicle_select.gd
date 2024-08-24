@@ -13,7 +13,8 @@ onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
 		get_node("Nitro/SuicideDoor"), get_node("Nitro/GraveMistake"), \
 		get_node("Nitro/MetalUndertow"), get_node("Rocket/WarmWelcome"), \
 		get_node("Rocket/Turbulence"), get_node("Rocket/EternalBond"), \
-		get_node("Switch/Restless"), get_node("Burst/WellRaised")]
+		get_node("Switch/Restless"), get_node("Burst/WellRaised"), \
+		get_node("Overcharge/NoMatch")]
 
 
 func _ready():
@@ -116,7 +117,13 @@ func _process(_delta):
 					_:
 						return
 			category_names.OVERCHARGE:
-				return
+				match current_vehicle:
+					0:
+						vehicle = ResourceLoader.load(\
+								"res://scenes/vehicles/no_match.tscn", \
+								"PackedScene").instance()
+					_:
+						return
 		vehicle.get_node("Body").controls = controls
 		vehicle.get_node("Body").track = get_node("../../../..")
 		get_node("../../Viewport").stop()

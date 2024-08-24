@@ -1,0 +1,140 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
+[ext_resource path="res://resources/meshes/vehicles/no_match.tres" type="ArrayMesh" id=11]
+[ext_resource path="res://resources/materials/vehicles/nm_wheel.material" type="Material" id=12]
+[ext_resource path="res://resources/meshes/weapon_components/nm_gun.tres" type="ArrayMesh" id=13]
+[ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
+[ext_resource path="res://resources/materials/weapon_components/nm_gun.material" type="Material" id=16]
+[ext_resource path="res://resources/materials/vehicles/no_match.material" type="Material" id=17]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=26]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=28]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.5
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( 0.877, 0.365, 2.267, -0.877, 0.365, 2.267, 0.57, 0.658, 1.981, -0.57, 0.658, 1.981, 0.7, 1.208, -0.08, -0.7, 1.208, -0.08, 0.97, 0.893, -0.359, -0.97, 0.893, -0.359, 0.836, 0.757, -2.111, -0.836, 0.757, -2.111, 0.898, 0.202, -2.245, -0.898, 0.202, -2.245, 0.936, 0.09, 2.272, -0.936, 0.09, 2.272, 1.02, 0.063, -2.08, -1.02, 0.063, -2.08 )
+
+[node name="Body" type="VehicleBody" groups=["combat_vehicle"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185571, 0 )
+collision_mask = 3
+mass = 187.755
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+base_health = 86.0
+base_engine_force = 655.04
+nitro_force = 0.0
+rocket_force = 0.0
+burst_force = 0.0
+overcharge_force = 7360.0
+
+[node name="WheelFrontLeft" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, 1.47 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="WheelFrontRight" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, 1.47 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="WheelBackLeft" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, -1.68835 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="WheelBackRight" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, -1.68801 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372427, 0 )
+shape = SubResource( 6 )
+
+[node name="BodyMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372427, 0 )
+portal_mode = 3
+mesh = ExtResource( 11 )
+material/0 = ExtResource( 17 )
+script = ExtResource( 28 )
+required_setting = 2
+
+[node name="GatlingGunLeft" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334517, 0.239647, 2.34566 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 16 )
+script = ExtResource( 28 )
+required_setting = 4
+
+[node name="GatlingGunRight" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.335, 0.24, 2.346 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 16 )
+script = ExtResource( 28 )
+required_setting = 4

@@ -14,3 +14,21 @@ func _pressed():
 	root_control.switch_buttons(get_parent(), \
 			get_node("../../GraphicsButtons/MSAA"))
 	root_control.get_node("ButtonPressAudio").play()
+
+
+func _on_MSAA8x_focus_entered():
+	get_node("../../Warning").text = "High VRAM cost"
+	get_node("../../Warning").show()
+
+
+func _on_MSAA8x_focus_exited():
+	get_node("../../Warning").hide()
+
+
+func _on_MSAA16x_focus_entered():
+	get_node("../../Warning").text = "WARNING:\nMassive VRAM cost"
+	get_node("../../Warning").show()
+
+
+func _on_MSAA16x_focus_exited():
+	get_node("../../Warning").hide()

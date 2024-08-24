@@ -8,6 +8,7 @@ func _pressed():
 
 
 func _on_MaxRigidBodies_focus_entered():
+	get_node("../../Warning").text = "WARNING:\nVery performance-intensive"
 	get_node("../../Warning").show()
 
 

@@ -13,6 +13,7 @@ export(boost_types) var base_boost_type: int = boost_types.NITRO
 export var nitro_force: float = 400.0
 export var rocket_force: float = 15.0
 export var burst_force: float = 400.0
+export var overcharge_force: float = 400.0
 export var master_body: bool = true
 export var scene_resource: String = "res://scenes/vehicles/.tscn"
 
@@ -154,6 +155,16 @@ func _physics_process(_delta):
 								for n in $ReverseRocketCPUParticles.get_children():
 									n.emitting = false
 						acceleration_factor = base_engine_force
+					boost_types.OVERCHARGE:
+						change_heat(0.5)
+						acceleration_factor = overcharge_force
+						$LoopingAudio/NitroAudio.stream_paused = false
+						if gles3:
+							for n in $OverchargeParticles.get_children():
+								n.emitting = true
+						else:
+							for n in $OverchargeCPUParticles.get_children():
+								n.emitting = true
 			else:
 				match boost_type:
 					boost_types.NITRO:
@@ -176,6 +187,14 @@ func _physics_process(_delta):
 							for n in $RocketCPUParticles.get_children():
 								n.emitting = false
 							for n in $ReverseRocketCPUParticles.get_children():
+								n.emitting = false
+					boost_types.OVERCHARGE:
+						$LoopingAudio/NitroAudio.stream_paused = true
+						if gles3:
+							for n in $OverchargeParticles.get_children():
+								n.emitting = false
+						else:
+							for n in $OverchargeCPUParticles.get_children():
 								n.emitting = false
 			
 			if Input.is_action_just_pressed(controls.boost) \
@@ -286,10 +305,11 @@ func _physics_process(_delta):
 			clamp(linear_velocity.length() / 20, 1, 3)
 
 
-func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
+func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 		-> int:
 	if alive:
 		health -= amount
+		change_heat(burn)
 		if health <= 0:
 			if shooter == null:
 				health = 0
@@ -317,6 +337,7 @@ func reward(amount: int):
 	score += amount
 	if alive:
 		health = clamp(health + amount, 0.0, base_health)
+		change_heat(-amount)
 		acid_duration = 0
 		acid_cause = null
 		if controls == null:
@@ -325,6 +346,14 @@ func reward(amount: int):
 
 func burst() -> int: #overridden in level_vehicle.gd
 	return 0
+
+
+func change_heat(var amount: float): #overridden in heat_vehicle.gd
+	pass
+
+
+func remove_heat(): #overridden in heat_vehicle.gd
+	pass
 
 
 func pause_looping_audio():
@@ -336,6 +365,7 @@ func pause_looping_audio():
 func _on_RespawnTimer_timeout():
 	alive = true
 	health = base_health
+	remove_heat()
 	if controls == null:
 		get_node("../StuckTimer").start()
 	if gles3:

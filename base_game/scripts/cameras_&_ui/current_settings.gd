@@ -17,13 +17,15 @@ func _process(_delta):
 		
 		match settings_manager.msaa:
 			0:
-				text += "\nNo MSAA"
+				text += "\nNo Anti-Aliasing"
 			1:
 				text += "\n2x MSAA"
 			2:
 				text += "\n4x MSAA"
 			3:
 				text += "\n8x MSAA"
+			4:
+				text += "\n16x HSAA"
 		
 		var reflections: int = settings_manager.reflections
 		if reflections == 0:

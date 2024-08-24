@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/materials/particles/heart_flame.material" type="Material" id=1]
+[ext_resource path="res://scripts/particles/standard_particles_cpu.gd" type="Script" id=2]
+
+[sub_resource type="QuadMesh" id=1]
+material = ExtResource( 1 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.581818 ), 0.0, 0.0770562, 0, 0, Vector2( 1, 0.990909 ), 0.66838, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.309677, 0.729032, 1 )
+colors = PoolColorArray( 1, 1, 0, 0, 1, 0.352941, 0, 0.160784, 1, 0.117647, 0, 1, 1, 0, 0, 0 )
+
+[node name="CPUParticles" type="CPUParticles"]
+emitting = false
+draw_order = 1
+mesh = SubResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 0.33
+gravity = Vector3( 0, 1.2, 0 )
+angle = 360.0
+angle_random = 1.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 2 )
+script = ExtResource( 2 )

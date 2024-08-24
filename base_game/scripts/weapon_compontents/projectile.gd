@@ -13,6 +13,7 @@ var burn: float
 var acid_duration: int = 0
 var shooter: CombatVehicle
 
+var bounce: bool = false
 var timer_finished: bool = false
 var shot_audio_playing: bool = false
 var impact_audio_playing: bool = false
@@ -62,17 +63,27 @@ func _on_Area_body_entered(body):
 						body.acid_duration += acid_duration
 						body.acid_cause = shooter
 					
-					rotation.z = randi() / TAU
 					pools.get_sparks().start(global_transform)
 					
 					var payout: int = body.damage(damage, reward, burn, shooter)
-					if payout > 0:
+					if payout > 0 and shooter != null:
 						pools.get_money().start(global_transform, shooter, body, \
 								payout)
+					if bounce:
+						if body.is_in_group("heist_target"):
+							shooter = null
+						else:
+							shooter = body
+				elif bounce:
+					shooter = null
 			explosive_types.FIRE:
 				pools.get_explosion().start(global_transform, damage, reward, \
 						burn, shooter)
 		collide(body)
+		if bounce:
+			reset_physics_interpolation()
+			bounce = false
+			return
 		set_physics_process(false)
 		hide()
 		collision_layer = 0

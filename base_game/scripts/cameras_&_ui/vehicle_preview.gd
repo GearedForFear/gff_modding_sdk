@@ -21,6 +21,8 @@ const RE_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/restless_preview.tscn")
 const WR_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/well_raised_preview.tscn")
+const NM_PREVIEW: PackedScene \
+		= preload("res://scenes/vehicles/preview/no_match_preview.tscn")
 
 onready var container = get_node("../..")
 onready var unavailable = container.get_node("../Unavailable")
@@ -74,7 +76,11 @@ func update_vehicle(category: int, vehicle: int):
 				_:
 					return
 		VehicleSelect.category_names.OVERCHARGE:
-			return
+			match vehicle:
+				0:
+					preview_vehicle = NM_PREVIEW.instance()
+				_:
+					return
 	get_child(3).queue_free()
 	add_child(preview_vehicle)
 	container.get_node("../StatValues").update_text(preview_vehicle)

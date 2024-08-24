@@ -332,7 +332,7 @@ func split(var b: bool):
 		
 		health = clamp(front_half.get_child(0).health, 0, 1000) \
 				+ clamp(body.health, 0, 1000) 
-		ammo = front_half.get_child(0).ammo
+		ammo = body.ammo
 		collision_layer = 1
 		collision_mask = 3
 		replacement = null

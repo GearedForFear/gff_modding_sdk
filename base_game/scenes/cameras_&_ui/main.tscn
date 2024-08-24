@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/cameras_&_ui/current_settings.gd" type="Script" id=2]
@@ -56,7 +56,11 @@
 [ext_resource path="res://scripts/managers/mirror_manager.gd" type="Script" id=54]
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=55]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/quit.gd" type="Script" id=56]
+[ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=57]
 [ext_resource path="res://scripts/cameras_&_ui/loading_animation.gd" type="Script" id=58]
+[ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=59]
+[ext_resource path="res://scenes/particles/heart_flame.tscn" type="PackedScene" id=60]
+[ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -270,10 +274,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 [node name="Particles7" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 33 )]
 
 [node name="Particles8" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 34 )]
+script = null
+
+[node name="Particles14" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 60 )]
+script = null
 
 [node name="Particles9" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 50 )]
 
 [node name="Particles10" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 43 )]
+
+[node name="Particles13" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 57 )]
 
 [node name="Particles11" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 42 )]
 
@@ -297,10 +307,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 [node name="CPUParticles7" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 38 )]
 
 [node name="CPUParticles8" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 39 )]
+script = null
+
+[node name="CPUParticles14" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 61 )]
+script = null
 
 [node name="CPUParticles9" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 49 )]
 
 [node name="CPUParticles10" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 41 )]
+
+[node name="CPUParticles13" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 59 )]
 
 [node name="CPUParticles11" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 40 )]
 
@@ -575,7 +591,7 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "MSAA"
+text = "Anti-Aliasing"
 script = ExtResource( 10 )
 selection = "../../MSAAButtons/MSAAOff"
 
@@ -879,7 +895,7 @@ alignment = 1
 margin_top = 136.0
 margin_right = 256.0
 margin_bottom = 155.0
-focus_neighbour_top = NodePath("../8x")
+focus_neighbour_top = NodePath("../MSAA16x")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -890,7 +906,7 @@ custom_styles/normal = SubResource( 8 )
 text = "Off"
 script = ExtResource( 18 )
 
-[node name="2x" type="Button" parent="BlackBar/MSAAButtons"]
+[node name="MSAA2x" type="Button" parent="BlackBar/MSAAButtons"]
 margin_top = 159.0
 margin_right = 256.0
 margin_bottom = 178.0
@@ -905,7 +921,7 @@ text = "2x"
 script = ExtResource( 18 )
 msaa = 1
 
-[node name="4x" type="Button" parent="BlackBar/MSAAButtons"]
+[node name="MSAA4x" type="Button" parent="BlackBar/MSAAButtons"]
 margin_top = 182.0
 margin_right = 256.0
 margin_bottom = 201.0
@@ -920,7 +936,22 @@ text = "4x"
 script = ExtResource( 18 )
 msaa = 2
 
-[node name="8x" type="Button" parent="BlackBar/MSAAButtons"]
+[node name="MSAA8x" type="Button" parent="BlackBar/MSAAButtons"]
+margin_top = 205.0
+margin_right = 256.0
+margin_bottom = 224.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "8x"
+script = ExtResource( 18 )
+msaa = 3
+
+[node name="MSAA16x" type="Button" parent="BlackBar/MSAAButtons"]
 margin_top = 205.0
 margin_right = 256.0
 margin_bottom = 224.0
@@ -932,9 +963,9 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "8x"
+text = "16x"
 script = ExtResource( 18 )
-msaa = 3
+msaa = 4
 
 [node name="ReflectionsButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -2809,6 +2840,10 @@ script = ExtResource( 58 )
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
 [connection signal="focus_entered" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_entered"]
 [connection signal="focus_exited" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_exited"]
+[connection signal="focus_entered" from="BlackBar/MSAAButtons/MSAA8x" to="BlackBar/MSAAButtons/MSAA8x" method="_on_MSAA8x_focus_entered"]
+[connection signal="focus_exited" from="BlackBar/MSAAButtons/MSAA8x" to="BlackBar/MSAAButtons/MSAA8x" method="_on_MSAA8x_focus_exited"]
+[connection signal="focus_entered" from="BlackBar/MSAAButtons/MSAA16x" to="BlackBar/MSAAButtons/MSAA16x" method="_on_MSAA16x_focus_entered"]
+[connection signal="focus_exited" from="BlackBar/MSAAButtons/MSAA16x" to="BlackBar/MSAAButtons/MSAA16x" method="_on_MSAA16x_focus_exited"]
 [connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV45" to="." method="_on_FOV45_pressed"]
 [connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV60" to="." method="_on_FOV60_pressed"]
 [connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV75" to="." method="_on_FOV75_pressed"]

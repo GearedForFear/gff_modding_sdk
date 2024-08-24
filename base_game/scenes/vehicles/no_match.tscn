@@ -1,0 +1,581 @@
+[gd_scene load_steps=45 format=2]
+
+[ext_resource path="res://scripts/vehicles/no_match.gd" type="Script" id=1]
+[ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/cameras_&_ui/follow_camera_heat.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/particles/flamethrower_flame.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/particles/flamethrower_flame_cpu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resources/meshes/vehicles/no_match.tres" type="ArrayMesh" id=11]
+[ext_resource path="res://resources/materials/vehicles/nm_wheel.material" type="Material" id=12]
+[ext_resource path="res://resources/meshes/weapon_components/nm_gun.tres" type="ArrayMesh" id=13]
+[ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
+[ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
+[ext_resource path="res://resources/materials/weapon_components/nm_gun.material" type="Material" id=16]
+[ext_resource path="res://resources/materials/vehicles/no_match.material" type="Material" id=17]
+[ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
+[ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=20]
+[ext_resource path="res://resources/sounds/weapon_components/gun_auto_barrel_spin_fast_loop.wav" type="AudioStream" id=21]
+[ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=22]
+[ext_resource path="res://resources/sounds/vehicles/tyre_skid_loop_01.wav" type="AudioStream" id=23]
+[ext_resource path="res://resources/sounds/weapon_components/fire_large_flames_magic_loop_01.wav" type="AudioStream" id=24]
+[ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_03.wav" type="AudioStream" id=25]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=26]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=28]
+[ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=29]
+[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=30]
+[ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=31]
+[ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=33]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.5
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( 0.877, 0.365, 2.267, -0.877, 0.365, 2.267, 0.57, 0.658, 1.981, -0.57, 0.658, 1.981, 0.7, 1.208, -0.08, -0.7, 1.208, -0.08, 0.97, 0.893, -0.359, -0.97, 0.893, -0.359, 0.836, 0.757, -2.111, -0.836, 0.757, -2.111, 0.898, 0.202, -2.245, -0.898, 0.202, -2.245, 0.936, 0.09, 2.272, -0.936, 0.09, 2.272, 1.02, 0.063, -2.08, -1.02, 0.063, -2.08 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 9
+font_data = ExtResource( 30 )
+
+[sub_resource type="CapsuleShape" id=17]
+radius = 0.3
+height = 1.49926
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/GatlingGunLeft:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "rotation"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/GatlingGunLeft:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.6 ),
+"transitions": PoolRealArray( 1, 0.7, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -120 ), Vector3( 0, 0, -960 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/GatlingGunRight:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "rotation"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/GatlingGunRight:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.6 ),
+"transitions": PoolRealArray( 1, 0.7, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 120 ), Vector3( 0, 0, 960 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "overheat_heavy"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.5 ),
+"transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
+"update": 0,
+"values": [ 0.0, 2.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "overheat_light"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
+"update": 0,
+"values": [ 0.0, 2.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "overheat_medium"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
+"update": 0,
+"values": [ 0.0, 2.0, 0.0 ]
+}
+
+[node name="RootSpatial" type="Spatial"]
+_import_path = NodePath(".")
+__meta__ = {
+"__editor_plugin_screen__": "3D"
+}
+
+[node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185571, 0 )
+collision_mask = 3
+mass = 187.755
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+base_health = 86.0
+base_engine_force = 655.04
+base_boost_type = 4
+nitro_force = 0.0
+rocket_force = 0.0
+burst_force = 0.0
+overcharge_force = 7360.0
+scene_resource = "res://scenes/vehicles/no_match.tscn"
+
+[node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, 1.47 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
+
+[node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, 1.47 )
+use_as_traction = true
+use_as_steering = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
+
+[node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, -1.68835 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
+
+[node name="WheelBackRight" type="VehicleWheel" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, -1.68801 )
+use_as_traction = true
+wheel_roll_influence = 0.4
+wheel_radius = 0.36
+wheel_friction_slip = 2.0
+suspension_travel = 2.0
+suspension_stiffness = 40.0
+damping_compression = 0.88
+
+[node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
+pause_mode = 2
+physics_interpolation_mode = 1
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 12 )
+script = ExtResource( 26 )
+required_setting = 4
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
+aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372427, 0 )
+shape = SubResource( 6 )
+
+[node name="CameraBase" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93676, 0.9 )
+
+[node name="BodyMesh" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372427, 0 )
+portal_mode = 3
+mesh = ExtResource( 11 )
+material/0 = ExtResource( 17 )
+script = ExtResource( 28 )
+required_setting = 2
+
+[node name="GatlingGunLeft" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334517, 0.239647, 2.34566 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 16 )
+script = ExtResource( 28 )
+required_setting = 4
+
+[node name="GatlingGunRight" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.335, 0.24, 2.346 )
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 16 )
+script = ExtResource( 28 )
+required_setting = 4
+
+[node name="ScoreLabel" type="Label3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+portal_mode = 3
+pixel_size = 0.003
+billboard = 1
+double_sided = false
+fixed_size = true
+font = SubResource( 19 )
+script = ExtResource( 31 )
+
+[node name="ShotPositionLeft" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33467, 0.290357, 2.41948 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+collision_mask = 3
+
+[node name="ShotPositionRight" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.335, 0.29, 2.419 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+
+[node name="CartridgeExitLeft" type="Position3D" parent="Body"]
+transform = Transform( 0.777201, 0, -0.629253, 0, 1, 0, 0.629253, 0, 0.777201, 0.782056, 0.561865, 1.91473 )
+
+[node name="CartridgeExitRight" type="Position3D" parent="Body"]
+transform = Transform( -0.777201, 0, -0.629253, 0, 1, 0, 0.629253, 0, -0.777201, -0.782, 0.562, 1.915 )
+
+[node name="FlameDamageFrontLeft" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.982, 0.641994, 0.998291 )
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/FlameDamageFrontLeft"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0 )
+shape = SubResource( 17 )
+
+[node name="FlameDamageFrontRight" type="Area" parent="Body"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.982, 0.641994, 0.998291 )
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/FlameDamageFrontRight"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0 )
+shape = SubResource( 17 )
+
+[node name="FlameDamageBackLeft" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944, 0.617431, -0.960425 )
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/FlameDamageBackLeft"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0 )
+shape = SubResource( 17 )
+
+[node name="FlameDamageBackRight" type="Area" parent="Body"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.944, 0.617431, -0.960425 )
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/FlameDamageBackRight"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0 )
+shape = SubResource( 17 )
+
+[node name="MuzzleFlashLeft" parent="Body" instance=ExtResource( 9 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.334172, 0.290247, 2.41935 )
+
+[node name="MuzzleFlashRight" parent="Body" instance=ExtResource( 9 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.334, 0.290247, 2.41935 )
+
+[node name="CPUMuzzleFlashLeft" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334172, 0.290247, 2.41935 )
+
+[node name="CPUMuzzleFlashRight" parent="Body" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334, 0.290247, 2.41935 )
+
+[node name="FlamethrowerParticlesFrontLeft" parent="Body" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.982361, 0.642067, 0.998561 )
+
+[node name="FlamethrowerParticlesFrontRight" parent="Body" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.982, 0.641994, 0.998291 )
+
+[node name="FlamethrowerParticlesBackLeft" parent="Body" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.944181, 0.617256, -0.960419 )
+
+[node name="FlamethrowerParticlesBackRight" parent="Body" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.944, 0.617431, -0.960425 )
+
+[node name="FlamethrowerCPUParticlesFrontLeft" parent="Body" instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.982, 0.641994, 0.998291 )
+
+[node name="FlamethrowerCPUParticlesFrontRight" parent="Body" instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.982, 0.641994, 0.998291 )
+
+[node name="FlamethrowerCPUParticlesBackLeft" parent="Body" instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.944, 0.617431, -0.960425 )
+
+[node name="FlamethrowerCPUParticlesBackRight" parent="Body" instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.944, 0.617431, -0.960425 )
+
+[node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+
+[node name="ExplosionCPUParticles" parent="Body" instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
+
+[node name="DeathParticles" parent="Body" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06387, -0.819638 )
+
+[node name="DeathCPUParticles" parent="Body" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06422, -0.820108 )
+
+[node name="DriftParticles" type="Spatial" parent="Body"]
+
+[node name="Left" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
+
+[node name="Right" parent="Body/DriftParticles" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
+
+[node name="DriftCPUParticles" type="Spatial" parent="Body"]
+
+[node name="Left" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886, 0.16, -1.54 )
+
+[node name="Right" parent="Body/DriftCPUParticles" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.886, 0.16, -1.54 )
+
+[node name="OverchargeParticles" type="Spatial" parent="Body"]
+
+[node name="Left" parent="Body/OverchargeParticles" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.765523, 0.407216, -2.24293 )
+
+[node name="Right" parent="Body/OverchargeParticles" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.766, 0.407, -2.243 )
+
+[node name="OverchargeCPUParticles" type="Spatial" parent="Body"]
+
+[node name="Left" parent="Body/OverchargeCPUParticles" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.765523, 0.407216, -2.24293 )
+
+[node name="Right" parent="Body/OverchargeCPUParticles" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.766, 0.407, -2.243 )
+
+[node name="AcidParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773806, 0 )
+
+[node name="Particles" parent="Body/AcidParticles" instance=ExtResource( 29 )]
+
+[node name="AcidCPUParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773806, 0 )
+
+[node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 32 )]
+
+[node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
+stream = ExtResource( 22 )
+unit_size = 4.0
+bus = "Effects"
+
+[node name="LoopingAudio" type="Spatial" parent="Body"]
+
+[node name="GunRotationAudioLeft" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334, 0.24, 1.996 )
+stream = ExtResource( 21 )
+unit_size = 0.5
+pitch_scale = 1.4
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="GunRotationAudioRight" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334, 0.24, 1.996 )
+stream = ExtResource( 21 )
+unit_size = 0.5
+pitch_scale = 1.4
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="FlameAudioLeft" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95702, 0.628004, 0.0162987 )
+stream = ExtResource( 24 )
+unit_size = 2.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="FlameAudioRight" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.957, 0.627741, 0.0164927 )
+stream = ExtResource( 24 )
+unit_size = 2.0
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503774, -0.98793 )
+stream = ExtResource( 25 )
+unit_size = 0.1
+autoplay = true
+bus = "Effects"
+
+[node name="DriftAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+stream = ExtResource( 23 )
+unit_size = 0.4
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="NitroAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37405, -2.5871 )
+stream = ExtResource( 20 )
+autoplay = true
+stream_paused = true
+bus = "Effects"
+
+[node name="AnimationPlayerLeft" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/RESET = SubResource( 20 )
+anims/rotation = SubResource( 21 )
+
+[node name="AnimationPlayerRight" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/RESET = SubResource( 26 )
+anims/rotation = SubResource( 27 )
+
+[node name="AnimationPlayerHeat" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 23 )
+anims/overheat_heavy = SubResource( 24 )
+anims/overheat_light = SubResource( 22 )
+anims/overheat_medium = SubResource( 25 )
+
+[node name="RespawnTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="GunTimerLeft" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.08
+one_shot = true
+
+[node name="GunTimerRight" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.08
+one_shot = true
+
+[node name="StuckTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 30.0
+
+[connection signal="camera_entered" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontRight/Mesh" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontRight/Mesh" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelBackLeft/Mesh" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelBackLeft/Mesh" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelBackRight/Mesh" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelBackRight/Mesh" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
+[connection signal="timeout" from="GunTimerLeft" to="Body" method="_on_GunTimerLeft_timeout"]
+[connection signal="timeout" from="GunTimerRight" to="Body" method="_on_GunTimerRight_timeout"]
+[connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

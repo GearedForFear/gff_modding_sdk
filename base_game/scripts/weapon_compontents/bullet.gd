@@ -5,10 +5,14 @@ const NORMAL_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/bullet.material")
 const ACID_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/acid_bullet.material")
+const RICOCHET_MATERIAL: ShaderMaterial = \
+		preload("res://resources/materials/weapon_components/ricochet_bullet.material")
 const SNIPER_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/sniper_bullet.material")
 
-enum bullet_types {NORMAL, ACID}
+enum bullet_types {NORMAL, ACID, RICOCHET}
+
+var spawn_time: int = 0
 
 
 func set_type(var sniper: bool, var bullet_type: int):
@@ -34,9 +38,13 @@ func set_type(var sniper: bool, var bullet_type: int):
 				$MeshInstance.material_override = NORMAL_MATERIAL
 			bullet_types.ACID:
 				$MeshInstance.material_override = ACID_MATERIAL
+			bullet_types.RICOCHET:
+				$MeshInstance.material_override = RICOCHET_MATERIAL
+				spawn_time = Engine.get_physics_frames()
 	
-	if (bullet_type != bullet_types.ACID and acid_duration != 0):
+	if (bullet_type != bullet_types.ACID):
 		acid_duration = 0
+	bounce = bullet_type == bullet_types.RICOCHET
 
 
 func impact_audio(var body: PhysicsBody):
@@ -48,6 +56,11 @@ func impact_audio(var body: PhysicsBody):
 			$ImpactAudioMedium.play()
 		else:
 			$ImpactAudioHeavy.play()
+
+
+func collide(var _body: PhysicsBody):
+	if bounce:
+		rotation.x += PI + 0.001 * (Engine.get_physics_frames() - spawn_time)
 
 
 func make_available():

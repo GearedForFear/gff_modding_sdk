@@ -12,6 +12,7 @@ func start(global_transform: Transform):
 	set_physics_process(true)
 	set_process(true)
 	show()
+	rotation.z = randi() / TAU
 	reset_physics_interpolation()
 	$AnimationPlayer.play("sparks")
 

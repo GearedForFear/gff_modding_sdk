@@ -227,6 +227,7 @@ func prepare():
 		always_loaded.clear()
 		always_loaded.append_array(resources)
 		resources_loaded = true
+		$Precompiler.emit_particles()
 	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
 			"PackedScene").instance()
 	next_tracks.clear()
@@ -719,7 +720,11 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 				vehicle = ResourceLoader.load(\
 						"res://scenes/vehicles/well_raised.tscn", \
 						"PackedScene").instance()
-		next_vehicle = (next_vehicle + 1) % 9
+			9:
+				vehicle = ResourceLoader.load(\
+						"res://scenes/vehicles/no_match.tscn", \
+						"PackedScene").instance()
+		next_vehicle = (next_vehicle + 1) % 10
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
 
