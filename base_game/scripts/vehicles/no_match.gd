@@ -24,6 +24,13 @@ var next_out_right: int = cartridge_out.NONE
 func _ready():
 	if controls == null:
 		driver_name = "No Match"
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($MuzzleFlashLeft/CPUParticles)
+		delete($MuzzleFlashRight/CPUParticles)
+	else:
+		delete($MuzzleFlashLeft/Particles)
+		delete($MuzzleFlashRight/Particles)
 
 
 func _physics_process(_delta):
@@ -129,10 +136,9 @@ func shoot(var trigger: bool, var ricochet: bool):
 					bullet_reward, bullet_burn, self)
 			new_bullet.play_audio_lmg()
 			
-			if gles3:
-				$MuzzleFlashRight.emitting = true
-			else:
-				$CPUMuzzleFlashRight.emitting = true
+			var flash: GeometryInstance = $MuzzleFlashRight.get_child(0)
+			flash.restart()
+			flash.emitting = true
 		else:
 			get_node("../AnimationPlayerLeft").play("rotation")
 			get_node("../AnimationPlayerLeft").seek(0.0, false)
@@ -147,23 +153,14 @@ func shoot(var trigger: bool, var ricochet: bool):
 					bullet_reward, bullet_burn, self)
 			new_bullet.play_audio_lmg()
 			
-			if gles3:
-				$MuzzleFlashLeft.emitting = true
-			else:
-				$CPUMuzzleFlashLeft.emitting = true
+			var flash: GeometryInstance = $MuzzleFlashLeft.get_child(0)
+			flash.restart()
+			flash.emitting = true
 	else:
 		if ricochet:
 			$LoopingAudio/GunRotationAudioRight.stream_paused = true
-			if gles3:
-				$MuzzleFlashRight.emitting = false
-			else:
-				$CPUMuzzleFlashRight.emitting = false
 		else:
 			$LoopingAudio/GunRotationAudioLeft.stream_paused = true
-			if gles3:
-				$MuzzleFlashLeft.emitting = false
-			else:
-				$CPUMuzzleFlashLeft.emitting = false
 
 
 func flame_left(var b: bool):

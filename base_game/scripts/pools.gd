@@ -20,9 +20,9 @@ const CartridgeCase: PackedScene \
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
 
-onready var HomingMissileScript: GDScript \
+onready var homing_missile_script: GDScript \
 		= load("res://scripts/weapon_compontents/homing_missile.gd")
-onready var StraightMissileScript: GDScript \
+onready var straight_missile_script: GDScript \
 		= load("res://scripts/weapon_compontents/straight_missile.gd")
 onready var gles3: bool = OS.get_current_video_driver() == 0
 
@@ -101,7 +101,7 @@ func get_homing_missile() -> Projectile:
 		$Missiles.add_child(return_value)
 	else:
 		return_value = missiles_available.pop_back()
-	return_value.set_script(HomingMissileScript)
+	return_value.set_script(homing_missile_script)
 	return_value.gles3 = gles3
 	return_value.pools = self
 	return return_value
@@ -114,7 +114,7 @@ func get_straight_missile() -> Projectile:
 		$Missiles.add_child(return_value)
 	else:
 		return_value = missiles_available.pop_back()
-	return_value.set_script(StraightMissileScript)
+	return_value.set_script(straight_missile_script)
 	return_value.gles3 = gles3
 	return_value.pools = self
 	return return_value

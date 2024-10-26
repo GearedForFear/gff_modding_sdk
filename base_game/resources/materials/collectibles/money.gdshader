@@ -19,9 +19,9 @@ void fragment() {
 	vec4 albedo_tex = texture(texture_albedo,UV);
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
 	ALPHA = albedo_tex.a
-			- float(int(SCREEN_UV.x * VIEWPORT_SIZE.x) % 4) / 16.0
-			- float(int(SCREEN_UV.y * VIEWPORT_SIZE.y) % 4) / 8.0
-			- float(int(SCREEN_UV.x * VIEWPORT_SIZE.x) % 2) / 4.0
-			- float(int(SCREEN_UV.y * VIEWPORT_SIZE.y) % 2) / 2.0;
-	ALPHA_SCISSOR=0.001;
+			- float(int(FRAGCOORD.x) % 4) / 16.0
+			- float(int(FRAGCOORD.y) % 4) / 8.0
+			- float(int(FRAGCOORD.x) % 2) / 4.0
+			- float(int(FRAGCOORD.y) % 2) / 2.0;
+	ALPHA_SCISSOR = 0.001;
 }

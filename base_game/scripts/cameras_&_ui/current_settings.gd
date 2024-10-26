@@ -33,10 +33,25 @@ func _process(_delta):
 		else:
 			text += "\nReflection Range: " + String(reflections)
 			var reflection_cap: int = OS.window_size.x \
-					/ get_node("/root/RootControl/SettingsManager").resolution \
-					/ 4
+					/ settings_manager.resolution / 4
 			if reflections > reflection_cap:
 				text += " (Capped to " + String(reflection_cap) + ")"
+		
+		match settings_manager.materials:
+			0:
+				text += "\nMaterials: Extra Low"
+			1:
+				text += "\nMaterials: Low"
+			2:
+				text += "\nMaterials: Default"
+		
+		match settings_manager.lighting:
+			0:
+				text += "\nLighting: Extra Low"
+			1:
+				text += "\nLighting: Low"
+			2:
+				text += "\nLighting: Default"
 		
 		if vsync:
 			text += "\nVsync On"
@@ -44,9 +59,9 @@ func _process(_delta):
 			text += "\nVsync Off"
 		
 		if settings_manager.mirror_rate_reduced:
-			text += "\nSplit-Screen Rear View Mirror: Reduced Frame Rate"
+			text += "\nRear View Mirror (Multiplayer): Reduced Frame Rate"
 		else:
-			text += "\nSplit-Screen Rear View Mirror: Full Frame Rate"
+			text += "\nRear View Mirror (Multiplayer): Full Frame Rate"
 		
 		if settings_manager.transform_interpolation:
 			if vsync:
@@ -69,8 +84,6 @@ func _process(_delta):
 				+ "°"
 		
 		match settings_manager.shadow_casters:
-			0:
-				text += "\nNo Shadows"
 			1:
 				text += "\nShadow Casters: Extra Low"
 			2:
@@ -84,13 +97,17 @@ func _process(_delta):
 			6:
 				text += "\nShadow Casters: Ultimate"
 		
-		text += "\nShadow Distance: " + String(round(\
-				settings_manager.shadow_distance * OS.window_size.y * 10000 \
-				/ OS.window_size.x / pow(settings_manager.field_of_view, 2))) \
-				+ "m"
+		text += "\nShadow Map Splits: " + String(settings_manager.splits)
 		
-		var tex_size: String = String(settings_manager.max_texture_size)
-		text += "\nMax Texture Size: " + tex_size + " x " + tex_size
+		text += "\nShadow Map Splits (Multiplayer): " + \
+				String(settings_manager.splits_multiplayer)
+		
+		get_node("/root/RootControl").player_amount = 1
+		text += "\nShadow Distance: " + String(round(\
+				settings_manager.shadow_distance())) + "m"
+		
+		var tex_size: String = String(settings_manager.shadow_resolution)
+		text += "\nShadow Resolution: " + tex_size + " x " + tex_size
 		
 		if settings_manager.max_rigid_bodies == 0:
 			text += "\nMax Rigid Bodies: Lowest"
@@ -98,7 +115,7 @@ func _process(_delta):
 			text += "\nMax Rigid Bodies: " + String(settings_manager\
 					.max_rigid_bodies)
 		
-		text += "\n\nSound Effects Volume: " + String(round(db2linear(\
+		text += "\nSound Effects Volume: " + String(round(db2linear(\
 				AudioServer.get_bus_volume_db(1)) * 100)) + "%"
 		
 		text += "\nMusic Volume: " + String(round(db2linear(\

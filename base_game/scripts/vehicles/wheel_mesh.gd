@@ -1,32 +1,16 @@
 extends ShadowSetter
 
 
-var interpolated_parent: bool = true
-var wait: bool = false
-var visible_on: Array
+export var wheel_path: NodePath
+export var mirror: bool = false
+
+onready var gameplay_wheel: VehicleWheel = get_node(wheel_path)
 
 
-func _process(_delta):
-	if interpolated_parent and not visible_on.empty():
-		global_translation = get_parent().get_global_transform_interpolated().origin
-
-
-func _physics_process(_delta):
-	if wait:
-		wait = false
-	else:
-		interpolated_parent = true
-
-
-func _notification(what):
-	if what == NOTIFICATION_RESET_PHYSICS_INTERPOLATION:
-		interpolated_parent = false
-		wait = true
-
-
-func _on_VisibilityNotifier_camera_entered(camera):
-	visible_on.append(camera)
-
-
-func _on_VisibilityNotifier_camera_exited(camera):
-	visible_on.erase(camera)
+func update_transform(body_transform: Transform, wheel_scale: float):
+	global_transform = body_transform
+	scale = Vector3(wheel_scale, wheel_scale, wheel_scale)
+	if mirror:
+		scale = -scale
+	translation = gameplay_wheel.translation
+	rotation = gameplay_wheel.rotation

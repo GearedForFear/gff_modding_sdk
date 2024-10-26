@@ -7,8 +7,6 @@ const ACID_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/acid_bullet.material")
 const RICOCHET_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/ricochet_bullet.material")
-const SNIPER_MATERIAL: ShaderMaterial = \
-		preload("res://resources/materials/weapon_components/sniper_bullet.material")
 
 enum bullet_types {NORMAL, ACID, RICOCHET}
 
@@ -16,31 +14,22 @@ var spawn_time: int = 0
 
 
 func set_type(var sniper: bool, var bullet_type: int):
-	if sniper:
-		if speed != 2.0:
-			speed = 2.0
-			$MeshInstance.hide()
-			$CollisionShape.disabled = true
-			$SniperMesh.show()
-			$SniperCollision.disabled = false
-		match bullet_type:
-			bullet_types.NORMAL:
-				$SniperMesh.material_override = SNIPER_MATERIAL
+	if sniper and speed != 2.0:
+		speed = 2.0
+		$CollisionShape.translation = Vector3(0, 0, 1)
+		$CollisionShape.scale = Vector3(1, 2, 1)
 	else:
-		if speed != 1.0:
-			speed = 1.0
-			$MeshInstance.show()
-			$CollisionShape.disabled = false
-			$SniperMesh.hide()
-			$SniperCollision.disabled = true
-		match bullet_type:
-			bullet_types.NORMAL:
-				$MeshInstance.material_override = NORMAL_MATERIAL
-			bullet_types.ACID:
-				$MeshInstance.material_override = ACID_MATERIAL
-			bullet_types.RICOCHET:
-				$MeshInstance.material_override = RICOCHET_MATERIAL
-				spawn_time = Engine.get_physics_frames()
+		speed = 1.0
+		$CollisionShape.translation = Vector3(0, 0, 0.5)
+		$CollisionShape.scale = Vector3.ONE
+	match bullet_type:
+		bullet_types.NORMAL:
+			$CollisionShape/MeshInstance.material_override = NORMAL_MATERIAL
+		bullet_types.ACID:
+			$CollisionShape/MeshInstance.material_override = ACID_MATERIAL
+		bullet_types.RICOCHET:
+			$CollisionShape/MeshInstance.material_override = RICOCHET_MATERIAL
+			spawn_time = Engine.get_physics_frames()
 	
 	if (bullet_type != bullet_types.ACID):
 		acid_duration = 0

@@ -4,11 +4,10 @@ extends Button
 export var bus_idx: int = 1
 export var volume_linear : float = 0.0
 
-onready var root_control: Control = get_node("/root/RootControl")
-onready var config: ConfigFile = root_control.config
-
 
 func _pressed():
+	var root_control: Control = get_node("/root/RootControl")
+	var config: ConfigFile = root_control.config
 	AudioServer.set_bus_volume_db(bus_idx, linear2db(volume_linear))
 	if bus_idx == 1:
 		config.set_value("audio", "sound", volume_linear)

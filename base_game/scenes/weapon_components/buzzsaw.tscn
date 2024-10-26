@@ -5,6 +5,7 @@
 [ext_resource path="res://resources/sounds/weapon_components/sword_hit_impact_04.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/weapon_components/bow_crossbow_arrow_shoot_type2_04.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/weapon_components/sword_hit_impact_heavy_03.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/materials/weapon_components/buzzsaw_pull.material" type="Material" id=6]
 [ext_resource path="res://resources/meshes/weapon_components/buzzsaw.tres" type="ArrayMesh" id=9]
 
 [sub_resource type="CylinderMesh" id=4]
@@ -13,11 +14,6 @@ bottom_radius = 0.05
 height = 1.0
 radial_segments = 8
 rings = 0
-
-[sub_resource type="SpatialMaterial" id=5]
-flags_transparent = true
-flags_unshaded = true
-albedo_color = Color( 1, 1, 1, 0.117647 )
 
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.125, 0.01, 0.35 )
@@ -40,7 +36,7 @@ visible = false
 portal_mode = 3
 cast_shadow = 0
 mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+material/0 = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.35 )

@@ -46,6 +46,21 @@ func _ready():
 			.max_value = base_health / 2
 	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
 			.max_value = base_health / 2
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($MuzzleFlashMG/CPULeft)
+		delete($MuzzleFlashMG/CPURight)
+		delete($MuzzleFlashLeft/CPUFront)
+		delete($MuzzleFlashLeft/CPUBack)
+		delete($MuzzleFlashRight/CPUFront)
+		delete($MuzzleFlashRight/CPUBack)
+	else:
+		delete($MuzzleFlashMG/Left)
+		delete($MuzzleFlashMG/Right)
+		delete($MuzzleFlashLeft/Front)
+		delete($MuzzleFlashLeft/Back)
+		delete($MuzzleFlashRight/Front)
+		delete($MuzzleFlashRight/Back)
 
 
 func _physics_process(_delta):
@@ -82,16 +97,12 @@ func _physics_process(_delta):
 					and left_collider.score >= 100) or (right_collider != null \
 					and right_collider.is_in_group("combat_vehicle") \
 					and right_collider.score >= 100)):
-				shoot_front(true)
+				shoot_front()
 				get_node("../StuckTimer").start()
-			elif get_node("../MachineGunTimer").is_stopped():
-				shoot_front(false)
 		else:
 			if can_shoot_lmg and ammo >= bullet_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
-				shoot_front(true)
-			elif get_node("../MachineGunTimer").is_stopped():
-				shoot_front(false)
+				shoot_front()
 			if can_shoot_shotgun_left and ammo >= shotgun_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_left):
 				shoot_left()
@@ -102,40 +113,27 @@ func _physics_process(_delta):
 				split(true)
 			if not together and Input.is_action_pressed(controls.respawn):
 				split(false)
-	else:
-		shoot_front(false)
 
 
-func shoot_front(var b: bool):
-	if b:
-		ammo -= bullet_ammo_cost
-		can_shoot_lmg = false
-		get_node("../MachineGunTimer").start()
-		next_out = cartridge_out.LINK
-		
-		var new_bullet: Area = pools.get_bullet()
-		new_bullet.start($ShotPositionLeft.global_transform, bullet_damage, \
-				bullet_reward, bullet_burn, self)
-		new_bullet.play_audio_lmg()
-		
-		new_bullet = pools.get_bullet()
-		new_bullet.start($ShotPositionRight.global_transform, bullet_damage, \
-				bullet_reward, bullet_burn, self)
-		new_bullet.play_audio_lmg()
-		
-		if gles3:
-			$MuzzleFlashMGLeft.emitting = true
-			$MuzzleFlashMGRight.emitting = true
-		else:
-			$CPUMuzzleFlashMGLeft.emitting = true
-			$CPUMuzzleFlashMGRight.emitting = true
-	else:
-		if gles3:
-			$MuzzleFlashMGLeft.emitting = false
-			$MuzzleFlashMGRight.emitting = false
-		else:
-			$CPUMuzzleFlashMGLeft.emitting = false
-			$CPUMuzzleFlashMGRight.emitting = false
+func shoot_front():
+	ammo -= bullet_ammo_cost
+	can_shoot_lmg = false
+	get_node("../MachineGunTimer").start()
+	next_out = cartridge_out.LINK
+	
+	var new_bullet: Area = pools.get_bullet()
+	new_bullet.start($ShotPositionLeft.global_transform, bullet_damage, \
+			bullet_reward, bullet_burn, self)
+	new_bullet.play_audio_lmg()
+	
+	new_bullet = pools.get_bullet()
+	new_bullet.start($ShotPositionRight.global_transform, bullet_damage, \
+			bullet_reward, bullet_burn, self)
+	new_bullet.play_audio_lmg()
+	
+	for n in $MuzzleFlashMG.get_children():
+		n.restart()
+		n.emitting = true
 
 
 func shoot_left():
@@ -155,12 +153,9 @@ func shoot_left():
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
-	if gles3:
-		$MuzzleFlashShotgunFrontLeft.emitting = true
-		$MuzzleFlashShotgunBackLeft.emitting = true
-	else:
-		$CPUMuzzleFlashShotgunFrontLeft.emitting = true
-		$CPUMuzzleFlashShotgunBackLeft.emitting = true
+	for n in $MuzzleFlashLeft.get_children():
+		n.restart()
+		n.emitting = true
 
 
 func shoot_right():
@@ -180,19 +175,15 @@ func shoot_right():
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
-	if gles3:
-		$MuzzleFlashShotgunFrontRight.emitting = true
-		$MuzzleFlashShotgunBackRight.emitting = true
-	else:
-		$CPUMuzzleFlashShotgunFrontRight.emitting = true
-		$CPUMuzzleFlashShotgunBackRight.emitting = true
+	for n in $MuzzleFlashRight.get_children():
+		n.restart()
+		n.emitting = true
 
 
 func split(var b: bool):
 	together = not b
 	master_body = not b
 	$BodyMesh.visible = not b
-	$BodyMesh2.visible = not b
 	$ScoreLabel.visible = not b
 	$WheelFrontLeft.visible = not b
 	$WheelFrontRight.visible = not b

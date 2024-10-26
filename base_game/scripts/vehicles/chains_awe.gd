@@ -28,6 +28,11 @@ var right_saws_active: bool = false
 func _ready():
 	if controls == null:
 		driver_name = "Chain's Awe"
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($MuzzleFlash/CPUParticles)
+	else:
+		delete($MuzzleFlash/Particles)
 
 
 func _physics_process(_delta):
@@ -73,10 +78,7 @@ func shoot_sniper():
 			sniper_reward, sniper_burn, self)
 	new_bullet.play_audio_sniper()
 	
-	if gles3:
-		$MuzzleFlash.emitting = true
-	else:
-		$CPUMuzzleFlash.emitting = true
+	$MuzzleFlash.get_child(0).emitting = true
 
 
 func saw_left(var b: bool):

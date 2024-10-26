@@ -23,6 +23,7 @@ base_engine_force = 185.76
 nitro_force = 3096.0
 rocket_force = 0.0
 burst_force = 0.0
+overcharge_force = 0.0
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799597, 0.130678, 1.7008 )
@@ -36,8 +37,7 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
-pause_mode = 2
-transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 4 )
@@ -54,8 +54,7 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
-pause_mode = 2
-transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 4 )
@@ -71,8 +70,7 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
-pause_mode = 2
-transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 4 )
@@ -88,8 +86,7 @@ suspension_stiffness = 40.0
 damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
-pause_mode = 2
-transform = Transform( -3.93403e-08, -0.9, 0, 0.9, -3.93403e-08, 0, 0, 0, 0.9, 0, 0, 0 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 material/0 = ExtResource( 4 )

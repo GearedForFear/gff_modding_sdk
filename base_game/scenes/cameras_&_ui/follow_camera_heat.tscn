@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/heart.material" type="Material" id=1]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/round_timer.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/pause_box.gd" type="Script" id=14]
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/cameras_&_ui/rear_viewport.gd" type="Script" id=16]
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 3 )
@@ -232,8 +233,7 @@ stretch = true
 size = Vector2( 192, 64 )
 handle_input_locally = false
 render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 9 )
+script = ExtResource( 16 )
 
 [node name="Camera" type="Camera" parent="Camera/AspectRatioContainer/Control/RearMirror/Viewport"]
 physics_interpolation_mode = 2

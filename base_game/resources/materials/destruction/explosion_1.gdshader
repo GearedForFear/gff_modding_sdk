@@ -28,7 +28,6 @@ void vertex() {
 
 void fragment() {
 	ALBEDO = texture(texture_albedo,UV).rgb;
-	ALPHA = float((int(SCREEN_UV.x * VIEWPORT_SIZE.x) % 2
-			+ int(SCREEN_UV.y * VIEWPORT_SIZE.y) + 1) % 2);
+	ALPHA = float(int(FRAGCOORD.x + FRAGCOORD.y + 1.0) % 2);
 	ALPHA_SCISSOR = 0.5;
 }

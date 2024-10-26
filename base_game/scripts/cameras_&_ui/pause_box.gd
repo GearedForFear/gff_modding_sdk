@@ -65,7 +65,7 @@ func _physics_process(_delta):
 func open(b: bool):
 	visible = b
 	get_parent().visible = b
-	vehicle.track.get_node("ShaderManager").set_parameters(not b)
+	get_node("/root/RootControl/MaterialManager").set_movement(not b)
 	if b:
 		current_option = 0
 		just_opened = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/cameras_&_ui/current_settings.gd" type="Script" id=2]
@@ -8,11 +8,11 @@
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/texture_size.gd" type="Script" id=9]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_resolution.gd" type="Script" id=9]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=10]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/volume.gd" type="Script" id=11]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/resolution.gd" type="Script" id=12]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/to_rigid.gd" type="Script" id=13]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_splits_multiplayer.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/vsync.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/fov.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/window_modes.gd" type="Script" id=16]
@@ -61,6 +61,12 @@
 [ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/particles/heart_flame.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/materials.gd" type="Script" id=62]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/lighting.gd" type="Script" id=63]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_splits.gd" type="Script" id=64]
+[ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
+[ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/track_button.gd" type="Script" id=67]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -98,12 +104,6 @@ ss_reflections_fade_in = 1e-05
 ss_reflections_fade_out = 1e-05
 ss_reflections_roughness = false
 
-[sub_resource type="DynamicFont" id=10]
-size = 9
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 8 )
-
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 4 )
 
@@ -117,6 +117,16 @@ bg_color = Color( 0, 0, 0, 1 )
 [sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="DynamicFont" id=20]
+size = 12
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 9
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=17]
 size = 25
@@ -234,6 +244,12 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="ResourceManager" type="Node" parent="."]
+script = ExtResource( 66 )
+
+[node name="MaterialManager" type="Node" parent="."]
+script = ExtResource( 65 )
+
 [node name="Precompiler" type="ViewportContainer" parent="."]
 anchor_left = -1.0
 anchor_top = -1.0
@@ -326,18 +342,6 @@ script = null
 environment = SubResource( 14 )
 script = ExtResource( 51 )
 
-[node name="CurrentSettings" type="Label" parent="."]
-visible = false
-anchor_left = 0.07
-anchor_top = 0.25
-anchor_right = 0.5
-anchor_bottom = 0.8
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 10 )
-autowrap = true
-script = ExtResource( 2 )
-
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
 bus = "Effects"
@@ -357,10 +361,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="OnePlayer" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 90.0
+[node name="Arcade" type="Button" parent="BlackBar/MainButtons"]
+margin_top = 136.0
 margin_right = 256.0
-margin_bottom = 109.0
+margin_bottom = 155.0
 focus_neighbour_top = NodePath("../Quit")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
@@ -369,40 +373,11 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "1 Player"
-script = ExtResource( 22 )
+text = "Arcade"
+script = ExtResource( 67 )
+track_path = ""
 
-[node name="TwoPlayers" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 113.0
-margin_right = 256.0
-margin_bottom = 132.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2 Players"
-script = ExtResource( 22 )
-players = 2
-
-[node name="ThreePlayers" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "3 Players"
-script = ExtResource( 22 )
-players = 3
-
-[node name="FourPlayers" type="Button" parent="BlackBar/MainButtons"]
+[node name="SingleTrack" type="Button" parent="BlackBar/MainButtons"]
 margin_top = 159.0
 margin_right = 256.0
 margin_bottom = 178.0
@@ -413,44 +388,14 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "4 Players"
-script = ExtResource( 22 )
-players = 4
+text = "Single Track"
+script = ExtResource( 10 )
+selection = "../../TrackButtons/TheCalm"
 
-[node name="FivePlayers" type="Button" parent="BlackBar/MainButtons"]
+[node name="Settings" type="Button" parent="BlackBar/MainButtons"]
 margin_top = 182.0
 margin_right = 256.0
 margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "5 Players"
-script = ExtResource( 22 )
-players = 5
-
-[node name="SixPlayers" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "6 Players"
-script = ExtResource( 22 )
-players = 6
-
-[node name="Settings" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 228.0
-margin_right = 256.0
-margin_bottom = 247.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -462,10 +407,10 @@ text = "Settings"
 script = ExtResource( 21 )
 
 [node name="Quit" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 251.0
+margin_top = 205.0
 margin_right = 256.0
-margin_bottom = 270.0
-focus_neighbour_bottom = NodePath("../OnePlayer")
+margin_bottom = 224.0
+focus_neighbour_bottom = NodePath("../Arcade")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -475,6 +420,201 @@ custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "Quit"
 script = ExtResource( 56 )
+
+[node name="PlayerButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="OnePlayer" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 78.0
+margin_right = 256.0
+margin_bottom = 97.0
+focus_neighbour_top = NodePath("../SixPlayers")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1 Player"
+script = ExtResource( 22 )
+
+[node name="TwoPlayers" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 101.0
+margin_right = 256.0
+margin_bottom = 120.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2 Players"
+script = ExtResource( 22 )
+players = 2
+
+[node name="ThreePlayers" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 124.0
+margin_right = 256.0
+margin_bottom = 143.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "3 Players"
+script = ExtResource( 22 )
+players = 3
+
+[node name="FourPlayers" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 147.0
+margin_right = 256.0
+margin_bottom = 166.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4 Players"
+script = ExtResource( 22 )
+players = 4
+
+[node name="FivePlayers" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 170.0
+margin_right = 256.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "5 Players"
+script = ExtResource( 22 )
+players = 5
+
+[node name="SixPlayers" type="Button" parent="BlackBar/PlayerButtons"]
+margin_top = 193.0
+margin_right = 256.0
+margin_bottom = 212.0
+focus_neighbour_bottom = NodePath("../OnePlayer")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "6 Players"
+script = ExtResource( 22 )
+players = 6
+
+[node name="TrackButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Downpour" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 136.0
+margin_right = 256.0
+margin_bottom = 155.0
+focus_neighbour_top = NodePath("../Twisted")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+disabled = true
+text = "Downpour"
+script = ExtResource( 67 )
+
+[node name="TheCalm" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "The Calm"
+script = ExtResource( 67 )
+track_path = "res://scenes/world/tracks/figure_8.tscn"
+
+[node name="Pillars" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+disabled = true
+text = "Pillars"
+script = ExtResource( 67 )
+
+[node name="Sunbreaker" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+disabled = true
+text = "Sunbreaker"
+script = ExtResource( 67 )
+
+[node name="Below" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Below"
+script = ExtResource( 67 )
+track_path = "res://scenes/world/tracks/glacier.tscn"
+
+[node name="Twisted" type="Button" parent="BlackBar/TrackButtons"]
+margin_top = 159.0
+margin_right = 256.0
+margin_bottom = 178.0
+focus_neighbour_bottom = NodePath("../Downpour")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Twisted"
+script = ExtResource( 67 )
+track_path = "res://scenes/world/tracks/twisted.tscn"
 
 [node name="SettingsButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -546,16 +686,16 @@ script = ExtResource( 10 )
 [node name="GraphicsButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.916
 alignment = 1
 
 [node name="WindowModes" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 32.0
+margin_top = 5.0
 margin_right = 256.0
-margin_bottom = 51.0
+margin_bottom = 20.0
 focus_neighbour_top = NodePath("../MaxRigidBodies")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -566,11 +706,11 @@ script = ExtResource( 10 )
 selection = "../../WindowModesButtons/Fullscreen"
 
 [node name="Resolution" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 55.0
+margin_top = 24.0
 margin_right = 256.0
-margin_bottom = 74.0
+margin_bottom = 39.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -581,11 +721,11 @@ script = ExtResource( 10 )
 selection = "../../ResolutionButtons/Resolution1"
 
 [node name="MSAA" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 78.0
+margin_top = 43.0
 margin_right = 256.0
-margin_bottom = 97.0
+margin_bottom = 58.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -596,11 +736,11 @@ script = ExtResource( 10 )
 selection = "../../MSAAButtons/MSAAOff"
 
 [node name="Reflections" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 101.0
+margin_top = 62.0
 margin_right = 256.0
-margin_bottom = 120.0
+margin_bottom = 77.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -610,12 +750,42 @@ text = "Reflections"
 script = ExtResource( 10 )
 selection = "../../ReflectionsButtons/Off"
 
-[node name="ToggleVsync" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 124.0
+[node name="Materials" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 81.0
 margin_right = 256.0
-margin_bottom = 143.0
+margin_bottom = 96.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Materials"
+script = ExtResource( 10 )
+selection = "../../MaterialsButtons/Default"
+
+[node name="Lighting" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 100.0
+margin_right = 256.0
+margin_bottom = 115.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 20 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Lighting"
+script = ExtResource( 10 )
+selection = "../../LightingButtons/Default"
+
+[node name="ToggleVsync" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 119.0
+margin_right = 256.0
+margin_bottom = 134.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -625,11 +795,11 @@ text = "Toggle Vsync"
 script = ExtResource( 14 )
 
 [node name="ToggleMirror" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 147.0
+margin_top = 138.0
 margin_right = 256.0
-margin_bottom = 166.0
+margin_bottom = 153.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -639,11 +809,11 @@ text = "Toggle Mirror"
 script = ExtResource( 52 )
 
 [node name="ToggleTI" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 170.0
+margin_top = 157.0
 margin_right = 256.0
-margin_bottom = 189.0
+margin_bottom = 172.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -653,11 +823,11 @@ text = "Toggle T. i."
 script = ExtResource( 53 )
 
 [node name="ViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 193.0
+margin_top = 176.0
 margin_right = 256.0
-margin_bottom = 212.0
+margin_bottom = 191.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -668,11 +838,11 @@ script = ExtResource( 10 )
 selection = "../../ViewDistanceButtons/View2500"
 
 [node name="RearViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 216.0
+margin_top = 195.0
 margin_right = 256.0
-margin_bottom = 235.0
+margin_bottom = 210.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -683,11 +853,11 @@ script = ExtResource( 10 )
 selection = "../../RearViewDistanceButtons/Rear200"
 
 [node name="FieldOfView" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 239.0
+margin_top = 214.0
 margin_right = 256.0
-margin_bottom = 258.0
+margin_bottom = 229.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -698,11 +868,11 @@ script = ExtResource( 10 )
 selection = "../../FieldOfViewButtons/Box1/FOV75"
 
 [node name="ShadowCasters" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 262.0
+margin_top = 233.0
 margin_right = 256.0
-margin_bottom = 281.0
+margin_bottom = 248.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
@@ -712,35 +882,66 @@ text = "Shadow Casters"
 script = ExtResource( 10 )
 selection = "../../ShadowCastersButtons/Default"
 
-[node name="TextureSize" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 285.0
+[node name="ShadowSplits" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 252.0
 margin_right = 256.0
-margin_bottom = 304.0
+margin_bottom = 267.0
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-text = "Texture Size"
+text = "Shadow Splits"
 script = ExtResource( 10 )
-selection = "../../TextureSizeButtons/4096"
+selection = "../../ShadowSplitsButtons/Splits3"
+
+[node name="ShadowSplitsMultiplayer" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 271.0
+margin_right = 256.0
+margin_bottom = 286.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 20 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "S. Splits M.P."
+script = ExtResource( 10 )
+selection = "../../ShadowSplitsMultiplayerButtons/Splits2"
+
+[node name="ShadowRes" type="Button" parent="BlackBar/GraphicsButtons"]
+margin_top = 290.0
+margin_right = 256.0
+margin_bottom = 305.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 20 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Shadow Res."
+script = ExtResource( 10 )
+selection = "../../ShadowResButtons/Shadow8192"
 
 [node name="MaxRigidBodies" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 308.0
+margin_top = 309.0
 margin_right = 256.0
-margin_bottom = 327.0
+margin_bottom = 324.0
 focus_neighbour_bottom = NodePath("../WindowModes")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 20 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
 custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "Max R. Bodies"
-script = ExtResource( 13 )
+script = ExtResource( 10 )
+selection = "../../MaxRigidBodiesButtons/Rigid100"
 
 [node name="WindowModesButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -1093,6 +1294,110 @@ custom_styles/normal = SubResource( 8 )
 text = "32768"
 script = ExtResource( 25 )
 reflections = 32768
+
+[node name="MaterialsButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="ExtraLow" type="Button" parent="BlackBar/MaterialsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Default")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Extra Low"
+script = ExtResource( 62 )
+materials = 0
+
+[node name="Low" type="Button" parent="BlackBar/MaterialsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Low"
+script = ExtResource( 62 )
+materials = 1
+
+[node name="Default" type="Button" parent="BlackBar/MaterialsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../ExtraLow")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Default"
+script = ExtResource( 62 )
+
+[node name="LightingButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="ExtraLow" type="Button" parent="BlackBar/LightingButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Default")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Extra Low"
+script = ExtResource( 63 )
+lighting = 0
+
+[node name="Low" type="Button" parent="BlackBar/LightingButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Low"
+script = ExtResource( 63 )
+lighting = 1
+
+[node name="Default" type="Button" parent="BlackBar/LightingButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../ExtraLow")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Default"
+script = ExtResource( 63 )
 
 [node name="ViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -1706,26 +2011,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="None" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Ultimate")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "None"
-script = ExtResource( 5 )
-shadow_casters = 0
-
 [node name="ExtraLow" type="Button" parent="BlackBar/ShadowCastersButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Ultimate")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1800,7 +2090,6 @@ shadow_casters = 5
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../None")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1812,17 +2101,181 @@ text = "Ultimate"
 script = ExtResource( 5 )
 shadow_casters = 6
 
-[node name="TextureSizeButtons" type="VBoxContainer" parent="BlackBar"]
+[node name="ShadowSplitsButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="2048" type="Button" parent="BlackBar/TextureSizeButtons"]
+[node name="Splits0" type="Button" parent="BlackBar/ShadowSplitsButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
-focus_neighbour_top = NodePath("../16384")
+focus_neighbour_top = NodePath("../Splits4")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "0"
+script = ExtResource( 64 )
+splits = 0
+
+[node name="Splits1" type="Button" parent="BlackBar/ShadowSplitsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1"
+script = ExtResource( 64 )
+splits = 1
+
+[node name="Splits2" type="Button" parent="BlackBar/ShadowSplitsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2"
+script = ExtResource( 64 )
+splits = 2
+
+[node name="Splits3" type="Button" parent="BlackBar/ShadowSplitsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "3"
+script = ExtResource( 64 )
+
+[node name="Splits4" type="Button" parent="BlackBar/ShadowSplitsButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../Splits0")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4"
+script = ExtResource( 64 )
+splits = 4
+
+[node name="ShadowSplitsMultiplayerButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Splits0" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Splits4")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "0"
+script = ExtResource( 13 )
+splits_multiplayer = 0
+
+[node name="Splits1" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "1"
+script = ExtResource( 13 )
+splits_multiplayer = 1
+
+[node name="Splits2" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2"
+script = ExtResource( 13 )
+
+[node name="Splits3" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "3"
+script = ExtResource( 13 )
+splits_multiplayer = 3
+
+[node name="Splits4" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_bottom = NodePath("../Splits0")
+custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "4"
+script = ExtResource( 13 )
+splits_multiplayer = 4
+
+[node name="ShadowResButtons" type="VBoxContainer" parent="BlackBar"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Shadow2048" type="Button" parent="BlackBar/ShadowResButtons"]
+margin_top = 170.0
+margin_right = 172.0
+margin_bottom = 189.0
+focus_neighbour_top = NodePath("../Shadow16384")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1832,10 +2285,9 @@ custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "2048"
 script = ExtResource( 9 )
-shadow_distance = 62.5
-max_texture_size = 2048
+shadow_resolution = 2048
 
-[node name="4096" type="Button" parent="BlackBar/TextureSizeButtons"]
+[node name="Shadow4096" type="Button" parent="BlackBar/ShadowResButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
@@ -1848,8 +2300,9 @@ custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "4096"
 script = ExtResource( 9 )
+shadow_resolution = 4096
 
-[node name="8192" type="Button" parent="BlackBar/TextureSizeButtons"]
+[node name="Shadow8192" type="Button" parent="BlackBar/ShadowResButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
@@ -1862,14 +2315,12 @@ custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "8192"
 script = ExtResource( 9 )
-shadow_distance = 250.0
-max_texture_size = 8192
 
-[node name="16384" type="Button" parent="BlackBar/TextureSizeButtons"]
+[node name="Shadow16384" type="Button" parent="BlackBar/ShadowResButtons"]
 margin_top = 170.0
 margin_right = 172.0
 margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../2048")
+focus_neighbour_bottom = NodePath("../Shadow2048")
 custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 3 )
 custom_styles/hover = SubResource( 4 )
@@ -1879,8 +2330,7 @@ custom_styles/disabled = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
 text = "16384"
 script = ExtResource( 9 )
-shadow_distance = 500.0
-max_texture_size = 16384
+shadow_resolution = 16384
 
 [node name="MaxRigidBodiesButtons" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -2836,6 +3286,16 @@ color = Color( 0, 0, 0, 1 )
 anims/RESET = SubResource( 18 )
 anims/loading = SubResource( 19 )
 script = ExtResource( 58 )
+
+[node name="CurrentSettings" type="Label" parent="."]
+visible = false
+anchor_left = 0.07
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.8
+custom_fonts/font = SubResource( 10 )
+autowrap = true
+script = ExtResource( 2 )
 
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
 [connection signal="focus_entered" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_entered"]

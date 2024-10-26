@@ -57,3 +57,6 @@ base_game/resources/images/splash.png
 base_game/resources/images/money.tres
 base_game/resources/images/icon.png
 base_game/resources/images/explosion.tres
+base_game/resources/images/world/iceland.tres
+base_game/resources/images/world/tornado.tres
+base_game/resources/images/world/usa.tres

@@ -3,11 +3,10 @@ extends Button
 
 export var msaa: int = 0
 
-onready var root_control: Control = get_node("/root/RootControl")
-onready var config: ConfigFile = root_control.config
-
 
 func _pressed():
+	var root_control: Control = get_node("/root/RootControl")
+	var config: ConfigFile = root_control.config
 	root_control.get_node("SettingsManager").msaa = msaa
 	config.set_value("graphics", "msaa", msaa)
 	config.save("user://config.cfg")
@@ -17,7 +16,7 @@ func _pressed():
 
 
 func _on_MSAA8x_focus_entered():
-	get_node("../../Warning").text = "High VRAM cost"
+	get_node("../../Warning").text = "Needs more than 8GB of VRAM at 4K"
 	get_node("../../Warning").show()
 
 
@@ -26,7 +25,7 @@ func _on_MSAA8x_focus_exited():
 
 
 func _on_MSAA16x_focus_entered():
-	get_node("../../Warning").text = "WARNING:\nMassive VRAM cost"
+	get_node("../../Warning").text = "Needs more than 8GB of VRAM at 1440p"
 	get_node("../../Warning").show()
 
 

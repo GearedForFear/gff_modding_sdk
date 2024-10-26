@@ -23,6 +23,13 @@ var next_out: int = cartridge_out.NONE
 func _ready():
 	if controls == null:
 		driver_name = "Warm Welcome"
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($MuzzleFlash/CPULeft)
+		delete($MuzzleFlash/CPURight)
+	else:
+		delete($MuzzleFlash/Left)
+		delete($MuzzleFlash/Right)
 
 
 func _physics_process(_delta):
@@ -110,20 +117,11 @@ func shoot(var b: bool):
 				bullet_reward, bullet_burn, self)
 		new_bullet.play_audio_lmg()
 		
-		if gles3:
-			$MuzzleFlashLeft.emitting = true
-			$MuzzleFlashRight.emitting = true
-		else:
-			$CPUMuzzleFlashLeft.emitting = true
-			$CPUMuzzleFlashRight.emitting = true
+		for n in $MuzzleFlash.get_children():
+			n.restart()
+			n.emitting = true
 	else:
 		$LoopingAudio/GunRotationAudio.stream_paused = true
-		if gles3:
-			$MuzzleFlashLeft.emitting = false
-			$MuzzleFlashRight.emitting = false
-		else:
-			$CPUMuzzleFlashLeft.emitting = false
-			$CPUMuzzleFlashRight.emitting = false
 
 
 func jump():

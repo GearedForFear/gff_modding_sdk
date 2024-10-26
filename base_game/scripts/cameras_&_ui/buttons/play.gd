@@ -5,6 +5,7 @@ export var players: int = 1
 
 
 func _pressed():
-	get_node("/root/RootControl/ButtonPressAudio").play()
-	get_node("/root/RootControl").player_amount = players
-	get_node("/root/RootControl").play()
+	var root_control: Control = get_node("/root/RootControl")
+	root_control.get_node("ButtonPressAudio").play()
+	root_control.player_amount = players
+	root_control.play()

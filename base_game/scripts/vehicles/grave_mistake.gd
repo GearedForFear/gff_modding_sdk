@@ -18,6 +18,13 @@ var next_out_back: int = cartridge_out.NONE
 func _ready():
 	if controls == null:
 		driver_name = "Grave Mistake"
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($ShotPositionFront/MuzzleFlash/CPUParticles)
+		delete($ShotPositionBack/MuzzleFlash/CPUParticles)
+	else:
+		delete($ShotPositionFront/MuzzleFlash/Particles)
+		delete($ShotPositionBack/MuzzleFlash/Particles)
 
 
 func _physics_process(_delta):
@@ -50,45 +57,37 @@ func _physics_process(_delta):
 					and collider_front != null \
 					and collider_front.is_in_group("combat_vehicle") \
 					and collider_front.score >= 100:
-				shoot(true, $ShotPositionFront)
+				shoot($ShotPositionFront)
 				ammo -= bullet_ammo_cost
 				front_can_shoot = false
 				next_out_front = cartridge_out.LINK
 				get_node("../FrontTimer").start()
-			else:
-				shoot(false, $ShotPositionFront)
 			
 			if back_can_shoot and ammo >= bullet_ammo_cost \
 					and collider_back != null \
 					and collider_back.is_in_group("combat_vehicle") \
 					and collider_back.score >= 100:
-				shoot(true, $ShotPositionBack)
+				shoot($ShotPositionBack)
 				ammo -= bullet_ammo_cost
 				back_can_shoot = false
 				next_out_back = cartridge_out.LINK
 				get_node("../BackTimer").start()
-			else:
-				shoot(false, $ShotPositionBack)
 		else:
 			if front_can_shoot and ammo >= bullet_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
-				shoot(true, $ShotPositionFront)
+				shoot($ShotPositionFront)
 				ammo -= bullet_ammo_cost
 				front_can_shoot = false
 				next_out_front = cartridge_out.LINK
 				get_node("../FrontTimer").start()
-			else:
-				shoot(false, $ShotPositionFront)
 			
 			if back_can_shoot and ammo >= bullet_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_back):
-				shoot(true, $ShotPositionBack)
+				shoot($ShotPositionBack)
 				ammo -= bullet_ammo_cost
 				back_can_shoot = false
 				next_out_back = cartridge_out.LINK
 				get_node("../BackTimer").start()
-			else:
-				shoot(false, $ShotPositionBack)
 			
 			if Input.is_action_pressed(controls.weapon_left):
 				steer_target = 1.0
@@ -100,28 +99,18 @@ func _physics_process(_delta):
 		back_steering = move_toward(back_steering, steer_target, STEER_SPEED)
 		$WheelBackLeft.steering = back_steering
 		$WheelBackRight.steering = back_steering
-	else:
-		shoot(false, $ShotPositionFront)
-		shoot(false, $ShotPositionBack)
 
 
-func shoot(var b: bool, var gun: RayCast):
-	if b:
-		var new_bullet: Area
-		new_bullet = pools.get_bullet()
-		new_bullet.start(gun.global_transform, bullet_damage, bullet_reward,
-				bullet_burn, self)
-		new_bullet.play_audio_lmg()
-		
-		if gles3:
-			gun.get_node("MuzzleFlash").emitting = true
-		else:
-			gun.get_node("CPUMuzzleFlash").emitting = true
-	else:
-		if gles3:
-			gun.get_node("MuzzleFlash").emitting = false
-		else:
-			gun.get_node("CPUMuzzleFlash").emitting = false
+func shoot(var gun: RayCast):
+	var new_bullet: Area
+	new_bullet = pools.get_bullet()
+	new_bullet.start(gun.global_transform, bullet_damage, bullet_reward,
+			bullet_burn, self)
+	new_bullet.play_audio_lmg()
+	
+	var flash: GeometryInstance = gun.get_child(0).get_child(0)
+	flash.restart()
+	flash.emitting = true
 
 
 func instantiate_cartridge(var exit: Position3D, var link: bool):

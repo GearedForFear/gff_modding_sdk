@@ -30,6 +30,15 @@ func _ready():
 	if controls == null:
 		driver_name = "Restless"
 	boost_type = boost_types.NITRO
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($ShotgunFlash/CPUParticles)
+		delete($SniperFlash/CPUParticles)
+		delete($MachineGunFlash/CPUParticles)
+	else:
+		delete($ShotgunFlash/Particles)
+		delete($SniperFlash/Particles)
+		delete($MachineGunFlash/Particles)
 
 
 func _physics_process(_delta):
@@ -100,10 +109,8 @@ func _physics_process(_delta):
 					and collider_middle != null \
 					and collider_middle.is_in_group("combat_vehicle") \
 					and collider_middle.score >= 100:
-				shoot_lmg(true)
+				shoot_lmg()
 				get_node("../StuckTimer").start()
-			elif get_node("../MachineGunTimer").is_stopped():
-				shoot_lmg(false)
 		else:
 			if can_shoot_shotgun and ammo >= shotgun_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_front):
@@ -113,9 +120,7 @@ func _physics_process(_delta):
 				shoot_sniper()
 			if can_shoot_lmg and ammo >= lmg_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_right):
-				shoot_lmg(true)
-			elif get_node("../MachineGunTimer").is_stopped():
-				shoot_lmg(false)
+				shoot_lmg()
 			if Input.is_action_just_pressed(controls.weapon_back):
 				if boost_type == boost_types.NITRO:
 					boost_type = boost_types.ROCKET
@@ -144,8 +149,6 @@ func _physics_process(_delta):
 							n.emitting = false
 						for n in $ReverseRocketCPUParticles.get_children():
 							n.emitting = false
-	else:
-		shoot_lmg(false)
 
 
 
@@ -173,10 +176,7 @@ func shoot_shotgun():
 	pools.get_bullet().start($ShotPositionShotgunRight.global_transform, \
 			shotgun_damage, shotgun_reward, shotgun_burn, self)
 	
-	if gles3:
-		$MuzzleFlashShotgun.emitting = true
-	else:
-		$CPUMuzzleFlashShotgun.emitting = true
+	$ShotgunFlash.get_child(0).emitting = true
 
 
 func shoot_sniper():
@@ -184,40 +184,30 @@ func shoot_sniper():
 	can_shoot_sniper = false
 	get_node("../SniperTimer").start()
 	
-	var new_bullet: Area = pools.get_bullet()
+	var new_bullet: Area = pools.get_sniper_bullet()
 	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
 			sniper_reward, sniper_burn, self)
 	new_bullet.play_audio_sniper()
 	
 	sniper_case_out = true
 	
-	if gles3:
-		$MuzzleFlashSniper.emitting = true
-	else:
-		$CPUMuzzleFlashSniper.emitting = true
+	$SniperFlash.get_child(0).emitting = true
 
 
-func shoot_lmg(var b: bool):
-	if b:
-		ammo -= lmg_ammo_cost
-		can_shoot_lmg = false
-		get_node("../MachineGunTimer").start()
-		next_out = cartridge_out.LINK
-		
-		var new_bullet: Area = pools.get_bullet()
-		new_bullet.start($ShotPositionMachineGun.global_transform, lmg_damage, \
-				lmg_reward, lmg_burn, self)
-		new_bullet.play_audio_lmg()
-		
-		if gles3:
-			$MuzzleFlashMachineGun.emitting = true
-		else:
-			$CPUMuzzleFlashMachineGun.emitting = true
-	else:
-		if gles3:
-			$MuzzleFlashMachineGun.emitting = false
-		else:
-			$CPUMuzzleFlashMachineGun.emitting = false
+func shoot_lmg():
+	ammo -= lmg_ammo_cost
+	can_shoot_lmg = false
+	get_node("../MachineGunTimer").start()
+	next_out = cartridge_out.LINK
+	
+	var new_bullet: Area = pools.get_bullet()
+	new_bullet.start($ShotPositionMachineGun.global_transform, lmg_damage, \
+			lmg_reward, lmg_burn, self)
+	new_bullet.play_audio_lmg()
+	
+	var flash: GeometryInstance = $MachineGunFlash.get_child(0)
+	flash.restart()
+	flash.emitting = true
 
 
 func _on_ShotgunTimer_timeout():

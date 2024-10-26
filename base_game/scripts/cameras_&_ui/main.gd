@@ -3,12 +3,12 @@ extends Control
 
 var config: ConfigFile = ConfigFile.new()
 var track: Spatial
+var track_path: String = ""
+var track_mutex: Mutex = Mutex.new()
 var resources_loaded: bool = false
 var player_amount: int
 var next_tracks: PoolStringArray
 
-onready var always_loaded: Array = ResourceLoader.load(\
-		"res://resources/custom/always_loaded.tres", "Resource").array
 onready var thread: Thread = Thread.new()
 onready var settings_manager: Node \
 		= get_node("/root/RootControl/SettingsManager")
@@ -28,7 +28,7 @@ func _ready():
 	VisualServer.set_default_clear_color(Color.black)
 	if thread.start(self, "prepare") != OK:
 		push_error("Thread did not start!")
-	$BlackBar/MainButtons/OnePlayer.grab_focus()
+	$BlackBar/MainButtons/Arcade.grab_focus()
 	
 	# Apply settings
 	config.load("user://config.cfg")
@@ -37,6 +37,13 @@ func _ready():
 	OS.window_fullscreen = config.get_value("graphics", "fullscreen", true)
 	settings.resolution = config.get_value("graphics", "resolution", 1)
 	settings.msaa = config.get_value("graphics", "msaa", 0)
+	settings.reflections = config.get_value("graphics", "reflections", 0)
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		settings.materials = config.get_value("graphics", "materials", 2)
+	else:
+		settings.materials = \
+				min(config.get_value("graphics", "materials", 1), 1)
+	settings.lighting = config.get_value("graphics", "lighting", 2)
 	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
 	settings.mirror_rate_reduced = config.get_value("graphics", \
 			"mirror_rate_reduced", true)
@@ -48,13 +55,13 @@ func _ready():
 			config.get_value("graphics", "rear_view_distance", 200.0)
 	settings.field_of_view = config.get_value("graphics", "field_of_view", 75)
 	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
-	settings.shadow_distance = \
-			config.get_value("graphics", "shadow_distance",200.0)
-	settings.reflections = config.get_value("graphics", "reflections", 0)
-	settings.max_texture_size = config.get_value("graphics", \
-			"max_texture_size", 4096)
+	settings.splits = config.get_value("graphics", "splits", 3)
+	settings.splits_multiplayer = config.get_value("graphics", \
+			"splits_multiplayer", 2)
+	settings.shadow_resolution = config.get_value("graphics", \
+			"shadow_resolution", 8192)
 	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
-			settings.max_texture_size)
+			settings.shadow_resolution)
 	settings.max_rigid_bodies = \
 			config.get_value("graphics", "max_rigid_bodies", 100)
 	AudioServer.set_bus_volume_db(1, \
@@ -151,6 +158,14 @@ func _process(_delta):
 	if Input.is_action_just_released("ui_cancel"):
 		if $BlackBar/MainButtons.visible:
 			$BlackBar/MainButtons/Quit.grab_focus()
+		elif $BlackBar/PlayerButtons.visible:
+			switch_buttons($BlackBar/PlayerButtons, \
+					$BlackBar/MainButtons/Arcade)
+			$ReturnAudio.play()
+		elif $BlackBar/TrackButtons.visible:
+			switch_buttons($BlackBar/TrackButtons, \
+					$BlackBar/MainButtons/Arcade)
+			$ReturnAudio.play()
 		elif $BlackBar/SettingsButtons.visible:
 			$Names.show()
 			$Scores.show()
@@ -179,6 +194,14 @@ func _process(_delta):
 			switch_buttons($BlackBar/ReflectionsButtons, \
 					$BlackBar/GraphicsButtons/Reflections)
 			$ReturnAudio.play()
+		elif $BlackBar/MaterialsButtons.visible:
+			switch_buttons($BlackBar/MaterialsButtons, \
+					$BlackBar/GraphicsButtons/Materials)
+			$ReturnAudio.play()
+		elif $BlackBar/LightingButtons.visible:
+			switch_buttons($BlackBar/LightingButtons, \
+					$BlackBar/GraphicsButtons/Lighting)
+			$ReturnAudio.play()
 		elif $BlackBar/ViewDistanceButtons.visible:
 			switch_buttons($BlackBar/ViewDistanceButtons, \
 					$BlackBar/GraphicsButtons/ViewDistance)
@@ -195,9 +218,17 @@ func _process(_delta):
 			switch_buttons($BlackBar/ShadowCastersButtons, \
 					$BlackBar/GraphicsButtons/ShadowCasters)
 			$ReturnAudio.play()
-		elif $BlackBar/TextureSizeButtons.visible:
-			switch_buttons($BlackBar/TextureSizeButtons, \
-					$BlackBar/GraphicsButtons/TextureSize)
+		elif $BlackBar/ShadowSplitsButtons.visible:
+			switch_buttons($BlackBar/ShadowSplitsButtons, \
+					$BlackBar/GraphicsButtons/ShadowSplits)
+			$ReturnAudio.play()
+		elif $BlackBar/ShadowSplitsMultiplayerButtons.visible:
+			switch_buttons($BlackBar/ShadowSplitsMultiplayerButtons, \
+					$BlackBar/GraphicsButtons/ShadowSplitsMultiplayer)
+			$ReturnAudio.play()
+		elif $BlackBar/ShadowResButtons.visible:
+			switch_buttons($BlackBar/ShadowResButtons, \
+					$BlackBar/GraphicsButtons/ShadowRes)
 			$ReturnAudio.play()
 		elif $BlackBar/MaxRigidBodiesButtons.visible:
 			switch_buttons($BlackBar/MaxRigidBodiesButtons, \
@@ -221,18 +252,37 @@ func prepare():
 	$Loading.show()
 	if not resources_loaded:
 		$Precompiler.add_materials()
-		var resources: Array = Array()
-		for n in always_loaded:
-			resources.append(ResourceLoader.load(n, "PackedScene"))
-		always_loaded.clear()
-		always_loaded.append_array(resources)
+		$ResourceManager.load_resources()
 		resources_loaded = true
 		$Precompiler.emit_particles()
-	track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
-			"PackedScene").instance()
+		$MaterialManager.update_settings()
+	$MaterialManager.set_movement(true)
+	
+	while true:
+		var current_track: String = track_path
+		spawn_track(current_track)
+		
+		track_mutex.lock()
+		if current_track == track_path:
+			break
+		else:
+			track.queue_free()
+			track_mutex.unlock()
+	
+	$Loading.hide()
+	track_mutex.unlock()
+
+
+func spawn_track(path: String):
 	next_tracks.clear()
-	next_tracks.append("res://scenes/world/tracks/glacier.tscn")
-	next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	if path == "":
+		track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
+				"PackedScene").instance()
+		next_tracks.append("res://scenes/world/tracks/glacier.tscn")
+		next_tracks.append("res://scenes/world/tracks/twisted.tscn")
+	else:
+		track = ResourceLoader.load(path).instance()
+	
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
@@ -241,17 +291,23 @@ func prepare():
 	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
 	instantiate_vehicles(spawns, 6)
-	$Loading.hide()
 
 
 func play():
-	$BlackBar/MainButtons.hide()
+	$BlackBar/PlayerButtons.hide()
+	while thread.is_alive():
+		if Input.is_action_just_released("ui_cancel"):
+			$ReturnAudio.play()
+			yield(get_tree(), "idle_frame")
+			$BlackBar/MainButtons.show()
+			$BlackBar/MainButtons/Arcade.grab_focus()
+			return
+		else:
+			yield(get_tree(), "idle_frame")
+	thread.wait_to_finish()
 	var rr: int = OS.get_screen_refresh_rate()
 	get_tree().physics_interpolation = settings_manager.transform_interpolation\
 			and rr != 29 and rr != 30 and rr != 59 and rr != 60
-	while thread.is_alive():
-		yield(get_tree(), "idle_frame")
-	thread.wait_to_finish()
 	
 	var viewpoint_container: PlayerContainer
 	var screen1: Control
@@ -667,7 +723,7 @@ func active(var b: bool):
 	if b:
 		thread = Thread.new()
 		thread.start(self, "prepare")
-	$BlackBar/MainButtons/OnePlayer.grab_focus()
+	$BlackBar/MainButtons/Arcade.grab_focus()
 	visible = b
 	$BlackBar/MainButtons.visible = b
 	set_process(b)

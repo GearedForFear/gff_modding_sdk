@@ -348,7 +348,7 @@ func burst() -> int: #overridden in level_vehicle.gd
 	return 0
 
 
-func change_heat(var amount: float): #overridden in heat_vehicle.gd
+func change_heat(var _amount: float): #overridden in heat_vehicle.gd
 	pass
 
 
@@ -360,6 +360,11 @@ func pause_looping_audio():
 	for n in gameplay_manager.pursuers:
 		for audio in n.get_node("LoopingAudio").get_children():
 			audio.stream_paused = true
+
+
+func delete(node: Node):
+	get_node("/root/RootControl").track.get_node("DeletionManager").\
+			to_be_deleted.append(node)
 
 
 func _on_RespawnTimer_timeout():

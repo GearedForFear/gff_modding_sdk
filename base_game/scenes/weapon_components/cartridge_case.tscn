@@ -2,6 +2,7 @@
 
 [ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=1]
 [ext_resource path="res://scripts/world/pool_body.gd" type="Script" id=2]
+[ext_resource path="res://resources/materials/weapon_components/cartridge_case.material" type="Material" id=3]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.03
@@ -9,9 +10,6 @@ bottom_radius = 0.03
 height = 0.2
 radial_segments = 5
 rings = 0
-
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.335938, 0.335938, 0, 1 )
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.2
@@ -28,7 +26,7 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 portal_mode = 3
 mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+material/0 = ExtResource( 3 )
 script = ExtResource( 1 )
 required_setting = 6
 

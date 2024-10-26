@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -13,8 +13,7 @@
 [ext_resource path="res://scripts/world/environment.gd" type="Script" id=11]
 [ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/particles/godrays_cpu.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scripts/managers/shader_manager.gd" type="Script" id=15]
-[ext_resource path="res://scripts/world/track.gd" type="Script" id=16]
+[ext_resource path="res://scripts/world/decoration_light.gd" type="Script" id=14]
 
 [sub_resource type="ProceduralSky" id=9]
 sky_top_color = Color( 0.0509804, 0.129412, 0.290196, 1 )
@@ -39,7 +38,7 @@ fog_color = Color( 0.435294, 0.52549, 0.619608, 1 )
 fog_depth_begin = 0.0
 fog_depth_end = 2500.0
 fog_depth_curve = 0.4
-tonemap_mode = 3
+tonemap_mode = 4
 ss_reflections_enabled = true
 ss_reflections_max_steps = 512
 ss_reflections_fade_in = 1e-05
@@ -58,7 +57,6 @@ albedo_color = Color( 1, 1, 0, 0.54902 )
 
 [node name="RootSpatial" type="Spatial"]
 physics_interpolation_mode = 2
-script = ExtResource( 16 )
 
 [node name="Map" parent="." instance=ExtResource( 4 )]
 
@@ -71,17 +69,20 @@ transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.6437
 light_color = Color( 0.831373, 0.964706, 1, 1 )
 light_energy = 0.2
 shadow_enabled = true
-directional_shadow_mode = 1
-directional_shadow_split_1 = 0.2
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
 directional_shadow_bias_split_scale = 1.0
-directional_shadow_max_distance = 500.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
 script = ExtResource( 10 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 0.43382, 0.351121, 0.829768, -0.899712, 0.21803, 0.378128, -0.048146, -0.910592, 0.410493, -300.632, 80.5046, -918.699 )
-light_energy = 2.38
-spot_range = 360.989
-spot_angle = 16.61
+portal_mode = 3
+light_energy = 2.084
+spot_range = 285.283
+spot_angle = 9.7
+script = ExtResource( 14 )
 
 [node name="GameplayManager" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -159,22 +160,22 @@ script = ExtResource( 6 )
 transform = Transform( 0.734405, 0, 0.678711, 0, 1, 0, -0.678711, 0, 0.734405, 0.935486, 23.3014, -3.55658 )
 
 [node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.141368, 0, -0.989958, 0, 1, 0, 0.989958, 0, -0.141368, 14.8817, -0.0289993, 1.26501 )
+transform = Transform( -0.141368, 0, -0.989958, 0, 1, 0, 0.989958, 0, -0.141368, 14.8817, 1.13762, 1.26489 )
 
 [node name="RespawnPoint1" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.106091, 0, -0.994357, 0, 1, 0, 0.994357, 0, -0.106091, 17.5582, -0.0289993, -5.72266 )
+transform = Transform( -0.106091, 0, -0.994357, 0, 1, 0, 0.994357, 0, -0.106091, 17.5582, 1.73671, -5.72266 )
 
 [node name="RespawnPoint2" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.141368, 0, -0.989958, 0, 1, 0, 0.989958, 0, -0.141368, 26.408, -0.0289993, 2.57947 )
+transform = Transform( -0.141368, 0, -0.989958, 0, 1, 0, 0.989958, 0, -0.141368, 26.408, 1.55158, 2.57935 )
 
 [node name="RespawnPoint3" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.0841471, 0, -0.996454, 0, 1, 0, 0.996454, 0, -0.0841471, 28.2366, -0.0290012, -4.59064 )
+transform = Transform( -0.0841471, 0, -0.996454, 0, 1, 0, 0.996454, 0, -0.0841471, 28.2366, 2.24459, -4.59076 )
 
 [node name="RespawnPoint4" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.133104, 0, -0.991103, 0, 1, 0, 0.991103, 0, -0.133104, 23.5767, -0.0289993, 10.0152 )
+transform = Transform( -0.133104, 0, -0.991103, 0, 1, 0, 0.991103, 0, -0.133104, 23.5767, 0.857513, 10.0151 )
 
 [node name="RespawnPoint5" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 3 )]
-transform = Transform( -0.343905, 0, -0.939005, 0, 1, 0, 0.939005, 0, -0.343905, 28.749, 0.873585, 18.2942 )
+transform = Transform( -0.343905, 0, -0.939005, 0, 1, 0, 0.939005, 0, -0.343905, 28.749, 0.732477, 18.2941 )
 
 [node name="Waypoint2" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( -0.690352, 0, 0.723473, 0, 1, 0, -0.723473, 0, -0.690352, -655.048, 16.7226, -790.852 )
@@ -489,10 +490,6 @@ transform = Transform( 0.534826, 0, -0.844965, 0, 1, 0, 0.844965, 0, 0.534826, -
 [node name="DeletionManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 5 )
-
-[node name="ShaderManager" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 15 )
 
 [node name="Pools" parent="." instance=ExtResource( 12 )]
 

@@ -3,6 +3,8 @@ extends Node
 
 var players: Array
 var pursuers: Array
+var invisible_1: Array
+var invisible_2: Array
 var heist_target: CombatVehicle
 var waypoint: int = 0
 
@@ -10,7 +12,8 @@ onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
 func _process(_delta):
-	if pursuers.size() == 12 and $Timer.is_stopped():
+	if pursuers.size() == 12 and $Timer.is_stopped() \
+			and get_node("../DeletionManager").to_be_deleted.empty():
 		if get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
 				.get_child_count() == 0:
 			var target_spawn \
@@ -20,8 +23,6 @@ func _process(_delta):
 			heist_target.alive = true
 			get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
 					.add_child(target_spawn)
-		$Timer.wait_time *= 60.0 \
-				/ ProjectSettings.get_setting("physics/common/physics_fps")
 		$Timer.start()
 		heist_target.get_node("../StuckTimer").start()
 		for n in pursuers:
@@ -90,6 +91,10 @@ func _physics_process(_delta):
 		n.placement = pursuers.find(n) + 1
 	if heist_target != null:
 		heist_target.target = waypoints[waypoint]
+	while not invisible_2.empty():
+		invisible_2.pop_back().visible = true
+	while not invisible_1.empty():
+		invisible_2.append(invisible_1.pop_back())
 
 
 func respawn(vehicle: CombatVehicle):
@@ -106,6 +111,9 @@ func respawn(vehicle: CombatVehicle):
 			vehicle.global_transform = n.global_transform
 			break
 	vehicle.reset_physics_interpolation()
+	var mesh: MeshInstance = vehicle.get_node("BodyMesh")
+	mesh.visible = false
+	invisible_1.append(mesh)
 
 
 func waypoint_entered(entered: Area, body: CombatVehicle):

@@ -3,8 +3,6 @@ extends Label3D
 
 export var height: float = 2.0
 
-onready var gameplay_manager: Node = get_parent().gameplay_manager
-
 
 func _enter_tree():
 	match get_node("../../../../..").name:
@@ -43,8 +41,9 @@ func _enter_tree():
 
 
 func _physics_process(_delta):
-	global_translation = get_parent().global_translation + Vector3(0, height, 0)
-	var score: float = get_parent().score
+	var parent: Node = get_parent()
+	global_translation = parent.global_translation + Vector3(0, height, 0)
+	var score: float = parent.score
 	text = String(score) + "€"
-	score /= clamp(gameplay_manager.pursuers[0].score, 100, 1_000_000)
+	score /= clamp(parent.gameplay_manager.pursuers[0].score, 100, 1_000_000)
 	modulate = Color(1, 1, 1, score)

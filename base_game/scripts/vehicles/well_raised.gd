@@ -31,6 +31,23 @@ var next_out_sides: int = cartridge_out.NONE
 func _ready():
 	if controls == null:
 		driver_name = "Well Raised"
+	
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		delete($MGMeshLeft/MuzzleFlash/CPUParticles)
+		delete($MGMeshMiddle/MuzzleFlash/CPUParticles)
+		delete($MGMeshRight/MuzzleFlash/CPUParticles)
+		delete($ShotgunFlashLeft/CPUParticles)
+		delete($ShotgunFlashLeft/CPUParticles2)
+		delete($ShotgunFlashRight/CPUParticles)
+		delete($ShotgunFlashRight/CPUParticles2)
+	else:
+		delete($MGMeshLeft/MuzzleFlash/Particles)
+		delete($MGMeshMiddle/MuzzleFlash/Particles)
+		delete($MGMeshRight/MuzzleFlash/Particles)
+		delete($ShotgunFlashLeft/Particles)
+		delete($ShotgunFlashLeft/Particles2)
+		delete($ShotgunFlashRight/Particles)
+		delete($ShotgunFlashRight/Particles2)
 
 
 func _physics_process(_delta):
@@ -89,16 +106,11 @@ func _physics_process(_delta):
 				elif Input.is_action_pressed(controls.weapon_right):
 					shoot_right()
 	if remaining_shots_middle > 0 and can_shoot_middle:
-		shoot_middle(true)
-		shoot_sides(false)
+		shoot_middle()
 	elif remaining_shots_sides > 0 and can_shoot_sides:
-		shoot_middle(false)
-		shoot_sides(true)
-	elif get_node("../ShotTimerMiddle").is_stopped() \
-			and get_node("../ShotTimerSides").is_stopped():
-		shoot_middle(false)
-		shoot_sides(false)
-	else:
+		shoot_sides()
+	elif not (get_node("../ShotTimerMiddle").is_stopped() \
+			and get_node("../ShotTimerSides").is_stopped()):
 		get_node("../GunTriggerTimer").start()
 
 
@@ -114,25 +126,23 @@ func get_shots() -> int:
 			return 5
 
 
-func shoot_middle(var b: bool):
-	if b:
-		xp += bullet_xp
-		can_shoot_middle = false
-		get_node("../ShotTimerMiddle").start()
-		remaining_shots_middle -= 1
-		next_out_middle = cartridge_out.LINK
-	shoot_front(b, $MGMeshMiddle)
+func shoot_middle():
+	xp += bullet_xp
+	can_shoot_middle = false
+	get_node("../ShotTimerMiddle").start()
+	remaining_shots_middle -= 1
+	next_out_middle = cartridge_out.LINK
+	shoot_front($MGMeshMiddle)
 
 
-func shoot_sides(var b: bool):
-	if b:
-		xp += bullet_xp
-		can_shoot_sides = false
-		get_node("../ShotTimerSides").start()
-		remaining_shots_sides -= 1
-		next_out_sides = cartridge_out.LINK
-	shoot_front(b, $MGMeshLeft)
-	shoot_front(b, $MGMeshRight)
+func shoot_sides():
+	xp += bullet_xp
+	can_shoot_sides = false
+	get_node("../ShotTimerSides").start()
+	remaining_shots_sides -= 1
+	next_out_sides = cartridge_out.LINK
+	shoot_front($MGMeshLeft)
+	shoot_front($MGMeshRight)
 
 
 func shoot_left():
@@ -145,12 +155,9 @@ func shoot_left():
 	shoot_shotgun($ShotgunPositionFrontLeft)
 	shoot_shotgun($ShotgunPositionBackLeft)
 	
-	if gles3:
-		$MuzzleFlashShotgunFrontLeft.emitting = true
-		$MuzzleFlashShotgunBackLeft.emitting = true
-	else:
-		$CPUMuzzleFlashShotgunFrontLeft.emitting = true
-		$CPUMuzzleFlashShotgunBackLeft.emitting = true
+	for n in $ShotgunFlashLeft.get_children():
+		n.restart()
+		n.emitting = true
 
 
 func shoot_right():
@@ -163,37 +170,27 @@ func shoot_right():
 	shoot_shotgun($ShotgunPositionFrontRight)
 	shoot_shotgun($ShotgunPositionBackRight)
 	
-	if gles3:
-		$MuzzleFlashShotgunFrontRight.emitting = true
-		$MuzzleFlashShotgunBackRight.emitting = true
-	else:
-		$CPUMuzzleFlashShotgunFrontRight.emitting = true
-		$CPUMuzzleFlashShotgunBackRight.emitting = true
+	for n in $ShotgunFlashRight.get_children():
+		n.restart()
+		n.emitting = true
 
 
-func shoot_front(var b: bool, var gun: MeshInstance):
-	if b:
-		var new_bullet: Area
-		if level == 5:
-			new_bullet = pools.get_acid_bullet()
-			new_bullet.start(gun.get_node("ShotPosition").global_transform, \
-					acid_bullet_damage, bullet_reward, bullet_burn, self)
-			new_bullet.acid_duration = acid_bullet_duration
-		else:
-			new_bullet = pools.get_bullet()
-			new_bullet.start(gun.get_node("ShotPosition").global_transform, \
-					bullet_damage, bullet_reward, bullet_burn, self)
-		new_bullet.play_audio_lmg()
-		
-		if gles3:
-			gun.get_node("MuzzleFlash").emitting = true
-		else:
-			gun.get_node("CPUMuzzleFlash").emitting = true
+func shoot_front(var gun: MeshInstance):
+	var new_bullet: Area
+	if level == 5:
+		new_bullet = pools.get_acid_bullet()
+		new_bullet.start(gun.get_node("ShotPosition").global_transform, \
+				acid_bullet_damage, bullet_reward, bullet_burn, self)
+		new_bullet.acid_duration = acid_bullet_duration
 	else:
-		if gles3:
-			gun.get_node("MuzzleFlash").emitting = false
-		else:
-			gun.get_node("CPUMuzzleFlash").emitting = false
+		new_bullet = pools.get_bullet()
+		new_bullet.start(gun.get_node("ShotPosition").global_transform, \
+				bullet_damage, bullet_reward, bullet_burn, self)
+	new_bullet.play_audio_lmg()
+	
+	var flash: GeometryInstance = gun.get_child(0).get_child(0)
+	flash.restart()
+	flash.emitting = true
 
 
 func shoot_shotgun(var gun: Spatial):

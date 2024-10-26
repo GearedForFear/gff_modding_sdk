@@ -17,7 +17,7 @@
 [ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_02.wav" type="AudioStream" id=15]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/vehicles/car_window_open_close_whir_04.wav" type="AudioStream" id=17]
-[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=18]
+[ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=18]
 [ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=21]
@@ -71,19 +71,6 @@ suspension_travel = 2.0
 suspension_stiffness = 40.0
 damping_compression = 0.88
 
-[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontLeft"]
-pause_mode = 2
-physics_interpolation_mode = 1
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 4
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontLeft/Mesh"]
-aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
-
 [node name="WheelFrontRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 1.722 )
 use_as_traction = true
@@ -95,19 +82,6 @@ suspension_travel = 2.0
 suspension_stiffness = 40.0
 damping_compression = 0.88
 
-[node name="Mesh" type="MeshInstance" parent="Body/WheelFrontRight"]
-pause_mode = 2
-physics_interpolation_mode = 1
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 4
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelFrontRight/Mesh"]
-aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
-
 [node name="WheelBackLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.632 )
 use_as_traction = true
@@ -117,19 +91,6 @@ wheel_friction_slip = 2.0
 suspension_travel = 2.0
 suspension_stiffness = 40.0
 damping_compression = 0.88
-
-[node name="Mesh" type="MeshInstance" parent="Body/WheelBackLeft"]
-pause_mode = 2
-physics_interpolation_mode = 1
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 4
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackLeft/Mesh"]
-aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.632 )
@@ -141,30 +102,57 @@ suspension_travel = 2.0
 suspension_stiffness = 40.0
 damping_compression = 0.88
 
-[node name="Mesh" type="MeshInstance" parent="Body/WheelBackRight"]
-pause_mode = 2
-physics_interpolation_mode = 1
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 9 )
-material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 4
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Body/WheelBackRight/Mesh"]
-aabb = AABB( -0.361, -0.126, -0.361, 0.722, 0.252, 0.722 )
-
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
 shape = SubResource( 6 )
 
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, -2.5 )
+physics_interpolation_mode = 1
 portal_mode = 3
 mesh = ExtResource( 10 )
 material/0 = ExtResource( 6 )
 script = ExtResource( 18 )
 required_setting = 2
+
+[node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 1.722 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../../WheelFrontLeft")
+material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
+required_setting = 4
+wheel_path = NodePath("../../WheelFrontLeft")
+
+[node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 1.722 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../../WheelFrontRight")
+material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
+required_setting = 4
+wheel_path = NodePath("../../WheelFrontRight")
+
+[node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.632 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../../WheelBackLeft")
+material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
+required_setting = 4
+wheel_path = NodePath("../../WheelBackLeft")
+
+[node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.632 )
+portal_mode = 3
+mesh = ExtResource( 9 )
+skeleton = NodePath("../../WheelBackRight")
+material/0 = ExtResource( 7 )
+script = ExtResource( 16 )
+required_setting = 4
+wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ShotPositionLeft" type="RayCast" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.262, 2.498 )
@@ -205,49 +193,47 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 1.528 )
 [node name="DeathCPUParticles" parent="Body" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.826326, 1.528 )
 
-[node name="MuzzleFlashMGLeft" parent="Body" instance=ExtResource( 2 )]
+[node name="MuzzleFlashMG" type="Spatial" parent="Body"]
+
+[node name="Left" parent="Body/MuzzleFlashMG" instance=ExtResource( 2 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.499, 0.202011, 2.498 )
 
-[node name="MuzzleFlashMGRight" parent="Body" instance=ExtResource( 2 )]
+[node name="Right" parent="Body/MuzzleFlashMG" instance=ExtResource( 2 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.499, 0.202011, 2.498 )
 
-[node name="MuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, 0.893 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, 0.893 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, -0.968 )
-one_shot = true
-
-[node name="MuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, -0.968 )
-one_shot = true
-
-[node name="CPUMuzzleFlashMGLeft" parent="Body" instance=ExtResource( 12 )]
+[node name="CPULeft" parent="Body/MuzzleFlashMG" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499, 0.202011, 2.498 )
 
-[node name="CPUMuzzleFlashMGRight" parent="Body" instance=ExtResource( 12 )]
+[node name="CPURight" parent="Body/MuzzleFlashMG" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499, 0.202011, 2.498 )
 
-[node name="CPUMuzzleFlashShotgunFrontLeft" parent="Body" instance=ExtResource( 12 )]
+[node name="MuzzleFlashLeft" type="Spatial" parent="Body"]
+
+[node name="Front" parent="Body/MuzzleFlashLeft" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, 0.893 )
+
+[node name="Back" parent="Body/MuzzleFlashLeft" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.948, 0.517, -0.968 )
+
+[node name="CPUFront" parent="Body/MuzzleFlashLeft" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, 0.893 )
-one_shot = true
 
-[node name="CPUMuzzleFlashShotgunFrontRight" parent="Body" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, 0.893 )
-one_shot = true
-
-[node name="CPUMuzzleFlashShotgunBackLeft" parent="Body" instance=ExtResource( 12 )]
+[node name="CPUBack" parent="Body/MuzzleFlashLeft" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.948, 0.517, -0.97 )
-one_shot = true
 
-[node name="CPUMuzzleFlashShotgunBackRight" parent="Body" instance=ExtResource( 12 )]
+[node name="MuzzleFlashRight" type="Spatial" parent="Body"]
+
+[node name="Front" parent="Body/MuzzleFlashRight" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, 0.893 )
+
+[node name="Back" parent="Body/MuzzleFlashRight" instance=ExtResource( 2 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.948, 0.517, -0.968 )
+
+[node name="CPUFront" parent="Body/MuzzleFlashRight" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, 0.893 )
+
+[node name="CPUBack" parent="Body/MuzzleFlashRight" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948, 0.517, -0.97 )
-one_shot = true
 
 [node name="DriftParticles" type="Spatial" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 0 )
@@ -497,14 +483,6 @@ process_mode = 0
 wait_time = 0.7
 one_shot = true
 
-[connection signal="camera_entered" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Body/WheelFrontLeft/Mesh/VisibilityNotifier" to="Body/WheelFrontLeft/Mesh" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontRight/Mesh" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Body/WheelFrontRight/Mesh/VisibilityNotifier" to="Body/WheelFrontRight/Mesh" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelBackLeft/Mesh" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Body/WheelBackLeft/Mesh/VisibilityNotifier" to="Body/WheelBackLeft/Mesh" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelBackRight/Mesh" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Body/WheelBackRight/Mesh/VisibilityNotifier" to="Body/WheelBackRight/Mesh" method="_on_VisibilityNotifier_camera_exited"]
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
 [connection signal="timeout" from="MachineGunTimer" to="Body" method="_on_MachineGunTimer_timeout"]
 [connection signal="timeout" from="ShotgunTimerLeft" to="Body" method="_on_ShotgunTimerLeft_timeout"]

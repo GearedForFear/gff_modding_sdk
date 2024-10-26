@@ -119,7 +119,6 @@ default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 
 settings/stdout/print_fps=true
 gdscript/warnings/narrowing_conversion=false
-gdscript/warnings/return_value_discarded=false
 gdscript/warnings/integer_division=false
 
 [display]
@@ -888,6 +887,7 @@ shadow_filter=3
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+quality/directional_shadow/size=8192
 quality/shadows/filter_mode=2
 gles3/shaders/shader_compilation_mode=2
 environment/default_clear_color=Color( 0.470588, 0.470588, 0.470588, 1 )
