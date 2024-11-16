@@ -10,6 +10,7 @@ _data = [ Vector2( 0, 0.671591 ), 0.0, 0.0, 0, 0, Vector2( 0.173913, 1 ), 0.0, 0
 
 [node name="CPUParticles" type="CPUParticles"]
 portal_mode = 3
+material_override = ExtResource( 1 )
 cast_shadow = 0
 emitting = false
 amount = 1
@@ -20,4 +21,3 @@ gravity = Vector3( 0, 0, 0 )
 angle = 360.0
 angle_random = 1.0
 scale_amount_curve = SubResource( 1 )
-color = Color( 1, 0.968627, 0.443137, 1 )

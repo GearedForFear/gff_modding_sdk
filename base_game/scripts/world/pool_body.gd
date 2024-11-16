@@ -1,9 +1,6 @@
 extends DynamicShadowBody
 
 
-onready var deletion_manager: Node = get_node("../../../DeletionManager")
-
-
 var pool: Array
 
 
@@ -22,7 +19,7 @@ func start(global_transform: Transform):
 	set_process(true)
 	show()
 	reset_physics_interpolation()
-	deletion_manager.other_rigid_bodies.append(self)
+	get_node("/root/RootControl/DeletionManager").rigid_bodies.append(self)
 
 
 func stop():

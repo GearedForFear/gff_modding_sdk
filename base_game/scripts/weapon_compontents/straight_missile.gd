@@ -1,21 +1,28 @@
 extends StraightProjectile
 
 
+func _ready():
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
+				$CPUParticles)
+		remove_child($CPUParticles)
+	else:
+		get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
+				$Particles)
+		remove_child($Particles)
+		$CPUParticles.name = "Particles"
+
+
 func start(global_transform: Transform, damage: float, reward: int, \
 		burn: float, shooter: CombatVehicle):
 	explosive_type = explosive_types.FIRE
 	speed = 0.5
-	if gles3:
-		$Particles.emitting = true
-	else:
-		$CPUParticles.emitting = true
-		$CPUParticles.emitting = true
+	$Particles.emitting = true
 	$AudioStreamPlayer3D.play()
 	.start(global_transform, damage, reward, burn, shooter)
 
 
 func make_available():
 	$Particles.emitting = false
-	$CPUParticles.emitting = false
 	$AudioStreamPlayer3D.stop()
-	pools.missiles_available.append(self)
+	get_node("../..").missiles_available.append(self)

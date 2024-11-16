@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode async_visible,unshaded;
+const vec3 Color = vec3(1.0, 0.97, 0.44);
 uniform sampler2D texture_albedo : hint_albedo;
 
 
@@ -13,7 +14,7 @@ void vertex() {
 
 
 void fragment() {
-	ALBEDO = COLOR.rgb;
+	ALBEDO = Color;
 	ALPHA = texture(texture_albedo, UV).a;
 	ALPHA_SCISSOR = 
 			float(((int(FRAGCOORD.x / 4.0) % 7

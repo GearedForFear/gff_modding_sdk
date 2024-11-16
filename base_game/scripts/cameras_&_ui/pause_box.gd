@@ -5,7 +5,7 @@ var controls: PlayerControls
 var current_option: int = 0
 var just_opened: bool = false
 
-onready var vehicle: CombatVehicle = get_node("../../../../../..")
+onready var vehicle: CombatVehicle = get_node("../../../../..")
 
 
 func _ready():
@@ -41,14 +41,14 @@ func _physics_process(_delta):
 							s += "SELECT"
 						else:
 							s += i.as_text()
-						get_node("../../Info").text = s
-						get_node("../../AnimationPlayer").play("show_info")
+						get_node("../Info").text = s
+						get_node("../AnimationPlayer").play("show_info")
 						get_viewport().stop()
 						vehicle.gameplay_manager.respawn(vehicle)
 					else:
-						get_node("../../Info").text = \
+						get_node("../Info").text = \
 								"You cannot respawn before the game starts"
-						get_node("../../AnimationPlayer").play("show_info")
+						get_node("../AnimationPlayer").play("show_info")
 				2:
 					get_tree().paused = false
 					vehicle.gameplay_manager.get_parent().queue_free()
@@ -64,8 +64,10 @@ func _physics_process(_delta):
 
 func open(b: bool):
 	visible = b
-	get_parent().visible = b
+	get_node("../../../PauseBackground").visible = b
+	get_node("../RearMirror").visible = not b
 	get_node("/root/RootControl/MaterialManager").set_movement(not b)
+	get_node("/root/RootControl/DeletionManager").delete = b
 	if b:
 		current_option = 0
 		just_opened = true

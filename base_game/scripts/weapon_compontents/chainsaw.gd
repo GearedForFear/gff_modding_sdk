@@ -17,7 +17,7 @@ func collide(var body: PhysicsBody):
 
 
 func make_available():
-	pools.chainsaws_available.append(self)
+	get_node("../..").chainsaws_available.append(self)
 
 
 func _on_ImpactVehicle_finished():

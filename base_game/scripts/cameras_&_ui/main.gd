@@ -3,15 +3,12 @@ extends Control
 
 var config: ConfigFile = ConfigFile.new()
 var track: Spatial
-var track_path: String = ""
-var track_mutex: Mutex = Mutex.new()
-var resources_loaded: bool = false
 var player_amount: int
-var next_tracks: PoolStringArray
+var next_tracks: PoolStringArray = ["res://scenes/world/tracks/glacier.tscn",
+		"res://scenes/world/tracks/twisted.tscn"]
 
 onready var thread: Thread = Thread.new()
-onready var settings_manager: Node \
-		= get_node("/root/RootControl/SettingsManager")
+onready var settings_manager: Node = $SettingsManager
 
 
 func _ready():
@@ -250,39 +247,17 @@ func _process(_delta):
 
 func prepare():
 	$Loading.show()
-	if not resources_loaded:
-		$Precompiler.add_materials()
-		$ResourceManager.load_resources()
-		resources_loaded = true
-		$Precompiler.emit_particles()
-		$MaterialManager.update_settings()
-	$MaterialManager.set_movement(true)
-	
-	while true:
-		var current_track: String = track_path
-		spawn_track(current_track)
-		
-		track_mutex.lock()
-		if current_track == track_path:
-			break
-		else:
-			track.queue_free()
-			track_mutex.unlock()
-	
+	$Precompiler.add_materials()
+	$ResourceManager.load_resources()
+	$Precompiler.emit_particles()
+	$MaterialManager.update_settings()
 	$Loading.hide()
-	track_mutex.unlock()
 
 
 func spawn_track(path: String):
-	next_tracks.clear()
-	if path == "":
-		track = ResourceLoader.load("res://scenes/world/tracks/figure_8.tscn", \
-				"PackedScene").instance()
-		next_tracks.append("res://scenes/world/tracks/glacier.tscn")
-		next_tracks.append("res://scenes/world/tracks/twisted.tscn")
-	else:
-		track = ResourceLoader.load(path).instance()
-	
+	if is_instance_valid(track):
+		track.queue_free()
+	track = ResourceLoader.load(path).instance()
 	var spawns: Array = Array()
 	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
@@ -291,19 +266,13 @@ func spawn_track(path: String):
 	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
 	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
 	instantiate_vehicles(spawns, 6)
+	instantiate_target_vehicle()
 
 
 func play():
 	$BlackBar/PlayerButtons.hide()
-	while thread.is_alive():
-		if Input.is_action_just_released("ui_cancel"):
-			$ReturnAudio.play()
-			yield(get_tree(), "idle_frame")
-			$BlackBar/MainButtons.show()
-			$BlackBar/MainButtons/Arcade.grab_focus()
-			return
-		else:
-			yield(get_tree(), "idle_frame")
+	$DeletionManager._ready()
+	$MaterialManager.set_movement(true)
 	thread.wait_to_finish()
 	var rr: int = OS.get_screen_refresh_rate()
 	get_tree().physics_interpolation = settings_manager.transform_interpolation\
@@ -566,6 +535,7 @@ func play_next(vehicle_data: Array):
 			$Scores.text += String(data.score) + "€\n"
 			data.free()
 		active(true)
+		$DeletionManager.delete = true
 		return
 	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
 	next_tracks.remove(0)
@@ -595,6 +565,8 @@ func play_next(vehicle_data: Array):
 		vehicle.get_node("Body").score = data.score
 		spawns[n].add_child(vehicle)
 		data.free()
+	
+	instantiate_target_vehicle()
 	
 	match player_amount:
 		1:
@@ -721,24 +693,21 @@ func play_next(vehicle_data: Array):
 
 func active(var b: bool):
 	if b:
-		thread = Thread.new()
-		thread.start(self, "prepare")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	$BlackBar/MainButtons/Arcade.grab_focus()
 	visible = b
 	$BlackBar/MainButtons.visible = b
 	set_process(b)
 	for n in $BlackBar/MainButtons.get_children():
 		n.disabled = not b
-	if(b):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
+	var vehicle: Spatial
 	var next_vehicle: int = first_vehicle
 	for n in spawns:
-		var vehicle: Spatial
 		match next_vehicle:
 			0:
 				vehicle = ResourceLoader.load(\
@@ -783,6 +752,14 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 		next_vehicle = (next_vehicle + 1) % 10
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
+
+
+func instantiate_target_vehicle():
+	var vehicle: Spatial
+	vehicle = ResourceLoader.load("res://scenes/vehicles/fungibber.tscn", \
+			"PackedScene").instance()
+	vehicle.get_node("Body").track = track
+	track.get_node("TargetStartSpawn").add_child(vehicle)
 
 
 func switch_buttons(var from: BoxContainer, var to: Control):

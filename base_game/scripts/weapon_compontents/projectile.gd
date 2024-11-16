@@ -17,9 +17,11 @@ var bounce: bool = false
 var timer_finished: bool = false
 var shot_audio_playing: bool = false
 var impact_audio_playing: bool = false
-var gles3: bool
 
-onready var pools: Node = get_node("../..")
+
+func _ready():
+	set_physics_process(false)
+	set_process(false)
 
 
 func start(global_transform: Transform, damage: float, reward: int, \
@@ -55,6 +57,7 @@ func try_make_available():
 
 func _on_Area_body_entered(body):
 	if body != shooter:
+		var pools: Node = get_node("../..")
 		match explosive_type:
 			explosive_types.NONE:
 				if body.is_in_group("combat_vehicle") \

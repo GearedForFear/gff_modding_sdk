@@ -5,31 +5,29 @@ var players: Array
 var pursuers: Array
 var invisible_1: Array
 var invisible_2: Array
-var heist_target: CombatVehicle
 var waypoint: int = 0
 
+onready var heist_target: CombatVehicle = get_node(\
+		"../TargetStartSpawn/RootSpatial/Body")
 onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
+func _ready():
+	get_node("/root/RootControl/DeletionManager").delete = true
+
+
 func _process(_delta):
-	if pursuers.size() == 12 and $Timer.is_stopped() \
-			and get_node("../DeletionManager").to_be_deleted.empty():
-		if get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
-				.get_child_count() == 0:
-			var target_spawn \
-					= load("res://scenes/vehicles/fungibber.tscn").instance()
-			heist_target = target_spawn.get_node("Body")
-			heist_target.track = get_parent()
-			heist_target.alive = true
-			get_node("../TargetStartSpawn/SpawnPoint/Viewport/SpawnPosition")\
-					.add_child(target_spawn)
+	if pursuers.size() == 12 and $Timer.is_stopped() and \
+			get_node("/root/RootControl/DeletionManager").to_be_deleted.empty():
 		$Timer.start()
+		heist_target.alive = true
 		heist_target.get_node("../StuckTimer").start()
 		for n in pursuers:
 			n.target = heist_target
 			n.alive = true
 			if n.controls == null:
 				n.get_node("../StuckTimer").start()
+		get_node("/root/RootControl/DeletionManager").delete = false
 	
 	if not $Timer.is_stopped():
 		for n in players:

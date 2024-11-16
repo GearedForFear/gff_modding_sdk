@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/cameras_&_ui/current_settings.gd" type="Script" id=2]
@@ -67,6 +67,9 @@
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/track_button.gd" type="Script" id=67]
+[ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=68]
+[ext_resource path="res://scripts/start_time.gd" type="Script" id=69]
+[ext_resource path="res://scripts/end_time.gd" type="Script" id=70]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -200,6 +203,9 @@ __meta__ = {
 "__editor_plugin_screen__": "2D"
 }
 
+[node name="StartTime" type="Node" parent="."]
+script = ExtResource( 69 )
+
 [node name="Title" type="Label" parent="."]
 anchor_left = 0.07
 anchor_top = 0.07
@@ -249,6 +255,10 @@ script = ExtResource( 66 )
 
 [node name="MaterialManager" type="Node" parent="."]
 script = ExtResource( 65 )
+
+[node name="DeletionManager" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 68 )
 
 [node name="Precompiler" type="ViewportContainer" parent="."]
 anchor_left = -1.0
@@ -3296,6 +3306,9 @@ anchor_bottom = 0.8
 custom_fonts/font = SubResource( 10 )
 autowrap = true
 script = ExtResource( 2 )
+
+[node name="EndTime" type="Node" parent="."]
+script = ExtResource( 70 )
 
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
 [connection signal="focus_entered" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_entered"]

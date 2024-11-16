@@ -7,8 +7,6 @@ var reward: int
 var speed_divisor: float = 20.0
 var move: bool = false
 
-onready var pools: Node = get_node("../..")
-
 
 func _physics_process(_delta):
 	if move:
@@ -48,6 +46,6 @@ func _on_Area_body_entered(body):
 
 
 func _on_AudioStreamPlayer3D_finished():
-	pools.money_available.append(self)
+	get_node("../..").money_available.append(self)
 	collision_layer = 0
 	collision_mask = 0

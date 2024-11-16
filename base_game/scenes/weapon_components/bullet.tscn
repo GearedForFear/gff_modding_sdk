@@ -46,7 +46,6 @@ collision_mask = 3
 process_mode = 0
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="ShotAudioLMG" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 5 )

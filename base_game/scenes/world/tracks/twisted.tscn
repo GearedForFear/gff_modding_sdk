@@ -1,10 +1,9 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/world/gameplay_zones/respawn.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/world/maps/usa.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=5]
 [ext_resource path="res://scripts/world/editor_only.gd" type="Script" id=6]
 [ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
 [ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
@@ -14,7 +13,7 @@
 [ext_resource path="res://resources/materials/world/decorations/tornado_usa.material" type="Material" id=13]
 [ext_resource path="res://scripts/world/tornado.gd" type="Script" id=14]
 [ext_resource path="res://scripts/world/tornado_audio.gd" type="Script" id=15]
-[ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/pooling/pools.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/world/environment.gd" type="Script" id=17]
 
 [sub_resource type="ProceduralSky" id=9]
@@ -167,7 +166,6 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
-visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 0.588985, 0, 0.808144, 0, 1, 0, -0.808144, 0, 0.588985, -164.83, 0, 319.911 )
@@ -511,10 +509,6 @@ transform = Transform( -0.591001, 0, -0.806672, 0, 1, 0, 0.806672, 0, -0.591001,
 
 [node name="RespawnPoint5" parent="GameplayManager/NonPlayerPath/Waypoint9/RespawnPoints" instance=ExtResource( 3 )]
 transform = Transform( -0.591001, 0, -0.806672, 0, 1, 0, 0.806672, 0, -0.591001, 3.33324, 1.23777, 32.3186 )
-
-[node name="DeletionManager" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 5 )
 
 [node name="Pools" parent="." instance=ExtResource( 16 )]
 

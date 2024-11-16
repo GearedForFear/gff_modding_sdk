@@ -11,7 +11,7 @@ func collide(var body: PhysicsBody):
 
 
 func make_available():
-	pools.buzzsaws_available.append(self)
+	get_node("../..").buzzsaws_available.append(self)
 
 
 func try_make_available():

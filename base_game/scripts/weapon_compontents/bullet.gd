@@ -53,7 +53,7 @@ func collide(var _body: PhysicsBody):
 
 
 func make_available():
-	pools.bullets_available.append(self)
+	get_node("../..").bullets_available.append(self)
 
 
 func play_audio_lmg():

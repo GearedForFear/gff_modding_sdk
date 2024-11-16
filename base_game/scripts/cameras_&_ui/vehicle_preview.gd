@@ -81,7 +81,7 @@ func update_vehicle(category: int, vehicle: int):
 					preview_vehicle = NM_PREVIEW.instance()
 				_:
 					return
-	get_child(3).queue_free()
+	get_child(4).queue_free()
 	add_child(preview_vehicle)
 	container.get_node("../StatValues").update_text(preview_vehicle)
 

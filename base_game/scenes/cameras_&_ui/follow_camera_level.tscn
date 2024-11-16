@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/heart.material" type="Material" id=1]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://scripts/cameras_&_ui/round_timer.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/pause_box.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/rear_viewport.gd" type="Script" id=15]
+[ext_resource path="res://scripts/cameras_&_ui/pause_background.gd" type="Script" id=16]
+
+[sub_resource type="ShaderMaterial" id=25]
+shader = ExtResource( 3 )
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 3 )
@@ -27,9 +31,6 @@ font_data = ExtResource( 7 )
 [sub_resource type="DynamicFont" id=10]
 size = 40
 font_data = ExtResource( 2 )
-
-[sub_resource type="ShaderMaterial" id=20]
-shader = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=21]
 size = 9
@@ -173,6 +174,15 @@ fov = 75.0
 far = 1000.0
 script = ExtResource( 5 )
 
+[node name="PauseBackground" type="ColorRect" parent="Camera"]
+visible = false
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+material = SubResource( 25 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 16 )
+
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Camera"]
 visible = false
 anchor_right = 1.0
@@ -248,39 +258,23 @@ anchor_right = 0.989
 anchor_bottom = 0.2
 color = Color( 0, 0, 0, 1 )
 
-[node name="Control" type="Control" parent="Camera/AspectRatioContainer/Control/Arrow"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Polygon2D" type="Polygon2D" parent="Camera/AspectRatioContainer/Control/Arrow/Control"]
+[node name="Polygon2D" type="Polygon2D" parent="Camera/AspectRatioContainer/Control/Arrow"]
+position = Vector2( 32.64, 32.396 )
 color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 antialiased = true
 polygon = PoolVector2Array( 0, -25, -15, 20, 0, 10, 15, 20 )
 script = ExtResource( 6 )
 
-[node name="Pause" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
-visible = false
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 20 )
-anchor_left = 0.4
-anchor_right = 0.6
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera/AspectRatioContainer/Control/Pause"]
+[node name="Pause" type="VBoxContainer" parent="Camera/AspectRatioContainer/Control"]
 pause_mode = 2
 visible = false
-anchor_right = 1.0
+anchor_left = 0.4
+anchor_right = 0.6
 anchor_bottom = 1.0
 alignment = 1
 script = ExtResource( 14 )
 
-[node name="Continue" type="Label" parent="Camera/AspectRatioContainer/Control/Pause/VBoxContainer"]
+[node name="Continue" type="Label" parent="Camera/AspectRatioContainer/Control/Pause"]
 margin_top = 159.0
 margin_right = 128.0
 margin_bottom = 170.0
@@ -289,7 +283,7 @@ text = "Continue"
 align = 1
 script = ExtResource( 4 )
 
-[node name="Respawn" type="Label" parent="Camera/AspectRatioContainer/Control/Pause/VBoxContainer"]
+[node name="Respawn" type="Label" parent="Camera/AspectRatioContainer/Control/Pause"]
 margin_top = 174.0
 margin_right = 128.0
 margin_bottom = 185.0
@@ -298,7 +292,7 @@ text = "Respawn"
 align = 1
 script = ExtResource( 4 )
 
-[node name="Quit" type="Label" parent="Camera/AspectRatioContainer/Control/Pause/VBoxContainer"]
+[node name="Quit" type="Label" parent="Camera/AspectRatioContainer/Control/Pause"]
 margin_top = 189.0
 margin_right = 128.0
 margin_bottom = 200.0

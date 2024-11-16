@@ -6,8 +6,6 @@ var reward: int
 var burn: float
 var shooter: CombatVehicle
 
-onready var pools: Node = get_node("../..")
-
 
 func start(global_transform: Transform, damage: float, reward: int, \
 		burn: float, shooter: CombatVehicle):
@@ -25,6 +23,7 @@ func start(global_transform: Transform, damage: float, reward: int, \
 	show()
 	reset_physics_interpolation()
 	$OmniLight.global_translation = global_translation + Vector3(0, 0.2, 0)
+	$AudioStreamPlayer3D.play()
 	$Lifetime.start()
 
 
@@ -42,15 +41,14 @@ func _on_Area_body_entered(body: PhysicsBody):
 		if body != shooter:
 			var payout: int = body.damage(damage, reward, burn, shooter)
 			if payout > 0:
-				pools.get_money().start(global_transform, shooter, body, payout)
+				get_node("../..").get_money().start(global_transform, shooter, body, payout)
 
 
 func _on_Area_area_entered(area):
 	if area.is_in_group("destructible"):
-		area.deletion_manager = pools.get_node("../DeletionManager")
 		area.destroy(shooter, global_transform.origin, 40.0)
 
 
 func _on_AudioStreamPlayer3D_finished():
 	set_process(false)
-	pools.explosions_available.append(self)
+	get_node("../..").explosions_available.append(self)

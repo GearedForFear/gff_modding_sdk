@@ -33,7 +33,6 @@ shape = SubResource( 1 )
 process_mode = 0
 wait_time = 2.0
 one_shot = true
-autostart = true
 
 [node name="RayCast" type="RayCast" parent="."]
 cast_to = Vector3( 0, 0, 0.5 )

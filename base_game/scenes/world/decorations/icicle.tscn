@@ -28,14 +28,15 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
 shape = SubResource( 1 )
 
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367459, 0 )
+aabb = AABB( -0.134843, -0.00972366, -0.144752, 0.269686, 1.50358, 0.267043 )
+max_distance = 200.0
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367459, 0 )
 shape = SubResource( 1 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
-aabb = AABB( -0.134843, -0.00972366, -0.144752, 0.269686, 1.50358, 0.267043 )
-max_distance = 200.0
-
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
-[connection signal="camera_entered" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="MeshInstance/VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="MeshInstance/VisibilityNotifier" to="." method="_on_VisibilityNotifier_camera_exited"]

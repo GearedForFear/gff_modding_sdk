@@ -1,17 +1,16 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/world/gameplay_zones/respawn.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/world/maps/usa.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=5]
 [ext_resource path="res://scripts/world/editor_only.gd" type="Script" id=6]
 [ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
 [ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
 [ext_resource path="res://scenes/world/decorations/rock_0.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/world/main_light.gd" type="Script" id=10]
 [ext_resource path="res://scenes/world/decorations/rock_1.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/pools.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/pooling/pools.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scripts/world/environment.gd" type="Script" id=13]
 
 [sub_resource type="ProceduralSky" id=9]
@@ -74,7 +73,6 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
-visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 131.076, 0, 225.855 )
@@ -497,19 +495,13 @@ transform = Transform( -0.321538, 0, -0.946898, 0, 1, 0, 0.946898, 0, -0.321538,
 [node name="RespawnPoint5" parent="GameplayManager/NonPlayerPath/Waypoint12/RespawnPoints" instance=ExtResource( 3 )]
 transform = Transform( -0.380828, 0, -0.924647, 0, 1, 0, 0.924647, 0, -0.380828, 39.285, 2.1576, -2.42953 )
 
-[node name="DeletionManager" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 5 )
-
 [node name="Pools" parent="." instance=ExtResource( 12 )]
 
 [node name="StartSpawns" parent="." instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 250, 0, 250 )
-visible = false
 
 [node name="TargetStartSpawn" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 195.547, -0.7585, 247.552 )
-visible = false
 
 [node name="Rock0" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.444229, 0, 0.895913, 0, 1, 0, -0.895913, 0, 0.444229, 68.4793, -0.823318, 169.935 )

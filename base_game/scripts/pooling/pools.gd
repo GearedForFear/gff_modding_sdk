@@ -14,36 +14,32 @@ const Chainsaw: PackedScene \
 const Explosion: PackedScene \
 		= preload("res://scenes/destruction/explosion.tscn")
 const Money: PackedScene = preload("res://scenes/collectibles/money.tscn")
-const Sparks: PackedScene = preload("res://scenes/destruction/sparks.tscn")
+const Sparks: PackedScene = preload("res://scenes/particles/sparks.tscn")
+const SparksCPU: PackedScene = preload("res://scenes/particles/sparks_cpu.tscn")
 const CartridgeCase: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_case.tscn")
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
-
-onready var homing_missile_script: GDScript \
-		= load("res://scripts/weapon_compontents/homing_missile.gd")
-onready var straight_missile_script: GDScript \
-		= load("res://scripts/weapon_compontents/straight_missile.gd")
-onready var gles3: bool = OS.get_current_video_driver() == 0
+const homing_missile_script: GDScript \
+		= preload("res://scripts/weapon_compontents/homing_missile.gd")
+const straight_missile_script: GDScript \
+		= preload("res://scripts/weapon_compontents/straight_missile.gd")
 
 enum bullet_types {NORMAL, ACID, RICOCHET}
 
 onready var money_available: Array = $Money.get_children()
+onready var explosions_available: Array = $Explosions.get_children()
 onready var sparks_available: Array = $Sparks.get_children()
 onready var cartridge_cases_available: Array = $CartridgeCases.get_children()
 onready var cartridge_links_available: Array = $CartridgeLinks.get_children()
-
-var bullets_available: Array
-var missiles_available: Array
-var grenades_available: Array
-var buzzsaws_available: Array
-var chainsaws_available: Array
-var explosions_available: Array
+onready var bullets_available: Array = $Bullets.get_children()
+onready var missiles_available: Array = $Missiles.get_children()
+onready var grenades_available: Array = $Grenades.get_children()
+onready var buzzsaws_available: Array = $Buzzsaws.get_children()
+onready var chainsaws_available: Array = $Chainsaws.get_children()
 
 
 func _ready():
-	for n in missiles_available:
-		n.gles3 = gles3
 	for n in cartridge_cases_available:
 		n.pool = cartridge_cases_available
 	for n in cartridge_links_available:
@@ -102,8 +98,6 @@ func get_homing_missile() -> Projectile:
 	else:
 		return_value = missiles_available.pop_back()
 	return_value.set_script(homing_missile_script)
-	return_value.gles3 = gles3
-	return_value.pools = self
 	return return_value
 
 
@@ -115,8 +109,6 @@ func get_straight_missile() -> Projectile:
 	else:
 		return_value = missiles_available.pop_back()
 	return_value.set_script(straight_missile_script)
-	return_value.gles3 = gles3
-	return_value.pools = self
 	return return_value
 
 
@@ -160,10 +152,14 @@ func get_money() -> Area:
 	return new
 
 
-func get_sparks() -> MeshInstance:
+func get_sparks() -> GeometryInstance:
 	if not sparks_available.empty():
 		return sparks_available.pop_back()
-	var new: MeshInstance = Sparks.instance()
+	var new: GeometryInstance
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		new = Sparks.instance()
+	else:
+		new = SparksCPU.instance()
 	$Sparks.add_child(new)
 	return new
 

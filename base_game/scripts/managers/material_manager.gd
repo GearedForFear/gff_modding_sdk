@@ -71,8 +71,8 @@ func update_settings():
 		1:
 			enable_textures()
 			
-			var tornado_image: ImageTexture = ResourceLoader.load(\
-					"res://resources/images/world/tornado.tres", \
+			var tornado_image: StreamTexture = ResourceLoader.load(\
+					"res://resources/images/world/tornado.png", \
 					"ImageTexture")
 			tornado_usa_material.shader = TornadoNoFade
 			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
@@ -81,8 +81,8 @@ func update_settings():
 		2:
 			enable_textures()
 			
-			var tornado_image: ImageTexture = ResourceLoader.load(\
-					"res://resources/images/world/tornado.tres", \
+			var tornado_image: StreamTexture = ResourceLoader.load(\
+					"res://resources/images/world/tornado.png", \
 					"ImageTexture")
 			tornado_usa_material.shader = Tornado
 			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
@@ -91,8 +91,8 @@ func update_settings():
 
 
 func enable_textures():
-	var usa_image: ImageTexture = ResourceLoader.load(\
-			"res://resources/images/world/usa.tres", \
+	var usa_image: StreamTexture = ResourceLoader.load(\
+			"res://resources/images/world/usa.png", \
 			"ImageTexture")
 	
 	rock_usa_material.shader = TextureNoSpecular
@@ -101,7 +101,7 @@ func enable_textures():
 	iceland_material.shader = IcelandScriptDefault
 	iceland_material.set_shader_param("texture_albedo",
 			ResourceLoader.load(\
-			"res://resources/images/world/iceland.tres",
+			"res://resources/images/world/iceland.png",
 			"ImageTexture"))
 	
 	usa_material.shader = TextureNoSpecular

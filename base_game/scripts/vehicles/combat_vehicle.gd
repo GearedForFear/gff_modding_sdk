@@ -32,20 +32,17 @@ var controls: PlayerControls # null == cpu controlled
 var replacement: CombatVehicle
 var track: Spatial
 var gameplay_manager: Node
-var deletion_manager: Node
 var pools: Node
 
 onready var health: float = base_health
 onready var boost_type: int = base_boost_type
-onready var gles3: bool = OS.get_current_video_driver() == 0
+onready var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
 
 
 func _enter_tree():
 	gameplay_manager = track.get_node("GameplayManager")
-	deletion_manager = track.get_node("DeletionManager")
 	pools = track.get_node("Pools")
 	target = gameplay_manager.get_node("NonPlayerPath/Waypoint0")
-	deletion_manager.gameplay_rigid_bodies.append(self)
 	if master_body:
 		if controls == null:
 			var viewport: Viewport = find_parent("Viewport")
@@ -53,7 +50,8 @@ func _enter_tree():
 				viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
 				viewport.render_target_clear_mode = \
 						Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
-			deletion_manager.to_be_deleted.append($CameraBase)
+			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
+					$CameraBase)
 		else:
 			gameplay_manager.players.append(self)
 			match get_node("../../../..").name:
@@ -69,12 +67,9 @@ func _enter_tree():
 					driver_name = "Player 5"
 				"SpawnPoint6":
 					driver_name = "Player 6"
-		if is_in_group("heist_target"):
-			global_transform.origin = track.get_node("TargetStartSpawn")\
-					.translation + get_node("../..").translation.rotated(\
-					Vector3.UP, track.get_node("TargetStartSpawn").rotation.y)
-			rotation = track.get_node("TargetStartSpawn").rotation
-		else:
+			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
+					get_node("../StuckTimer"))
+		if not is_in_group("heist_target"):
 			global_transform.origin = track.get_node("StartSpawns").translation \
 					+ get_node("../..").translation.rotated(Vector3.UP, \
 					track.get_node("StartSpawns").rotation.y)
@@ -86,8 +81,7 @@ func _enter_tree():
 func _physics_process(_delta):
 	if master_body and controls != null \
 			and Input.is_action_just_pressed(controls.pause):
-		$CameraBase/Camera/AspectRatioContainer/Control/Pause/VBoxContainer.\
-				open(true)
+		$CameraBase/Camera/AspectRatioContainer/Control/Pause.open(true)
 		get_tree().paused = true
 	
 	if alive:
@@ -363,8 +357,7 @@ func pause_looping_audio():
 
 
 func delete(node: Node):
-	get_node("/root/RootControl").track.get_node("DeletionManager").\
-			to_be_deleted.append(node)
+	get_node("/root/RootControl/DeletionManager").to_be_deleted.append(node)
 
 
 func _on_RespawnTimer_timeout():

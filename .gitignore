@@ -54,9 +54,9 @@ base_game/resources/materials/vehicles/well_raised.material
 base_game/resources/materials/vehicles/wr_wheel.material
 base_game/resources/materials/vehicles/ww_wheel.material
 base_game/resources/images/splash.png
-base_game/resources/images/money.tres
 base_game/resources/images/icon.png
-base_game/resources/images/explosion.tres
-base_game/resources/images/world/iceland.tres
-base_game/resources/images/world/tornado.tres
-base_game/resources/images/world/usa.tres
+base_game/resources/images/world/usa.png
+base_game/resources/images/world/tornado.png
+base_game/resources/images/world/iceland.png
+base_game/resources/images/collectibles/money.png
+base_game/resources/images/destruction/explosion.png
