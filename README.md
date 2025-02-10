@@ -19,4 +19,4 @@ On Linux, the path is the following:
 You can use the terminal command `xdg-open ~/.local/share/godot/app_userdata/Geared_for_Fear` on Ubuntu.<br><br>
 
 ~~On both operating systems, the folder is expected contain a folder called "logs" and nothing else.~~ You need to create a new folder called "mods". Any mod just needs to be inside that folder. Mods are loaded, when launching the game.<br>
-This repository contains "mod_template.pck" as an example mod. When loaded, it should change the text at the top left of the main menu from "Geared for Fear" to "Modified".
+The example mod in this repository no longer works. It will be replaced at some point in the future.
