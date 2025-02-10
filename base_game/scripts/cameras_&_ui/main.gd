@@ -3,12 +3,18 @@ extends Control
 
 var config: ConfigFile = ConfigFile.new()
 var track: Spatial
-var player_amount: int
-var next_tracks: PoolStringArray = ["res://scenes/world/tracks/glacier.tscn",
-		"res://scenes/world/tracks/twisted.tscn"]
+var player_amount: int = 1
+var next_tracks: PoolStringArray
+var menu_orphans: Array
 
 onready var thread: Thread = Thread.new()
 onready var settings_manager: Node = $SettingsManager
+
+
+func _init():
+	config.load("user://config.cfg")
+	Global.root_control = self
+	AudioServer.set_bus_volume_db(0, linear2db(0.0))
 
 
 func _ready():
@@ -23,235 +29,12 @@ func _ready():
 			next_mod = directory.get_next()
 	
 	VisualServer.set_default_clear_color(Color.black)
-	if thread.start(self, "prepare") != OK:
+	if thread.start($LoadingManager, "prepare") != OK:
 		push_error("Thread did not start!")
-	$BlackBar/MainButtons/Arcade.grab_focus()
+	$AspectRatioContainer/MainMenu/Arcade.grab_focus()
 	
-	# Apply settings
-	config.load("user://config.cfg")
-	var settings: Node = $SettingsManager
-	OS.window_borderless = config.get_value("graphics", "borderless", false)
-	OS.window_fullscreen = config.get_value("graphics", "fullscreen", true)
-	settings.resolution = config.get_value("graphics", "resolution", 1)
-	settings.msaa = config.get_value("graphics", "msaa", 0)
-	settings.reflections = config.get_value("graphics", "reflections", 0)
-	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		settings.materials = config.get_value("graphics", "materials", 2)
-	else:
-		settings.materials = \
-				min(config.get_value("graphics", "materials", 1), 1)
-	settings.lighting = config.get_value("graphics", "lighting", 2)
-	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
-	settings.mirror_rate_reduced = config.get_value("graphics", \
-			"mirror_rate_reduced", true)
-	settings.transform_interpolation = config.get_value("graphics", \
-			"transform_interpolation", true)
-	settings.view_distance = \
-			config.get_value("graphics", "view_distance", 2500.0)
-	settings.rear_view_distance = \
-			config.get_value("graphics", "rear_view_distance", 200.0)
-	settings.field_of_view = config.get_value("graphics", "field_of_view", 75)
-	settings.shadow_casters = config.get_value("graphics", "shadow_casters", 3)
-	settings.splits = config.get_value("graphics", "splits", 3)
-	settings.splits_multiplayer = config.get_value("graphics", \
-			"splits_multiplayer", 2)
-	settings.shadow_resolution = config.get_value("graphics", \
-			"shadow_resolution", 8192)
-	ProjectSettings.set_setting("rendering/quality/directional_shadow/size", \
-			settings.shadow_resolution)
-	settings.max_rigid_bodies = \
-			config.get_value("graphics", "max_rigid_bodies", 100)
-	AudioServer.set_bus_volume_db(1, \
-			linear2db(config.get_value("audio", "sound", 0.5)))
-	AudioServer.set_bus_volume_db(2, \
-			linear2db(config.get_value("audio", "music", 0.5)))
-
-
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept_1") or \
-			Input.is_action_just_pressed("ui_accept_2") or \
-			Input.is_action_just_pressed("ui_accept_3") or \
-			Input.is_action_just_pressed("ui_accept_4") or \
-			Input.is_action_just_pressed("ui_accept_5") or \
-			Input.is_action_just_pressed("ui_accept_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_accept"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_pressed("ui_cancel_1") or \
-			Input.is_action_just_pressed("ui_cancel_2") or \
-			Input.is_action_just_pressed("ui_cancel_3") or \
-			Input.is_action_just_pressed("ui_cancel_4") or \
-			Input.is_action_just_pressed("ui_cancel_5") or \
-			Input.is_action_just_pressed("ui_cancel_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_cancel"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_pressed("ui_up_1") or \
-			Input.is_action_just_pressed("ui_up_2") or \
-			Input.is_action_just_pressed("ui_up_3") or \
-			Input.is_action_just_pressed("ui_up_4") or \
-			Input.is_action_just_pressed("ui_up_5") or \
-			Input.is_action_just_pressed("ui_up_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_up"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_pressed("ui_down_1") or \
-			Input.is_action_just_pressed("ui_down_2") or \
-			Input.is_action_just_pressed("ui_down_3") or \
-			Input.is_action_just_pressed("ui_down_4") or \
-			Input.is_action_just_pressed("ui_down_5") or \
-			Input.is_action_just_pressed("ui_down_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_down"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_pressed("ui_left_1") or \
-			Input.is_action_just_pressed("ui_left_2") or \
-			Input.is_action_just_pressed("ui_left_3") or \
-			Input.is_action_just_pressed("ui_left_4") or \
-			Input.is_action_just_pressed("ui_left_5") or \
-			Input.is_action_just_pressed("ui_left_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_left"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_pressed("ui_right_1") or \
-			Input.is_action_just_pressed("ui_right_2") or \
-			Input.is_action_just_pressed("ui_right_3") or \
-			Input.is_action_just_pressed("ui_right_4") or \
-			Input.is_action_just_pressed("ui_right_5") or \
-			Input.is_action_just_pressed("ui_right_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_right"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
-	
-	if Input.is_action_just_released("ui_cancel"):
-		if $BlackBar/MainButtons.visible:
-			$BlackBar/MainButtons/Quit.grab_focus()
-		elif $BlackBar/PlayerButtons.visible:
-			switch_buttons($BlackBar/PlayerButtons, \
-					$BlackBar/MainButtons/Arcade)
-			$ReturnAudio.play()
-		elif $BlackBar/TrackButtons.visible:
-			switch_buttons($BlackBar/TrackButtons, \
-					$BlackBar/MainButtons/Arcade)
-			$ReturnAudio.play()
-		elif $BlackBar/SettingsButtons.visible:
-			$Names.show()
-			$Scores.show()
-			$CurrentSettings.hide()
-			switch_buttons($BlackBar/SettingsButtons, \
-					$BlackBar/MainButtons/Settings)
-			$ReturnAudio.play()
-		elif $BlackBar/GraphicsButtons.visible:
-			$BlackBar/Warning.hide()
-			switch_buttons($BlackBar/GraphicsButtons, \
-					$BlackBar/SettingsButtons/Graphics)
-			$ReturnAudio.play()
-		elif $BlackBar/WindowModesButtons.visible:
-			switch_buttons($BlackBar/WindowModesButtons, \
-					$BlackBar/GraphicsButtons/WindowModes)
-			$ReturnAudio.play()
-		elif $BlackBar/ResolutionButtons.visible:
-			switch_buttons($BlackBar/ResolutionButtons, \
-					$BlackBar/GraphicsButtons/Resolution)
-			$ReturnAudio.play()
-		elif $BlackBar/MSAAButtons.visible:
-			switch_buttons($BlackBar/MSAAButtons, \
-					$BlackBar/GraphicsButtons/MSAA)
-			$ReturnAudio.play()
-		elif $BlackBar/ReflectionsButtons.visible:
-			switch_buttons($BlackBar/ReflectionsButtons, \
-					$BlackBar/GraphicsButtons/Reflections)
-			$ReturnAudio.play()
-		elif $BlackBar/MaterialsButtons.visible:
-			switch_buttons($BlackBar/MaterialsButtons, \
-					$BlackBar/GraphicsButtons/Materials)
-			$ReturnAudio.play()
-		elif $BlackBar/LightingButtons.visible:
-			switch_buttons($BlackBar/LightingButtons, \
-					$BlackBar/GraphicsButtons/Lighting)
-			$ReturnAudio.play()
-		elif $BlackBar/ViewDistanceButtons.visible:
-			switch_buttons($BlackBar/ViewDistanceButtons, \
-					$BlackBar/GraphicsButtons/ViewDistance)
-			$ReturnAudio.play()
-		elif $BlackBar/RearViewDistanceButtons.visible:
-			switch_buttons($BlackBar/RearViewDistanceButtons, \
-					$BlackBar/GraphicsButtons/RearViewDistance)
-			$ReturnAudio.play()
-		elif $BlackBar/FieldOfViewButtons.visible:
-			switch_buttons($BlackBar/FieldOfViewButtons, \
-					$BlackBar/GraphicsButtons/FieldOfView)
-			$ReturnAudio.play()
-		elif $BlackBar/ShadowCastersButtons.visible:
-			switch_buttons($BlackBar/ShadowCastersButtons, \
-					$BlackBar/GraphicsButtons/ShadowCasters)
-			$ReturnAudio.play()
-		elif $BlackBar/ShadowSplitsButtons.visible:
-			switch_buttons($BlackBar/ShadowSplitsButtons, \
-					$BlackBar/GraphicsButtons/ShadowSplits)
-			$ReturnAudio.play()
-		elif $BlackBar/ShadowSplitsMultiplayerButtons.visible:
-			switch_buttons($BlackBar/ShadowSplitsMultiplayerButtons, \
-					$BlackBar/GraphicsButtons/ShadowSplitsMultiplayer)
-			$ReturnAudio.play()
-		elif $BlackBar/ShadowResButtons.visible:
-			switch_buttons($BlackBar/ShadowResButtons, \
-					$BlackBar/GraphicsButtons/ShadowRes)
-			$ReturnAudio.play()
-		elif $BlackBar/MaxRigidBodiesButtons.visible:
-			switch_buttons($BlackBar/MaxRigidBodiesButtons, \
-					$BlackBar/GraphicsButtons/MaxRigidBodies)
-			$ReturnAudio.play()
-		elif $BlackBar/SoundButtons.visible:
-			switch_buttons($BlackBar/SoundButtons, \
-					$BlackBar/SettingsButtons/Sound)
-			$ReturnAudio.play()
-		elif $BlackBar/EffectsVolumeButtons.visible:
-			switch_buttons($BlackBar/EffectsVolumeButtons, \
-					$BlackBar/SoundButtons/EffectsVolume)
-			$ReturnAudio.play()
-		elif $BlackBar/MusicVolumeButtons.visible:
-			switch_buttons($BlackBar/MusicVolumeButtons, \
-					$BlackBar/SoundButtons/MusicVolume)
-			$ReturnAudio.play()
-
-
-func prepare():
-	$Loading.show()
-	$Precompiler.add_materials()
-	$ResourceManager.load_resources()
-	$Precompiler.emit_particles()
-	$MaterialManager.update_settings()
-	$Loading.hide()
+	yield(get_tree(), "idle_frame")
+	AudioServer.set_bus_volume_db(0, linear2db(1.0))
 
 
 func spawn_track(path: String):
@@ -270,10 +53,9 @@ func spawn_track(path: String):
 
 
 func play():
-	$BlackBar/PlayerButtons.hide()
 	$DeletionManager._ready()
 	$MaterialManager.set_movement(true)
-	thread.wait_to_finish()
+	$LoadingManager.wait_for_loading()
 	var rr: int = OS.get_screen_refresh_rate()
 	get_tree().physics_interpolation = settings_manager.transform_interpolation\
 			and rr != 29 and rr != 30 and rr != 59 and rr != 60
@@ -525,17 +307,22 @@ func play_next(vehicle_data: Array):
 	yield(get_tree(), "idle_frame")
 	
 	if next_tracks.empty():
+		active(true)
 		vehicle_data.sort_custom(VehicleData, "sort_score")
-		$Title.text = vehicle_data[0].driver_name + " Wins"
-		$Names.text = ""
-		$Scores.text = ""
+		$AspectRatioContainer/ArcadeEnd/Headline.text \
+				= vehicle_data[0].driver_name + " Wins"
+		var names: Label = $AspectRatioContainer/ArcadeEnd/ColorRect/Names
+		var scores: Label = $AspectRatioContainer/ArcadeEnd/ColorRect/Scores
+		names.text = ""
+		scores.text = ""
 		for n in 12:
 			var data: VehicleData = vehicle_data[n]
-			$Names.text += data.driver_name + "\n"
-			$Scores.text += String(data.score) + "€\n"
+			names.text += data.driver_name + "\n"
+			scores.text += String(data.score) + "€\n"
 			data.free()
-		active(true)
 		$DeletionManager.delete = true
+		$AspectRatioContainer/MainMenu.hide()
+		$AspectRatioContainer/ArcadeEnd.show()
 		return
 	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
 	next_tracks.remove(0)
@@ -693,15 +480,20 @@ func play_next(vehicle_data: Array):
 
 func active(var b: bool):
 	if b:
+		for n in menu_orphans:
+			add_child(n)
+		menu_orphans.clear()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		var menu: Control = $AspectRatioContainer/MainMenu
+		menu.show()
+		menu.get_node("Arcade").grab_focus()
 	else:
+		for n in [$AspectRatioContainer, $ResolutionMenu, $FOVMenu]:
+			menu_orphans.append(n)
+			remove_child(n)
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	$BlackBar/MainButtons/Arcade.grab_focus()
 	visible = b
-	$BlackBar/MainButtons.visible = b
 	set_process(b)
-	for n in $BlackBar/MainButtons.get_children():
-		n.disabled = not b
 
 
 func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
@@ -762,10 +554,5 @@ func instantiate_target_vehicle():
 	track.get_node("TargetStartSpawn").add_child(vehicle)
 
 
-func switch_buttons(var from: BoxContainer, var to: Control):
-	from.hide()
-	to.grab_focus()
-	if to.get_node("../..").is_class("ColorRect"):
-		to.get_parent().show()
-	else:
-		to.get_node("../..").show()
+func _on_RootControl_item_rect_changed():
+	Reflections.update_reflections()

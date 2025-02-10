@@ -27,7 +27,7 @@ cast_shadow = 0
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 7 )
-required_setting = 5
+required_setting = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.5 )

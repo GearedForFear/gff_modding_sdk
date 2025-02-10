@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/materials/weapon_components/buzzsaw.material" type="Material" id=1]
 [ext_resource path="res://scripts/weapon_compontents/buzzsaw.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/sounds/weapon_components/bow_crossbow_arrow_shoot_type2_04.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/weapon_components/sword_hit_impact_heavy_03.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/materials/weapon_components/buzzsaw_pull.material" type="Material" id=6]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=7]
 [ext_resource path="res://resources/meshes/weapon_components/buzzsaw.tres" type="ArrayMesh" id=9]
 
 [sub_resource type="CylinderMesh" id=4]
@@ -30,6 +31,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 1 )
+script = ExtResource( 7 )
+required_setting = 4
 
 [node name="Line" type="MeshInstance" parent="."]
 visible = false

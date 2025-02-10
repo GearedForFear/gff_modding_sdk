@@ -111,7 +111,7 @@ portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
-required_setting = 2
+required_setting = 1
 wheel_scale = 0.9
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -121,7 +121,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 17 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -131,7 +131,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 17 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -141,7 +141,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 17 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -151,7 +151,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 17 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]

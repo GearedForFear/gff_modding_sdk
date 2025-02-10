@@ -46,6 +46,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 4
+wheel_path = NodePath("..")
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, 1.47 )
@@ -64,6 +65,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 4
+wheel_path = NodePath("..")
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, -1.68835 )
@@ -81,6 +83,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 4
+wheel_path = NodePath("..")
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, -1.68801 )
@@ -98,6 +101,7 @@ mesh = ExtResource( 15 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 4
+wheel_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372427, 0 )

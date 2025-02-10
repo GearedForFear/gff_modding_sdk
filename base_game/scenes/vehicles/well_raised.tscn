@@ -115,7 +115,7 @@ portal_mode = 3
 mesh = ExtResource( 11 )
 material/0 = ExtResource( 17 )
 script = ExtResource( 29 )
-required_setting = 2
+required_setting = 1
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, 1.44936 )
@@ -124,7 +124,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -134,7 +134,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -144,7 +144,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -154,7 +154,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="MGMeshLeft" type="MeshInstance" parent="Body"]
@@ -163,7 +163,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
 script = ExtResource( 12 )
-required_setting = 4
+required_setting = 3
 
 [node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshLeft"]
 
@@ -188,7 +188,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
 script = ExtResource( 12 )
-required_setting = 4
+required_setting = 3
 
 [node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshMiddle"]
 
@@ -213,7 +213,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 16 )
 script = ExtResource( 12 )
-required_setting = 4
+required_setting = 3
 
 [node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshRight"]
 

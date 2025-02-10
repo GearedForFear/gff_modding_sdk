@@ -93,7 +93,7 @@ portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 6 )
-required_setting = 2
+required_setting = 1
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13288, 0.142987, 2.78646 )
@@ -102,7 +102,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 2 )
 script = ExtResource( 5 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -112,7 +112,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 2 )
 script = ExtResource( 5 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -122,7 +122,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 2 )
 script = ExtResource( 5 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -132,7 +132,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 2 )
 script = ExtResource( 5 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="CollisionShape" type="CollisionShape" parent="Body"]

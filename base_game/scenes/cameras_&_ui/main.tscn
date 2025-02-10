@@ -1,30 +1,24 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=93 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
-[ext_resource path="res://scripts/cameras_&_ui/current_settings.gd" type="Script" id=2]
+[ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://resources/fonts/Robtronika-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_casters.gd" type="Script" id=5]
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
-[ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_resolution.gd" type="Script" id=9]
+[ext_resource path="res://resources/images/cameras_&_ui/multiplayer.png" type="Texture" id=9]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=10]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/volume.gd" type="Script" id=11]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/resolution.gd" type="Script" id=12]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_splits_multiplayer.gd" type="Script" id=13]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/vsync.gd" type="Script" id=14]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/fov.gd" type="Script" id=15]
+[ext_resource path="res://resources/theme/big_label.theme" type="Theme" id=11]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/multiplayer.gd" type="Script" id=12]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/resolution.gd" type="Script" id=14]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/player_amount.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/window_modes.gd" type="Script" id=16]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/rigid.gd" type="Script" id=17]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/msaa.gd" type="Script" id=18]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/view_distance.gd" type="Script" id=19]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/rear_view_distance.gd" type="Script" id=20]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/settings.gd" type="Script" id=21]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/volume.gd" type="Script" id=17]
+[ext_resource path="res://resources/images/cameras_&_ui/arcade.png" type="Texture" id=18]
+[ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=19]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=22]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_22.wav" type="AudioStream" id=24]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/reflections.gd" type="Script" id=25]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/field_of_view.gd" type="Script" id=25]
 [ext_resource path="res://scripts/precompiler.gd" type="Script" id=26]
 [ext_resource path="res://scenes/particles/chainsaw_sparks.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/particles/chainsaw_sparks_cpu.tscn" type="PackedScene" id=28]
@@ -50,90 +44,58 @@
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=48]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=49]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=50]
-[ext_resource path="res://scripts/world/environment.gd" type="Script" id=51]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/mirror_rate.gd" type="Script" id=52]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/transform_interpolation.gd" type="Script" id=53]
+[ext_resource path="res://scripts/cameras_&_ui/fov_camera.gd" type="Script" id=51]
+[ext_resource path="res://resources/images/cameras_&_ui/challenges.png" type="Texture" id=52]
 [ext_resource path="res://scripts/managers/mirror_manager.gd" type="Script" id=54]
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=55]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/quit.gd" type="Script" id=56]
 [ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=57]
 [ext_resource path="res://scripts/cameras_&_ui/loading_animation.gd" type="Script" id=58]
 [ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/particles/heart_flame.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/materials.gd" type="Script" id=62]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/lighting.gd" type="Script" id=63]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/shadow_splits.gd" type="Script" id=64]
+[ext_resource path="res://scripts/managers/loading_manager.gd" type="Script" id=62]
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/track_button.gd" type="Script" id=67]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=67]
 [ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=68]
 [ext_resource path="res://scripts/start_time.gd" type="Script" id=69]
 [ext_resource path="res://scripts/end_time.gd" type="Script" id=70]
-
-[sub_resource type="DynamicFont" id=1]
-size = 40
-font_data = ExtResource( 3 )
+[ext_resource path="res://resources/theme/main.theme" type="Theme" id=71]
+[ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=73]
+[ext_resource path="res://resources/environments/below.tres" type="Environment" id=74]
+[ext_resource path="res://resources/environments/twisted.tres" type="Environment" id=75]
+[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=78]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=89]
+[ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_small_05.wav" type="AudioStream" id=90]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=91]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/reflections.gd" type="Script" id=92]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/materials.gd" type="Script" id=94]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/lighting.gd" type="Script" id=95]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/view_distance.gd" type="Script" id=96]
+[ext_resource path="res://scripts/cameras_&_ui/updating_camera.gd" type="Script" id=97]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_distance.gd" type="Script" id=98]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_casters.gd" type="Script" id=99]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits.gd" type="Script" id=100]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits_multiplayer.gd" type="Script" id=101]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_resolution.gd" type="Script" id=102]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/max_rigid_bodies.gd" type="Script" id=103]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/v_sync.gd" type="Script" id=104]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/mirror_frame_rate.gd" type="Script" id=105]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/transform_interpolation.gd" type="Script" id=106]
+[ext_resource path="res://scripts/managers/menu_input_manager.gd" type="Script" id=107]
+[ext_resource path="res://scripts/cameras_&_ui/selected_track_view.gd" type="Script" id=108]
 
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=16]
-size = 9
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 8 )
-
-[sub_resource type="QuadMesh" id=15]
-
-[sub_resource type="ProceduralSky" id=13]
-sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
-sky_horizon_color = Color( 0.717647, 0.87451, 1, 1 )
-ground_bottom_color = Color( 0.8, 0.604, 0.464, 1 )
-ground_horizon_color = Color( 0.909804, 0.752941, 0.631373, 1 )
-sun_latitude = 32.0
-sun_longitude = -100.0
-
-[sub_resource type="Environment" id=14]
-background_mode = 2
-background_sky = SubResource( 13 )
-ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 0.5
-ambient_light_sky_contribution = 0.4
-tonemap_mode = 3
-ss_reflections_enabled = true
-ss_reflections_max_steps = 512
-ss_reflections_fade_in = 1e-05
-ss_reflections_fade_out = 1e-05
-ss_reflections_roughness = false
-
-[sub_resource type="DynamicFont" id=3]
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxEmpty" id=7]
-
-[sub_resource type="StyleBoxEmpty" id=8]
-
-[sub_resource type="DynamicFont" id=20]
-size = 12
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=10]
-size = 9
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 8 )
-
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=21]
 size = 25
+outline_size = 2
 font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=22]
+default_font = SubResource( 21 )
+Label/colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=18]
 length = 0.001
@@ -166,6 +128,7 @@ tracks/1/keys = {
 resource_name = "loading"
 length = 2.0
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:anchor_left")
 tracks/0/interp = 1
@@ -174,7 +137,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 1.5, 2 ),
-"transitions": PoolRealArray( 0.5, 0.5, 1, 1 ),
+"transitions": PoolRealArray( 0.5, 0.5, 1, 2 ),
 "update": 0,
 "values": [ 0.0, 1.0, 0.0, 0.0 ]
 }
@@ -191,6 +154,29 @@ tracks/1/keys = {
 "values": [ 0.0, 1.0, 1.0, 0.0 ]
 }
 
+[sub_resource type="QuadMesh" id=15]
+
+[sub_resource type="ProceduralSky" id=13]
+sky_top_color = Color( 0.560784, 0.843137, 1, 1 )
+sky_horizon_color = Color( 0.717647, 0.87451, 1, 1 )
+ground_bottom_color = Color( 0.8, 0.604, 0.464, 1 )
+ground_horizon_color = Color( 0.909804, 0.752941, 0.631373, 1 )
+sun_latitude = 32.0
+sun_longitude = -100.0
+
+[sub_resource type="Environment" id=14]
+background_mode = 2
+background_sky = SubResource( 13 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.5
+ambient_light_sky_contribution = 0.4
+tonemap_mode = 3
+ss_reflections_enabled = true
+ss_reflections_max_steps = 512
+ss_reflections_fade_in = 1e-05
+ss_reflections_fade_out = 1e-05
+ss_reflections_roughness = false
+
 [node name="RootControl" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -206,43 +192,1522 @@ __meta__ = {
 [node name="StartTime" type="Node" parent="."]
 script = ExtResource( 69 )
 
-[node name="Title" type="Label" parent="."]
-anchor_left = 0.07
-anchor_top = 0.07
-anchor_right = 0.6
-anchor_bottom = 0.07
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "Geared for Fear"
-autowrap = true
-
 [node name="BackgroundShader" type="ColorRect" parent="."]
 material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 
-[node name="Names" type="Label" parent="."]
-anchor_left = 0.092
-anchor_top = 0.21
-anchor_right = 0.25
-anchor_bottom = 0.21
-custom_fonts/font = SubResource( 16 )
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="MainMenu" type="Control" parent="AspectRatioContainer"]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="Arcade" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_top = 0.427
+anchor_right = 0.618
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../Multiplayer")
+focus_neighbour_top = NodePath("../Customization")
+theme = ExtResource( 71 )
+text = "Arcade"
+script = ExtResource( 22 )
+track_path = ""
+
+[node name="Challenges" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.618
+anchor_top = 0.427
+anchor_right = 0.809
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_top = NodePath("../DoNotPress")
+theme = ExtResource( 71 )
+disabled = true
+text = "Challenges"
+
+[node name="Multiplayer" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.809
+anchor_top = 0.427
+anchor_right = 1.0
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_right = NodePath("../Arcade")
+theme = ExtResource( 71 )
+text = "Multiplayer"
+script = ExtResource( 12 )
+
+[node name="SingleTrack" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_top = 0.618
+anchor_right = 0.618
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../Credits")
+theme = ExtResource( 71 )
+text = "Single Track"
 clip_text = true
+script = ExtResource( 10 )
+show_parent = 2
+
+[node name="Freeroam" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.618
+anchor_top = 0.618
+anchor_right = 0.809
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = ExtResource( 71 )
+disabled = true
+text = "Freeroam"
+clip_text = true
+
+[node name="Credits" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.809
+anchor_top = 0.618
+anchor_right = 1.0
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_right = NodePath("../SingleTrack")
+theme = ExtResource( 71 )
+disabled = true
+text = "Credits"
+clip_text = true
+
+[node name="Customization" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_top = 0.809
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Arcade")
+theme = ExtResource( 71 )
+disabled = true
+text = "Customization"
+clip_text = true
+
+[node name="DoNotPress" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.618
+anchor_top = 0.809
+anchor_right = 0.809
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_bottom = NodePath("../Challenges")
+theme = ExtResource( 71 )
+disabled = true
+text = "Do not Press"
+clip_text = true
+
+[node name="Options" type="Button" parent="AspectRatioContainer/MainMenu"]
+anchor_left = 0.809
+anchor_top = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_right = NodePath("../Customization")
+focus_neighbour_bottom = NodePath("../Multiplayer")
+theme = ExtResource( 71 )
+text = "Options"
+clip_text = true
+script = ExtResource( 10 )
+selection = "../../OptionsMenu/Buttons/Resolution"
+show_parent = 2
+
+[node name="Images" type="Control" parent="AspectRatioContainer/MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 0.427
+margin_top = 5.0
+margin_bottom = 6.0
+
+[node name="Arcade" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = -5.0
+texture = ExtResource( 18 )
+
+[node name="Challenges" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
+anchor_left = 0.618
+anchor_right = 0.809
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = -5.0
+texture = ExtResource( 52 )
+
+[node name="Multiplayer" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
+anchor_left = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = -5.0
+texture = ExtResource( 9 )
+
+[node name="PlayerAmount" type="VBoxContainer" parent="AspectRatioContainer/MainMenu"]
+visible = false
+anchor_left = 0.809
+anchor_right = 1.0
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Players2" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
+margin_right = 112.0
+margin_bottom = 39.0
+focus_neighbour_top = NodePath("../../Options")
+focus_neighbour_right = NodePath("../../Arcade")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "2 Players"
+script = ExtResource( 15 )
+
+[node name="Players3" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
+margin_top = 43.0
+margin_right = 112.0
+margin_bottom = 82.0
+focus_neighbour_right = NodePath("../../Arcade")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "3 Players"
+script = ExtResource( 15 )
+
+[node name="Players4" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
+margin_top = 86.0
+margin_right = 112.0
+margin_bottom = 125.0
+focus_neighbour_right = NodePath("../../Arcade")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "4 Players"
+script = ExtResource( 15 )
+
+[node name="Players5" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
+margin_top = 129.0
+margin_right = 112.0
+margin_bottom = 168.0
+focus_neighbour_right = NodePath("../../Arcade")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "5 Players"
+script = ExtResource( 15 )
+
+[node name="Players6" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
+margin_top = 172.0
+margin_right = 112.0
+margin_bottom = 212.0
+focus_neighbour_right = NodePath("../../Arcade")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "6 Players"
+script = ExtResource( 15 )
+
+[node name="TrackMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="SelectedView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SelectedView"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 108 )
+
+[node name="TheCalmCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( 0.8782, 0.399523, -0.262957, 0, 0.549781, 0.835309, 0.478293, -0.733568, 0.482818, 213.456, 118.093, 325.372 )
+visible = false
+environment = ExtResource( 73 )
+current = true
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="BelowCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( 0.148983, 0.702345, -0.696072, 0, 0.703928, 0.710271, 0.98884, -0.105818, 0.104873, -728.759, 161.104, -984.393 )
+visible = false
+environment = ExtResource( 74 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="TwistedCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.555454, 0.831547, 0, -0.831547, 0.555454, -167.574, 189.869, 325.362 )
+visible = false
+environment = ExtResource( 75 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Iceland" type="Spatial" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+visible = false
+
+[node name="USA" type="Spatial" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+visible = false
+
+[node name="TheCalmLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+visible = false
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="BelowLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
+visible = false
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="TwistedLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+visible = false
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/TrackMenu"]
+anchor_left = 0.618
+anchor_right = 0.809
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Downpour" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_right = 112.0
+margin_bottom = 54.0
+focus_neighbour_top = NodePath("../Twisted")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Downpour"
+script = ExtResource( 22 )
+
+[node name="TheCalm" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_top = 58.0
+margin_right = 112.0
+margin_bottom = 113.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "The Calm"
+script = ExtResource( 22 )
+track_path = "res://scenes/world/tracks/the_calm.tscn"
+
+[node name="Pillars" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_top = 117.0
+margin_right = 112.0
+margin_bottom = 172.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Pillars"
+script = ExtResource( 22 )
+
+[node name="Sunbreaker" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_top = 176.0
+margin_right = 112.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Sunbreaker"
+script = ExtResource( 22 )
+
+[node name="Below" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_top = 235.0
+margin_right = 112.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Below"
+script = ExtResource( 22 )
+track_path = "res://scenes/world/tracks/below.tscn"
+
+[node name="Twisted" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
+margin_top = 294.0
+margin_right = 112.0
+margin_bottom = 349.0
+focus_neighbour_bottom = NodePath("../Downpour")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Twisted"
+script = ExtResource( 22 )
+track_path = "res://scenes/world/tracks/twisted.tscn"
+
+[node name="SmallViewports" type="VBoxContainer" parent="AspectRatioContainer/TrackMenu"]
+anchor_left = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Placeholder" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_right = 122.0
+margin_bottom = 54.0
+size_flags_vertical = 3
+
+[node name="TheCalmView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_top = 58.0
+margin_right = 122.0
+margin_bottom = 113.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.266801, 0.963752, 0, -0.963752, 0.266801, 173.16, 115.359, 251.395 )
+environment = ExtResource( 73 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Placeholder2" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_top = 117.0
+margin_right = 122.0
+margin_bottom = 172.0
+size_flags_vertical = 3
+
+[node name="Placeholder3" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_top = 176.0
+margin_right = 122.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+
+[node name="BelowView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_top = 235.0
+margin_right = 122.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
+transform = Transform( -0.912127, -0.075628, 0.40287, 0, 0.982832, 0.1845, -0.409907, 0.168288, -0.896468, -225.349, 32.0347, -930.875 )
+environment = ExtResource( 74 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="TwistedView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
+margin_top = 294.0
+margin_right = 122.0
+margin_bottom = 349.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
+transform = Transform( 0.934888, -0.147779, 0.322717, 0, 0.909207, 0.416344, -0.354944, -0.389235, 0.850006, -124.372, 63.4621, 377.347 )
+environment = ExtResource( 75 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="OptionsMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/OptionsMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/OptionsMenu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
+transform = Transform( -0.949857, 0, -0.312683, 0, 1, 0, 0.312683, 0, -0.949857, 261.703, 1.48928, 216.581 )
+environment = ExtResource( 73 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/OptionsMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Resolution" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_right = 234.0
+margin_bottom = 35.0
+focus_neighbour_top = NodePath("../Advanced")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Resolution"
+script = ExtResource( 10 )
+selection = "../../../../ResolutionMenu/SliderBackground/HSlider"
+hide_parent = 2
+show_parent = 2
+
+[node name="Graphics" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 39.0
+margin_right = 234.0
+margin_bottom = 74.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Graphics"
+script = ExtResource( 10 )
+
+[node name="FieldOfView" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 78.0
+margin_right = 234.0
+margin_bottom = 113.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Field of View"
+script = ExtResource( 10 )
+selection = "../../../../FOVMenu/ColorRect/HSlider"
+hide_parent = 2
+show_parent = 2
+
+[node name="WindowMode" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 117.0
+margin_right = 234.0
+margin_bottom = 152.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Window Mode"
+script = ExtResource( 10 )
+selection = "../../../WindowModeMenu/Buttons/Fullscreen"
+hide_parent = 2
+show_parent = 2
+
+[node name="Sound" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 156.0
+margin_right = 234.0
+margin_bottom = 192.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Sound"
+script = ExtResource( 10 )
+selection = "../../../SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider"
+hide_parent = 2
+show_parent = 3
+
+[node name="Controls" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 196.0
+margin_right = 234.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Controls"
+script = ExtResource( 10 )
+
+[node name="Language" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 235.0
+margin_right = 234.0
+margin_bottom = 270.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Language"
+script = ExtResource( 10 )
+
+[node name="Accessibility" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 274.0
+margin_right = 234.0
+margin_bottom = 309.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+disabled = true
+text = "Accessibility"
+script = ExtResource( 10 )
+
+[node name="Advanced" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
+margin_top = 313.0
+margin_right = 234.0
+margin_bottom = 349.0
+focus_neighbour_bottom = NodePath("../Resolution")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Advanced"
+script = ExtResource( 10 )
+selection = "../../../AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider"
+hide_parent = 2
+show_parent = 3
+
+[node name="WindowModeMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/WindowModeMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.787043, 0.616899, 0, -0.616899, 0.787043, -471.684, 145.827, -554.712 )
+environment = ExtResource( 74 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/WindowModeMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Fullscreen" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
+margin_right = 234.0
+margin_bottom = 113.0
+focus_neighbour_top = NodePath("../Borderless")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Fullscreen"
+script = ExtResource( 16 )
+fullscreen = true
+
+[node name="WithBorder" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
+margin_top = 117.0
+margin_right = 234.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Window with Border"
+script = ExtResource( 16 )
+
+[node name="Borderless" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
+margin_top = 235.0
+margin_right = 234.0
+margin_bottom = 349.0
+focus_neighbour_bottom = NodePath("../Fullscreen")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "Borderless Window"
+script = ExtResource( 16 )
+borderless = true
+
+[node name="SoundMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/SoundMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/SoundMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/SoundMenu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.987159, 0, -0.159743, 0, 1, 0, 0.159743, 0, 0.987159, 23.2897, 99.6438, 753.131 )
+environment = ExtResource( 74 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Sliders" type="ScrollContainer" parent="AspectRatioContainer/SoundMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = ExtResource( 71 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/SoundMenu/Sliders"]
+margin_right = 234.48
+margin_bottom = 349.955
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="SoundEffectsVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
+margin_top = 112.0
+margin_right = 234.0
+margin_bottom = 135.0
+text = "Sound FX Volume: 50"
+autowrap = true
+
+[node name="SoundEffectsVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
+margin_top = 139.0
+margin_right = 234.0
+margin_bottom = 159.0
+focus_neighbour_top = NodePath("../MusicVolumeSlider")
+theme = ExtResource( 71 )
+value = 50.0
+rounded = true
+scrollable = false
+script = ExtResource( 17 )
+
+[node name="MusicVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
+margin_top = 163.0
+margin_right = 234.0
+margin_bottom = 212.0
+text = "Music coming in the Future"
+autowrap = true
+
+[node name="MusicVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
+margin_top = 216.0
+margin_right = 234.0
+margin_bottom = 236.0
+focus_neighbour_bottom = NodePath("../SoundEffectsVolumeSlider")
+theme = ExtResource( 71 )
+value = 50.0
+rounded = true
+scrollable = false
+script = ExtResource( 17 )
+audio_bus = 2
+
+[node name="Info" type="ColorRect" parent="AspectRatioContainer/SoundMenu"]
+visible = false
+anchor_top = 0.708
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="AspectRatioContainer/SoundMenu/Info"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = -3.0
+theme = ExtResource( 71 )
+text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="AdvancedMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/AdvancedMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/AdvancedMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.999417, 0, 0.0341316, 0, 1, 0, -0.0341316, 0, 0.999417, -262.915, -26.9245, -568.048 )
+environment = ExtResource( 74 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Sliders" type="ScrollContainer" parent="AspectRatioContainer/AdvancedMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = ExtResource( 71 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/AdvancedMenu/Sliders"]
+margin_right = 234.48
+margin_bottom = 918.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AntiAliasingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_right = 224.0
+margin_bottom = 24.0
+text = "Anti-Aliasing: Off"
+autowrap = true
+
+[node name="AntiAliasingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 28.0
+margin_right = 224.0
+margin_bottom = 48.0
+focus_neighbour_top = NodePath("../TransformInterpolationSlider")
+theme = ExtResource( 71 )
+max_value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 67 )
+
+[node name="ReflectionsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 52.0
+margin_right = 224.0
+margin_bottom = 76.0
+text = "Reflections: Off"
+autowrap = true
+
+[node name="ReflectionsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 80.0
+margin_right = 224.0
+margin_bottom = 100.0
+theme = ExtResource( 71 )
+max_value = 11.0
+rounded = true
+scrollable = false
+script = ExtResource( 92 )
+
+[node name="MaterialsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 104.0
+margin_right = 224.0
+margin_bottom = 128.0
+text = "Materials: Default"
+autowrap = true
+
+[node name="MaterialsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 132.0
+margin_right = 224.0
+margin_bottom = 152.0
+theme = ExtResource( 71 )
+max_value = 2.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 94 )
+
+[node name="LightingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 156.0
+margin_right = 224.0
+margin_bottom = 180.0
+text = "Lighting: Default"
+autowrap = true
+
+[node name="LightingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 184.0
+margin_right = 224.0
+margin_bottom = 204.0
+theme = ExtResource( 71 )
+max_value = 2.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 95 )
+
+[node name="ViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 208.0
+margin_right = 224.0
+margin_bottom = 232.0
+text = "View Distance: 2500m"
+autowrap = true
+
+[node name="ViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 236.0
+margin_right = 224.0
+margin_bottom = 256.0
+theme = ExtResource( 71 )
+max_value = 8.0
+value = 8.0
+rounded = true
+scrollable = false
+script = ExtResource( 96 )
+
+[node name="RearViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 260.0
+margin_right = 224.0
+margin_bottom = 311.0
+text = "Rear View Mirror Distance: 200m"
+autowrap = true
+
+[node name="RearViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 315.0
+margin_right = 224.0
+margin_bottom = 335.0
+theme = ExtResource( 71 )
+max_value = 11.0
+value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 98 )
+
+[node name="ShadowCastersLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 339.0
+margin_right = 224.0
+margin_bottom = 390.0
+text = "Shadow Casters: Default"
+autowrap = true
+
+[node name="ShadowCastersSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 394.0
+margin_right = 224.0
+margin_bottom = 414.0
+theme = ExtResource( 71 )
+max_value = 5.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 99 )
+
+[node name="ShadowSplitsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 418.0
+margin_right = 224.0
+margin_bottom = 442.0
+text = "Shadow Map Splits: 3"
+autowrap = true
+
+[node name="ShadowSplitsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 446.0
+margin_right = 224.0
+margin_bottom = 466.0
+theme = ExtResource( 71 )
+max_value = 4.0
+value = 3.0
+rounded = true
+scrollable = false
+script = ExtResource( 100 )
+
+[node name="ShadowSplitsMultiplayerLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 470.0
+margin_right = 224.0
+margin_bottom = 521.0
+text = "Shadow Map Splits (Multiplayer): 2"
+autowrap = true
+
+[node name="ShadowSplitsMultiplayerSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 525.0
+margin_right = 224.0
+margin_bottom = 545.0
+theme = ExtResource( 71 )
+max_value = 4.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 101 )
+
+[node name="ShadowResolutionLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 549.0
+margin_right = 224.0
+margin_bottom = 600.0
+text = "Shadow Resolution: 8192 x 8192"
+autowrap = true
+
+[node name="ShadowResolutionSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 604.0
+margin_right = 224.0
+margin_bottom = 624.0
+theme = ExtResource( 71 )
+max_value = 3.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 102 )
+
+[node name="MaximumRigidBodiesLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 628.0
+margin_right = 224.0
+margin_bottom = 679.0
+text = "Maximum Rigid Bodies: 100"
+autowrap = true
+
+[node name="MaximumRigidBodiesSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 683.0
+margin_right = 224.0
+margin_bottom = 703.0
+theme = ExtResource( 71 )
+max_value = 10.0
+value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 103 )
+
+[node name="VSyncLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 707.0
+margin_right = 224.0
+margin_bottom = 731.0
+text = "V Sync: On"
+autowrap = true
+
+[node name="VSyncSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 735.0
+margin_right = 224.0
+margin_bottom = 755.0
+theme = ExtResource( 71 )
+max_value = 1.0
+value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 104 )
+
+[node name="ToggleMirrorLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 759.0
+margin_right = 224.0
+margin_bottom = 837.0
+text = "Rear View Mirror Frame Rate (Multiplayer): Reduced"
+autowrap = true
+
+[node name="ToggleMirrorSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 841.0
+margin_right = 224.0
+margin_bottom = 861.0
+theme = ExtResource( 71 )
+max_value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 105 )
+
+[node name="TransformInterpolationLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 865.0
+margin_right = 224.0
+margin_bottom = 916.0
+text = "Transform Interpolation: Automatic"
+autowrap = true
+
+[node name="TransformInterpolationSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 920.0
+margin_right = 224.0
+margin_bottom = 940.0
+focus_neighbour_bottom = NodePath("../AntiAliasingSlider")
+theme = ExtResource( 71 )
+max_value = 1.0
+value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 106 )
+
+[node name="Info" type="ColorRect" parent="AspectRatioContainer/AdvancedMenu"]
+visible = false
+anchor_top = 0.708
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="AspectRatioContainer/AdvancedMenu/Info"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = -3.0
+theme = ExtResource( 71 )
+text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ArcadeEnd" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="Headline" type="Label" parent="AspectRatioContainer/ArcadeEnd"]
+anchor_top = 0.074
+anchor_right = 1.0
+anchor_bottom = 0.208
+theme = ExtResource( 11 )
+text = "Metal Undertow Wins"
+align = 1
+
+[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer/ArcadeEnd"]
+material = ExtResource( 2 )
+anchor_left = 0.35
+anchor_top = 0.2
+anchor_right = 0.65
+anchor_bottom = 0.8
+color = Color( 0, 0, 0, 1 )
+
+[node name="Names" type="Label" parent="AspectRatioContainer/ArcadeEnd/ColorRect"]
+anchor_right = 0.697
+anchor_bottom = 1.0
+theme = ExtResource( 19 )
+text = "Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder
+Placeholder"
+align = 2
+valign = 1
+
+[node name="Scores" type="Label" parent="AspectRatioContainer/ArcadeEnd/ColorRect"]
+anchor_left = 0.739
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 19 )
+text = "?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€
+?????€"
+valign = 1
+
+[node name="Loading" type="Control" parent="AspectRatioContainer"]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="Label" type="Label" parent="AspectRatioContainer/Loading"]
+anchor_right = 0.192
+anchor_bottom = 0.12
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = SubResource( 22 )
+text = "Loading"
+align = 1
+valign = 1
 script = ExtResource( 55 )
+base_font_size = 25.0
 menu = true
 
-[node name="Scores" type="Label" parent="."]
-anchor_left = 0.255
-anchor_top = 0.21
-anchor_right = 0.54
-anchor_bottom = 0.21
-custom_fonts/font = SubResource( 16 )
-script = ExtResource( 55 )
-menu = true
+[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer/Loading/Label"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AspectRatioContainer/Loading"]
+root_node = NodePath("../Label")
+anims/RESET = SubResource( 18 )
+anims/loading = SubResource( 19 )
+script = ExtResource( 58 )
+
+[node name="ResolutionMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="ResolutionMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="ResolutionMenu/ViewportContainer"]
+size = Vector2( 640, 360 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="ResolutionMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.524402, 0, 0.851471, 0, 1, 0, -0.851471, 0, 0.524402, 307.292, 5.02689, 257.395 )
+environment = ExtResource( 73 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 51 )
+
+[node name="Map" type="Spatial" parent="ResolutionMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="ResolutionMenu/ViewportContainer/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Warning" type="ColorRect" parent="ResolutionMenu"]
+visible = false
+anchor_left = 0.2
+anchor_top = 0.093
+anchor_right = 0.8
+anchor_bottom = 0.284
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="ResolutionMenu/Warning"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = -3.0
+theme = ExtResource( 71 )
+text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="SliderBackground" type="ColorRect" parent="ResolutionMenu"]
+anchor_left = 0.2
+anchor_top = 0.716
+anchor_right = 0.8
+anchor_bottom = 0.907
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="ResolutionMenu/SliderBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 71 )
+text = "Resolution: 640 x 360"
+align = 1
+autowrap = true
+
+[node name="HSlider" type="HSlider" parent="ResolutionMenu/SliderBackground"]
+anchor_left = 0.1
+anchor_top = 0.32
+anchor_right = 0.9
+anchor_bottom = 1.0
+focus_neighbour_top = NodePath("../TransformInterpolationSlider")
+theme = ExtResource( 71 )
+min_value = -1000.0
+max_value = -1.0
+value = -1.0
+rounded = true
+scrollable = false
+script = ExtResource( 14 )
+
+[node name="FOVMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="FOVMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="FOVMenu/ViewportContainer"]
+size = Vector2( 640, 360 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="FOVMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.524402, 0, 0.851471, 0, 1, 0, -0.851471, 0, 0.524402, 307.292, 5.02689, 257.395 )
+environment = ExtResource( 75 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 51 )
+
+[node name="Map" type="Spatial" parent="FOVMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="FOVMenu/ViewportContainer/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="ColorRect" type="ColorRect" parent="FOVMenu"]
+anchor_left = 0.2
+anchor_top = 0.716
+anchor_right = 0.8
+anchor_bottom = 0.907
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="FOVMenu/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 71 )
+text = "Field of View: 75°"
+align = 1
+autowrap = true
+
+[node name="HSlider" type="HSlider" parent="FOVMenu/ColorRect"]
+anchor_left = 0.1
+anchor_top = 0.32
+anchor_right = 0.9
+anchor_bottom = 1.0
+focus_neighbour_top = NodePath("../TransformInterpolationSlider")
+theme = ExtResource( 71 )
+min_value = 1.0
+max_value = 179.0
+value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 25 )
 
 [node name="SettingsManager" type="Node" parent="."]
 script = ExtResource( 6 )
+
+[node name="MenuInputManager" type="Node" parent="."]
+script = ExtResource( 107 )
 
 [node name="MirrorManager" type="Node" parent="."]
 script = ExtResource( 54 )
@@ -259,6 +1724,9 @@ script = ExtResource( 65 )
 [node name="DeletionManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 68 )
+
+[node name="LoadingManager" type="Node" parent="."]
+script = ExtResource( 62 )
 
 [node name="Precompiler" type="ViewportContainer" parent="."]
 anchor_left = -1.0
@@ -350,2992 +1818,73 @@ script = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Precompiler/Viewport/Camera"]
 environment = SubResource( 14 )
-script = ExtResource( 51 )
 
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
+bus = "Effects"
+
+[node name="SliderChangeAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 90 )
 bus = "Effects"
 
 [node name="ReturnAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 24 )
 bus = "Effects"
 
-[node name="BlackBar" type="ColorRect" parent="."]
-anchor_left = 0.55
-anchor_right = 0.95
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.588235 )
-
-[node name="MainButtons" type="VBoxContainer" parent="BlackBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Arcade" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-focus_neighbour_top = NodePath("../Quit")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Arcade"
-script = ExtResource( 67 )
-track_path = ""
-
-[node name="SingleTrack" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Single Track"
-script = ExtResource( 10 )
-selection = "../../TrackButtons/TheCalm"
-
-[node name="Settings" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 182.0
-margin_right = 256.0
-margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Settings"
-script = ExtResource( 21 )
-
-[node name="Quit" type="Button" parent="BlackBar/MainButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-focus_neighbour_bottom = NodePath("../Arcade")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Quit"
-script = ExtResource( 56 )
-
-[node name="PlayerButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="OnePlayer" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 78.0
-margin_right = 256.0
-margin_bottom = 97.0
-focus_neighbour_top = NodePath("../SixPlayers")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1 Player"
-script = ExtResource( 22 )
-
-[node name="TwoPlayers" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 101.0
-margin_right = 256.0
-margin_bottom = 120.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2 Players"
-script = ExtResource( 22 )
-players = 2
-
-[node name="ThreePlayers" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 124.0
-margin_right = 256.0
-margin_bottom = 143.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "3 Players"
-script = ExtResource( 22 )
-players = 3
-
-[node name="FourPlayers" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 147.0
-margin_right = 256.0
-margin_bottom = 166.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4 Players"
-script = ExtResource( 22 )
-players = 4
-
-[node name="FivePlayers" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 170.0
-margin_right = 256.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "5 Players"
-script = ExtResource( 22 )
-players = 5
-
-[node name="SixPlayers" type="Button" parent="BlackBar/PlayerButtons"]
-margin_top = 193.0
-margin_right = 256.0
-margin_bottom = 212.0
-focus_neighbour_bottom = NodePath("../OnePlayer")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "6 Players"
-script = ExtResource( 22 )
-players = 6
-
-[node name="TrackButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Downpour" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-focus_neighbour_top = NodePath("../Twisted")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-disabled = true
-text = "Downpour"
-script = ExtResource( 67 )
-
-[node name="TheCalm" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "The Calm"
-script = ExtResource( 67 )
-track_path = "res://scenes/world/tracks/figure_8.tscn"
-
-[node name="Pillars" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-disabled = true
-text = "Pillars"
-script = ExtResource( 67 )
-
-[node name="Sunbreaker" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-disabled = true
-text = "Sunbreaker"
-script = ExtResource( 67 )
-
-[node name="Below" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Below"
-script = ExtResource( 67 )
-track_path = "res://scenes/world/tracks/glacier.tscn"
-
-[node name="Twisted" type="Button" parent="BlackBar/TrackButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-focus_neighbour_bottom = NodePath("../Downpour")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Twisted"
-script = ExtResource( 67 )
-track_path = "res://scenes/world/tracks/twisted.tscn"
-
-[node name="SettingsButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Graphics" type="Button" parent="BlackBar/SettingsButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-focus_neighbour_top = NodePath("../Language")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Graphics"
-script = ExtResource( 10 )
-
-[node name="Sound" type="Button" parent="BlackBar/SettingsButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Sound"
-script = ExtResource( 10 )
-selection = "../../SoundButtons/EffectsVolume"
-
-[node name="Controls" type="Button" parent="BlackBar/SettingsButtons"]
-margin_top = 182.0
-margin_right = 256.0
-margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-disabled = true
-text = "Controls"
-script = ExtResource( 10 )
-
-[node name="Language" type="Button" parent="BlackBar/SettingsButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-focus_neighbour_bottom = NodePath("../Graphics")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-disabled = true
-text = "Language"
-script = ExtResource( 10 )
-
-[node name="GraphicsButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 0.916
-alignment = 1
-
-[node name="WindowModes" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 5.0
-margin_right = 256.0
-margin_bottom = 20.0
-focus_neighbour_top = NodePath("../MaxRigidBodies")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Window Modes"
-script = ExtResource( 10 )
-selection = "../../WindowModesButtons/Fullscreen"
-
-[node name="Resolution" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 24.0
-margin_right = 256.0
-margin_bottom = 39.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Resolution"
-script = ExtResource( 10 )
-selection = "../../ResolutionButtons/Resolution1"
-
-[node name="MSAA" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 43.0
-margin_right = 256.0
-margin_bottom = 58.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Anti-Aliasing"
-script = ExtResource( 10 )
-selection = "../../MSAAButtons/MSAAOff"
-
-[node name="Reflections" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 62.0
-margin_right = 256.0
-margin_bottom = 77.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Reflections"
-script = ExtResource( 10 )
-selection = "../../ReflectionsButtons/Off"
-
-[node name="Materials" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 81.0
-margin_right = 256.0
-margin_bottom = 96.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Materials"
-script = ExtResource( 10 )
-selection = "../../MaterialsButtons/Default"
-
-[node name="Lighting" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 100.0
-margin_right = 256.0
-margin_bottom = 115.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Lighting"
-script = ExtResource( 10 )
-selection = "../../LightingButtons/Default"
-
-[node name="ToggleVsync" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 119.0
-margin_right = 256.0
-margin_bottom = 134.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Toggle Vsync"
-script = ExtResource( 14 )
-
-[node name="ToggleMirror" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 138.0
-margin_right = 256.0
-margin_bottom = 153.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Toggle Mirror"
-script = ExtResource( 52 )
-
-[node name="ToggleTI" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 157.0
-margin_right = 256.0
-margin_bottom = 172.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Toggle T. i."
-script = ExtResource( 53 )
-
-[node name="ViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 176.0
-margin_right = 256.0
-margin_bottom = 191.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "View Distance"
-script = ExtResource( 10 )
-selection = "../../ViewDistanceButtons/View2500"
-
-[node name="RearViewDistance" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 195.0
-margin_right = 256.0
-margin_bottom = 210.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Rear View D."
-script = ExtResource( 10 )
-selection = "../../RearViewDistanceButtons/Rear200"
-
-[node name="FieldOfView" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 214.0
-margin_right = 256.0
-margin_bottom = 229.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Field of View"
-script = ExtResource( 10 )
-selection = "../../FieldOfViewButtons/Box1/FOV75"
-
-[node name="ShadowCasters" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 233.0
-margin_right = 256.0
-margin_bottom = 248.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Shadow Casters"
-script = ExtResource( 10 )
-selection = "../../ShadowCastersButtons/Default"
-
-[node name="ShadowSplits" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 252.0
-margin_right = 256.0
-margin_bottom = 267.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Shadow Splits"
-script = ExtResource( 10 )
-selection = "../../ShadowSplitsButtons/Splits3"
-
-[node name="ShadowSplitsMultiplayer" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 271.0
-margin_right = 256.0
-margin_bottom = 286.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "S. Splits M.P."
-script = ExtResource( 10 )
-selection = "../../ShadowSplitsMultiplayerButtons/Splits2"
-
-[node name="ShadowRes" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 290.0
-margin_right = 256.0
-margin_bottom = 305.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Shadow Res."
-script = ExtResource( 10 )
-selection = "../../ShadowResButtons/Shadow8192"
-
-[node name="MaxRigidBodies" type="Button" parent="BlackBar/GraphicsButtons"]
-margin_top = 309.0
-margin_right = 256.0
-margin_bottom = 324.0
-focus_neighbour_bottom = NodePath("../WindowModes")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 20 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Max R. Bodies"
-script = ExtResource( 10 )
-selection = "../../MaxRigidBodiesButtons/Rigid100"
-
-[node name="WindowModesButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="WithBorder" type="Button" parent="BlackBar/WindowModesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Fullscreen")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "With Border"
-script = ExtResource( 16 )
-
-[node name="Borderless" type="Button" parent="BlackBar/WindowModesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Borderless"
-script = ExtResource( 16 )
-borderless = true
-
-[node name="Fullscreen" type="Button" parent="BlackBar/WindowModesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../WithBorder")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Fullscreen"
-script = ExtResource( 16 )
-fullscreen = true
-
-[node name="ResolutionButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Resolution6" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 228.0
-margin_right = 256.0
-margin_bottom = 247.0
-focus_neighbour_top = NodePath("../Resolution1")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-resolution = 6
-
-[node name="Resolution5" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-resolution = 5
-
-[node name="Resolution4" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 182.0
-margin_right = 256.0
-margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-resolution = 4
-
-[node name="Resolution3" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-resolution = 3
-
-[node name="Resolution2" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-resolution = 2
-
-[node name="Resolution1" type="Button" parent="BlackBar/ResolutionButtons"]
-margin_top = 113.0
-margin_right = 256.0
-margin_bottom = 132.0
-focus_neighbour_bottom = NodePath("../Resolution6")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-script = ExtResource( 12 )
-
-[node name="MSAAButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="MSAAOff" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-focus_neighbour_top = NodePath("../MSAA16x")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Off"
-script = ExtResource( 18 )
-
-[node name="MSAA2x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2x"
-script = ExtResource( 18 )
-msaa = 1
-
-[node name="MSAA4x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 182.0
-margin_right = 256.0
-margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4x"
-script = ExtResource( 18 )
-msaa = 2
-
-[node name="MSAA8x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "8x"
-script = ExtResource( 18 )
-msaa = 3
-
-[node name="MSAA16x" type="Button" parent="BlackBar/MSAAButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-focus_neighbour_bottom = NodePath("../MSAAOff")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "16x"
-script = ExtResource( 18 )
-msaa = 4
-
-[node name="ReflectionsButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Off" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 90.0
-margin_right = 256.0
-margin_bottom = 109.0
-focus_neighbour_top = NodePath("../Reflections32768")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Off"
-script = ExtResource( 25 )
-
-[node name="Reflections64" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 113.0
-margin_right = 256.0
-margin_bottom = 132.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "64"
-script = ExtResource( 25 )
-reflections = 64
-
-[node name="Reflections128" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 136.0
-margin_right = 256.0
-margin_bottom = 155.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "128"
-script = ExtResource( 25 )
-reflections = 128
-
-[node name="Reflections256" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 159.0
-margin_right = 256.0
-margin_bottom = 178.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "256"
-script = ExtResource( 25 )
-reflections = 256
-
-[node name="Reflections512" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 182.0
-margin_right = 256.0
-margin_bottom = 201.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "512"
-script = ExtResource( 25 )
-reflections = 512
-
-[node name="Reflections1024" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 205.0
-margin_right = 256.0
-margin_bottom = 224.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1024"
-script = ExtResource( 25 )
-reflections = 1024
-
-[node name="Reflections2048" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 228.0
-margin_right = 256.0
-margin_bottom = 247.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2048"
-script = ExtResource( 25 )
-reflections = 2048
-
-[node name="Reflections32768" type="Button" parent="BlackBar/ReflectionsButtons"]
-margin_top = 251.0
-margin_right = 256.0
-margin_bottom = 270.0
-focus_neighbour_bottom = NodePath("../Off")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "32768"
-script = ExtResource( 25 )
-reflections = 32768
-
-[node name="MaterialsButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="ExtraLow" type="Button" parent="BlackBar/MaterialsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Default")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Extra Low"
-script = ExtResource( 62 )
-materials = 0
-
-[node name="Low" type="Button" parent="BlackBar/MaterialsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Low"
-script = ExtResource( 62 )
-materials = 1
-
-[node name="Default" type="Button" parent="BlackBar/MaterialsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../ExtraLow")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Default"
-script = ExtResource( 62 )
-
-[node name="LightingButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="ExtraLow" type="Button" parent="BlackBar/LightingButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Default")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Extra Low"
-script = ExtResource( 63 )
-lighting = 0
-
-[node name="Low" type="Button" parent="BlackBar/LightingButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Low"
-script = ExtResource( 63 )
-lighting = 1
-
-[node name="Default" type="Button" parent="BlackBar/LightingButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../ExtraLow")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Default"
-script = ExtResource( 63 )
-
-[node name="ViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="View100" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../View2500")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100m"
-script = ExtResource( 19 )
-distance = 100.0
-
-[node name="View200" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "200m"
-script = ExtResource( 19 )
-distance = 200.0
-
-[node name="View350" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "350m"
-script = ExtResource( 19 )
-distance = 350.0
-
-[node name="View500" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "500m"
-script = ExtResource( 19 )
-distance = 500.0
-
-[node name="View750" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "750m"
-script = ExtResource( 19 )
-distance = 750.0
-
-[node name="View1000" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1000m"
-script = ExtResource( 19 )
-
-[node name="View2500" type="Button" parent="BlackBar/ViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../View100")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2500m"
-script = ExtResource( 19 )
-distance = 2500.0
-
-[node name="RearViewDistanceButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Rear25" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Rear2500")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "25m"
-script = ExtResource( 20 )
-distance = 25.0
-
-[node name="Rear50" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "50m"
-script = ExtResource( 20 )
-distance = 50.0
-
-[node name="Rear100" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100m"
-script = ExtResource( 20 )
-distance = 100.0
-
-[node name="Rear200" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "200m"
-script = ExtResource( 20 )
-
-[node name="Rear350" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "350m"
-script = ExtResource( 20 )
-distance = 350.0
-
-[node name="Rear500" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "500m"
-script = ExtResource( 20 )
-distance = 500.0
-
-[node name="Rear750" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "750m"
-script = ExtResource( 20 )
-distance = 750.0
-
-[node name="Rear1000" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1000m"
-script = ExtResource( 20 )
-distance = 1000.0
-
-[node name="Rear2500" type="Button" parent="BlackBar/RearViewDistanceButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../Rear25")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2500m"
-script = ExtResource( 20 )
-distance = 2500.0
-
-[node name="FieldOfViewButtons" type="HBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Box1" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="FOV45" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_left = NodePath("../../Box3/FOV55")
-focus_neighbour_top = NodePath("../FOV135")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "45°"
-script = ExtResource( 15 )
-field_of_view = 45
-
-[node name="FOV60" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/FOV70")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "60°"
-script = ExtResource( 15 )
-field_of_view = 60
-
-[node name="FOV75" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/FOV85")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "75°"
-script = ExtResource( 15 )
-
-[node name="FOV90" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/FOV100")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "90°"
-script = ExtResource( 15 )
-field_of_view = 90
-
-[node name="FOV105" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/FOV115")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "105°"
-script = ExtResource( 15 )
-field_of_view = 105
-
-[node name="FOV120" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/FOV130")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "120°"
-script = ExtResource( 15 )
-field_of_view = 120
-
-[node name="FOV135" type="Button" parent="BlackBar/FieldOfViewButtons/Box1"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_left = NodePath("../../Box3/FOV145")
-focus_neighbour_bottom = NodePath("../FOV45")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "135°"
-script = ExtResource( 15 )
-field_of_view = 135
-
-[node name="Box2" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="FOV50" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../FOV140")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "50°"
-script = ExtResource( 15 )
-field_of_view = 50
-
-[node name="FOV65" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "65°"
-script = ExtResource( 15 )
-field_of_view = 65
-
-[node name="FOV80" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "80°"
-script = ExtResource( 15 )
-field_of_view = 80
-
-[node name="FOV95" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "95°"
-script = ExtResource( 15 )
-field_of_view = 95
-
-[node name="FOV110" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "110°"
-script = ExtResource( 15 )
-field_of_view = 110
-
-[node name="FOV125" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "125°"
-script = ExtResource( 15 )
-field_of_view = 125
-
-[node name="FOV140" type="Button" parent="BlackBar/FieldOfViewButtons/Box2"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_bottom = NodePath("../FOV50")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "140°"
-script = ExtResource( 15 )
-field_of_view = 140
-
-[node name="Box3" type="VBoxContainer" parent="BlackBar/FieldOfViewButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="FOV55" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../FOV145")
-focus_neighbour_right = NodePath("../../Box1/FOV45")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "55°"
-script = ExtResource( 15 )
-field_of_view = 55
-
-[node name="FOV70" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/FOV60")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "70°"
-script = ExtResource( 15 )
-field_of_view = 70
-
-[node name="FOV85" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/FOV75")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "85°"
-script = ExtResource( 15 )
-field_of_view = 85
-
-[node name="FOV100" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/FOV90")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100°"
-script = ExtResource( 15 )
-field_of_view = 100
-
-[node name="FOV115" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/FOV105")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "115°"
-script = ExtResource( 15 )
-field_of_view = 115
-
-[node name="FOV130" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/FOV120")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "130°"
-script = ExtResource( 15 )
-field_of_view = 130
-
-[node name="FOV145" type="Button" parent="BlackBar/FieldOfViewButtons/Box3"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_right = NodePath("../../Box1/FOV135")
-focus_neighbour_bottom = NodePath("../FOV55")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "145°"
-script = ExtResource( 15 )
-field_of_view = 145
-
-[node name="ShadowCastersButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="ExtraLow" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Ultimate")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Extra Low"
-script = ExtResource( 5 )
-shadow_casters = 1
-
-[node name="Low" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Low"
-script = ExtResource( 5 )
-shadow_casters = 2
-
-[node name="Default" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Default"
-script = ExtResource( 5 )
-
-[node name="High" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "High"
-script = ExtResource( 5 )
-shadow_casters = 4
-
-[node name="ExtraHigh" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Extra High"
-script = ExtResource( 5 )
-shadow_casters = 5
-
-[node name="Ultimate" type="Button" parent="BlackBar/ShadowCastersButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Ultimate"
-script = ExtResource( 5 )
-shadow_casters = 6
-
-[node name="ShadowSplitsButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Splits0" type="Button" parent="BlackBar/ShadowSplitsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Splits4")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "0"
-script = ExtResource( 64 )
-splits = 0
-
-[node name="Splits1" type="Button" parent="BlackBar/ShadowSplitsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1"
-script = ExtResource( 64 )
-splits = 1
-
-[node name="Splits2" type="Button" parent="BlackBar/ShadowSplitsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2"
-script = ExtResource( 64 )
-splits = 2
-
-[node name="Splits3" type="Button" parent="BlackBar/ShadowSplitsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "3"
-script = ExtResource( 64 )
-
-[node name="Splits4" type="Button" parent="BlackBar/ShadowSplitsButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../Splits0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4"
-script = ExtResource( 64 )
-splits = 4
-
-[node name="ShadowSplitsMultiplayerButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Splits0" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Splits4")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "0"
-script = ExtResource( 13 )
-splits_multiplayer = 0
-
-[node name="Splits1" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1"
-script = ExtResource( 13 )
-splits_multiplayer = 1
-
-[node name="Splits2" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2"
-script = ExtResource( 13 )
-
-[node name="Splits3" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "3"
-script = ExtResource( 13 )
-splits_multiplayer = 3
-
-[node name="Splits4" type="Button" parent="BlackBar/ShadowSplitsMultiplayerButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../Splits0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4"
-script = ExtResource( 13 )
-splits_multiplayer = 4
-
-[node name="ShadowResButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Shadow2048" type="Button" parent="BlackBar/ShadowResButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Shadow16384")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "2048"
-script = ExtResource( 9 )
-shadow_resolution = 2048
-
-[node name="Shadow4096" type="Button" parent="BlackBar/ShadowResButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4096"
-script = ExtResource( 9 )
-shadow_resolution = 4096
-
-[node name="Shadow8192" type="Button" parent="BlackBar/ShadowResButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "8192"
-script = ExtResource( 9 )
-
-[node name="Shadow16384" type="Button" parent="BlackBar/ShadowResButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../Shadow2048")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "16384"
-script = ExtResource( 9 )
-shadow_resolution = 16384
-
-[node name="MaxRigidBodiesButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="RigidLowest" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_top = NodePath("../Rigid10000")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Lowest"
-script = ExtResource( 17 )
-max_rigid_bodies = 0
-
-[node name="Rigid50" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "50"
-script = ExtResource( 17 )
-max_rigid_bodies = 50
-
-[node name="Rigid100" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100"
-script = ExtResource( 17 )
-
-[node name="Rigid200" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "200"
-script = ExtResource( 17 )
-max_rigid_bodies = 200
-
-[node name="Rigid350" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "350"
-script = ExtResource( 17 )
-max_rigid_bodies = 350
-
-[node name="Rigid500" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "500"
-script = ExtResource( 17 )
-max_rigid_bodies = 500
-
-[node name="Rigid750" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "750"
-script = ExtResource( 17 )
-max_rigid_bodies = 750
-
-[node name="Rigid1000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "1000"
-script = ExtResource( 17 )
-max_rigid_bodies = 1000
-
-[node name="Rigid4000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "4000"
-script = ExtResource( 17 )
-max_rigid_bodies = 4000
-
-[node name="Rigid10000" type="Button" parent="BlackBar/MaxRigidBodiesButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-focus_neighbour_bottom = NodePath("../RigidLowest")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "10000"
-script = ExtResource( 17 )
-max_rigid_bodies = 10000
-
-[node name="SoundButtons" type="VBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="EffectsVolume" type="Button" parent="BlackBar/SoundButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Effects Volume"
-script = ExtResource( 10 )
-selection = "../../EffectsVolumeButtons/Box2/Vol50"
-
-[node name="MusicVolume" type="Button" parent="BlackBar/SoundButtons"]
-margin_top = 170.0
-margin_right = 172.0
-margin_bottom = 189.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "Music Volume"
-script = ExtResource( 10 )
-selection = "../../MusicVolumeButtons/Box2/Vol50"
-
-[node name="EffectsVolumeButtons" type="HBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Box1" type="VBoxContainer" parent="BlackBar/EffectsVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol0" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_left = NodePath("../../Box3/Vol10")
-focus_neighbour_top = NodePath("../Vol90")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "0%"
-script = ExtResource( 11 )
-
-[node name="Vol15" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol25")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "15%"
-script = ExtResource( 11 )
-volume_linear = 0.15
-
-[node name="Vol30" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol40")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "30%"
-script = ExtResource( 11 )
-volume_linear = 0.3
-
-[node name="Vol45" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol55")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "45%"
-script = ExtResource( 11 )
-volume_linear = 0.45
-
-[node name="Vol60" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol70")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "60%"
-script = ExtResource( 11 )
-volume_linear = 0.6
-
-[node name="Vol75" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol85")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "75%"
-script = ExtResource( 11 )
-volume_linear = 0.75
-
-[node name="Vol90" type="Button" parent="BlackBar/EffectsVolumeButtons/Box1"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_left = NodePath("../../Box3/Vol100")
-focus_neighbour_bottom = NodePath("../Vol0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "90%"
-script = ExtResource( 11 )
-volume_linear = 0.9
-
-[node name="Box2" type="VBoxContainer" parent="BlackBar/EffectsVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol5" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../Vol95")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "5%"
-script = ExtResource( 11 )
-volume_linear = 0.05
-
-[node name="Vol20" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "20%"
-script = ExtResource( 11 )
-volume_linear = 0.2
-
-[node name="Vol35" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "35%"
-script = ExtResource( 11 )
-volume_linear = 0.35
-
-[node name="Vol50" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "50%"
-script = ExtResource( 11 )
-volume_linear = 0.5
-
-[node name="Vol65" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "65%"
-script = ExtResource( 11 )
-volume_linear = 0.65
-
-[node name="Vol80" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "80%"
-script = ExtResource( 11 )
-volume_linear = 0.8
-
-[node name="Vol95" type="Button" parent="BlackBar/EffectsVolumeButtons/Box2"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_bottom = NodePath("../Vol5")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "95%"
-script = ExtResource( 11 )
-volume_linear = 0.95
-
-[node name="Box3" type="VBoxContainer" parent="BlackBar/EffectsVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol10" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../Vol100")
-focus_neighbour_right = NodePath("../../Box1/Vol0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "10%"
-script = ExtResource( 11 )
-volume_linear = 0.1
-
-[node name="Vol25" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol15")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "25%"
-script = ExtResource( 11 )
-volume_linear = 0.25
-
-[node name="Vol40" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol30")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "40%"
-script = ExtResource( 11 )
-volume_linear = 0.4
-
-[node name="Vol55" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol45")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "55%"
-script = ExtResource( 11 )
-volume_linear = 0.55
-
-[node name="Vol70" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol60")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "70%"
-script = ExtResource( 11 )
-volume_linear = 0.7
-
-[node name="Vol85" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol75")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "85%"
-script = ExtResource( 11 )
-volume_linear = 0.85
-
-[node name="Vol100" type="Button" parent="BlackBar/EffectsVolumeButtons/Box3"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_right = NodePath("../../Box1/Vol90")
-focus_neighbour_bottom = NodePath("../Vol10")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100%"
-script = ExtResource( 11 )
-volume_linear = 1.0
-
-[node name="MusicVolumeButtons" type="HBoxContainer" parent="BlackBar"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
-
-[node name="Box1" type="VBoxContainer" parent="BlackBar/MusicVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol0" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_left = NodePath("../../Box3/Vol10")
-focus_neighbour_top = NodePath("../Vol90")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "0%"
-script = ExtResource( 11 )
-bus_idx = 2
-
-[node name="Vol15" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol25")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "15%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.15
-
-[node name="Vol30" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol40")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "30%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.3
-
-[node name="Vol45" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol55")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "45%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.45
-
-[node name="Vol60" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol70")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "60%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.6
-
-[node name="Vol75" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_left = NodePath("../../Box3/Vol85")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "75%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.75
-
-[node name="Vol90" type="Button" parent="BlackBar/MusicVolumeButtons/Box1"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_left = NodePath("../../Box3/Vol100")
-focus_neighbour_bottom = NodePath("../Vol0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "90%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.9
-
-[node name="Box2" type="VBoxContainer" parent="BlackBar/MusicVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol5" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../Vol95")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "5%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.05
-
-[node name="Vol20" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "20%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.2
-
-[node name="Vol35" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "35%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.35
-
-[node name="Vol50" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "50%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.5
-
-[node name="Vol65" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "65%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.65
-
-[node name="Vol80" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "80%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.8
-
-[node name="Vol95" type="Button" parent="BlackBar/MusicVolumeButtons/Box2"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_bottom = NodePath("../Vol5")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "95%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.95
-
-[node name="Box3" type="VBoxContainer" parent="BlackBar/MusicVolumeButtons"]
-margin_right = 180.0
-margin_bottom = 65.0
-alignment = 1
-
-[node name="Vol10" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_right = 180.0
-margin_bottom = 19.0
-focus_neighbour_top = NodePath("../Vol100")
-focus_neighbour_right = NodePath("../../Box1/Vol0")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "10%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.1
-
-[node name="Vol25" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol15")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "25%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.25
-
-[node name="Vol40" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol30")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "40%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.4
-
-[node name="Vol55" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol45")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "55%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.55
-
-[node name="Vol70" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol60")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "70%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.7
-
-[node name="Vol85" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 23.0
-margin_right = 180.0
-margin_bottom = 42.0
-focus_neighbour_right = NodePath("../../Box1/Vol75")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "85%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 0.85
-
-[node name="Vol100" type="Button" parent="BlackBar/MusicVolumeButtons/Box3"]
-margin_top = 46.0
-margin_right = 180.0
-margin_bottom = 65.0
-focus_neighbour_right = NodePath("../../Box1/Vol90")
-focus_neighbour_bottom = NodePath("../Vol10")
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
-text = "100%"
-script = ExtResource( 11 )
-bus_idx = 2
-volume_linear = 1.0
-
-[node name="Warning" type="Label" parent="BlackBar"]
-visible = false
-anchor_top = 0.909
-anchor_right = 1.0
-anchor_bottom = 0.909
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = SubResource( 10 )
-text = "WARNING:
-Very performance-intensive"
-align = 1
-autowrap = true
-
-[node name="Loading" type="Label" parent="."]
-anchor_left = 0.032
-anchor_top = 0.826
-anchor_right = 0.184
-anchor_bottom = 0.928
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 17 )
-text = "Loading"
-align = 1
-valign = 1
-script = ExtResource( 55 )
-base_font_size = 25.0
-menu = true
-
-[node name="ColorRect" type="ColorRect" parent="Loading"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Loading"]
-anims/RESET = SubResource( 18 )
-anims/loading = SubResource( 19 )
-script = ExtResource( 58 )
-
-[node name="CurrentSettings" type="Label" parent="."]
-visible = false
-anchor_left = 0.07
-anchor_top = 0.2
-anchor_right = 1.0
-anchor_bottom = 0.8
-custom_fonts/font = SubResource( 10 )
-autowrap = true
-script = ExtResource( 2 )
-
 [node name="EndTime" type="Node" parent="."]
 script = ExtResource( 70 )
 
+[connection signal="item_rect_changed" from="." to="." method="_on_RootControl_item_rect_changed"]
+[connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Multiplayer" to="AspectRatioContainer/MainMenu/Multiplayer" method="_on_Multiplayer_visibility_changed"]
+[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players2" to="AspectRatioContainer/MainMenu/PlayerAmount/Players2" method="_on_Players2_focus_exited"]
+[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players3" to="AspectRatioContainer/MainMenu/PlayerAmount/Players3" method="_on_Players3_focus_exited"]
+[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players4" to="AspectRatioContainer/MainMenu/PlayerAmount/Players4" method="_on_Players4_focus_exited"]
+[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players5" to="AspectRatioContainer/MainMenu/PlayerAmount/Players5" method="_on_Players5_focus_exited"]
+[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players6" to="AspectRatioContainer/MainMenu/PlayerAmount/Players6" method="_on_Players6_focus_exited"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Downpour" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Downpour_focus_entered"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/TheCalm" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_TheCalm_focus_entered"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Pillars" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Pillars_focus_entered"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Sunbreaker" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Sunbreaker_focus_entered"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Below" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Below_focus_entered"]
+[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Twisted" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Twisted_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" method="_on_SoundEffectsVolumeSlider_value_changed"]
+[connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" method="_on_MusicVolumeSlider_value_changed"]
+[connection signal="drag_ended" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_drag_ended"]
+[connection signal="draw" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_draw"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_value_changed"]
+[connection signal="visibility_changed" from="AspectRatioContainer/Loading/Label" to="AspectRatioContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
+[connection signal="draw" from="ResolutionMenu/ViewportContainer" to="ResolutionMenu/SliderBackground/HSlider" method="_on_ViewportContainer_draw"]
+[connection signal="drag_ended" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_drag_ended"]
+[connection signal="focus_entered" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_focus_entered"]
+[connection signal="value_changed" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_value_changed"]
+[connection signal="drag_ended" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_drag_ended"]
+[connection signal="focus_entered" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_focus_entered"]
+[connection signal="value_changed" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_value_changed"]
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
-[connection signal="focus_entered" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_entered"]
-[connection signal="focus_exited" from="BlackBar/GraphicsButtons/MaxRigidBodies" to="BlackBar/GraphicsButtons/MaxRigidBodies" method="_on_MaxRigidBodies_focus_exited"]
-[connection signal="focus_entered" from="BlackBar/MSAAButtons/MSAA8x" to="BlackBar/MSAAButtons/MSAA8x" method="_on_MSAA8x_focus_entered"]
-[connection signal="focus_exited" from="BlackBar/MSAAButtons/MSAA8x" to="BlackBar/MSAAButtons/MSAA8x" method="_on_MSAA8x_focus_exited"]
-[connection signal="focus_entered" from="BlackBar/MSAAButtons/MSAA16x" to="BlackBar/MSAAButtons/MSAA16x" method="_on_MSAA16x_focus_entered"]
-[connection signal="focus_exited" from="BlackBar/MSAAButtons/MSAA16x" to="BlackBar/MSAAButtons/MSAA16x" method="_on_MSAA16x_focus_exited"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV45" to="." method="_on_FOV45_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV60" to="." method="_on_FOV60_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV75" to="." method="_on_FOV75_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV90" to="." method="_on_FOV90_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV105" to="." method="_on_FOV105_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV120" to="." method="_on_FOV120_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box1/FOV135" to="." method="_on_FOV135_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV50" to="." method="_on_FOV50_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV65" to="." method="_on_FOV65_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV80" to="." method="_on_FOV80_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV95" to="." method="_on_FOV95_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV110" to="." method="_on_FOV110_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV125" to="." method="_on_FOV125_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box2/FOV140" to="." method="_on_FOV140_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV55" to="." method="_on_FOV55_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV70" to="." method="_on_FOV70_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV85" to="." method="_on_FOV85_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV100" to="." method="_on_FOV100_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV115" to="." method="_on_FOV115_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV130" to="." method="_on_FOV130_pressed"]
-[connection signal="pressed" from="BlackBar/FieldOfViewButtons/Box3/FOV145" to="." method="_on_FOV145_pressed"]
-[connection signal="visibility_changed" from="Loading" to="Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]

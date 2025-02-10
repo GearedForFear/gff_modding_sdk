@@ -259,7 +259,9 @@ func _physics_process(_delta):
 				gameplay_manager.respawn(self)
 		
 		steer_target *= STEER_LIMIT
-		steering = move_toward(steering, steer_target, STEER_SPEED)
+		var max_steer_left: float = move_toward(steering, -STEER_LIMIT, STEER_SPEED)
+		var max_steer_right: float = move_toward(steering, STEER_LIMIT, STEER_SPEED)
+		steering = clamp(steer_target, max_steer_left, max_steer_right)
 		
 		# Increase engine force at low speeds to make the initial acceleration 
 		# faster.

@@ -112,7 +112,7 @@ portal_mode = 3
 mesh = ExtResource( 10 )
 material/0 = ExtResource( 6 )
 script = ExtResource( 18 )
-required_setting = 2
+required_setting = 1
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 1.722 )
@@ -121,7 +121,7 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -131,7 +131,7 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -141,7 +141,7 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -151,7 +151,7 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ShotPositionLeft" type="RayCast" parent="Body"]

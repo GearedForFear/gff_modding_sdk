@@ -107,7 +107,7 @@ portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 17 )
 script = ExtResource( 18 )
-required_setting = 2
+required_setting = 1
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 8.74228e-08, 0, -1, 0, -8.74228e-08, 0, 1, 1.17004, 0.642758, 1.81038 )
@@ -116,7 +116,7 @@ mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 mirror = true
 
@@ -127,7 +127,7 @@ mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -137,7 +137,7 @@ mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 mirror = true
 
@@ -148,7 +148,7 @@ mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]

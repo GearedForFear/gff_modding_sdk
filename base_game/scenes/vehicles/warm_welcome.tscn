@@ -178,7 +178,7 @@ portal_mode = 3
 mesh = ExtResource( 17 )
 material/0 = ExtResource( 11 )
 script = ExtResource( 34 )
-required_setting = 2
+required_setting = 1
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.16, 1.56478 )
@@ -187,7 +187,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -197,7 +197,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -207,7 +207,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -217,7 +217,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="GatlingGunLeft" type="MeshInstance" parent="Body"]
@@ -226,7 +226,7 @@ portal_mode = 3
 mesh = ExtResource( 16 )
 material/0 = ExtResource( 13 )
 script = ExtResource( 28 )
-required_setting = 4
+required_setting = 3
 
 [node name="GatlingGunRight" type="MeshInstance" parent="Body"]
 transform = Transform( 1, -8.35187e-23, 3.65072e-30, 0, -4.37114e-08, -1, 8.35187e-23, 1, -4.37114e-08, -0.719, 0.949, 1.827 )
@@ -234,7 +234,7 @@ portal_mode = 3
 mesh = ExtResource( 16 )
 material/0 = ExtResource( 13 )
 script = ExtResource( 28 )
-required_setting = 4
+required_setting = 3
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

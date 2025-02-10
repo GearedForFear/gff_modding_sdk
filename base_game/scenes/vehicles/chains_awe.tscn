@@ -449,7 +449,7 @@ portal_mode = 3
 mesh = ExtResource( 11 )
 material/0 = ExtResource( 9 )
 script = ExtResource( 37 )
-required_setting = 2
+required_setting = 1
 wheel_scale = 1.15
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -459,7 +459,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -469,7 +469,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -479,7 +479,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -489,7 +489,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
-required_setting = 4
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ChainsawFrontLeft" type="MeshInstance" parent="Body"]
@@ -498,7 +498,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
-required_setting = 4
+required_setting = 3
 
 [node name="ChainsawFrontRight" type="MeshInstance" parent="Body"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.019 )
@@ -506,7 +506,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
-required_setting = 4
+required_setting = 3
 
 [node name="ChainsawBackLeft" type="MeshInstance" parent="Body"]
 transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 1.09967, 0.939801, -0.357919 )
@@ -514,7 +514,7 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
-required_setting = 4
+required_setting = 3
 
 [node name="ChainsawBackRight" type="MeshInstance" parent="Body"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -1.1, 0.94, -0.358322 )
@@ -522,14 +522,14 @@ portal_mode = 3
 mesh = ExtResource( 13 )
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
-required_setting = 4
+required_setting = 3
 
 [node name="ChainsawLauncher" type="MeshInstance" parent="Body"]
 portal_mode = 3
 mesh = ExtResource( 17 )
 material/0 = ExtResource( 16 )
 script = ExtResource( 31 )
-required_setting = 4
+required_setting = 3
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

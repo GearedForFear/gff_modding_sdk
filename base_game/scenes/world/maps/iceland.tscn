@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=1]
 [ext_resource path="res://resources/meshes/world/maps/iceland.tres" type="ArrayMesh" id=2]
-[ext_resource path="res://scripts/world/room_converter.gd" type="Script" id=3]
 [ext_resource path="res://resources/materials/world/decorations/water.material" type="Material" id=5]
 [ext_resource path="res://scenes/world/decorations/icicle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/materials/world/maps/iceland.material" type="Material" id=7]
@@ -22,7 +21,7 @@ size = Vector2( 47.014, 47.83 )
 [sub_resource type="QuadMesh" id=16]
 size = Vector2( 5000, 3000 )
 
-[node name="iceland" type="Spatial"]
+[node name="Map" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
@@ -31,7 +30,7 @@ cast_shadow = 2
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 1 )
-required_setting = 1
+required_setting = 0
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance"]
 collision_layer = 2
@@ -42,11 +41,10 @@ shape = SubResource( 1 )
 
 [node name="RoomManager" type="RoomManager" parent="."]
 roomlist = NodePath("../RoomList")
-script = ExtResource( 3 )
 
 [node name="RoomList" type="Spatial" parent="."]
 
-[node name="Waterfall" type="Room" parent="RoomList"]
+[node name="Downpour" type="Room" parent="RoomList"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 148.721, 748.791 )
 
 [node name="Geysir" type="Room" parent="RoomList"]
@@ -73,7 +71,7 @@ material/0 = ExtResource( 5 )
 
 [node name="PortalWaterfall" type="Portal" parent="RoomList/Geysir"]
 transform = Transform( -0.955972, 0, -0.293456, 0, 1, 0, 0.293456, 0, -0.955972, -30.0808, -33.867, 400.183 )
-linked_room = NodePath("../../Waterfall")
+linked_room = NodePath("../../Downpour")
 points = PoolVector2Array( -30.0194, 22.7062, -16.5563, -13.4596, 26.3904, -13.0105, 32.0789, 20.9709 )
 
 [node name="AboveScar" type="Room" parent="RoomList"]
@@ -369,46 +367,46 @@ transform = Transform( -0.98248, 0, 0.18637, 0, 1, 0, -0.18637, 0, -0.98248, -11
 linked_room = NodePath("../../AboveScar")
 points = PoolVector2Array( 327.594, 64.6221, 192.184, -85.738, -297.316, -68.8366, -813.314, 91.984 )
 
-[node name="Glacier" type="Room" parent="RoomList"]
+[node name="BelowStart" type="Room" parent="RoomList"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -619.953, 74.0732, -975.773 )
 points = PoolVector3Array( 328.309, -60.1851, 24.9146, -132.469, -10.6825, 86.9846, 313.242, -66.3643, 88.6138, 315.029, -66.2652, 88.2199, -120.569, -50.9682, 87.7344, 437.019, -59.5046, 61.3362, 315.688, -36.0019, 88.0645, 434.135, -26.6727, 61.9718, -123.85, -11.4868, 87.5277 )
 
-[node name="Icicle" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( 0.763948, 0, -0.820381, 0, 1.121, 0, 0.820381, 0, 0.763948, 337.164, -63.3352, 77.1459 )
 
-[node name="Icicle2" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle2" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -0.850719, 0, -0.605156, 0, 1.044, 0, 0.605156, 0, -0.850719, 332.818, -62.8073, 69.2047 )
 
-[node name="Icicle3" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle3" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -1.04797, 0, 0.397983, 0, 1.121, 0, -0.397983, 0, -1.04797, 342.467, -62.1142, 67.3547 )
 
-[node name="Icicle4" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle4" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( 0.114017, 0, -1.20663, 0, 1.212, 0, 1.20663, 0, 0.114017, 335.691, -62.8213, 43.7545 )
 
-[node name="Icicle5" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle5" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -0.601793, 0, 1.10358, 0, 1.257, 0, -1.10358, 0, -0.601793, 330.415, -62.8279, 56.3879 )
 
-[node name="Icicle6" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle6" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -0.986471, 0, -0.393343, 0, 1.062, 0, 0.393343, 0, -0.986471, 348.335, -62.2762, 55.1761 )
 
-[node name="Icicle7" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle7" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( 0.650517, 0, 0.868362, 0, 1.085, 0, -0.868362, 0, 0.650517, 338.508, -60.9021, 28.6501 )
 
-[node name="Icicle8" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle8" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( 1.23446, -1.86398e-07, 0.69774, -2.14112e-07, -1.418, 0, 0.69774, -1.05356e-07, -1.23446, 349.205, -33.5023, 72.2983 )
 
-[node name="Icicle9" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle9" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -1.12546, 0, 0.03474, 0, 1.126, 0, -0.03474, 0, -1.12546, 404.08, -60.7842, 56.4186 )
 
-[node name="Icicle10" parent="RoomList/Glacier" instance=ExtResource( 6 )]
+[node name="Icicle10" parent="RoomList/BelowStart" instance=ExtResource( 6 )]
 transform = Transform( -0.556102, 0, -0.972189, 0, 1.12, 0, 0.972189, 0, -0.556102, 328.464, -60.1779, 24.8977 )
 
-[node name="PortalTunnel" type="Portal" parent="RoomList/Glacier"]
+[node name="PortalTunnel" type="Portal" parent="RoomList/BelowStart"]
 transform = Transform( -0.976567, 0, -0.215213, 0, 1, 0, 0.215213, 0, -0.976567, 381.642, -45.9557, 73.54 )
 linked_room = NodePath("../../TunnelHigher")
 points = PoolVector2Array( -53.7524, 19.2831, -56.7063, -13.5489, 68.2113, -20.3096, 67.4884, 9.94713 )
 
-[node name="PortalEntrance" type="Portal" parent="RoomList/Glacier"]
+[node name="PortalEntrance" type="Portal" parent="RoomList/BelowStart"]
 transform = Transform( -0.99802, 0, 0.0628949, 0, 1, 0, -0.0628949, 0, -0.99802, -81.47, -39.0871, 90.1984 )
 linked_room = NodePath("../../Entrance")
 points = PoolVector2Array( -38.6776, 20.4458, -32.6266, -14.1531, 39.1766, -11.8817, 51.0994, 28.4047 )
@@ -418,5 +416,5 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 46.1
 portal_mode = 3
 cast_shadow = 0
 mesh = SubResource( 16 )
-skeleton = NodePath("../RoomList/Waterfall")
+skeleton = NodePath("../RoomList/Downpour")
 material/0 = ExtResource( 5 )

@@ -88,6 +88,7 @@ func update_settings():
 			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
 			tornado_usa_material.set_shader_param("texture_albedo",
 					tornado_image)
+	get_node("/root/RootControl/Precompiler").start()
 
 
 func enable_textures():

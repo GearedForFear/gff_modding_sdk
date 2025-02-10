@@ -18,3 +18,8 @@ func _enter_tree():
 			base_size.x / window_size.x, 100))
 	stretch_shrink = get_node("/root/RootControl/SettingsManager").resolution
 	rect_position = OS.window_size * rect_scale * screen_position / size_divisor
+	var viewport := $Viewport
+	var target_size: Vector2 = viewport.size
+	target_size.x = max(target_size.x, 40.0)
+	target_size.y = max(target_size.y, 23.0)
+	viewport.size = target_size

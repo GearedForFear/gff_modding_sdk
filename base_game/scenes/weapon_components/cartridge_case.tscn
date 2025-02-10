@@ -28,7 +28,7 @@ portal_mode = 3
 mesh = SubResource( 1 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 1 )
-required_setting = 6
+required_setting = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )

@@ -2,8 +2,15 @@ extends DirectionalLight
 
 
 func _ready():
-	var root_control: Control = get_node("/root/RootControl")
-	var settings_manager: Node = root_control.get_node("SettingsManager")
+	var settings_manager: Node = get_node("/root/RootControl/SettingsManager")
+	settings_manager.to_update.append(self)
+	apply_settings(settings_manager)
+
+
+func apply_settings(settings_manager: Node):
+	var root_control: Control = get_node_or_null("/root/RootControl")
+	if root_control == null:
+		return
 	var split_screen_stretch: float
 	match root_control.player_amount:
 		1,4,5:
@@ -18,25 +25,26 @@ func _ready():
 	
 	directional_shadow_fade_start = clamp(directional_shadow_max_distance / 360, 0.5, 0.9)
 	
+	var splits_setting: int
 	if root_control.player_amount == 1:
-		match settings_manager.splits:
-			0:
-				shadow_enabled = false
-			1:
-				directional_shadow_mode = DirectionalLight.SHADOW_ORTHOGONAL
-			2:
-				directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_2_SPLITS
-				directional_shadow_split_1 = 0.5
-			4:
-				directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_4_SPLITS
+		splits_setting = settings_manager.splits
 	else:
-		match settings_manager.splits_multiplayer:
-			0:
-				shadow_enabled = false
-			1:
-				directional_shadow_mode = DirectionalLight.SHADOW_ORTHOGONAL
-			2:
-				directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_2_SPLITS
-				directional_shadow_split_1 = 0.5
-			4:
-				directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_4_SPLITS
+		splits_setting = settings_manager.splits_multiplayer
+	match splits_setting:
+		0:
+			shadow_enabled = false
+		1:
+			shadow_enabled = true
+			directional_shadow_mode = DirectionalLight.SHADOW_ORTHOGONAL
+		2:
+			shadow_enabled = true
+			directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_2_SPLITS
+			directional_shadow_split_1 = 0.5
+		4:
+			shadow_enabled = true
+			directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_3_SPLITS
+			directional_shadow_split_1 = 0.1
+		4:
+			shadow_enabled = true
+			directional_shadow_mode = DirectionalLight.SHADOW_PARALLEL_4_SPLITS
+			directional_shadow_split_1 = 0.1

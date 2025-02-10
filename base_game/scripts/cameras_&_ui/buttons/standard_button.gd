@@ -1,25 +1,19 @@
 extends Button
 
 
-export var selection: String = "../../GraphicsButtons/WindowModes"
-
-
-func _ready():
-	if name == "Reflections" and OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES2:
-		disabled = true
+export var selection: String = "../../TrackMenu/Buttons/TheCalm"
+export(int, 1, 3, 1) var hide_parent = 1
+export(int, 1, 3, 1) var show_parent = 1
 
 
 func _pressed():
-	var root_control: Control = get_node("/root/RootControl")
-	root_control.switch_buttons(get_parent(), get_node(selection))
-	root_control.get_node("ButtonPressAudio").play()
-
-
-func _on_MaxRigidBodies_focus_entered():
-	get_node("../../Warning").text = "WARNING:\nVery performance-intensive"
-	get_node("../../Warning").show()
-
-
-func _on_MaxRigidBodies_focus_exited():
-	if get_parent().visible:
-		get_node("../../Warning").hide()
+	get_node("/root/RootControl/ButtonPressAudio").play()
+	var target: Control = self
+	for _n in hide_parent:
+		target = target.get_parent()
+	target.hide()
+	target = get_node(selection)
+	target.grab_focus()
+	for _n in show_parent:
+		target = target.get_parent()
+	target.show()

@@ -131,9 +131,10 @@ func _process(_delta):
 		get_parent().queue_free()
 	
 	if Input.is_action_just_pressed(controls.ui_cancel):
-		get_node("/root/RootControl").track.queue_free()
-		get_node("/root/RootControl").active(true)
-		get_node("/root/RootControl/ReturnAudio").play()
+		var root_control: Control = get_node("/root/RootControl")
+		root_control.track.queue_free()
+		root_control.active(true)
+		root_control.get_node("ReturnAudio").play()
 
 
 func update_selection():

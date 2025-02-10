@@ -45,6 +45,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 4.222 )
@@ -62,6 +63,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 0.868 )
@@ -78,6 +80,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, 0.868 )
@@ -94,6 +97,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelFrontLeft2" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -0.48389 )
@@ -110,6 +114,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelFrontRight2" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -0.48389 )
@@ -126,6 +131,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelBackLeft2" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -3.83789 )
@@ -142,6 +148,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="WheelBackRight2" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -3.83789 )
@@ -158,6 +165,7 @@ portal_mode = 3
 mesh = ExtResource( 9 )
 material/0 = ExtResource( 7 )
 script = ExtResource( 18 )
+wheel_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09971e-05, 2.5 )

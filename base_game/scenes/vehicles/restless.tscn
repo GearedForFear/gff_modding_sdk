@@ -317,7 +317,7 @@ portal_mode = 3
 mesh = ExtResource( 5 )
 material/0 = ExtResource( 6 )
 script = ExtResource( 40 )
-required_setting = 2
+required_setting = 1
 wheel_scale = 0.8
 
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -327,6 +327,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -336,6 +337,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -345,6 +347,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -354,6 +357,7 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
+required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
 
 [node name="SniperMesh" type="MeshInstance" parent="Body"]
@@ -362,7 +366,7 @@ portal_mode = 3
 mesh = ExtResource( 21 )
 material/0 = ExtResource( 20 )
 script = ExtResource( 34 )
-required_setting = 4
+required_setting = 3
 
 [node name="MachineGunMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.529, 0.717, 1.413 )
@@ -370,7 +374,7 @@ portal_mode = 3
 mesh = ExtResource( 23 )
 material/0 = ExtResource( 22 )
 script = ExtResource( 34 )
-required_setting = 4
+required_setting = 3
 
 [node name="RocketMeshLeft" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0 )
@@ -379,7 +383,7 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
-required_setting = 4
+required_setting = 3
 
 [node name="RocketMeshRight" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0 )
@@ -388,7 +392,7 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
-required_setting = 4
+required_setting = 3
 
 [node name="DoorMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -4.3873e-08, 1.39595e-11, 1, 0.0860603, 0.99629, 3.76181e-09, -0.99629, 0.0860603, -4.37114e-08, -0.646664, 0.683186, -2.40856 )
@@ -396,7 +400,7 @@ portal_mode = 3
 mesh = ExtResource( 16 )
 material/0 = ExtResource( 13 )
 script = ExtResource( 34 )
-required_setting = 4
+required_setting = 3
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
