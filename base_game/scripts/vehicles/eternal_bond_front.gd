@@ -23,7 +23,6 @@ var next_out: int = cartridge_out.NONE
 
 func _ready():
 	target = get_node("../..").target
-	driver_name = get_node("../..").driver_name
 	set_as_toplevel(true)
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
@@ -73,9 +72,9 @@ func _physics_process(_delta):
 			var right_collider: PhysicsBody = $ShotPositionRight.get_collider()
 			if can_shoot and ammo >= bullet_ammo_cost and ((left_collider \
 					!= null and left_collider.is_in_group("combat_vehicle") \
-					and left_collider.score >= 100) or (right_collider != null \
+					and left_collider.scoreboard_record.score >= 100) or (right_collider != null \
 					and right_collider.is_in_group("combat_vehicle") \
-					and right_collider.score >= 100)):
+					and right_collider.scoreboard_record.score >= 100)):
 				shoot_front()
 				get_node("../StuckTimer").start()
 		else:
@@ -171,9 +170,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			else:
 				alive = false
 				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = score / 10
-				score -= payout
-				other_half.score = score
+				var payout: int = scoreboard_record.score / 10
+				scoreboard_record.lose(payout)
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
@@ -194,10 +192,7 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					= camera.get_node("InterpolationTarget")\
 							.global_transform.origin
 					var array_position: int \
-							= gameplay_manager.players.find(self)
-					gameplay_manager.players.remove(array_position)
-					gameplay_manager.players.insert(array_position, other_half)
-					array_position = gameplay_manager.pursuers.find(self)
+							= gameplay_manager.pursuers.find(self)
 					gameplay_manager.pursuers.remove(array_position)
 					gameplay_manager.pursuers.insert(array_position, other_half)
 				else:
@@ -205,16 +200,6 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					get_node("../RespawnTimer").start()
 				return payout
 	return 0
-
-
-func reward(amount: int):
-	score += amount
-	other_half.score = score
-	health = clamp(health + amount, 0.0, base_health)
-	acid_duration = 0
-	acid_cause = null
-	if controls == null:
-		get_node("../StuckTimer").start()
 
 
 func _on_MachineGunTimer_timeout():

@@ -1,10 +1,9 @@
 extends ShadowSetter
 
 
-export var wheel_path: NodePath
 export var mirror: bool = false
 
-onready var gameplay_wheel: VehicleWheel = get_node(wheel_path)
+onready var gameplay_wheel: VehicleWheel = get_node(skeleton)
 
 
 func update_transform(body_transform: Transform, wheel_scale: float):

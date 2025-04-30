@@ -16,7 +16,7 @@
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=16]
-[ext_resource path="res://resources/materials/vehicles/grave_mistake.material" type="Material" id=17]
+[ext_resource path="res://resources/materials/vehicles/grave_mistake/stock.material" type="Material" id=17]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=18]
 [ext_resource path="res://resources/meshes/vehicles/grave_mistake.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=20]
@@ -24,7 +24,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=22]
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=23]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
-[ext_resource path="res://resources/materials/vehicles/gm_wheel.material" type="Material" id=25]
+[ext_resource path="res://resources/materials/vehicles/wheels_gm/stock.material" type="Material" id=25]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=26]
 
 [sub_resource type="PhysicsMaterial" id=1]
@@ -117,7 +117,6 @@ skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 mirror = true
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -128,7 +127,6 @@ skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 8.74228e-08, 0, -1, 0, -8.74228e-08, 0, 1, 1.17043, 0.642735, -1.66431 )
@@ -138,7 +136,6 @@ skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 mirror = true
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -149,7 +146,6 @@ skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0 )

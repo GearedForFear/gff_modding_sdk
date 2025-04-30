@@ -7,10 +7,15 @@ var loading_finished: bool = false
 
 func _process(_delta):
 	if loading_finished:
-		var main_menu: Control = get_node("../AspectRatioContainer/MainMenu")
+		var container: AspectRatioContainer = get_node_or_null(
+				"../AspectRatioContainer")
+		if container == null:
+			container = get_parent().menu_orphans[0]
+		var main_menu: Control = container.get_node("MainMenu")
 		var viewports: PackedScene = ResourceLoader.load(
 				"res://scenes/cameras_&_ui/main_menu_viewports.tscn",
 				"PackedScene")
+		
 		main_menu.add_child(viewports.instance())
 		get_node("../DeletionManager").to_be_deleted.append(
 				get_node("../AspectRatioContainer/MainMenu/Images"))
@@ -18,19 +23,17 @@ func _process(_delta):
 		var nodes_to_replace_iceland := Array()
 		var nodes_to_replace_usa := Array()
 		
-		var map_parent: Node = get_node(\
-				"../AspectRatioContainer/TrackMenu/SelectedView/Viewport")
+		var map_parent: Node = container.get_node("TrackMenu/SelectedView/Viewport")
 		nodes_to_replace_iceland.append(map_parent.get_node("Iceland"))
 		nodes_to_replace_usa.append(map_parent.get_node("USA"))
-		map_parent = get_node(
-				"../AspectRatioContainer/TrackMenu/SmallViewports")
+		map_parent = container.get_node("TrackMenu/SmallViewports")
 		nodes_to_replace_usa.append(map_parent.get_node(
 				"TheCalmView/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
 				"BelowView/Viewport/Map"))
 		nodes_to_replace_usa.append(map_parent.get_node(
 				"TwistedView/Viewport/Map"))
-		map_parent = get_node("../AspectRatioContainer")
+		map_parent = container
 		nodes_to_replace_usa.append(map_parent.get_node(
 				"OptionsMenu/ViewportContainer/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
@@ -39,10 +42,20 @@ func _process(_delta):
 				"SoundMenu/ViewportContainer/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
 				"AdvancedMenu/ViewportContainer/Viewport/Map"))
-		nodes_to_replace_usa.append(get_node(
-				"../ResolutionMenu/ViewportContainer/Viewport/Map"))
-		nodes_to_replace_usa.append(get_node(
-				"../FOVMenu/ViewportContainer/Viewport/Map"))
+		
+		var resolution_map: Spatial = get_node_or_null(
+				"../ResolutionMenu/ViewportContainer/Viewport/Map")
+		if resolution_map == null:
+			resolution_map = get_parent().menu_orphans[1].get_node(
+				"ViewportContainer/Viewport/Map")
+		nodes_to_replace_usa.append(resolution_map)
+		
+		var fov_map: Spatial = get_node_or_null(
+				"../FOVMenu/ViewportContainer/Viewport/Map")
+		if fov_map == null:
+			fov_map = get_parent().menu_orphans[2].get_node(
+				"ViewportContainer/Viewport/Map")
+		nodes_to_replace_usa.append(fov_map)
 		
 		var iceland: PackedScene = ResourceLoader.load(
 				"res://scenes/world/maps/iceland.tscn", "PackedScene")

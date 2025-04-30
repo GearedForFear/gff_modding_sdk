@@ -29,9 +29,6 @@ var next_out_sides: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Well Raised"
-	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($MGMeshLeft/MuzzleFlash/CPUParticles)
 		delete($MGMeshMiddle/MuzzleFlash/CPUParticles)
@@ -77,16 +74,16 @@ func _physics_process(_delta):
 			if can_trigger:
 				if middle_collider != null and \
 						middle_collider.is_in_group("combat_vehicle") \
-						and middle_collider.score >= 100:
+						and middle_collider.scoreboard_record.score >= 100:
 					remaining_shots_middle = get_shots()
 					can_trigger = false
 					get_node("../StuckTimer").start()
 				elif (left_collider != null and \
 						left_collider.is_in_group("combat_vehicle") \
-						and left_collider.score >= 100) \
+						and left_collider.scoreboard_record.score >= 100) \
 						or (right_collider != null and \
 						right_collider.is_in_group("combat_vehicle") \
-						and right_collider.score >= 100):
+						and right_collider.scoreboard_record.score >= 100):
 					remaining_shots_sides = get_shots()
 					can_trigger = false
 					get_node("../StuckTimer").start()
@@ -238,6 +235,10 @@ func instantiate_cartridge(var gun: MeshInstance, var link: bool):
 		new_case.start(gun.get_node("CartridgeExit").global_transform)
 		new_case.apply_central_impulse(new_case.transform.basis.x * -0.006 \
 				+ new_case.transform.basis.y * 0.004)
+
+
+func get_vehicle_name() -> String:
+	return "Well Raised"
 
 
 func _on_GunTriggerTimer_timeout():

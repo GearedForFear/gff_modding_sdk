@@ -51,6 +51,7 @@ wait_time = 100.0
 one_shot = true
 
 [node name="NonPlayerPath" type="Spatial" parent="GameplayManager"]
+visible = false
 
 [node name="Waypoint0" type="Position3D" parent="GameplayManager/NonPlayerPath"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 131.076, 0, 225.855 )

@@ -11,12 +11,12 @@
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/no_match.tres" type="ArrayMesh" id=11]
-[ext_resource path="res://resources/materials/vehicles/nm_wheel.material" type="Material" id=12]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/no_match.material" type="Material" id=12]
 [ext_resource path="res://resources/meshes/weapon_components/nm_gun.tres" type="ArrayMesh" id=13]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/materials/weapon_components/nm_gun.material" type="Material" id=16]
-[ext_resource path="res://resources/materials/vehicles/no_match.material" type="Material" id=17]
+[ext_resource path="res://resources/materials/vehicles/no_match/stock.material" type="Material" id=17]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
 [ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=20]
@@ -113,7 +113,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=23]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material_override:shader_param/emission_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -129,7 +129,7 @@ tracks/0/keys = {
 resource_name = "overheat_heavy"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material_override:shader_param/emission_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -145,7 +145,7 @@ tracks/0/keys = {
 resource_name = "overheat_light"
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material_override:shader_param/emission_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -160,7 +160,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=25]
 resource_name = "overheat_medium"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material_override:shader_param/emission_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -245,8 +245,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93676, 0.9 )
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 physics_interpolation_mode = 1
 portal_mode = 3
+material_override = ExtResource( 17 )
 mesh = ExtResource( 11 )
-material/0 = ExtResource( 17 )
 script = ExtResource( 27 )
 required_setting = 1
 
@@ -258,7 +258,6 @@ skeleton = NodePath("../../WheelFrontLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, 1.47 )
@@ -268,7 +267,6 @@ skeleton = NodePath("../../WheelFrontRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, -1.68835 )
@@ -278,7 +276,6 @@ skeleton = NodePath("../../WheelBackLeft")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894, 0.16, -1.68801 )
@@ -288,7 +285,6 @@ skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 12 )
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 
 [node name="GatlingGunLeft" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.334517, 0.239647, 2.34566 )

@@ -12,11 +12,6 @@ var can_shoot_right: bool = true
 var glide: bool = false
 
 
-func _ready():
-	if controls == null:
-		driver_name = "Turbulence"
-
-
 func _physics_process(_delta):
 	if alive:
 		if controls == null:
@@ -61,6 +56,10 @@ func _physics_process(_delta):
 	if glide:
 		apply_central_impulse(transform.basis.y * clamp((linear_velocity \
 				* Vector3(1, 0, 1)).length() - 20, 0, 10) * 3)
+
+
+func get_vehicle_name() -> String:
+	return "Turbulence"
 
 
 func _on_MiddleTimer_timeout():

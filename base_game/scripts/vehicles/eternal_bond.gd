@@ -27,9 +27,6 @@ onready var back_half: Spatial \
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Eternal Bond"
-	
 	var body: AmmoVehicle = front_half.get_child(0)
 	body.controls = controls
 	body.track = track
@@ -94,9 +91,9 @@ func _physics_process(_delta):
 			var right_collider: PhysicsBody = $ShotPositionRight.get_collider()
 			if can_shoot_lmg and ammo >= bullet_ammo_cost and ((left_collider \
 					!= null and left_collider.is_in_group("combat_vehicle") \
-					and left_collider.score >= 100) or (right_collider != null \
+					and left_collider.scoreboard_record.score >= 100) or (right_collider != null \
 					and right_collider.is_in_group("combat_vehicle") \
-					and right_collider.score >= 100)):
+					and right_collider.scoreboard_record.score >= 100)):
 				shoot_front()
 				get_node("../StuckTimer").start()
 		else:
@@ -217,7 +214,6 @@ func split(var b: bool):
 		body.global_transform = global_transform
 		
 		body.global_translation += transform.basis.z * 2.5
-		body.score = score
 		body.master_body = true
 		body.steering = steering
 		replacement = body
@@ -236,10 +232,7 @@ func split(var b: bool):
 		camera.get_node(\
 				"Camera/AspectRatioContainer/Control/Resources/HealthBarBottom"\
 				).show()
-		var array_position: int = gameplay_manager.players.find(self)
-		gameplay_manager.players.remove(array_position)
-		gameplay_manager.players.insert(array_position, body)
-		array_position = gameplay_manager.pursuers.find(self)
+		var array_position: int = gameplay_manager.pursuers.find(self)
 		gameplay_manager.pursuers.remove(array_position)
 		gameplay_manager.pursuers.insert(array_position, body)
 		
@@ -259,7 +252,6 @@ func split(var b: bool):
 		body.global_translation -= transform.basis.z * 2.5
 		body.can_shoot = false
 		back_half.get_node("MissileTimer").start()
-		body.score = score
 		collision_layer = 0
 		collision_mask = 0
 		acid_duration = 0
@@ -284,7 +276,6 @@ func split(var b: bool):
 		if not body.master_body:
 			body = back_half.get_child(0)
 		body.master_body = false
-		score = body.score
 		var camera: Spatial = body.get_node("CameraBase")
 		body.remove_child(camera)
 		add_child(camera)
@@ -297,10 +288,7 @@ func split(var b: bool):
 		camera.get_node(\
 				"Camera/AspectRatioContainer/Control/Resources/HealthBarBottom"\
 				).hide()
-		var array_position: int = gameplay_manager.players.find(body)
-		gameplay_manager.players.remove(array_position)
-		gameplay_manager.players.insert(array_position, self)
-		array_position = gameplay_manager.pursuers.find(body)
+		var array_position: int = gameplay_manager.pursuers.find(body)
 		gameplay_manager.pursuers.remove(array_position)
 		gameplay_manager.pursuers.insert(array_position, self)
 		
@@ -341,8 +329,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 				alive = false
 				get_node("../RespawnTimer").start()
 				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = score / 5
-				score -= payout
+				var payout: int = scoreboard_record.score / 5
+				scoreboard_record.lose(payout)
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
@@ -355,6 +343,10 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0
+
+
+func get_vehicle_name() -> String:
+	return "Eternal Bond"
 
 
 func _on_MachineGunTimer_timeout():

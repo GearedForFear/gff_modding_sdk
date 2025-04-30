@@ -8,9 +8,9 @@ func _ready():
 
 
 func apply_settings(settings_manager: Node):
-	var root_control: Control = get_node_or_null("/root/RootControl")
-	if root_control == null:
+	if not is_inside_tree():
 		return
+	var root_control: Control = get_node("/root/RootControl")
 	var split_screen_stretch: float
 	match root_control.player_amount:
 		1,4,5:

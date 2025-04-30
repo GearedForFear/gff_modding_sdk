@@ -6,9 +6,9 @@
 [ext_resource path="res://scenes/particles/nitro_flame_cpu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=6]
-[ext_resource path="res://resources/materials/vehicles/ca_wheel.material" type="Material" id=7]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/chains_awe.material" type="Material" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://resources/materials/vehicles/chains_awe.material" type="Material" id=9]
+[ext_resource path="res://resources/materials/vehicles/chains_awe/stock.material" type="Material" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/chains_awe.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://resources/materials/weapon_components/chainsaw.material" type="Material" id=12]
@@ -446,8 +446,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 physics_interpolation_mode = 1
 portal_mode = 3
+material_override = ExtResource( 9 )
 mesh = ExtResource( 11 )
-material/0 = ExtResource( 9 )
 script = ExtResource( 37 )
 required_setting = 1
 wheel_scale = 1.15
@@ -455,9 +455,9 @@ wheel_scale = 1.15
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, 2.411 )
 portal_mode = 3
+material_override = ExtResource( 7 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
-material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
 required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
@@ -465,9 +465,9 @@ wheel_path = NodePath("../../WheelFrontLeft")
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, 2.411 )
 portal_mode = 3
+material_override = ExtResource( 7 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
-material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
 required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
@@ -475,9 +475,9 @@ wheel_path = NodePath("../../WheelFrontRight")
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, -2.16 )
 portal_mode = 3
+material_override = ExtResource( 7 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
 required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
@@ -485,9 +485,9 @@ wheel_path = NodePath("../../WheelBackLeft")
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, -2.16 )
 portal_mode = 3
+material_override = ExtResource( 7 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 7 )
 script = ExtResource( 26 )
 required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")

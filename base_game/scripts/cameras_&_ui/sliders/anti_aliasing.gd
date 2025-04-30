@@ -26,7 +26,7 @@ func _on_AntiAliasingSlider_value_changed(value):
 	var label: Label = get_node(LABEL_PATH)
 	match value:
 		0.0:
-			label.text = "Anti-Aliasing: Off"
+			label.text = "Anti-Aliasing: No MSAA"
 		1.0:
 			label.text = "Anti-Aliasing: 2x MSAA"
 		2.0:

@@ -52,8 +52,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			else:
 				alive = false
 				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = score / 10
-				score -= payout
+				var payout: int = scoreboard_record.score / 10
+				scoreboard_record.lose(payout)
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
@@ -69,16 +69,6 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					get_node("../RespawnTimer").start()
 				return payout
 	return 0
-
-
-func reward(amount: int):
-	score += amount
-	other_half.score = score
-	health = clamp(health + amount, 0.0, base_health)
-	acid_duration = 0
-	acid_cause = null
-	if controls == null:
-		get_node("../StuckTimer").start()
 
 
 func _on_MissileTimer_timeout():

@@ -41,9 +41,11 @@ func _enter_tree():
 
 
 func _physics_process(_delta):
-	var parent: Node = get_parent()
-	global_translation = parent.global_translation + Vector3(0, height, 0)
-	var score: float = parent.score
+	global_translation = get_parent().global_translation + Vector3(0, height, 0)
+
+
+func update_scores():
+	var score: float = get_parent().scoreboard_record.score
 	text = String(score) + "€"
-	score /= clamp(parent.gameplay_manager.pursuers[0].score, 100, 1_000_000)
+	score /= clamp(get_parent().scoreboard_record.find_first().score, 100, 1_000_000)
 	modulate = Color(1, 1, 1, score)

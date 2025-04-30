@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/heart.material" type="Material" id=1]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/pause_box.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/rear_viewport.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/pause_background.gd" type="Script" id=16]
+[ext_resource path="res://scripts/cameras_&_ui/scoreboard.gd" type="Script" id=17]
 
 [sub_resource type="ShaderMaterial" id=25]
 shader = ExtResource( 3 )
@@ -386,6 +387,7 @@ anchor_top = 0.8
 anchor_right = 0.989
 anchor_bottom = 0.98
 color = Color( 0, 0, 0, 1 )
+script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -396,7 +398,7 @@ anchor_top = 0.03
 anchor_right = 0.02
 anchor_bottom = 0.03
 custom_fonts/font = SubResource( 12 )
-text = "?th"
+text = "1st"
 script = ExtResource( 4 )
 
 [node name="Placement2" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -405,7 +407,7 @@ anchor_top = 0.28
 anchor_right = 0.02
 anchor_bottom = 0.28
 custom_fonts/font = SubResource( 12 )
-text = "?th"
+text = "1st"
 script = ExtResource( 4 )
 
 [node name="Placement3" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -414,7 +416,7 @@ anchor_top = 0.53
 anchor_right = 0.02
 anchor_bottom = 0.53
 custom_fonts/font = SubResource( 12 )
-text = "?th"
+text = "1st"
 script = ExtResource( 4 )
 
 [node name="Placement4" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -423,7 +425,7 @@ anchor_top = 0.78
 anchor_right = 0.02
 anchor_bottom = 0.78
 custom_fonts/font = SubResource( 12 )
-text = "?th"
+text = "1st"
 script = ExtResource( 4 )
 
 [node name="Name1" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]

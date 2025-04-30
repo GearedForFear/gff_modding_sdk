@@ -16,8 +16,9 @@ var next_out_back: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Grave Mistake"
+	if controls != null:
+		random_skin("res://resources/materials/vehicles/grave_mistake/",
+				"res://resources/materials/vehicles/wheels_gm/")
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($ShotPositionFront/MuzzleFlash/CPUParticles)
@@ -56,7 +57,7 @@ func _physics_process(_delta):
 			if front_can_shoot and ammo >= bullet_ammo_cost \
 					and collider_front != null \
 					and collider_front.is_in_group("combat_vehicle") \
-					and collider_front.score >= 100:
+					and collider_front.scoreboard_record.score >= 100:
 				shoot($ShotPositionFront)
 				ammo -= bullet_ammo_cost
 				front_can_shoot = false
@@ -66,7 +67,7 @@ func _physics_process(_delta):
 			if back_can_shoot and ammo >= bullet_ammo_cost \
 					and collider_back != null \
 					and collider_back.is_in_group("combat_vehicle") \
-					and collider_back.score >= 100:
+					and collider_back.scoreboard_record.score >= 100:
 				shoot($ShotPositionBack)
 				ammo -= bullet_ammo_cost
 				back_can_shoot = false
@@ -125,6 +126,10 @@ func instantiate_cartridge(var exit: Position3D, var link: bool):
 		new_case.start(exit.global_transform)
 		new_case.apply_central_impulse(new_case.transform.basis.x * 0.018 \
 				+ new_case.transform.basis.y * 0.004)
+
+
+func get_vehicle_name() -> String:
+	return "Grave Mistake"
 
 
 func _on_FrontTimer_timeout():

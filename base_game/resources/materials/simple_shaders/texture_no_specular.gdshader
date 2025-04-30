@@ -1,5 +1,4 @@
 shader_type spatial;
-render_mode async_visible,depth_draw_opaque;
 uniform sampler2D texture_albedo : hint_albedo;
 
 

@@ -26,9 +26,6 @@ var right_saws_active: bool = false
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Chain's Awe"
-	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($MuzzleFlash/CPUParticles)
 	else:
@@ -42,7 +39,7 @@ func _physics_process(_delta):
 			if can_shoot_sniper and ammo >= sniper_ammo_cost and \
 					collider != null \
 					and collider.is_in_group("combat_vehicle") \
-					and collider.score >= 100:
+					and collider.scoreboard_record.score >= 100:
 				shoot_sniper()
 				get_node("../StuckTimer").start()
 			
@@ -50,7 +47,7 @@ func _physics_process(_delta):
 			if can_shoot_launcher and ammo >= launcher_ammo_cost and \
 					collider != null \
 					and collider.is_in_group("combat_vehicle") \
-					and collider.score >= 100:
+					and collider.scoreboard_record.score >= 100:
 				shoot_chainsaw()
 				get_node("../StuckTimer").start()
 		else:
@@ -186,6 +183,10 @@ func shoot_chainsaw():
 	var new_chainsaw: ArcProjectile = pools.get_chainsaw()
 	new_chainsaw.start($ShotPositionLauncher.global_transform, launcher_damage,\
 			launcher_reward, launcher_burn, self)
+
+
+func get_vehicle_name() -> String:
+	return "Chain's Awe"
 
 
 func _on_SniperTimer_timeout():

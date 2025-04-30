@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/restless.material" type="Material" id=2]
+[ext_resource path="res://resources/materials/vehicles/restless/stock.material" type="Material" id=3]
+[ext_resource path="res://resources/materials/vehicles/restless_door/stock.material" type="Material" id=4]
 [ext_resource path="res://resources/meshes/vehicles/restless.tres" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/materials/vehicles/restless.material" type="Material" id=6]
-[ext_resource path="res://resources/materials/vehicles/re_wheel.material" type="Material" id=12]
-[ext_resource path="res://resources/materials/vehicles/restless_door.material" type="Material" id=13]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=6]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/restless_door.tres" type="ArrayMesh" id=16]
 [ext_resource path="res://resources/materials/weapon_components/sniper_rifle.material" type="Material" id=20]
@@ -44,8 +45,10 @@ damping_compression = 0.88
 [node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 12 )
+script = ExtResource( 6 )
+required_setting = 3
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.101966, 1.58692 )
@@ -61,8 +64,10 @@ damping_compression = 0.88
 [node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 12 )
+script = ExtResource( 6 )
+required_setting = 3
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.101966, -1.23149 )
@@ -77,8 +82,10 @@ damping_compression = 0.88
 [node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 12 )
+script = ExtResource( 6 )
+required_setting = 3
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.101966, -1.23115 )
@@ -93,16 +100,18 @@ damping_compression = 0.88
 [node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 12 )
+script = ExtResource( 6 )
+required_setting = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 6 )
 
 [node name="BodyMesh" type="MeshInstance" parent="."]
 portal_mode = 3
+material_override = ExtResource( 3 )
 mesh = ExtResource( 5 )
-material/0 = ExtResource( 6 )
 
 [node name="SniperMesh" type="MeshInstance" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.52865, 0.717167, 1.41345 )
@@ -119,5 +128,5 @@ material/0 = ExtResource( 22 )
 [node name="DoorMesh" type="MeshInstance" parent="."]
 transform = Transform( -4.3873e-08, 1.39595e-11, 1, 0.0860603, 0.99629, 3.76181e-09, -0.99629, 0.0860603, -4.37114e-08, -0.646664, 0.683186, -2.40856 )
 portal_mode = 3
+material_override = ExtResource( 4 )
 mesh = ExtResource( 16 )
-material/0 = ExtResource( 13 )

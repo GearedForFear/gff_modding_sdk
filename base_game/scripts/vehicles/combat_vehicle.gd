@@ -24,10 +24,8 @@ var max_drift_right: float = -20.0
 var burst_duration: int = 0
 var acid_duration: int = 0
 var acid_cause: CombatVehicle
-var score: int = 0
-var placement: int = 1
+var scoreboard_record: ScoreboardRecord
 var target: Spatial
-var driver_name: String = "Player"
 var controls: PlayerControls # null == cpu controlled
 var replacement: CombatVehicle
 var track: Spatial
@@ -53,20 +51,6 @@ func _enter_tree():
 			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
 					$CameraBase)
 		else:
-			gameplay_manager.players.append(self)
-			match get_node("../../../..").name:
-				"SpawnPoint1":
-					driver_name = "Player 1"
-				"SpawnPoint2":
-					driver_name = "Player 2"
-				"SpawnPoint3":
-					driver_name = "Player 3"
-				"SpawnPoint4":
-					driver_name = "Player 4"
-				"SpawnPoint5":
-					driver_name = "Player 5"
-				"SpawnPoint6":
-					driver_name = "Player 6"
 			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
 					get_node("../StuckTimer"))
 		if not is_in_group("heist_target"):
@@ -313,8 +297,9 @@ func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 				alive = false
 				get_node("../RespawnTimer").start()
 				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = score / 5
-				score -= payout
+				var payout: int = scoreboard_record.score / 5
+				if payout != 0:
+					scoreboard_record.lose(payout)
 				acid_duration = 0
 				acid_cause = null
 				if gles3:
@@ -330,7 +315,7 @@ func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 
 
 func reward(amount: int):
-	score += amount
+	scoreboard_record.reward(amount)
 	if alive:
 		health = clamp(health + amount, 0.0, base_health)
 		change_heat(-amount)
@@ -360,6 +345,47 @@ func pause_looping_audio():
 
 func delete(node: Node):
 	get_node("/root/RootControl/DeletionManager").to_be_deleted.append(node)
+
+
+func get_vehicle_name() -> String: #overridden in vehicle-specific scripts
+	return ""
+
+
+func random_skin(var body_path: String, var wheels_path: String):
+	var r: int = randi() % 200
+	if r < 30:
+		return
+	var path_ending: String
+	if (r < 60):
+		path_ending = "demon"
+	elif (r < 90):
+		path_ending = "greed"
+	elif (r < 120):
+		path_ending = "skydive"
+	elif (r < 150):
+		path_ending = "galaxy"
+	elif (r < 168):
+		path_ending = "sunset"
+	elif (r < 186):
+		path_ending = "intense"
+	elif (r < 194):
+		path_ending = "pearl"
+	elif (r < 199):
+		path_ending = "glow"
+	else:
+		path_ending = "gold"
+	path_ending += ".material"
+	
+	var body: MeshInstance = $BodyMesh
+	body.material_override = ResourceLoader.load(body_path + path_ending,
+			"ShaderMaterial")
+	if wheels_path != "":
+		var material: ShaderMaterial = ResourceLoader.load(wheels_path
+				+ path_ending, "ShaderMaterial")
+		body.get_node("WheelFrontLeft").material_override = material
+		body.get_node("WheelFrontRight").material_override = material
+		body.get_node("WheelBackLeft").material_override = material
+		body.get_node("WheelBackRight").material_override = material
 
 
 func _on_RespawnTimer_timeout():

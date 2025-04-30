@@ -14,8 +14,8 @@ var saws: Array
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Metal Undertow"
+	if controls != null:
+		random_skin("res://resources/materials/vehicles/metal_undertow/", "")
 
 
 func _physics_process(_delta):
@@ -26,7 +26,7 @@ func _physics_process(_delta):
 				var collider: PhysicsBody = $ShotPositionMiddle.get_collider()
 				if can_shoot_front and collider != null \
 						and collider.is_in_group("combat_vehicle") \
-						and collider.score >= 100:
+						and collider.scoreboard_record.score >= 100:
 					shoot($ShotPositionMiddle)
 					can_shoot_front = false
 					get_node("../ShotTimerFront").start()
@@ -35,7 +35,7 @@ func _physics_process(_delta):
 					collider = $ShotPositionLeft.get_collider()
 					if can_shoot_left and collider != null \
 							and collider.is_in_group("combat_vehicle") \
-							and collider.score >= 100:
+							and collider.scoreboard_record.score >= 100:
 						shoot($ShotPositionLeft)
 						can_shoot_left = false
 						get_node("../ShotTimerLeft").start()
@@ -44,7 +44,7 @@ func _physics_process(_delta):
 						collider = $ShotPositionRight.get_collider()
 						if can_shoot_right and collider != null \
 								and collider.is_in_group("combat_vehicle") \
-								and collider.score >= 100:
+								and collider.scoreboard_record.score >= 100:
 							shoot($ShotPositionRight)
 							can_shoot_right = false
 							get_node("../ShotTimerRight").start()
@@ -98,6 +98,10 @@ func pull(var b: bool):
 	else:
 		$PullCPUParticles.emitting = b
 	$LoopingAudio/MagnetAudio.stream_paused = not b
+
+
+func get_vehicle_name() -> String:
+	return "Metal Undertow"
 
 
 func _on_ShotTimerAny_timeout():

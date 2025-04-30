@@ -5,14 +5,14 @@
 [ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/meshes/vehicles/restless.tres" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/materials/vehicles/restless.material" type="Material" id=6]
+[ext_resource path="res://resources/materials/vehicles/restless/stock.material" type="Material" id=6]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=11]
-[ext_resource path="res://resources/materials/vehicles/re_wheel.material" type="Material" id=12]
-[ext_resource path="res://resources/materials/vehicles/restless_door.material" type="Material" id=13]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/restless.material" type="Material" id=12]
+[ext_resource path="res://resources/materials/vehicles/restless_rocket/stock.material" type="Material" id=13]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/restless_door.tres" type="ArrayMesh" id=16]
@@ -24,7 +24,7 @@
 [ext_resource path="res://resources/materials/weapon_components/light_machine_gun.material" type="Material" id=22]
 [ext_resource path="res://resources/meshes/weapon_components/light_machine_gun.tres" type="ArrayMesh" id=23]
 [ext_resource path="res://resources/meshes/vehicles/restless_rocket.tres" type="ArrayMesh" id=24]
-[ext_resource path="res://resources/materials/vehicles/restless_rocket.material" type="Material" id=25]
+[ext_resource path="res://resources/materials/vehicles/restless_door/stock.material" type="Material" id=25]
 [ext_resource path="res://resources/sounds/vehicles/sci-fi_vehicle_spaceship_jet_engine_loop3.wav" type="AudioStream" id=26]
 [ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=27]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=28]
@@ -314,8 +314,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 physics_interpolation_mode = 1
 portal_mode = 3
+material_override = ExtResource( 6 )
 mesh = ExtResource( 5 )
-material/0 = ExtResource( 6 )
 script = ExtResource( 40 )
 required_setting = 1
 wheel_scale = 0.8
@@ -323,9 +323,9 @@ wheel_scale = 0.8
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.886013, 0.101966, 1.5867 )
 portal_mode = 3
+material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
-material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
 wheel_path = NodePath("../../WheelFrontLeft")
@@ -333,9 +333,9 @@ wheel_path = NodePath("../../WheelFrontLeft")
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.88, 0.101966, 1.58692 )
 portal_mode = 3
+material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
-material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
 wheel_path = NodePath("../../WheelFrontRight")
@@ -343,9 +343,9 @@ wheel_path = NodePath("../../WheelFrontRight")
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.886013, 0.101966, -1.23149 )
 portal_mode = 3
+material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
 wheel_path = NodePath("../../WheelBackLeft")
@@ -353,9 +353,9 @@ wheel_path = NodePath("../../WheelBackLeft")
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.88, 0.101966, -1.23115 )
 portal_mode = 3
+material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
 wheel_path = NodePath("../../WheelBackRight")
@@ -380,8 +380,8 @@ required_setting = 3
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0 )
 visible = false
 portal_mode = 3
+material_override = ExtResource( 13 )
 mesh = ExtResource( 24 )
-material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
 required_setting = 3
 
@@ -389,16 +389,16 @@ required_setting = 3
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0 )
 visible = false
 portal_mode = 3
+material_override = ExtResource( 13 )
 mesh = ExtResource( 24 )
-material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
 required_setting = 3
 
 [node name="DoorMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -4.3873e-08, 1.39595e-11, 1, 0.0860603, 0.99629, 3.76181e-09, -0.99629, 0.0860603, -4.37114e-08, -0.646664, 0.683186, -2.40856 )
 portal_mode = 3
+material_override = ExtResource( 25 )
 mesh = ExtResource( 16 )
-material/0 = ExtResource( 13 )
 script = ExtResource( 34 )
 required_setting = 3
 

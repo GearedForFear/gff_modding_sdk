@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/world/dynamic_shadow_body.gd"
 }, {
+"base": "Node",
+"class": "GameplayManager",
+"language": "GDScript",
+"path": "res://scripts/managers/gameplay_manager.gd"
+}, {
 "base": "CombatVehicle",
 "class": "HeatVehicle",
 "language": "GDScript",
@@ -79,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cameras_&_ui/sliders/resolution.gd"
 }, {
+"base": "Reference",
+"class": "ScoreboardRecord",
+"language": "GDScript",
+"path": "res://scripts/scoreboard_record.gd"
+}, {
 "base": "Node",
 "class": "SettingsManager",
 "language": "GDScript",
@@ -120,6 +130,7 @@ _global_script_class_icons={
 "ArrayResource": "",
 "CombatVehicle": "",
 "DynamicShadowBody": "",
+"GameplayManager": "",
 "HeatVehicle": "",
 "LevelVehicle": "",
 "LoadingManager": "",
@@ -129,6 +140,7 @@ _global_script_class_icons={
 "Projectile": "",
 "Reflections": "",
 "Resolution": "",
+"ScoreboardRecord": "",
 "SettingsManager": "",
 "ShadowSetter": "",
 "StraightProjectile": "",

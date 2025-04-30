@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode async_visible,unshaded;
+render_mode unshaded;
 const vec3 Color = vec3(1.0, 0.97, 0.44);
 uniform sampler2D texture_albedo : hint_albedo;
 

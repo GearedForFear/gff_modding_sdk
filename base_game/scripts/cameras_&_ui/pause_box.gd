@@ -51,7 +51,7 @@ func _physics_process(_delta):
 						get_node("../AnimationPlayer").play("show_info")
 				2:
 					get_tree().paused = false
-					vehicle.gameplay_manager.get_parent().queue_free()
+					Global.gameplay_manager.get_parent().queue_free()
 					get_node("/root/RootControl").active(true)
 		
 		if just_opened:

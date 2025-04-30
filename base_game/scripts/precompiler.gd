@@ -28,9 +28,7 @@ func _process(_delta):
 			if can_finish:
 				hide()
 				var loading: Control = get_node_or_null(\
-						"../AspectRatioContainer/Loading")
-				if loading == null:
-					loading = get_parent().menu_orphans[0].get_node("Loading")
+						"/root/FrontContainer/Loading")
 				loading.hide()
 				set_process(false)
 			else:
@@ -38,7 +36,10 @@ func _process(_delta):
 
 
 func start():
-	get_node("../AspectRatioContainer/Loading").show()
+	if is_inside_tree():
+		var loading: Control = get_node_or_null("/root/FrontContainer/Loading")
+		if loading != null:
+			loading.show()
 	set_process(true)
 	emit_particles()
 	position_in_array = 0
@@ -50,6 +51,19 @@ func add_materials():
 			"Resource").array:
 		for material_path in array:
 			materials.append(ResourceLoader.load(material_path, "Material"))
+	
+	var skin_names: Array
+	for skin_name in ResourceLoader.load(\
+			"res://resources/custom/skin_names.tres", \
+			"Resource").array:
+		skin_names.append("/" + skin_name + ".material")
+	for folder in ResourceLoader.load(\
+			"res://resources/custom/skin_folders.tres", \
+			"Resource").array:
+		for skin_name in skin_names:
+			materials.append(ResourceLoader.load(\
+			"res://resources/materials/vehicles/"
+			+ folder + skin_name, "Material"))
 
 
 func emit_particles():

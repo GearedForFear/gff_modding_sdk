@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode async_visible,depth_draw_opaque,cull_disabled;
+render_mode cull_disabled;
 const float DistanceFadeMin = 0.0;
 const float DistanceFadeMax = 60.0;
 uniform vec4 albedo : hint_color;

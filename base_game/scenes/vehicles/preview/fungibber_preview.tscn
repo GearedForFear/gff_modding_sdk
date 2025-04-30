@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
-[ext_resource path="res://resources/materials/vehicles/fu_wheel.material" type="Material" id=2]
-[ext_resource path="res://resources/materials/vehicles/fungibber.material" type="Material" id=3]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/fungibber.material" type="Material" id=2]
+[ext_resource path="res://resources/materials/vehicles/fungibber/stock.material" type="Material" id=3]
+[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=4]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/fungibber.tres" type="ArrayMesh" id=19]
 
@@ -38,8 +39,10 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 2 )
+script = ExtResource( 4 )
+required_setting = 3
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.133, 0.142987, 2.78668 )
@@ -54,8 +57,10 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 2 )
+script = ExtResource( 4 )
+required_setting = 3
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13288, 0.142987, -1.82899 )
@@ -69,8 +74,10 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 2 )
+script = ExtResource( 4 )
+required_setting = 3
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.133, 0.142987, -1.82865 )
@@ -84,13 +91,15 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
 portal_mode = 3
+material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 2 )
-
-[node name="BodyMesh" type="MeshInstance" parent="."]
-portal_mode = 3
-mesh = ExtResource( 19 )
-material/0 = ExtResource( 3 )
+script = ExtResource( 4 )
+required_setting = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 6 )
+
+[node name="BodyMesh" type="MeshInstance" parent="."]
+portal_mode = 3
+material_override = ExtResource( 3 )
+mesh = ExtResource( 19 )

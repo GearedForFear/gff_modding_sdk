@@ -12,11 +12,6 @@ var left_can_shoot: bool = true
 var right_can_shoot: bool = true
 
 
-func _ready():
-	if controls == null:
-		driver_name = "Suicide Door"
-
-
 func _physics_process(_delta):
 	if alive:
 		if controls == null:
@@ -62,6 +57,10 @@ func instantiate_missile(var start_position: Transform, var direction: int, \
 			+ global_transform.basis.x * direction
 	new_missile.moving_target = moving_target
 	return new_missile
+
+
+func get_vehicle_name() -> String:
+	return "Suicide Door"
 
 
 func _on_FrontTimer_timeout():

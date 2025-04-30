@@ -21,9 +21,6 @@ var next_out: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Warm Welcome"
-	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($MuzzleFlash/CPULeft)
 		delete($MuzzleFlash/CPURight)
@@ -63,9 +60,9 @@ func _physics_process(_delta):
 			var right_collider: PhysicsBody = $ShotPositionRight.get_collider()
 			if can_shoot and ammo >= bullet_ammo_cost and ((left_collider \
 					!= null and left_collider.is_in_group("combat_vehicle") \
-					and left_collider.score >= 100) or (right_collider != null \
+					and left_collider.scoreboard_record.score >= 100) or (right_collider != null \
 					and right_collider.is_in_group("combat_vehicle") \
-					and right_collider.score >= 100)):
+					and right_collider.scoreboard_record.score >= 100)):
 				shoot(true)
 				get_node("../StuckTimer").start()
 			elif get_node("../GunTimer").is_stopped():
@@ -189,6 +186,10 @@ func deal_flame_damage(var a: Area):
 				var new_money: Area = pools.get_money()
 				new_money.start(global_transform, self, n, payout)
 				new_money.speed_divisor = 2.0
+
+
+func get_vehicle_name() -> String:
+	return "Warm Welcome"
 
 
 func _on_GunTimer_timeout():

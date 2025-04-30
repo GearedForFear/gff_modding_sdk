@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode async_visible,cull_disabled,unshaded;
+render_mode unshaded;
 
 
 

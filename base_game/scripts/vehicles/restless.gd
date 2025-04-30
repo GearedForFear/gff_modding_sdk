@@ -27,8 +27,6 @@ var next_out: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls == null:
-		driver_name = "Restless"
 	boost_type = boost_types.NITRO
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
@@ -80,19 +78,19 @@ func _physics_process(_delta):
 			if can_shoot_shotgun and ammo >= shotgun_ammo_cost and \
 					((collider_up != null \
 					and collider_up.is_in_group("combat_vehicle") \
-					and collider_up.score >= 100) \
+					and collider_up.scoreboard_record.score >= 100) \
 					or (collider_down != null \
 					and collider_down.is_in_group("combat_vehicle") \
-					and collider_down.score >= 100) \
+					and collider_down.scoreboard_record.score >= 100) \
 					or (collider_left != null \
 					and collider_left.is_in_group("combat_vehicle") \
-					and collider_left.score >= 100) \
+					and collider_left.scoreboard_record.score >= 100) \
 					or (collider_middle != null \
 					and collider_middle.is_in_group("combat_vehicle") \
-					and collider_middle.score >= 100) \
+					and collider_middle.scoreboard_record.score >= 100) \
 					or (collider_right != null \
 					and collider_right.is_in_group("combat_vehicle") \
-					and collider_right.score >= 100)):
+					and collider_right.scoreboard_record.score >= 100)):
 				shoot_shotgun()
 				get_node("../StuckTimer").start()
 			
@@ -100,7 +98,7 @@ func _physics_process(_delta):
 			if can_shoot_sniper and ammo >= sniper_ammo_cost and \
 					collider_middle != null \
 					and collider_middle.is_in_group("combat_vehicle") \
-					and collider_middle.score >= 100:
+					and collider_middle.scoreboard_record.score >= 100:
 				shoot_sniper()
 				get_node("../StuckTimer").start()
 			
@@ -108,7 +106,7 @@ func _physics_process(_delta):
 			if can_shoot_lmg and ammo >= lmg_ammo_cost \
 					and collider_middle != null \
 					and collider_middle.is_in_group("combat_vehicle") \
-					and collider_middle.score >= 100:
+					and collider_middle.scoreboard_record.score >= 100:
 				shoot_lmg()
 				get_node("../StuckTimer").start()
 		else:
@@ -208,6 +206,10 @@ func shoot_lmg():
 	var flash: GeometryInstance = $MachineGunFlash.get_child(0)
 	flash.restart()
 	flash.emitting = true
+
+
+func get_vehicle_name() -> String:
+	return "Restless"
 
 
 func _on_ShotgunTimer_timeout():

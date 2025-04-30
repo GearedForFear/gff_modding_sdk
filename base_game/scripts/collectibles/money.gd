@@ -36,7 +36,8 @@ func start(global_transform: Transform, shooter: CombatVehicle, \
 
 
 func _on_Area_body_entered(body):
-	if body != spawner:
+	if body != spawner\
+			and body.scoreboard_record.score != ScoreboardRecord.MAX_INT:
 		body.reward(reward)
 		set_physics_process(true)
 		set_process(false)

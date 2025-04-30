@@ -2,6 +2,7 @@ class_name Reflections
 extends HSlider
 
 
+const SELF_PATH = "AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider"
 const LABEL_PATH = "../ReflectionsLabel"
 
 
@@ -28,17 +29,41 @@ func convert_to_slider_value(var x: int) -> int:
 	return return_value
 
 
+static func get_this() -> Reflections:
+	return Global.root_control.get_node_or_null(SELF_PATH) as Reflections
+
+
+static func get_reflections_base() -> int:
+	var settings_manager: SettingsManager = SettingsManager.get_this()
+	if settings_manager == null:
+		return -1
+	return settings_manager.reflections
+
+
 static func get_reflections_clamped() -> int:
 	var settings_manager: SettingsManager = SettingsManager.get_this()
+	if settings_manager == null:
+		return -1
 	return int(min(OS.window_size.x / settings_manager.resolution / 4, \
 			settings_manager.reflections))
 
 
 static func update_reflections():
+	if get_this() == null:
+		return
 	var max_steps: int = get_reflections_clamped()
 	for n in SettingsManager.ENVIRONMENTS:
 		n.ss_reflections_max_steps = max_steps
 		n.ss_reflections_enabled = max_steps != 0
+	
+	var base_value: int = get_reflections_base()
+	var label: Label = get_this().get_node(LABEL_PATH)
+	if base_value == 0:
+		label.text = "Reflections: Off"
+	else:
+		label.text = "Reflection Range: " + String(base_value)
+		if base_value > max_steps:
+			label.text += " (capped to " + String(max_steps) + ")"
 
 
 func _on_ReflectionsSlider_focus_entered():
@@ -47,13 +72,10 @@ func _on_ReflectionsSlider_focus_entered():
 
 func _on_ReflectionsSlider_value_changed(value):
 	var converted_value: int
-	var label: Label = get_node(LABEL_PATH)
 	if value == 0:
 		converted_value = 0
-		label.text = "Reflections: Off"
 	else:
 		converted_value = pow(2, value + 4)
-		label.text = "Reflection Range: " + String(converted_value)
 	
 	var root_control: Control = Global.root_control
 	var settings_manager: SettingsManager = root_control.get_node(\
@@ -66,7 +88,3 @@ func _on_ReflectionsSlider_value_changed(value):
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
 	root_control.get_node("Precompiler").start()
-	
-	var clamped: int = get_reflections_clamped()
-	if converted_value > clamped:
-		label.text += " (capped to " + String(clamped) + ")"

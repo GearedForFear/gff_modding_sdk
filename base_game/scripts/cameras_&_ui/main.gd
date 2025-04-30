@@ -308,21 +308,12 @@ func play_next(vehicle_data: Array):
 	
 	if next_tracks.empty():
 		active(true)
-		vehicle_data.sort_custom(VehicleData, "sort_score")
-		$AspectRatioContainer/ArcadeEnd/Headline.text \
-				= vehicle_data[0].driver_name + " Wins"
-		var names: Label = $AspectRatioContainer/ArcadeEnd/ColorRect/Names
-		var scores: Label = $AspectRatioContainer/ArcadeEnd/ColorRect/Scores
-		names.text = ""
-		scores.text = ""
+		$AspectRatioContainer/ArcadeEnd.update_text(\
+				vehicle_data[0].scoreboard_record.find_first())
 		for n in 12:
-			var data: VehicleData = vehicle_data[n]
-			names.text += data.driver_name + "\n"
-			scores.text += String(data.score) + "€\n"
-			data.free()
+			vehicle_data[n].free()
 		$DeletionManager.delete = true
 		$AspectRatioContainer/MainMenu.hide()
-		$AspectRatioContainer/ArcadeEnd.show()
 		return
 	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
 	next_tracks.remove(0)
@@ -349,7 +340,7 @@ func play_next(vehicle_data: Array):
 		var vehicle: Spatial = ResourceLoader.load(data.scene_resource).instance()
 		vehicle.get_node("Body").track = track
 		vehicle.get_node("Body").controls = data.controls
-		vehicle.get_node("Body").score = data.score
+		vehicle.get_node("Body").scoreboard_record = data.scoreboard_record
 		spawns[n].add_child(vehicle)
 		data.free()
 	
@@ -499,48 +490,12 @@ func active(var b: bool):
 func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 	var vehicle: Spatial
 	var next_vehicle: int = first_vehicle
+	var names: PoolStringArray = ["chains_awe", "suicide_door", "grave_mistake",
+			"metal_undertow", "warm_welcome", "turbulence", "eternal_bond",
+			"restless", "well_raised", "no_match"]
 	for n in spawns:
-		match next_vehicle:
-			0:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/chains_awe.tscn", \
-						"PackedScene").instance()
-			1:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/suicide_door.tscn", \
-						"PackedScene").instance()
-			2:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/grave_mistake.tscn", \
-						"PackedScene").instance()
-			3:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/metal_undertow.tscn", \
-						"PackedScene").instance()
-			4:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/warm_welcome.tscn", \
-						"PackedScene").instance()
-			5:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/turbulence.tscn", \
-						"PackedScene").instance()
-			6:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/eternal_bond.tscn", \
-						"PackedScene").instance()
-			7:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/restless.tscn", \
-						"PackedScene").instance()
-			8:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/well_raised.tscn", \
-						"PackedScene").instance()
-			9:
-				vehicle = ResourceLoader.load(\
-						"res://scenes/vehicles/no_match.tscn", \
-						"PackedScene").instance()
+		vehicle = ResourceLoader.load("res://scenes/vehicles/"
+				+ names[next_vehicle] + ".tscn", "PackedScene").instance()
 		next_vehicle = (next_vehicle + 1) % 10
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
