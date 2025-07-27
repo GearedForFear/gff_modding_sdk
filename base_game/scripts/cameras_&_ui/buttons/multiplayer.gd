@@ -16,9 +16,9 @@ func _pressed():
 func update():
 	var singleplayer: bool = Global.root_control.player_amount == 1
 	if singleplayer:
-		text = "Multiplayer"
+		text = "MULTIPLAYER"
 	else:
-		text = "Singleplayer"
+		text = "SINGLEPLAYER"
 	if get_node_or_null("../Viewports") != null:
 		get_node("../Viewports/Multiplayer/Viewport/Body").visible = singleplayer
 		get_node("../Viewports/Multiplayer/Viewport/Body2").visible = singleplayer

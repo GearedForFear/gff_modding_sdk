@@ -36,18 +36,21 @@ func _physics_process(_delta):
 						open(false)
 						var i: InputEvent = ProjectSettings.get_setting(
 								"input/" + controls.respawn).events[0]
-						var s: String = "You can also respawn with "
+						var s: String = tr("RESPAWN_INFO") + " "
 						if i.is_class("InputEventJoypadButton"):
 							s += "SELECT"
 						else:
 							s += i.as_text()
+						var string_ending: String = tr("RESPAWN_INFO_2")
+						if string_ending != "-":
+							s += " " + string_ending
+						
 						get_node("../Info").text = s
 						get_node("../AnimationPlayer").play("show_info")
 						get_viewport().stop()
 						vehicle.gameplay_manager.respawn(vehicle)
 					else:
-						get_node("../Info").text = \
-								"You cannot respawn before the game starts"
+						get_node("../Info").text = tr("RESPAWN_INFO_3")
 						get_node("../AnimationPlayer").play("show_info")
 				2:
 					get_tree().paused = false

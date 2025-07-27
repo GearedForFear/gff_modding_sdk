@@ -19,6 +19,7 @@ onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
 
 func _ready():
 	categories.append_array(get_children())
+	update_selection()
 
 
 func _process(_delta):
@@ -150,5 +151,5 @@ func update_selection():
 	get_node("../ViewportContainer/Viewport/Spatial").update_vehicle(\
 			current_category, current_vehicle)
 	get_node("../Name").text = selection.text
-	get_node("../PageNumber").text = "Page " + String(current_category + 1) \
+	get_node("../PageNumber").text = tr("PAGE") + " " + String(current_category + 1) \
 			+ "/5"

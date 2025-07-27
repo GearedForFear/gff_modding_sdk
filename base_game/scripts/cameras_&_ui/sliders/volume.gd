@@ -29,12 +29,12 @@ func update():
 		AUDIO_BUSES.EFFECTS:
 			var label: Label = get_node(LABEL_PATH_EFFECTS)
 			config.set_value("audio", "sound", value)
-			label.text = "Sound FX Volume: " + String(value)
+			label.text = tr("FX_VOLUME") + ": " + String(value)
 		AUDIO_BUSES.MUSIC:
 			var label: Label = get_node(LABEL_PATH_MUSIC)
 			config.set_value("audio", "music", value)
 			label.text = "Music coming in the Future"
-			#label.text = "Music Volume: " + String(value)
+			label.text = tr("MUSIC_VOLUME") + ": " + String(value)
 	AudioServer.set_bus_volume_db(audio_bus, linear2db(value / 100))
 	config.save("user://config.cfg")
 
@@ -44,4 +44,8 @@ func _on_SoundEffectsVolumeSlider_value_changed(_value):
 
 
 func _on_MusicVolumeSlider_value_changed(_value):
+	update()
+
+
+func _on_SoundMenu_visibility_changed():
 	update()

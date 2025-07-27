@@ -2,22 +2,18 @@ extends Node
 
 
 var can_cancel: bool = true
+var hold_left: float = 0.0
+var hold_right: float = 0.0
 
 
-func _process(_delta):
+func _process(delta):
 	if Input.is_action_just_pressed("ui_accept_1") or \
 			Input.is_action_just_pressed("ui_accept_2") or \
 			Input.is_action_just_pressed("ui_accept_3") or \
 			Input.is_action_just_pressed("ui_accept_4") or \
 			Input.is_action_just_pressed("ui_accept_5") or \
 			Input.is_action_just_pressed("ui_accept_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_accept"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		press("ui_accept")
 	
 	if (Input.is_action_just_pressed("ui_cancel_1") or \
 			Input.is_action_just_pressed("ui_cancel_2") or \
@@ -26,13 +22,7 @@ func _process(_delta):
 			Input.is_action_just_pressed("ui_cancel_5") or \
 			Input.is_action_just_pressed("ui_cancel_6")) and \
 			get_parent().get_node_or_null("RootSpatial") == null:
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_cancel"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		press("ui_cancel")
 	
 	if Input.is_action_just_pressed("ui_up_1") or \
 			Input.is_action_just_pressed("ui_up_2") or \
@@ -40,13 +30,7 @@ func _process(_delta):
 			Input.is_action_just_pressed("ui_up_4") or \
 			Input.is_action_just_pressed("ui_up_5") or \
 			Input.is_action_just_pressed("ui_up_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_up"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		press("ui_up")
 	
 	if Input.is_action_just_pressed("ui_down_1") or \
 			Input.is_action_just_pressed("ui_down_2") or \
@@ -54,13 +38,7 @@ func _process(_delta):
 			Input.is_action_just_pressed("ui_down_4") or \
 			Input.is_action_just_pressed("ui_down_5") or \
 			Input.is_action_just_pressed("ui_down_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_down"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		press("ui_down")
 	
 	if Input.is_action_just_pressed("ui_left_1") or \
 			Input.is_action_just_pressed("ui_left_2") or \
@@ -68,13 +46,8 @@ func _process(_delta):
 			Input.is_action_just_pressed("ui_left_4") or \
 			Input.is_action_just_pressed("ui_left_5") or \
 			Input.is_action_just_pressed("ui_left_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_left"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		hold_left = 0.001
+		press("ui_left")
 	
 	if Input.is_action_just_pressed("ui_right_1") or \
 			Input.is_action_just_pressed("ui_right_2") or \
@@ -82,13 +55,36 @@ func _process(_delta):
 			Input.is_action_just_pressed("ui_right_4") or \
 			Input.is_action_just_pressed("ui_right_5") or \
 			Input.is_action_just_pressed("ui_right_6"):
-		var input: InputEventAction = InputEventAction.new()
-		input.action = "ui_right"
-		input.pressed = true
-		Input.parse_input_event(input)
-		yield(get_tree(), "idle_frame")
-		input.pressed = false
-		Input.parse_input_event(input)
+		hold_right = 0.001
+		press("ui_right")
+	
+	if hold_left != 0.0:
+		if Input.is_action_just_released("ui_left_1") or \
+				Input.is_action_just_released("ui_left_2") or \
+				Input.is_action_just_released("ui_left_3") or \
+				Input.is_action_just_released("ui_left_4") or \
+				Input.is_action_just_released("ui_left_5") or \
+				Input.is_action_just_released("ui_left_6"):
+			hold_left = 0.0
+		else:
+			hold_left += delta
+			if hold_left > 0.2:
+				hold_left -= 0.04
+				press("ui_left")
+	
+	if hold_right != 0.0:
+		if Input.is_action_just_released("ui_right_1") or \
+				Input.is_action_just_released("ui_right_2") or \
+				Input.is_action_just_released("ui_right_3") or \
+				Input.is_action_just_released("ui_right_4") or \
+				Input.is_action_just_released("ui_right_5") or \
+				Input.is_action_just_released("ui_right_6"):
+			hold_right = 0.0
+		else:
+			hold_right += delta
+			if hold_right > 0.2:
+				hold_right -= 0.04
+				press("ui_right")
 	
 	if get_parent().visible:
 		if Input.is_action_just_pressed("ui_accept") \
@@ -140,11 +136,23 @@ func _process(_delta):
 				menu.show()
 				menu.get_node("Buttons/Sound").grab_focus()
 				sound.play()
+			elif get_node("../AspectRatioContainer/LanguageMenu").visible:
+				get_node("../AspectRatioContainer/LanguageMenu").hide()
+				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
+				menu.show()
+				menu.get_node("Buttons/Language").grab_focus()
+				sound.play()
 			elif get_node("../AspectRatioContainer/AdvancedMenu").visible:
 				get_node("../AspectRatioContainer/AdvancedMenu").hide()
 				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
 				menu.show()
 				menu.get_node("Buttons/Advanced").grab_focus()
+				sound.play()
+			elif get_node("../AspectRatioContainer/Credits").visible:
+				get_node("../AspectRatioContainer/Credits").hide()
+				var menu: Control = get_node("../AspectRatioContainer/MainMenu")
+				menu.show()
+				menu.get_node("Credits").grab_focus()
 				sound.play()
 			elif get_node("../AspectRatioContainer/ArcadeEnd").visible:
 				get_node("../AspectRatioContainer/ArcadeEnd").hide()
@@ -154,3 +162,13 @@ func _process(_delta):
 				sound.play()
 		else:
 			can_cancel = true
+
+
+func press(action: String):
+	var input: InputEventAction = InputEventAction.new()
+	input.action = action
+	input.pressed = true
+	Input.parse_input_event(input)
+	yield(get_tree(), "idle_frame")
+	input.pressed = false
+	Input.parse_input_event(input)

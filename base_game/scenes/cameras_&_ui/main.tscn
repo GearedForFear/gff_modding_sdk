@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=2]
+[gd_scene load_steps=97 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
@@ -7,16 +7,20 @@
 [ext_resource path="res://scripts/cameras_&_ui/front_container.gd" type="Script" id=5]
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
+[ext_resource path="res://scripts/cameras_&_ui/dynamic_font_size.gd" type="Script" id=8]
 [ext_resource path="res://resources/images/cameras_&_ui/multiplayer.png" type="Texture" id=9]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=10]
 [ext_resource path="res://resources/theme/big_label.theme" type="Theme" id=11]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/multiplayer.gd" type="Script" id=12]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/language.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/sliders/resolution.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/player_amount.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/window_modes.gd" type="Script" id=16]
 [ext_resource path="res://scripts/cameras_&_ui/sliders/volume.gd" type="Script" id=17]
 [ext_resource path="res://resources/images/cameras_&_ui/arcade.png" type="Texture" id=18]
 [ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=19]
+[ext_resource path="res://scripts/music_player.gd" type="Script" id=20]
+[ext_resource path="res://resources/music/theme_1.mp3" type="AudioStream" id=21]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=22]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_22.wav" type="AudioStream" id=24]
@@ -48,6 +52,7 @@
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=50]
 [ext_resource path="res://scripts/cameras_&_ui/fov_camera.gd" type="Script" id=51]
 [ext_resource path="res://resources/images/cameras_&_ui/challenges.png" type="Texture" id=52]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/level.gd" type="Script" id=53]
 [ext_resource path="res://scripts/managers/mirror_manager.gd" type="Script" id=54]
 [ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=57]
 [ext_resource path="res://scripts/cameras_&_ui/loading_animation.gd" type="Script" id=58]
@@ -215,7 +220,7 @@ margin_bottom = -5.0
 focus_neighbour_left = NodePath("../Multiplayer")
 focus_neighbour_top = NodePath("../Customization")
 theme = ExtResource( 71 )
-text = "Arcade"
+text = "ARCADE"
 script = ExtResource( 22 )
 track_path = ""
 
@@ -228,10 +233,10 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
-focus_neighbour_top = NodePath("../DoNotPress")
+focus_neighbour_top = NodePath("../Level")
 theme = ExtResource( 71 )
 disabled = true
-text = "Challenges"
+text = "CHALLENGES"
 
 [node name="Multiplayer" type="Button" parent="AspectRatioContainer/MainMenu"]
 anchor_left = 0.809
@@ -245,7 +250,7 @@ margin_bottom = -5.0
 focus_neighbour_top = NodePath("../Options")
 focus_neighbour_right = NodePath("../Arcade")
 theme = ExtResource( 71 )
-text = "Multiplayer"
+text = "MULTIPLAYER"
 script = ExtResource( 12 )
 
 [node name="SingleTrack" type="Button" parent="AspectRatioContainer/MainMenu"]
@@ -258,7 +263,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 focus_neighbour_left = NodePath("../Credits")
 theme = ExtResource( 71 )
-text = "Single Track"
+text = "SINGLE_TRACK"
 clip_text = true
 script = ExtResource( 10 )
 show_parent = 2
@@ -274,7 +279,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 theme = ExtResource( 71 )
 disabled = true
-text = "Freeroam"
+text = "FREEROAM"
 clip_text = true
 
 [node name="Credits" type="Button" parent="AspectRatioContainer/MainMenu"]
@@ -288,9 +293,11 @@ margin_right = -5.0
 margin_bottom = -5.0
 focus_neighbour_right = NodePath("../SingleTrack")
 theme = ExtResource( 71 )
-disabled = true
-text = "Credits"
+text = "CREDITS"
 clip_text = true
+script = ExtResource( 10 )
+selection = "../../Credits/ColorRectRight/Label"
+show_parent = 2
 
 [node name="Customization" type="Button" parent="AspectRatioContainer/MainMenu"]
 anchor_top = 0.809
@@ -304,10 +311,10 @@ focus_neighbour_left = NodePath("../Options")
 focus_neighbour_bottom = NodePath("../Arcade")
 theme = ExtResource( 71 )
 disabled = true
-text = "Customization"
+text = "CUSTOMIZATION"
 clip_text = true
 
-[node name="DoNotPress" type="Button" parent="AspectRatioContainer/MainMenu"]
+[node name="Level" type="Button" parent="AspectRatioContainer/MainMenu"]
 anchor_left = 0.618
 anchor_top = 0.809
 anchor_right = 0.809
@@ -319,8 +326,9 @@ margin_bottom = -5.0
 focus_neighbour_bottom = NodePath("../Challenges")
 theme = ExtResource( 71 )
 disabled = true
-text = "Do not Press"
+text = "LEVEL_X"
 clip_text = true
+script = ExtResource( 53 )
 
 [node name="Options" type="Button" parent="AspectRatioContainer/MainMenu"]
 anchor_left = 0.809
@@ -334,7 +342,7 @@ margin_bottom = -5.0
 focus_neighbour_right = NodePath("../Customization")
 focus_neighbour_bottom = NodePath("../Multiplayer")
 theme = ExtResource( 71 )
-text = "Options"
+text = "OPTIONS"
 clip_text = true
 script = ExtResource( 10 )
 selection = "../../OptionsMenu/Buttons/Resolution"
@@ -387,7 +395,7 @@ focus_neighbour_top = NodePath("../../Options")
 focus_neighbour_right = NodePath("../../Arcade")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "2 Players"
+text = "2_PLAYERS"
 script = ExtResource( 15 )
 
 [node name="Players3" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
@@ -397,7 +405,7 @@ margin_bottom = 82.0
 focus_neighbour_right = NodePath("../../Arcade")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "3 Players"
+text = "3_PLAYERS"
 script = ExtResource( 15 )
 
 [node name="Players4" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
@@ -407,7 +415,7 @@ margin_bottom = 125.0
 focus_neighbour_right = NodePath("../../Arcade")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "4 Players"
+text = "4_PLAYERS"
 script = ExtResource( 15 )
 
 [node name="Players5" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
@@ -417,7 +425,7 @@ margin_bottom = 168.0
 focus_neighbour_right = NodePath("../../Arcade")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "5 Players"
+text = "5_PLAYERS"
 script = ExtResource( 15 )
 
 [node name="Players6" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
@@ -427,7 +435,7 @@ margin_bottom = 212.0
 focus_neighbour_right = NodePath("../../Arcade")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "6 Players"
+text = "6_PLAYERS"
 script = ExtResource( 15 )
 
 [node name="TrackMenu" type="Control" parent="AspectRatioContainer"]
@@ -539,7 +547,7 @@ focus_neighbour_top = NodePath("../Twisted")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Downpour"
+text = "DOWNPOUR"
 script = ExtResource( 22 )
 
 [node name="TheCalm" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
@@ -548,7 +556,7 @@ margin_right = 112.0
 margin_bottom = 113.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "The Calm"
+text = "THE_CALM"
 script = ExtResource( 22 )
 track_path = "res://scenes/world/tracks/the_calm.tscn"
 
@@ -559,7 +567,7 @@ margin_bottom = 172.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Pillars"
+text = "PILLARS"
 script = ExtResource( 22 )
 
 [node name="Sunbreaker" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
@@ -569,7 +577,7 @@ margin_bottom = 231.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Sunbreaker"
+text = "SUNBREAKER"
 script = ExtResource( 22 )
 
 [node name="Below" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
@@ -578,7 +586,7 @@ margin_right = 112.0
 margin_bottom = 290.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Below"
+text = "BELOW"
 script = ExtResource( 22 )
 track_path = "res://scenes/world/tracks/below.tscn"
 
@@ -589,7 +597,7 @@ margin_bottom = 349.0
 focus_neighbour_bottom = NodePath("../Downpour")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Twisted"
+text = "TWISTED"
 script = ExtResource( 22 )
 track_path = "res://scenes/world/tracks/twisted.tscn"
 
@@ -786,7 +794,7 @@ margin_bottom = 35.0
 focus_neighbour_top = NodePath("../Advanced")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Resolution"
+text = "RESOLUTION"
 script = ExtResource( 10 )
 selection = "../../../../ResolutionMenu/SliderBackground/HSlider"
 hide_parent = 2
@@ -799,7 +807,7 @@ margin_bottom = 74.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Graphics"
+text = "GRAPHICS"
 script = ExtResource( 10 )
 
 [node name="FieldOfView" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
@@ -808,7 +816,7 @@ margin_right = 234.0
 margin_bottom = 113.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Field of View"
+text = "FIELD_OF_VIEW"
 script = ExtResource( 10 )
 selection = "../../../../FOVMenu/ColorRect/HSlider"
 hide_parent = 2
@@ -820,7 +828,7 @@ margin_right = 234.0
 margin_bottom = 152.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Window Mode"
+text = "WINDOW_MODE"
 script = ExtResource( 10 )
 selection = "../../../WindowModeMenu/Buttons/Fullscreen"
 hide_parent = 2
@@ -832,7 +840,7 @@ margin_right = 234.0
 margin_bottom = 192.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Sound"
+text = "SOUND"
 script = ExtResource( 10 )
 selection = "../../../SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider"
 hide_parent = 2
@@ -845,7 +853,7 @@ margin_bottom = 231.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Controls"
+text = "CONTROLS"
 script = ExtResource( 10 )
 
 [node name="Language" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
@@ -854,9 +862,11 @@ margin_right = 234.0
 margin_bottom = 270.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-disabled = true
-text = "Language"
+text = "LANGUAGE"
 script = ExtResource( 10 )
+selection = "../../../LanguageMenu/Buttons/Automatic"
+hide_parent = 2
+show_parent = 2
 
 [node name="Accessibility" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
 margin_top = 274.0
@@ -865,7 +875,7 @@ margin_bottom = 309.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
 disabled = true
-text = "Accessibility"
+text = "ACCESSIBILITY"
 script = ExtResource( 10 )
 
 [node name="Advanced" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
@@ -875,7 +885,7 @@ margin_bottom = 349.0
 focus_neighbour_bottom = NodePath("../Resolution")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Advanced"
+text = "ADVANCED"
 script = ExtResource( 10 )
 selection = "../../../AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider"
 hide_parent = 2
@@ -941,7 +951,7 @@ margin_bottom = 113.0
 focus_neighbour_top = NodePath("../Borderless")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Fullscreen"
+text = "FULLSCREEN"
 script = ExtResource( 16 )
 fullscreen = true
 
@@ -951,7 +961,7 @@ margin_right = 234.0
 margin_bottom = 231.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Window with Border"
+text = "WINDOWED"
 script = ExtResource( 16 )
 
 [node name="Borderless" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
@@ -961,7 +971,7 @@ margin_bottom = 349.0
 focus_neighbour_bottom = NodePath("../Fullscreen")
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-text = "Borderless Window"
+text = "BORDERLESS"
 script = ExtResource( 16 )
 borderless = true
 
@@ -1039,16 +1049,16 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="SoundEffectsVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 112.0
+margin_top = 125.0
 margin_right = 234.0
-margin_bottom = 135.0
+margin_bottom = 148.0
 text = "Sound FX Volume: 50"
 autowrap = true
 
 [node name="SoundEffectsVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 139.0
+margin_top = 152.0
 margin_right = 234.0
-margin_bottom = 159.0
+margin_bottom = 172.0
 focus_neighbour_top = NodePath("../MusicVolumeSlider")
 theme = ExtResource( 71 )
 value = 50.0
@@ -1057,16 +1067,16 @@ scrollable = false
 script = ExtResource( 17 )
 
 [node name="MusicVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 163.0
+margin_top = 176.0
 margin_right = 234.0
-margin_bottom = 212.0
-text = "Music coming in the Future"
+margin_bottom = 199.0
+text = "Music Volume: 50"
 autowrap = true
 
 [node name="MusicVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 216.0
+margin_top = 203.0
 margin_right = 234.0
-margin_bottom = 236.0
+margin_bottom = 223.0
 focus_neighbour_bottom = NodePath("../SoundEffectsVolumeSlider")
 theme = ExtResource( 71 )
 value = 50.0
@@ -1096,6 +1106,90 @@ text = "Current settings may need more than 8GB of VRAM. This can ruin performan
 align = 1
 valign = 1
 autowrap = true
+
+[node name="LanguageMenu" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/LanguageMenu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 89 )
+
+[node name="Viewport" type="Viewport" parent="AspectRatioContainer/LanguageMenu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+script = ExtResource( 91 )
+
+[node name="Camera" type="Camera" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
+transform = Transform( -0.368709, 0, 0.929545, 0, 1, 0, -0.929545, 0, -0.368709, -238.446, 15.21, 333.107 )
+environment = ExtResource( 75 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 97 )
+
+[node name="Map" type="Spatial" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 78 )
+
+[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/LanguageMenu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Automatic" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
+margin_right = 234.0
+margin_bottom = 113.0
+focus_neighbour_top = NodePath("../German")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "AUTOMATIC"
+script = ExtResource( 13 )
+
+[node name="English" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
+margin_top = 117.0
+margin_right = 234.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "ENGLISH"
+script = ExtResource( 13 )
+language = "en"
+
+[node name="German" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
+margin_top = 235.0
+margin_right = 234.0
+margin_bottom = 349.0
+focus_neighbour_bottom = NodePath("../Automatic")
+size_flags_vertical = 3
+theme = ExtResource( 71 )
+text = "GERMAN"
+script = ExtResource( 13 )
+language = "de"
 
 [node name="AdvancedMenu" type="Control" parent="AspectRatioContainer"]
 visible = false
@@ -1171,14 +1265,14 @@ size_flags_vertical = 3
 
 [node name="AntiAliasingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
 margin_right = 224.0
-margin_bottom = 24.0
+margin_bottom = 23.0
 text = "Anti-Aliasing: No MSAA"
 autowrap = true
 
 [node name="AntiAliasingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 28.0
+margin_top = 27.0
 margin_right = 224.0
-margin_bottom = 48.0
+margin_bottom = 47.0
 focus_neighbour_top = NodePath("../TransformInterpolationSlider")
 theme = ExtResource( 71 )
 max_value = 4.0
@@ -1187,16 +1281,16 @@ scrollable = false
 script = ExtResource( 67 )
 
 [node name="ReflectionsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 52.0
+margin_top = 51.0
 margin_right = 224.0
-margin_bottom = 76.0
+margin_bottom = 74.0
 text = "Reflections: Off"
 autowrap = true
 
 [node name="ReflectionsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 80.0
+margin_top = 78.0
 margin_right = 224.0
-margin_bottom = 100.0
+margin_bottom = 98.0
 theme = ExtResource( 71 )
 max_value = 11.0
 rounded = true
@@ -1204,16 +1298,16 @@ scrollable = false
 script = ExtResource( 92 )
 
 [node name="MaterialsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 104.0
+margin_top = 102.0
 margin_right = 224.0
-margin_bottom = 128.0
+margin_bottom = 125.0
 text = "Materials: Default"
 autowrap = true
 
 [node name="MaterialsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 132.0
+margin_top = 129.0
 margin_right = 224.0
-margin_bottom = 152.0
+margin_bottom = 149.0
 theme = ExtResource( 71 )
 max_value = 2.0
 value = 2.0
@@ -1222,16 +1316,16 @@ scrollable = false
 script = ExtResource( 94 )
 
 [node name="LightingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 156.0
+margin_top = 153.0
 margin_right = 224.0
-margin_bottom = 180.0
+margin_bottom = 176.0
 text = "Lighting: Default"
 autowrap = true
 
 [node name="LightingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 184.0
+margin_top = 180.0
 margin_right = 224.0
-margin_bottom = 204.0
+margin_bottom = 200.0
 theme = ExtResource( 71 )
 max_value = 2.0
 value = 2.0
@@ -1240,16 +1334,16 @@ scrollable = false
 script = ExtResource( 95 )
 
 [node name="ViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 208.0
+margin_top = 204.0
 margin_right = 224.0
-margin_bottom = 232.0
+margin_bottom = 227.0
 text = "View Distance: 2500m"
 autowrap = true
 
 [node name="ViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 236.0
+margin_top = 231.0
 margin_right = 224.0
-margin_bottom = 256.0
+margin_bottom = 251.0
 theme = ExtResource( 71 )
 max_value = 8.0
 value = 8.0
@@ -1258,16 +1352,16 @@ scrollable = false
 script = ExtResource( 96 )
 
 [node name="RearViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 260.0
+margin_top = 255.0
 margin_right = 224.0
-margin_bottom = 311.0
+margin_bottom = 304.0
 text = "Rear View Mirror Distance: 200m"
 autowrap = true
 
 [node name="RearViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 315.0
+margin_top = 308.0
 margin_right = 224.0
-margin_bottom = 335.0
+margin_bottom = 328.0
 theme = ExtResource( 71 )
 max_value = 11.0
 value = 4.0
@@ -1276,16 +1370,16 @@ scrollable = false
 script = ExtResource( 98 )
 
 [node name="ShadowCastersLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 339.0
+margin_top = 332.0
 margin_right = 224.0
-margin_bottom = 390.0
+margin_bottom = 381.0
 text = "Shadow Casters: Default"
 autowrap = true
 
 [node name="ShadowCastersSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 394.0
+margin_top = 385.0
 margin_right = 224.0
-margin_bottom = 414.0
+margin_bottom = 405.0
 theme = ExtResource( 71 )
 max_value = 5.0
 value = 2.0
@@ -1294,16 +1388,16 @@ scrollable = false
 script = ExtResource( 99 )
 
 [node name="ShadowSplitsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 418.0
+margin_top = 409.0
 margin_right = 224.0
-margin_bottom = 442.0
+margin_bottom = 432.0
 text = "Shadow Map Splits: 3"
 autowrap = true
 
 [node name="ShadowSplitsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 446.0
+margin_top = 436.0
 margin_right = 224.0
-margin_bottom = 466.0
+margin_bottom = 456.0
 theme = ExtResource( 71 )
 max_value = 4.0
 value = 3.0
@@ -1312,16 +1406,16 @@ scrollable = false
 script = ExtResource( 100 )
 
 [node name="ShadowSplitsMultiplayerLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 470.0
+margin_top = 460.0
 margin_right = 224.0
-margin_bottom = 521.0
+margin_bottom = 509.0
 text = "Shadow Map Splits (Multiplayer): 2"
 autowrap = true
 
 [node name="ShadowSplitsMultiplayerSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 525.0
+margin_top = 513.0
 margin_right = 224.0
-margin_bottom = 545.0
+margin_bottom = 533.0
 theme = ExtResource( 71 )
 max_value = 4.0
 value = 2.0
@@ -1330,16 +1424,16 @@ scrollable = false
 script = ExtResource( 101 )
 
 [node name="ShadowResolutionLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 549.0
+margin_top = 537.0
 margin_right = 224.0
-margin_bottom = 600.0
+margin_bottom = 586.0
 text = "Shadow Resolution: 8192 x 8192"
 autowrap = true
 
 [node name="ShadowResolutionSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 604.0
+margin_top = 590.0
 margin_right = 224.0
-margin_bottom = 624.0
+margin_bottom = 610.0
 theme = ExtResource( 71 )
 max_value = 3.0
 value = 2.0
@@ -1348,16 +1442,16 @@ scrollable = false
 script = ExtResource( 102 )
 
 [node name="MaximumRigidBodiesLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 628.0
+margin_top = 614.0
 margin_right = 224.0
-margin_bottom = 679.0
+margin_bottom = 663.0
 text = "Maximum Rigid Bodies: 100"
 autowrap = true
 
 [node name="MaximumRigidBodiesSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 683.0
+margin_top = 667.0
 margin_right = 224.0
-margin_bottom = 703.0
+margin_bottom = 687.0
 theme = ExtResource( 71 )
 max_value = 10.0
 value = 4.0
@@ -1366,16 +1460,16 @@ scrollable = false
 script = ExtResource( 103 )
 
 [node name="VSyncLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 707.0
+margin_top = 691.0
 margin_right = 224.0
-margin_bottom = 731.0
+margin_bottom = 714.0
 text = "V Sync: On"
 autowrap = true
 
 [node name="VSyncSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 735.0
+margin_top = 718.0
 margin_right = 224.0
-margin_bottom = 755.0
+margin_bottom = 738.0
 theme = ExtResource( 71 )
 max_value = 1.0
 value = 1.0
@@ -1384,16 +1478,16 @@ scrollable = false
 script = ExtResource( 104 )
 
 [node name="ToggleMirrorLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 759.0
+margin_top = 742.0
 margin_right = 224.0
-margin_bottom = 837.0
+margin_bottom = 817.0
 text = "Rear View Mirror Frame Rate (Multiplayer): Reduced"
 autowrap = true
 
 [node name="ToggleMirrorSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 841.0
+margin_top = 821.0
 margin_right = 224.0
-margin_bottom = 861.0
+margin_bottom = 841.0
 theme = ExtResource( 71 )
 max_value = 1.0
 rounded = true
@@ -1401,16 +1495,16 @@ scrollable = false
 script = ExtResource( 105 )
 
 [node name="TransformInterpolationLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 865.0
+margin_top = 845.0
 margin_right = 224.0
-margin_bottom = 916.0
+margin_bottom = 894.0
 text = "Transform Interpolation: Automatic"
 autowrap = true
 
 [node name="TransformInterpolationSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 920.0
+margin_top = 898.0
 margin_right = 224.0
-margin_bottom = 940.0
+margin_bottom = 918.0
 focus_neighbour_bottom = NodePath("../AntiAliasingSlider")
 theme = ExtResource( 71 )
 max_value = 1.0
@@ -1436,10 +1530,32 @@ anchor_bottom = 1.0
 margin_left = 3.0
 margin_right = -3.0
 theme = ExtResource( 71 )
-text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
+text = "NEED_MORE_VRAM"
 align = 1
 valign = 1
 autowrap = true
+
+[node name="Credits" type="Control" parent="AspectRatioContainer"]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/Credits"]
+anchor_left = 0.3
+anchor_right = 0.7
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="AspectRatioContainer/Credits/ColorRectRight"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 19 )
+text = "CREDITS_LIST"
+align = 1
+valign = 1
 
 [node name="ArcadeEnd" type="Control" parent="AspectRatioContainer"]
 visible = false
@@ -1558,10 +1674,11 @@ anchor_bottom = 1.0
 margin_left = 3.0
 margin_right = -3.0
 theme = ExtResource( 71 )
-text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
+text = "NEED_MORE_VRAM"
 align = 1
 valign = 1
 autowrap = true
+script = ExtResource( 8 )
 
 [node name="SliderBackground" type="ColorRect" parent="ResolutionMenu"]
 anchor_left = 0.2
@@ -1669,6 +1786,7 @@ scrollable = false
 script = ExtResource( 25 )
 
 [node name="FrontContainer" type="AspectRatioContainer" parent="."]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1688,7 +1806,7 @@ margin_top = 13.7514
 margin_right = -5.0
 margin_bottom = 3.75142
 theme = SubResource( 22 )
-text = "Loading"
+text = "LOADING"
 align = 1
 valign = 1
 
@@ -1727,6 +1845,7 @@ pause_mode = 2
 script = ExtResource( 68 )
 
 [node name="LoadingManager" type="Node" parent="."]
+pause_mode = 2
 script = ExtResource( 62 )
 
 [node name="Precompiler" type="ViewportContainer" parent="."]
@@ -1820,6 +1939,16 @@ script = null
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Precompiler/Viewport/Camera"]
 environment = SubResource( 14 )
 
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 21 )
+autoplay = true
+bus = "Music"
+script = ExtResource( 20 )
+
+[node name="Timer" type="Timer" parent="MusicPlayer"]
+one_shot = true
+
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
 bus = "Effects"
@@ -1834,6 +1963,7 @@ bus = "Effects"
 
 [connection signal="item_rect_changed" from="." to="." method="_on_RootControl_item_rect_changed"]
 [connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Multiplayer" to="AspectRatioContainer/MainMenu/Multiplayer" method="_on_Multiplayer_visibility_changed"]
+[connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Level" to="AspectRatioContainer/MainMenu/Level" method="_on_Level_visibility_changed"]
 [connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players2" to="AspectRatioContainer/MainMenu/PlayerAmount/Players2" method="_on_Players2_focus_exited"]
 [connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players3" to="AspectRatioContainer/MainMenu/PlayerAmount/Players3" method="_on_Players3_focus_exited"]
 [connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players4" to="AspectRatioContainer/MainMenu/PlayerAmount/Players4" method="_on_Players4_focus_exited"]
@@ -1845,6 +1975,8 @@ bus = "Effects"
 [connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Sunbreaker" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Sunbreaker_focus_entered"]
 [connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Below" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Below_focus_entered"]
 [connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Twisted" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Twisted_focus_entered"]
+[connection signal="visibility_changed" from="AspectRatioContainer/SoundMenu" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" method="_on_SoundMenu_visibility_changed"]
+[connection signal="visibility_changed" from="AspectRatioContainer/SoundMenu" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" method="_on_SoundMenu_visibility_changed"]
 [connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" method="_on_SoundEffectsVolumeSlider_value_changed"]
 [connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" method="_on_MusicVolumeSlider_value_changed"]
 [connection signal="drag_ended" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_drag_ended"]
@@ -1886,3 +2018,4 @@ bus = "Effects"
 [connection signal="value_changed" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_value_changed"]
 [connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
+[connection signal="timeout" from="MusicPlayer/Timer" to="MusicPlayer" method="_on_Timer_timeout"]

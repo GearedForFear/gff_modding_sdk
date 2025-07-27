@@ -58,11 +58,11 @@ alignment = 1
 
 [node name="ChooseInput" type="Label" parent="BlackBar/VBoxContainer"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
-margin_top = 164.0
+margin_top = 173.0
 margin_right = 179.0
-margin_bottom = 195.0
+margin_bottom = 187.0
 custom_fonts/font = SubResource( 10 )
-text = "Choose your input device"
+text = "CHOOSE_INPUT"
 align = 1
 autowrap = true
 script = ExtResource( 5 )
@@ -79,7 +79,7 @@ margin_top = 182.0
 margin_right = 172.0
 margin_bottom = 213.0
 custom_fonts/font = SubResource( 10 )
-text = "Wait for other player"
+text = "WAIT_FOR_PLAYER"
 align = 1
 autowrap = true
 script = ExtResource( 5 )

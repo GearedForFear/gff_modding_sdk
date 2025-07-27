@@ -10,6 +10,18 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").lighting = value
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	label.text = tr("LIGHTING") + ": "
+	match value:
+		0.0:
+			label.text += tr("LOW_2")
+		1.0:
+			label.text += tr("LOW")
+		2.0:
+			label.text += tr("DEFAULT")
+
+
 func _on_LightingSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -23,11 +35,4 @@ func _on_LightingSlider_value_changed(value):
 	config.set_value("graphics", "lighting", value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	match value:
-		0.0:
-			label.text = "Lighting: Extra Low"
-		1.0:
-			label.text = "Lighting: Low"
-		2.0:
-			label.text = "Lighting: Default"
+	_draw()

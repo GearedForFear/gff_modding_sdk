@@ -7,8 +7,8 @@ func _physics_process(_delta):
 	if heat < 25.0:
 		$Description.text = ""
 	elif heat < 50.0:
-		$Description.text = "Hot"
+		$Description.text = tr("HOT")
 	elif heat < 75.0:
-		$Description.text = "Infernal"
+		$Description.text = tr("INFERNAL")
 	else:
-		$Description.text = "Hellfire Universe"
+		$Description.text = tr("HELLFIRE_UNIVERSE")

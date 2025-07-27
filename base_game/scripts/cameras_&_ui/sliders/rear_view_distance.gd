@@ -13,6 +13,12 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").rear_view_distance = VALUES[value]
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	var converted_value: int = VALUES[value]
+	label.text = tr("REAR_VIEW_DISTANCE") + ": " + String(converted_value) + "m"
+
+
 func _on_RearViewDistanceSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -27,5 +33,4 @@ func _on_RearViewDistanceSlider_value_changed(value):
 	config.set_value("graphics", "rear_view_distance", converted_value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	label.text = "Rear View Mirror Distance: " + String(converted_value) + "m"
+	_draw()

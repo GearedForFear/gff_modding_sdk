@@ -66,10 +66,10 @@ func update_scores():
 func rank_to_string(rank: int) -> String:
 	match rank:
 		1:
-			return "1st"
+			return tr("FIRST")
 		2:
-			return "2nd"
+			return tr("SECOND")
 		3:
-			return "3rd"
+			return tr("THIRD")
 		_:
-			return String(rank) + "th"
+			return String(rank) + tr("TH")

@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-array = [ "demon", "glow", "gold", "greed", "intense", "pearl", "skydive", "stock", "sunset" ]
+array = [ "demon", "flame", "galaxy", "glow", "gold", "greed", "intense", "pearl", "skydive", "stock", "stock_duplicate", "sunset", "y2k" ]

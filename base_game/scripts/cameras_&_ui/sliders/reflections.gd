@@ -18,6 +18,23 @@ func _enter_tree():
 		label.text = "Reflections: Incompatible"
 
 
+func _draw():
+	update_text()
+
+
+static func update_text():
+	var base_value: int = get_reflections_base()
+	var label: Label = get_this().get_node(LABEL_PATH)
+	if base_value == 0:
+		label.text = label.tr("SSR_OFF")
+	else:
+		label.text = label.tr("SSR") + ": " + String(base_value)
+		var max_steps: int = get_reflections_clamped()
+		if base_value > max_steps:
+			label.text += " (" + label.tr("SSR_CAP") + " " + String(max_steps) \
+					+ ")"
+
+
 func convert_to_slider_value(var x: int) -> int:
 	if x == 0:
 		return 0
@@ -55,15 +72,7 @@ static func update_reflections():
 	for n in SettingsManager.ENVIRONMENTS:
 		n.ss_reflections_max_steps = max_steps
 		n.ss_reflections_enabled = max_steps != 0
-	
-	var base_value: int = get_reflections_base()
-	var label: Label = get_this().get_node(LABEL_PATH)
-	if base_value == 0:
-		label.text = "Reflections: Off"
-	else:
-		label.text = "Reflection Range: " + String(base_value)
-		if base_value > max_steps:
-			label.text += " (capped to " + String(max_steps) + ")"
+	update_text()
 
 
 func _on_ReflectionsSlider_focus_entered():

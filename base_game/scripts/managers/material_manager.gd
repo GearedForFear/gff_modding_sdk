@@ -1,6 +1,8 @@
 extends Node
 
 
+const Money: ShaderMaterial = \
+		preload("res://resources/materials/collectibles/money.material")
 const Explosion0: ShaderMaterial = \
 		preload("res://resources/materials/destruction/explosion_0.material")
 const Explosion1: ShaderMaterial = \
@@ -8,12 +10,16 @@ const Explosion1: ShaderMaterial = \
 const Buzzsaw: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/buzzsaw.material")
 
+const ColorBillboardUnshaded: Shader = \
+		preload("res://resources/materials/simple_shaders/color_billboard_unshaded.gdshader")
 const ColorNoSpecular: Shader = \
 		preload("res://resources/materials/simple_shaders/color_no_specular.gdshader")
 const ColorNoSpecularNoCull: Shader = \
 		preload("res://resources/materials/simple_shaders/color_no_specular_no_cull.gdshader")
 const TextureNoSpecular: Shader = \
 		preload("res://resources/materials/simple_shaders/texture_no_specular.gdshader")
+const MoneyShader: Shader = \
+		preload("res://resources/materials/collectibles/money.gdshader")
 const Tornado: Shader = \
 		preload("res://resources/materials/world/decorations/tornado.gdshader")
 const TornadoNoFade: Shader = \
@@ -56,6 +62,8 @@ func update_settings():
 				"ShaderMaterial")
 	match get_node("/root/RootControl/SettingsManager").materials:
 		0:
+			Money.shader = ColorBillboardUnshaded
+			
 			rock_usa_material.shader = ColorNoSpecular
 			rock_usa_material.set_shader_param("albedo", RockUSAColor)
 			
@@ -92,6 +100,8 @@ func update_settings():
 
 
 func enable_textures():
+	Money.shader = MoneyShader
+	
 	var usa_image: StreamTexture = ResourceLoader.load(\
 			"res://resources/images/world/usa.png", \
 			"ImageTexture")

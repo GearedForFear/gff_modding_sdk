@@ -3,9 +3,9 @@ extends Control
 
 func update_text(first_record: ScoreboardRecord):
 	if first_record.score == first_record.next.score:
-		$Headline.text = "Draw"
+		$Headline.text = tr("DRAW")
 	else:
-		$Headline.text = first_record.name + " Wins"
+		$Headline.text = first_record.name + " " + tr("WINS")
 	var names: Label = $ColorRect/Names
 	var scores: Label = $ColorRect/Scores
 	names.text = ""

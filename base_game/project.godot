@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/loading_manager.gd"
 }, {
+"base": "AudioStreamPlayer",
+"class": "MusicPlayer",
+"language": "GDScript",
+"path": "res://scripts/music_player.gd"
+}, {
 "base": "ViewportContainer",
 "class": "PlayerContainer",
 "language": "GDScript",
@@ -109,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cameras_&_ui/sub_viewport.gd"
 }, {
+"base": "Resource",
+"class": "TrackData",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/track_data.gd"
+}, {
 "base": "Camera",
 "class": "UpdatingCamera",
 "language": "GDScript",
@@ -134,6 +144,7 @@ _global_script_class_icons={
 "HeatVehicle": "",
 "LevelVehicle": "",
 "LoadingManager": "",
+"MusicPlayer": "",
 "PlayerContainer": "",
 "PlayerControls": "",
 "Precompiler": "",
@@ -145,6 +156,7 @@ _global_script_class_icons={
 "ShadowSetter": "",
 "StraightProjectile": "",
 "SubViewport": "",
+"TrackData": "",
 "UpdatingCamera": "",
 "VehicleData": "",
 "VehicleSelect": ""
@@ -932,6 +944,10 @@ turn_right_6_strength={
 3d_physics/layer_2="Terrain"
 3d_physics/layer_3="Decoration"
 3d_physics/layer_4="Projectiles"
+
+[locale]
+
+translations=PoolStringArray( "res://resources/translation/text.de.translation", "res://resources/translation/text.en.translation" )
 
 [physics]
 

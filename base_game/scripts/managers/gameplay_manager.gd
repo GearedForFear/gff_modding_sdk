@@ -24,6 +24,9 @@ func _process(_delta):
 		get_node("/root/FrontContainer/Loading").hide()
 		if pursuers.size() == 12:
 			$Timer.start()
+			var track_data: TrackData = get_parent().data
+			MusicPlayer.get_this().set_playlist(track_data.get_music(),
+					track_data.music_timer)
 			heist_target.alive = true
 			heist_target.get_node("../StuckTimer").start()
 			

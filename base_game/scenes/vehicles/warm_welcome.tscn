@@ -188,7 +188,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.16, 1.565 )
@@ -198,7 +197,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.16, -1.54034 )
@@ -208,7 +206,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.16, -1.54 )
@@ -218,7 +215,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 
 [node name="GatlingGunLeft" type="MeshInstance" parent="Body"]
 transform = Transform( 1, -8.35187e-23, 3.65072e-30, 0, -4.37114e-08, -1, 8.35187e-23, 1, -4.37114e-08, 0.718974, 0.949355, 1.82672 )

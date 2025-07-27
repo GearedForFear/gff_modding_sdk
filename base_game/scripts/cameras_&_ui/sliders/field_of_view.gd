@@ -21,4 +21,4 @@ func _on_AntiAliasingSlider_value_changed(value):
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
 	var label: Label = get_node(LABEL_PATH)
-	label.text = "Field of View: " + String(value) + "°"
+	label.text = tr("FIELD_OF_VIEW") + ": " + String(value) + "°"

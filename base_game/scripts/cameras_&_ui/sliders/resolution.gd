@@ -53,7 +53,7 @@ func update_resolutions():
 func update_label():
 	var label: Label = get_node(LABEL_PATH)
 	var resolution: Vector2 = to_resolution(resolutions[value])
-	label.text = "Resolution: " \
+	label.text = tr("RESOLUTION") + ": " \
 			+ String(resolution.x) + " x " + String(resolution.y)
 
 

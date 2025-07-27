@@ -38,6 +38,8 @@ func _process(_delta):
 				"OptionsMenu/ViewportContainer/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
 				"WindowModeMenu/ViewportContainer/Viewport/Map"))
+		nodes_to_replace_usa.append(map_parent.get_node(
+				"LanguageMenu/ViewportContainer/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
 				"SoundMenu/ViewportContainer/Viewport/Map"))
 		nodes_to_replace_iceland.append(map_parent.get_node(
@@ -66,6 +68,12 @@ func _process(_delta):
 				"res://scenes/world/maps/usa.tscn", "PackedScene")
 		for n in nodes_to_replace_usa:
 			replace(n, usa.instance())
+		
+		var music_player := MusicPlayer.get_this()
+		for n in ["res://resources/music/theme_2.mp3",
+				"res://resources/music/theme_3.mp3",
+				"res://resources/music/theme_4.mp3"]:
+			music_player.themes.append(ResourceLoader.load(n, "AudioStreamMP3"))
 		
 		yield(get_tree(), "idle_frame")
 		main_menu.get_node("Viewports").show()

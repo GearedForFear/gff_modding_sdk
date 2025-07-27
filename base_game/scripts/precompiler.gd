@@ -52,15 +52,33 @@ func add_materials():
 		for material_path in array:
 			materials.append(ResourceLoader.load(material_path, "Material"))
 	
-	var skin_names: Array
+	var skin_names := Array()
 	for skin_name in ResourceLoader.load(\
 			"res://resources/custom/skin_names.tres", \
 			"Resource").array:
 		skin_names.append("/" + skin_name + ".material")
+	var body_skins: Array = skin_names.duplicate()
+	body_skins.erase("/stock_duplicate.material")
+	var wheel_skins: Array = skin_names.duplicate()
+	wheel_skins.erase("/flame.material")
+	
+	var body_folders := Array()
+	var wheel_folders := Array()
 	for folder in ResourceLoader.load(\
 			"res://resources/custom/skin_folders.tres", \
 			"Resource").array:
-		for skin_name in skin_names:
+		if folder.begins_with("wheels_"):
+			wheel_folders.append(folder)
+		else:
+			body_folders.append(folder)
+	
+	for folder in body_folders:
+		for skin_name in body_skins:
+			materials.append(ResourceLoader.load(\
+			"res://resources/materials/vehicles/"
+			+ folder + skin_name, "Material"))
+	for folder in wheel_folders:
+		for skin_name in wheel_skins:
 			materials.append(ResourceLoader.load(\
 			"res://resources/materials/vehicles/"
 			+ folder + skin_name, "Material"))

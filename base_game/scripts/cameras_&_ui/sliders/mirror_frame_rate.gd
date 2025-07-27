@@ -11,6 +11,16 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").mirror_frame_rate = bool(value)
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	label.text = tr("MIRROR_FRAME_RATE")
+	var converted_value: bool = bool(value)
+	if converted_value:
+		label.text += ": " + tr("FULL")
+	else:
+		label.text += ": " + tr("REDUCED")
+
+
 func _on_ToggleMirrorSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -25,8 +35,4 @@ func _on_ToggleMirrorSlider_value_changed(value):
 	config.set_value("graphics", "mirror_frame_rate", converted_value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	if converted_value:
-		label.text = "Rear View Mirror Frame Rate (Multiplayer): Full"
-	else:
-		label.text = "Rear View Mirror Frame Rate (Multiplayer): Reduced"
+	_draw()

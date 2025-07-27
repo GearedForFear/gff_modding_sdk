@@ -14,6 +14,12 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").max_rigid_bodies = converted_value
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	var converted_value: int = VALUES[value]
+	label.text = tr("MAX_RIGID_BODIES") + ": " + String(converted_value)
+
+
 func _on_MaximumRigidBodiesSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -28,5 +34,4 @@ func _on_MaximumRigidBodiesSlider_value_changed(value):
 	config.set_value("graphics", "max_rigid_bodies", converted_value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	label.text = "Maximum Rigid Bodies: " + String(converted_value)
+	_draw()

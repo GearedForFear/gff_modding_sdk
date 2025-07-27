@@ -337,7 +337,7 @@ margin_top = 159.0
 margin_right = 640.0
 margin_bottom = 170.0
 custom_fonts/font = SubResource( 12 )
-text = "Continue"
+text = "CONTINUE"
 align = 1
 script = ExtResource( 4 )
 
@@ -346,7 +346,7 @@ margin_top = 174.0
 margin_right = 640.0
 margin_bottom = 185.0
 custom_fonts/font = SubResource( 12 )
-text = "Respawn"
+text = "RESPAWN"
 align = 1
 script = ExtResource( 4 )
 
@@ -355,7 +355,7 @@ margin_top = 189.0
 margin_right = 640.0
 margin_bottom = 200.0
 custom_fonts/font = SubResource( 12 )
-text = "Quit"
+text = "QUIT"
 align = 1
 script = ExtResource( 4 )
 __meta__ = {
@@ -489,7 +489,7 @@ anchor_top = 0.03
 anchor_right = 0.02
 anchor_bottom = 0.03
 custom_fonts/font = SubResource( 12 )
-text = "1st"
+text = "FIRST"
 script = ExtResource( 4 )
 
 [node name="Placement2" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -498,7 +498,7 @@ anchor_top = 0.28
 anchor_right = 0.02
 anchor_bottom = 0.28
 custom_fonts/font = SubResource( 12 )
-text = "1st"
+text = "FIRST"
 script = ExtResource( 4 )
 
 [node name="Placement3" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -507,7 +507,7 @@ anchor_top = 0.53
 anchor_right = 0.02
 anchor_bottom = 0.53
 custom_fonts/font = SubResource( 12 )
-text = "1st"
+text = "FIRST"
 script = ExtResource( 4 )
 
 [node name="Placement4" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -516,7 +516,7 @@ anchor_top = 0.78
 anchor_right = 0.02
 anchor_bottom = 0.78
 custom_fonts/font = SubResource( 12 )
-text = "1st"
+text = "FIRST"
 script = ExtResource( 4 )
 
 [node name="Name1" type="Label" parent="Camera/AspectRatioContainer/Control/Scores"]
@@ -604,7 +604,7 @@ anchor_top = 0.7
 anchor_right = 1.0
 anchor_bottom = 0.7
 custom_fonts/font = SubResource( 12 )
-text = "You can also respawn with R"
+text = "Info text"
 align = 1
 script = ExtResource( 4 )
 

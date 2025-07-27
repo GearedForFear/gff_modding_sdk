@@ -6,8 +6,11 @@ var track: Spatial
 
 func _ready():
 	track = get_node("../../../../..").track
-	$Above.text = "Stage " \
-			+ String(6 - get_node("/root/RootControl").next_tracks.size())
+	var remaining_tracks: int = get_node("/root/RootControl").next_tracks.size()
+	if remaining_tracks == 0:
+		$Above.text = tr("FINALE")
+	else:
+		$Above.text = tr("STAGE") + " " + String(6 - remaining_tracks)
 
 
 func _physics_process(_delta):

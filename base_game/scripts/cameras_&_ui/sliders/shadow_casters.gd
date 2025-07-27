@@ -10,6 +10,24 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").shadow_casters = value
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	label.text = tr("SHADOW_CASTERS") + ": "
+	match value:
+		0.0:
+			label.text += tr("LOW_2")
+		1.0:
+			label.text += tr("LOW")
+		2.0:
+			label.text += tr("DEFAULT")
+		3.0:
+			label.text += tr("HIGH")
+		4.0:
+			label.text += tr("HIGH_2")
+		5.0:
+			label.text += tr("HIGHEST")
+
+
 func _on_ShadowCastersSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -23,17 +41,4 @@ func _on_ShadowCastersSlider_value_changed(value):
 	config.set_value("graphics", "shadow_casters", value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	match value:
-		0.0:
-			label.text = "Shadow Casters: Extra Low"
-		1.0:
-			label.text = "Shadow Casters: Low"
-		2.0:
-			label.text = "Shadow Casters: Default"
-		3.0:
-			label.text = "Shadow Casters: High"
-		4.0:
-			label.text = "Shadow Casters: Extra High"
-		5.0:
-			label.text = "Shadow Casters: Ultimate"
+	_draw()

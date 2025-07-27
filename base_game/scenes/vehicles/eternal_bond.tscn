@@ -170,7 +170,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontLeft")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 mirror = true
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -181,7 +180,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontRight")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 mirror = true
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
@@ -192,7 +190,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackLeft")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 mirror = true
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
@@ -203,7 +200,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackRight")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 mirror = true
 
 [node name="WheelFrontLeft2" type="MeshInstance" parent="Body/BodyMesh"]
@@ -214,7 +210,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontLeft2")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft2")
 mirror = true
 
 [node name="WheelFrontRight2" type="MeshInstance" parent="Body/BodyMesh"]
@@ -225,7 +220,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontRight2")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight2")
 mirror = true
 
 [node name="WheelBackLeft2" type="MeshInstance" parent="Body/BodyMesh"]
@@ -236,7 +230,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackLeft2")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft2")
 mirror = true
 
 [node name="WheelBackRight2" type="MeshInstance" parent="Body/BodyMesh"]
@@ -247,7 +240,6 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackRight2")
 script = ExtResource( 18 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight2")
 mirror = true
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]

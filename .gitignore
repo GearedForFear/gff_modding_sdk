@@ -11,8 +11,6 @@ data_*/
 *.import
 *.ico
 /base_game/resources/sounds
-/base_game/resources/fonts
-/base_game/resources/materials/world/maps
 base_game/resources/materials/world/decorations/icicle.material
 base_game/resources/materials/world/decorations/desert_tornado.material
 base_game/resources/materials/world/decorations/cactus_1.material
@@ -53,3 +51,5 @@ base_game/resources/images/vehicles/restless/restless_wheel.png
 /base_game/resources/images/vehicles/turbulence
 /base_game/resources/images/vehicles/warm_welcome
 /base_game/resources/images/vehicles/well_raised
+*.ttf
+*.mp3

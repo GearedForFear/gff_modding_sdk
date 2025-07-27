@@ -10,6 +10,22 @@ func _enter_tree():
 	root_control.get_node("SettingsManager").msaa = value
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	label.text = tr("AA") + ": "
+	match value:
+		0.0:
+			label.text += tr("AA_LOWEST")
+		1.0:
+			label.text += "2x MSAA"
+		2.0:
+			label.text += "4x MSAA"
+		3.0:
+			label.text += "8x MSAA"
+		4.0:
+			label.text += "16x HSAA"
+
+
 func _on_AntiAliasingSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -23,18 +39,7 @@ func _on_AntiAliasingSlider_value_changed(value):
 	config.set_value("graphics", "msaa", value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	match value:
-		0.0:
-			label.text = "Anti-Aliasing: No MSAA"
-		1.0:
-			label.text = "Anti-Aliasing: 2x MSAA"
-		2.0:
-			label.text = "Anti-Aliasing: 4x MSAA"
-		3.0:
-			label.text = "Anti-Aliasing: 8x MSAA"
-		4.0:
-			label.text = "Anti-Aliasing: 16x HSAA"
+	_draw()
 
 
 func _on_AntiAliasingSlider_draw():

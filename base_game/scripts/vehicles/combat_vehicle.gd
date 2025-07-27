@@ -353,18 +353,22 @@ func get_vehicle_name() -> String: #overridden in vehicle-specific scripts
 
 func random_skin(var body_path: String, var wheels_path: String):
 	var r: int = randi() % 200
-	if r < 30:
+	if r < 26:
 		return
 	var path_ending: String
-	if (r < 60):
+	if (r < 52):
 		path_ending = "demon"
-	elif (r < 90):
+	elif (r < 78):
 		path_ending = "greed"
-	elif (r < 120):
+	elif (r < 104):
 		path_ending = "skydive"
-	elif (r < 150):
+	elif (r < 130):
 		path_ending = "galaxy"
-	elif (r < 168):
+	elif (r < 144):
+		path_ending = "flame"
+	elif (r < 158):
+		path_ending = "y2k"
+	elif (r < 172):
 		path_ending = "sunset"
 	elif (r < 186):
 		path_ending = "intense"
@@ -380,12 +384,22 @@ func random_skin(var body_path: String, var wheels_path: String):
 	body.material_override = ResourceLoader.load(body_path + path_ending,
 			"ShaderMaterial")
 	if wheels_path != "":
-		var material: ShaderMaterial = ResourceLoader.load(wheels_path
-				+ path_ending, "ShaderMaterial")
-		body.get_node("WheelFrontLeft").material_override = material
-		body.get_node("WheelFrontRight").material_override = material
-		body.get_node("WheelBackLeft").material_override = material
-		body.get_node("WheelBackRight").material_override = material
+		var material: ShaderMaterial
+		if path_ending == "flame.material":
+			var yellow: Color = Color("ffd600")
+			body.get_node("WheelFrontLeft").get_active_material(0)\
+					.set_shader_param("paint_color", yellow)
+			material = ResourceLoader.load(wheels_path +
+					"stock_duplicate.material", "ShaderMaterial")
+			body.get_node("WheelBackLeft").material_override = material
+			body.get_node("WheelBackRight").material_override = material
+		else:
+			material = ResourceLoader.load(wheels_path + path_ending,
+					"ShaderMaterial")
+			body.get_node("WheelFrontLeft").material_override = material
+			body.get_node("WheelFrontRight").material_override = material
+			body.get_node("WheelBackLeft").material_override = material
+			body.get_node("WheelBackRight").material_override = material
 
 
 func _on_RespawnTimer_timeout():

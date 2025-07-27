@@ -1,0 +1,98 @@
+keys,en,de
+LOADING,Loading,Lädt
+ARCADE,Arcade,Arkade
+CHALLENGES,Challenges,Herausfor-\nderungen
+SINGLEPLAYER,Singleplayer,Einzel-\nspieler
+MULTIPLAYER,Multiplayer,Mehrspieler
+SINGLE_TRACK,Single Track,Einzelner Kampf
+FREEROAM,Freeroam,Freie Fahrt
+CREDITS,Credits,Credits
+CUSTOMIZATION,Customization,Anpassung
+LEVEL_X,Level ,Level 
+OPTIONS,Options,Optionen
+DOWNPOUR,Downpour,Regenguss
+THE_CALM,The Calm,Die Ruhe
+PILLARS,Pillars,Säulen
+SUNBREAKER,Sunbreaker,Sonnen-\nbrecher
+BELOW,Below,Unter Null
+TWISTED,Twisted,Twisted
+2_PLAYERS,2 Players,2 Spieler
+3_PLAYERS,3 Players,3 Spieler
+4_PLAYERS,4 Players,4 Spieler
+5_PLAYERS,5 Players,5 Spieler
+6_PLAYERS,6 Players,6 Spieler
+CHOOSE_INPUT,Choose your input device,Wähle das Eingabegerät
+WAIT_FOR_PLAYER,Wait for other player,Warte auf andere Spieler
+NITRO,Nitro,Nitro
+ROCKET,Rocket,Rakete
+SWITCH,Switch,Wechsel
+BURST,Burst,Knall
+OVERCHARGE,Overcharge,Überladung
+STAT_NAMES,Armor:\nSpeed:\nWeight:\nNitro:\nRocket:\nBurst:\nOvercharge:,Panzerung:\nGeschwind.:\nGewicht:\nNitro:\nRakete:\nKnall:\nÜberladung:
+PAGE,Page,Seite
+UNAVAILABLE_IN_MODE,Unavailable in this Game Mode,In diesem Spielmodus nicht verfügbar
+RESOLUTION,Resolution,Auflösung
+GRAPHICS,Graphics,Grafik
+FIELD_OF_VIEW,Field of View,Sichtfeld
+WINDOW_MODE,Window Mode,Fenstermodus
+SOUND,Sound,Ton
+CONTROLS,Controls,Steuerung
+LANGUAGE,Language,Sprache
+ACCESSIBILITY,Accessibility,Barrierefreiheit
+ADVANCED,Advanced,Erweitert
+NEED_MORE_VRAM,Current settings may need more than 8GB of VRAM. This can ruin performance.,Die aktuellen Einstellungen benötigen möglicherweise mehr als 8GB an VRAM. Dies kann die Leistung ruinieren.
+FULLSCREEN,Fullscreen,Vollbild
+WINDOWED,Window with Border,Fenster mit Rand
+BORDERLESS,Borderless Window,Randloses Fenster
+FX_VOLUME,Sound FX Volume,Lautstärke der Soundeffekte
+MUSIC_VOLUME,Music Volume,Musiklautstärke
+AUTOMATIC,Automatic,Automatisch
+ENGLISH,English,Englisch
+GERMAN,German,Deutsch
+LOW,Low,Niedrig
+LOW_2,Extra Low,Extra Niedrig
+DEFAULT,Default,Standard
+HIGH,High,Hoch
+HIGH_2,Extra High,Extra Hoch
+HIGHEST,Ultimate,Ultimativ
+ON,On,An
+OFF,Off,Aus
+FULL,Full,Vollständig
+REDUCED,Reduced,Reduziert
+AUTOMATIC,Automatic,Automatisch
+ALWAYS_OFF,Always Off,Immer aus
+AA,Anti-Aliasing,Antialiasing
+AA_LOWEST,No MSAA,Kein MSAA
+SSR,Reflection Range,Reichweite der Reflektionen
+SSR_OFF,Reflections: Off,Reflektionen: Aus
+SSR_CAP,capped to ,begrenzt auf
+MATERIALS,Materials,Materialien
+LIGHTING,Lighting,Beleuchtung
+VIEW_DISTANCE,View Distance,Sichtweite
+REAR_VIEW_DISTANCE,Rear View Mirror Distance,Rückspiegel Sichtweite
+SHADOW_CASTERS,Shadow Casters,Anzahl an Schatten
+SHADOW_SPLITS,Shadow Map Splits,Kaskaden pro Schattenkarte
+SHADOW_SPLITS_MP,Shadow Map Splits (Multiplayer),Kaskaden pro Schattenkarte (Mehrspieler)
+SHADOW_RES,Shadow Resolution,Schattenauflösung
+MAX_RIGID_BODIES,Maximum Rigid Bodies,Maximum an Starrkörpern (Rigid bodies)
+V_SYNC,V Sync,V Sync
+MIRROR_FRAME_RATE,Rear View Mirror Frame Rate (Multiplayer),Rückspiegel Frame Rate (Mehrspieler)
+INTERPOLATION,Transform Interpolation,Transformationsmatrix Interpolation
+CREDITS_LIST,"Developer\nGero Kappel\n\nComposer\nStef Koonings\n\nSound Effects (store-bought assets)\nGamemaster Audio\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOpen Fonts (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan","Entwickler\nGero Kappel\n\nMusik Produzent\nStef Koonings\n\nSound Effekte (gekaufte Assets)\nGamemaster Audio\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOffene Schriftarten (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan"
+STAGE,Stage,Arena
+FINALE,Finale,Finale
+FIRST,1st,1.
+SECOND,2nd,2.
+THIRD,3rd,3.
+TH,th,.
+HOT,Hot,Heiß
+INFERNAL,Infernal,Inferno
+HELLFIRE_UNIVERSE,Hellfire Universe,Höllenfeueruniversum
+CONTINUE,Continue,Fortsetzen
+RESPAWN,Respawn,Respawnen
+RESPAWN_INFO,You can also respawn with,Man kann auch mit
+RESPAWN_INFO_2,-,respawnen
+RESPAWN_INFO_3,You cannot respawn before the game starts,Man kann nicht vor Spielbeginn respawnen
+QUIT,Quit,Beenden
+WINS,Wins,Gewinnt
+DRAW,Draw,Unentschieden

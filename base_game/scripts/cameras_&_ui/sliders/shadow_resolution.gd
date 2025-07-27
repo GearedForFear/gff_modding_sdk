@@ -14,6 +14,13 @@ func _enter_tree():
 	value = VALUES.find(converted_value)
 
 
+func _draw():
+	var label: Label = get_node(LABEL_PATH)
+	var converted_value: int = VALUES[value]
+	label.text = tr("SHADOW_RES") + ": " + String(converted_value) + " x " \
+			+ String(converted_value)
+
+
 func _on_ShadowResolutionSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -30,6 +37,4 @@ func _on_ShadowResolutionSlider_value_changed(value):
 	config.set_value("graphics", "shadow_resolution", converted_value)
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
-	var label: Label = get_node(LABEL_PATH)
-	label.text = "Shadow Resolution: " + String(converted_value) + " x " \
-			+ String(converted_value)
+	_draw()
