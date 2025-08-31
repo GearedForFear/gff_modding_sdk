@@ -16,6 +16,7 @@ onready var waypoints: Array = $NonPlayerPath.get_children()
 func _ready():
 	get_node("/root/RootControl/DeletionManager").delete = true
 	Global.gameplay_manager = self
+	MusicPlayer.get_this().is_on_vehicle_select = true
 	get_node("/root/FrontContainer/Loading").show()
 
 
@@ -23,10 +24,11 @@ func _process(_delta):
 	if get_node("/root/RootControl/DeletionManager").to_be_deleted.empty():
 		get_node("/root/FrontContainer/Loading").hide()
 		if pursuers.size() == 12:
-			$Timer.start()
+			var music_player := MusicPlayer.get_this()
+			music_player.is_on_vehicle_select = false
 			var track_data: TrackData = get_parent().data
-			MusicPlayer.get_this().set_playlist(track_data.get_music(),
-					track_data.music_timer)
+			music_player.start(track_data.theme_start, $Timer)
+			$Timer.start()
 			heist_target.alive = true
 			heist_target.get_node("../StuckTimer").start()
 			

@@ -471,6 +471,10 @@ func play_next(vehicle_data: Array):
 
 func active(var b: bool):
 	if b:
+		if $MusicPlayer.is_on_vehicle_select == false:
+			$MusicPlayer.start($MusicPlayer.MENU_MUSIC, null)
+		else:
+			$MusicPlayer.is_on_vehicle_select = false
 		for n in menu_orphans:
 			add_child(n)
 		menu_orphans.clear()
@@ -479,7 +483,7 @@ func active(var b: bool):
 		menu.show()
 		menu.get_node("Arcade").grab_focus()
 	else:
-		for n in [$AspectRatioContainer, $ResolutionMenu, $FOVMenu]:
+		for n in [$AspectRatioContainer, $ResolutionMenu, $FOVMenu, $MenuTimer]:
 			menu_orphans.append(n)
 			remove_child(n)
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -503,7 +507,7 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 
 func instantiate_target_vehicle():
 	var vehicle: Spatial
-	vehicle = ResourceLoader.load("res://scenes/vehicles/fungibber.tscn", \
+	vehicle = ResourceLoader.load("res://scenes/vehicles/fungibber.tscn",
 			"PackedScene").instance()
 	vehicle.get_node("Body").track = track
 	track.get_node("TargetStartSpawn").add_child(vehicle)

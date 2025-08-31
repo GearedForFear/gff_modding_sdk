@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/vehicle_select.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://resources/fonts/Robtronika-Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=4]
+[ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=4]
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=5]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_07.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_06.wav" type="AudioStream" id=7]
@@ -87,6 +87,7 @@ world = SubResource( 14 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
+shadow_atlas_size = 4096
 script = ExtResource( 11 )
 
 [node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]
@@ -394,21 +395,6 @@ __meta__ = {
 base_font_size = 11.0
 menu = true
 
-[node name="CrashCrop" type="Label" parent="BlackBar/Switch"]
-modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
-margin_top = 251.0
-margin_right = 172.0
-margin_bottom = 265.0
-custom_fonts/font = SubResource( 10 )
-text = "Crash Crop"
-align = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-base_font_size = 11.0
-menu = true
-
 [node name="Burst" type="VBoxContainer" parent="BlackBar"]
 visible = false
 anchor_right = 1.0
@@ -479,6 +465,21 @@ margin_right = 172.0
 margin_bottom = 247.0
 custom_fonts/font = SubResource( 10 )
 text = "No Match"
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+base_font_size = 11.0
+menu = true
+
+[node name="CrashCrop" type="Label" parent="BlackBar/Overcharge"]
+modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
+margin_top = 251.0
+margin_right = 172.0
+margin_bottom = 265.0
+custom_fonts/font = SubResource( 10 )
+text = "Crash Crop"
 align = 1
 script = ExtResource( 5 )
 __meta__ = {

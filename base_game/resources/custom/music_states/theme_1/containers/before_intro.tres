@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/custom_resources/music_state_container.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+value_path = "res://resources/custom/music_states/theme_1/before_intro.tres"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://scripts/custom_resources/music_state.gd" type="Script" id=1]
+[ext_resource path="res://resources/custom/music_states/theme_3/bridge_1.tres" type="Resource" id=2]
+[ext_resource path="res://resources/music/theme_3/G4F T.3_Part 2.1_Main Theme LOOP.wav" type="AudioStream" id=3]
+
+[resource]
+script = ExtResource( 1 )
+audio = ExtResource( 3 )
+default_next = ExtResource( 2 )
+bridge = false
+guard_operation_1 = 0
+guard_time_1 = 100.0
+guard_operation_2 = 0
+guard_time_2 = 100.0

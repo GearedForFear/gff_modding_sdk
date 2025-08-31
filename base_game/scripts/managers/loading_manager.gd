@@ -69,12 +69,6 @@ func _process(_delta):
 		for n in nodes_to_replace_usa:
 			replace(n, usa.instance())
 		
-		var music_player := MusicPlayer.get_this()
-		for n in ["res://resources/music/theme_2.mp3",
-				"res://resources/music/theme_3.mp3",
-				"res://resources/music/theme_4.mp3"]:
-			music_player.themes.append(ResourceLoader.load(n, "AudioStreamMP3"))
-		
 		yield(get_tree(), "idle_frame")
 		main_menu.get_node("Viewports").show()
 		get_node("../Precompiler").can_finish = true

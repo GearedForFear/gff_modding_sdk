@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://scripts/custom_resources/music_state.gd" type="Script" id=1]
+[ext_resource path="res://resources/music/theme_2/G4F T.2_Part 3.1_End Maintheme LOOP.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/custom/music_states/theme_2/end_2.tres" type="Resource" id=3]
+[ext_resource path="res://resources/custom/music_states/theme_2/containers/main_2.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+audio = ExtResource( 2 )
+default_next = ExtResource( 3 )
+bridge = false
+next_1 = ExtResource( 4 )
+guard_operation_1 = 4
+guard_time_1 = 42.0
+guard_operation_2 = 0
+guard_time_2 = 100.0

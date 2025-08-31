@@ -11,31 +11,31 @@ const Buzzsaw: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/buzzsaw.material")
 
 const ColorBillboardUnshaded: Shader = \
-		preload("res://resources/materials/simple_shaders/color_billboard_unshaded.gdshader")
+		preload("res://shaders/simple/color_billboard_unshaded.gdshader")
 const ColorNoSpecular: Shader = \
-		preload("res://resources/materials/simple_shaders/color_no_specular.gdshader")
+		preload("res://shaders/simple/color_no_specular.gdshader")
 const ColorNoSpecularNoCull: Shader = \
-		preload("res://resources/materials/simple_shaders/color_no_specular_no_cull.gdshader")
+		preload("res://shaders/simple/color_no_specular_no_cull.gdshader")
 const TextureNoSpecular: Shader = \
-		preload("res://resources/materials/simple_shaders/texture_no_specular.gdshader")
+		preload("res://shaders/simple/texture_no_specular.gdshader")
 const MoneyShader: Shader = \
-		preload("res://resources/materials/collectibles/money.gdshader")
+		preload("res://shaders/collectibles/money.gdshader")
 const Tornado: Shader = \
-		preload("res://resources/materials/world/decorations/tornado.gdshader")
+		preload("res://shaders/world/decorations/tornado.gdshader")
 const TornadoNoFade: Shader = \
-		preload("res://resources/materials/world/decorations/tornado_no_fade.gdshader")
+		preload("res://shaders/world/decorations/tornado_no_fade.gdshader")
 const IcelandScriptDefault: Shader = \
-		preload("res://resources/materials/world/maps/iceland.gdshader")
+		preload("res://shaders/world/maps/iceland.gdshader")
 
 const IcelandScriptNoTexture: Shader = \
-		preload("res://resources/materials/world/maps/iceland_no_texture.gdshader")
+		preload("res://shaders/world/maps/iceland_no_texture.gdshader")
 const USAScriptNoTexture: Shader = \
-		preload("res://resources/materials/world/maps/usa_no_texture.gdshader")
+		preload("res://shaders/world/maps/usa_no_texture.gdshader")
 
 const IcelandScriptGLES2NoTexture: Shader = \
-		preload("res://resources/materials/world/maps/iceland_gles2_no_texture.gdshader")
+		preload("res://shaders/world/maps/iceland_gles2_no_texture.gdshader")
 const USAScriptGLES2NoTexture: Shader = \
-		preload("res://resources/materials/world/maps/usa_gles2_no_texture.gdshader")
+		preload("res://shaders/world/maps/usa_gles2_no_texture.gdshader")
 
 const RockUSAColor: Color = Color("bb885f")
 const TornadoUSAColor: Color = Color("cc9a76")

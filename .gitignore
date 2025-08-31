@@ -11,10 +11,6 @@ data_*/
 *.import
 *.ico
 /base_game/resources/sounds
-base_game/resources/materials/world/decorations/icicle.material
-base_game/resources/materials/world/decorations/desert_tornado.material
-base_game/resources/materials/world/decorations/cactus_1.material
-base_game/resources/materials/world/decorations/cactus_0.material
 base_game/resources/materials/weapon_components/grenade.material
 base_game/resources/materials/weapon_components/chainsaw.material
 base_game/resources/materials/weapon_components/missile.material
@@ -53,3 +49,5 @@ base_game/resources/images/vehicles/restless/restless_wheel.png
 /base_game/resources/images/vehicles/well_raised
 *.ttf
 *.mp3
+*.wav
+base_game/resources/images/world/icicle.png

@@ -1,6 +1,6 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=99 format=2]
 
-[ext_resource path="res://resources/materials/cameras_&_ui/menu_background.tres" type="Shader" id=1]
+[ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scripts/cameras_&_ui/arcade_end.gd" type="Script" id=4]
@@ -20,7 +20,7 @@
 [ext_resource path="res://resources/images/cameras_&_ui/arcade.png" type="Texture" id=18]
 [ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=19]
 [ext_resource path="res://scripts/music_player.gd" type="Script" id=20]
-[ext_resource path="res://resources/music/theme_1.mp3" type="AudioStream" id=21]
+[ext_resource path="res://resources/music/theme_1/G4F T.1_Sweep before intro NO LOOP.wav" type="AudioStream" id=21]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=22]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_22.wav" type="AudioStream" id=24]
@@ -54,6 +54,8 @@
 [ext_resource path="res://resources/images/cameras_&_ui/challenges.png" type="Texture" id=52]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/level.gd" type="Script" id=53]
 [ext_resource path="res://scripts/managers/mirror_manager.gd" type="Script" id=54]
+[ext_resource path="res://scripts/cameras_&_ui/menu_timer.gd" type="Script" id=55]
+[ext_resource path="res://scripts/cameras_&_ui/next_stream_timer.gd" type="Script" id=56]
 [ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=57]
 [ext_resource path="res://scripts/cameras_&_ui/loading_animation.gd" type="Script" id=58]
 [ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=59]
@@ -459,6 +461,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 108 )
 
 [node name="TheCalmCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
@@ -629,6 +632,7 @@ size = Vector2( 122, 55 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
@@ -676,6 +680,7 @@ size = Vector2( 122, 55 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
@@ -712,6 +717,7 @@ size = Vector2( 122, 55 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
@@ -756,6 +762,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
@@ -912,6 +919,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
@@ -1006,6 +1014,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
@@ -1128,6 +1137,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
@@ -1222,6 +1232,7 @@ size = Vector2( 385, 349 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
@@ -1634,6 +1645,7 @@ size = Vector2( 640, 360 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="ResolutionMenu/ViewportContainer/Viewport"]
@@ -1729,6 +1741,7 @@ size = Vector2( 640, 360 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 0
+shadow_atlas_size = 4096
 script = ExtResource( 91 )
 
 [node name="Camera" type="Camera" parent="FOVMenu/ViewportContainer/Viewport"]
@@ -1862,6 +1875,7 @@ size = Vector2( 4, 4 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 3
+shadow_atlas_size = 4096
 
 [node name="Camera" type="Camera" parent="Precompiler/Viewport"]
 
@@ -1946,8 +1960,8 @@ autoplay = true
 bus = "Music"
 script = ExtResource( 20 )
 
-[node name="Timer" type="Timer" parent="MusicPlayer"]
-one_shot = true
+[node name="NextStreamTimer" type="Timer" parent="MusicPlayer"]
+script = ExtResource( 56 )
 
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
@@ -1960,6 +1974,12 @@ bus = "Effects"
 [node name="ReturnAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 24 )
 bus = "Effects"
+
+[node name="MenuTimer" type="Timer" parent="."]
+wait_time = 600.0
+one_shot = true
+autostart = true
+script = ExtResource( 55 )
 
 [connection signal="item_rect_changed" from="." to="." method="_on_RootControl_item_rect_changed"]
 [connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Multiplayer" to="AspectRatioContainer/MainMenu/Multiplayer" method="_on_Multiplayer_visibility_changed"]
@@ -2018,4 +2038,5 @@ bus = "Effects"
 [connection signal="value_changed" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_value_changed"]
 [connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
-[connection signal="timeout" from="MusicPlayer/Timer" to="MusicPlayer" method="_on_Timer_timeout"]
+[connection signal="timeout" from="MenuTimer" to="MusicPlayer" method="_on_MenuTimer_timeout"]
+[connection signal="tree_entered" from="MenuTimer" to="MenuTimer" method="_on_MenuTimer_tree_entered"]

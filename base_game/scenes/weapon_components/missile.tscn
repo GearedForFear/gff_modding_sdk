@@ -23,7 +23,6 @@ speed = 0.5
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 portal_mode = 3
-cast_shadow = 0
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 7 )

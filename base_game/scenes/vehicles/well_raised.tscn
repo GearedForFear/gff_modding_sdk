@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/vehicles/well_raised.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -11,11 +11,9 @@
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/well_raised.tres" type="ArrayMesh" id=11]
-[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=12]
-[ext_resource path="res://resources/meshes/weapon_components/light_machine_gun_wr.tres" type="ArrayMesh" id=13]
+[ext_resource path="res://scenes/vehicles/merge_groups/wr_guns.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
-[ext_resource path="res://resources/materials/weapon_components/light_machine_gun_wr.material" type="Material" id=16]
 [ext_resource path="res://resources/materials/vehicles/well_raised/stock.material" type="Material" id=17]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
@@ -125,7 +123,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.859, 0.18458, 1.44958 )
@@ -135,7 +132,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, -1.59422 )
@@ -145,7 +141,6 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.859, 0.18458, -1.59388 )
@@ -155,82 +150,63 @@ mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
 script = ExtResource( 26 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 
-[node name="MGMeshLeft" type="MeshInstance" parent="Body"]
-transform = Transform( 0.99088, 0, 0.134747, 0, 1, 0, -0.134747, 0, 0.99088, 0.352, 0.982, 1.056 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 16 )
-script = ExtResource( 12 )
-required_setting = 3
-
-[node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshLeft"]
-
-[node name="Particles" parent="Body/MGMeshLeft/MuzzleFlash" instance=ExtResource( 9 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.49012e-08, 0, 1.00959 )
-
-[node name="CPUParticles" parent="Body/MGMeshLeft/MuzzleFlash" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, 1.00959 )
-
-[node name="ShotPosition" type="RayCast" parent="Body/MGMeshLeft"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
+[node name="MGLeft" type="RayCast" parent="Body"]
+transform = Transform( 0.99088, 0, 0.134747, 0, 1, 0, -0.134747, 0, 0.99088, 0.484238, 0.982, 2.02843 )
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
-[node name="CartridgeExit" type="Position3D" parent="Body/MGMeshLeft"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, 0.144964 )
+[node name="MuzzleFlash" type="Spatial" parent="Body/MGLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47035e-08, 0, -0.981379 )
 
-[node name="MGMeshMiddle" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.982433, 1.09124 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 16 )
-script = ExtResource( 12 )
-required_setting = 3
+[node name="Particles" parent="Body/MGLeft/MuzzleFlash" instance=ExtResource( 9 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.49012e-08, 0, 1.00959 )
 
-[node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshMiddle"]
+[node name="CPUParticles" parent="Body/MGLeft/MuzzleFlash" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, 1.00959 )
 
-[node name="Particles" parent="Body/MGMeshMiddle/MuzzleFlash" instance=ExtResource( 9 )]
+[node name="CartridgeExit" type="Position3D" parent="Body/MGLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, -0.836415 )
+
+[node name="MGMiddle" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.982433, 2.07262 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+collision_mask = 3
+
+[node name="MuzzleFlash" type="Spatial" parent="Body/MGMiddle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.981379 )
+
+[node name="Particles" parent="Body/MGMiddle/MuzzleFlash" instance=ExtResource( 9 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 1.00959 )
 
-[node name="CPUParticles" parent="Body/MGMeshMiddle/MuzzleFlash" instance=ExtResource( 2 )]
+[node name="CPUParticles" parent="Body/MGMiddle/MuzzleFlash" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00959 )
 
-[node name="ShotPosition" type="RayCast" parent="Body/MGMeshMiddle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
+[node name="CartridgeExit" type="Position3D" parent="Body/MGMiddle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, -0.836415 )
+
+[node name="MGRight" type="RayCast" parent="Body"]
+transform = Transform( 0.99088, 0, -0.134747, 0, 1, 0, 0.134747, 0, 0.99088, -0.484083, 0.982433, 2.0288 )
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
 
-[node name="CartridgeExit" type="Position3D" parent="Body/MGMeshMiddle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, 0.144964 )
+[node name="MuzzleFlash" type="Spatial" parent="Body/MGRight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49012e-08, 0, -0.981379 )
 
-[node name="MGMeshRight" type="MeshInstance" parent="Body"]
-transform = Transform( 0.99088, 0, -0.134747, 0, 1, 0, 0.134747, 0, 0.99088, -0.351845, 0.982433, 1.05637 )
-portal_mode = 3
-mesh = ExtResource( 13 )
-material/0 = ExtResource( 16 )
-script = ExtResource( 12 )
-required_setting = 3
-
-[node name="MuzzleFlash" type="Spatial" parent="Body/MGMeshRight"]
-
-[node name="Particles" parent="Body/MGMeshRight/MuzzleFlash" instance=ExtResource( 9 )]
+[node name="Particles" parent="Body/MGRight/MuzzleFlash" instance=ExtResource( 9 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.49012e-08, 0, 1.00959 )
 
-[node name="CPUParticles" parent="Body/MGMeshRight/MuzzleFlash" instance=ExtResource( 2 )]
+[node name="CPUParticles" parent="Body/MGRight/MuzzleFlash" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, 1.00959 )
 
-[node name="ShotPosition" type="RayCast" parent="Body/MGMeshRight"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.981379 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
+[node name="CartridgeExit" type="Position3D" parent="Body/MGRight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, -0.836415 )
 
-[node name="CartridgeExit" type="Position3D" parent="Body/MGMeshRight"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152788, 0.0375992, 0.144964 )
+[node name="MergeGroup" parent="Body" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.982433, 1.09124 )
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

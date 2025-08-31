@@ -556,6 +556,7 @@ one_shot = true
 process_mode = 0
 wait_time = 30.0
 
+[connection signal="animation_finished" from="AnimationPlayerHeat" to="Body" method="_on_AnimationPlayerHeat_animation_finished"]
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
 [connection signal="timeout" from="GunTimerLeft" to="Body" method="_on_GunTimerLeft_timeout"]
 [connection signal="timeout" from="GunTimerRight" to="Body" method="_on_GunTimerRight_timeout"]

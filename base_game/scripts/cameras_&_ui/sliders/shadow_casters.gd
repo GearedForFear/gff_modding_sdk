@@ -28,6 +28,13 @@ func _draw():
 			label.text += tr("HIGHEST")
 
 
+func update_shadow_setters(node: Node):
+	for n in node.get_children():
+		update_shadow_setters(n)
+	if node.get_class() == "ShadowSetter":
+		node._ready()
+
+
 func _on_ShadowCastersSlider_focus_entered():
 	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
 
@@ -40,5 +47,6 @@ func _on_ShadowCastersSlider_value_changed(value):
 	settings_manager.apply_settings()
 	config.set_value("graphics", "shadow_casters", value)
 	config.save("user://config.cfg")
+	update_shadow_setters(root_control)
 	root_control.get_node("SliderChangeAudio").play()
 	_draw()

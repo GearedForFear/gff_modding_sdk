@@ -30,17 +30,17 @@ var next_out_sides: int = cartridge_out.NONE
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($MGMeshLeft/MuzzleFlash/CPUParticles)
-		delete($MGMeshMiddle/MuzzleFlash/CPUParticles)
-		delete($MGMeshRight/MuzzleFlash/CPUParticles)
+		delete($MGLeft/MuzzleFlash/CPUParticles)
+		delete($MGMiddle/MuzzleFlash/CPUParticles)
+		delete($MGRight/MuzzleFlash/CPUParticles)
 		delete($ShotgunFlashLeft/CPUParticles)
 		delete($ShotgunFlashLeft/CPUParticles2)
 		delete($ShotgunFlashRight/CPUParticles)
 		delete($ShotgunFlashRight/CPUParticles2)
 	else:
-		delete($MGMeshLeft/MuzzleFlash/Particles)
-		delete($MGMeshMiddle/MuzzleFlash/Particles)
-		delete($MGMeshRight/MuzzleFlash/Particles)
+		delete($MGLeft/MuzzleFlash/Particles)
+		delete($MGMiddle/MuzzleFlash/Particles)
+		delete($MGRight/MuzzleFlash/Particles)
 		delete($ShotgunFlashLeft/Particles)
 		delete($ShotgunFlashLeft/Particles2)
 		delete($ShotgunFlashRight/Particles)
@@ -50,27 +50,27 @@ func _ready():
 func _physics_process(_delta):
 	match next_out_middle:
 		cartridge_out.LINK:
-			instantiate_cartridge($MGMeshMiddle, true)
+			instantiate_cartridge($MGMiddle, true)
 			next_out_middle = cartridge_out.CASE
 		cartridge_out.CASE:
-			instantiate_cartridge($MGMeshMiddle, false)
+			instantiate_cartridge($MGMiddle, false)
 			next_out_middle = cartridge_out.NONE
 	
 	match next_out_sides:
 		cartridge_out.LINK:
-			instantiate_cartridge($MGMeshLeft, true)
-			instantiate_cartridge($MGMeshRight, true)
+			instantiate_cartridge($MGLeft, true)
+			instantiate_cartridge($MGRight, true)
 			next_out_sides = cartridge_out.CASE
 		cartridge_out.CASE:
-			instantiate_cartridge($MGMeshLeft, false)
-			instantiate_cartridge($MGMeshRight, false)
+			instantiate_cartridge($MGLeft, false)
+			instantiate_cartridge($MGRight, false)
 			next_out_sides = cartridge_out.NONE
 	
 	if alive:
 		if controls == null:
-			var left_collider: PhysicsBody = $MGMeshLeft/ShotPosition.get_collider()
-			var middle_collider: PhysicsBody = $MGMeshMiddle/ShotPosition.get_collider()
-			var right_collider: PhysicsBody = $MGMeshRight/ShotPosition.get_collider()
+			var left_collider: PhysicsBody = $MGLeft.get_collider()
+			var middle_collider: PhysicsBody = $MGMiddle.get_collider()
+			var right_collider: PhysicsBody = $MGRight.get_collider()
 			if can_trigger:
 				if middle_collider != null and \
 						middle_collider.is_in_group("combat_vehicle") \
@@ -129,7 +129,7 @@ func shoot_middle():
 	get_node("../ShotTimerMiddle").start()
 	remaining_shots_middle -= 1
 	next_out_middle = cartridge_out.LINK
-	shoot_front($MGMeshMiddle)
+	shoot_front($MGMiddle)
 
 
 func shoot_sides():
@@ -138,8 +138,8 @@ func shoot_sides():
 	get_node("../ShotTimerSides").start()
 	remaining_shots_sides -= 1
 	next_out_sides = cartridge_out.LINK
-	shoot_front($MGMeshLeft)
-	shoot_front($MGMeshRight)
+	shoot_front($MGLeft)
+	shoot_front($MGRight)
 
 
 func shoot_left():
@@ -172,17 +172,17 @@ func shoot_right():
 		n.emitting = true
 
 
-func shoot_front(var gun: MeshInstance):
+func shoot_front(var gun: RayCast):
 	var new_bullet: Area
 	if level == 5:
 		new_bullet = pools.get_acid_bullet()
-		new_bullet.start(gun.get_node("ShotPosition").global_transform, \
-				acid_bullet_damage, bullet_reward, bullet_burn, self)
+		new_bullet.start(gun.global_transform, acid_bullet_damage,
+				bullet_reward, bullet_burn, self)
 		new_bullet.acid_duration = acid_bullet_duration
 	else:
 		new_bullet = pools.get_bullet()
-		new_bullet.start(gun.get_node("ShotPosition").global_transform, \
-				bullet_damage, bullet_reward, bullet_burn, self)
+		new_bullet.start(gun.global_transform, bullet_damage, bullet_reward,
+				bullet_burn, self)
 	new_bullet.play_audio_lmg()
 	
 	var flash: GeometryInstance = gun.get_child(0).get_child(0)
@@ -223,7 +223,7 @@ func shoot_shotgun(var gun: Spatial):
 			new_bullet.play_audio_shotgun()
 
 
-func instantiate_cartridge(var gun: MeshInstance, var link: bool):
+func instantiate_cartridge(var gun: RayCast, var link: bool):
 	if link:
 		var new_link: DynamicShadowBody = pools.get_cartridge_link()
 		new_link.start(gun.get_node("CartridgeExit").global_transform)
