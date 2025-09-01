@@ -13,3 +13,5 @@ func update_transform(body_transform: Transform, wheel_scale: float):
 		scale = -scale
 	translation = gameplay_wheel.translation
 	rotation = gameplay_wheel.rotation
+	rotate(transform.basis.x.normalized(), gameplay_wheel.get_rpm()
+			* Global.extrapolation_manager.wheel_extrapolation_factor)

@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://scripts/world/dynamic_shadow_body.gd"
 }, {
 "base": "Node",
+"class": "ExtrapolationManager",
+"language": "GDScript",
+"path": "res://scripts/managers/extrapolation_manager.gd"
+}, {
+"base": "Node",
 "class": "GameplayManager",
 "language": "GDScript",
 "path": "res://scripts/managers/gameplay_manager.gd"
@@ -155,6 +160,7 @@ _global_script_class_icons={
 "ArrayResource": "",
 "CombatVehicle": "",
 "DynamicShadowBody": "",
+"ExtrapolationManager": "",
 "GameplayManager": "",
 "HeatVehicle": "",
 "LevelVehicle": "",

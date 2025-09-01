@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
@@ -62,6 +62,7 @@
 [ext_resource path="res://scenes/particles/heart_flame.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
 [ext_resource path="res://scripts/managers/loading_manager.gd" type="Script" id=62]
+[ext_resource path="res://scripts/managers/extrapolation_manager.gd" type="Script" id=63]
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
 [ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=67]
@@ -1860,6 +1861,9 @@ script = ExtResource( 68 )
 [node name="LoadingManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 62 )
+
+[node name="ExtrapolationManager" type="Node" parent="."]
+script = ExtResource( 63 )
 
 [node name="Precompiler" type="ViewportContainer" parent="."]
 anchor_left = -1.0
