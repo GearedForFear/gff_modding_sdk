@@ -50,23 +50,11 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				alive = false
-				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = scoreboard_record.score / 10
-				scoreboard_record.lose(payout)
-				acid_duration = 0
-				acid_cause = null
-				if gles3:
-					$ExplosionParticles.emitting = true
-					$DeathParticles.emitting = true
-				else:
-					$ExplosionCPUParticles.emitting = true
-					$DeathCPUParticles.emitting = true
+				var payout: int = kill(10)
 				if other_half.alive:
-					pass
+					get_node("../RespawnTimer").stop()
 				else:
 					get_node("../..").alive = false
-					get_node("../RespawnTimer").start()
 				return payout
 	return 0
 
@@ -76,12 +64,8 @@ func _on_MissileTimer_timeout():
 
 
 func _on_RespawnTimer_timeout():
-	if gles3:
-		$DeathParticles.emitting = false
-		other_half.get_node("DeathParticles").emitting = false
-	else:
-		$DeathCPUParticles.emitting = false
-		other_half.get_node("DeathCPUParticles").emitting = false
+	$DeathParticles.emitting = false
+	other_half.get_node("DeathParticles").emitting = false
 	var parent_body: AmmoVehicle = get_node("../..")
 	parent_body.split(false)
 	parent_body.alive = true

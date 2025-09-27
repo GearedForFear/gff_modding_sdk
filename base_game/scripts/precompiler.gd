@@ -58,30 +58,39 @@ func add_materials():
 			"Resource").array:
 		skin_names.append("/" + skin_name + ".material")
 	var body_skins: Array = skin_names.duplicate()
-	body_skins.erase("/stock_duplicate.material")
+	body_skins.append("/flame.material")
 	var wheel_skins: Array = skin_names.duplicate()
-	wheel_skins.erase("/flame.material")
+	wheel_skins.append("/stock_duplicate.material")
+	var weapon_skins: Array = skin_names.duplicate()
 	
 	var body_folders := Array()
 	var wheel_folders := Array()
+	var weapon_folders := Array()
 	for folder in ResourceLoader.load(\
 			"res://resources/custom/skin_folders.tres", \
 			"Resource").array:
 		if folder.begins_with("wheels_"):
 			wheel_folders.append(folder)
+		elif folder.begins_with("../weapon_components/"):
+			weapon_folders.append(folder)
 		else:
 			body_folders.append(folder)
 	
 	for folder in body_folders:
 		for skin_name in body_skins:
 			materials.append(ResourceLoader.load(\
-			"res://resources/materials/vehicles/"
-			+ folder + skin_name, "Material"))
+					"res://resources/materials/vehicles/"
+					+ folder + skin_name, "Material"))
 	for folder in wheel_folders:
 		for skin_name in wheel_skins:
 			materials.append(ResourceLoader.load(\
-			"res://resources/materials/vehicles/"
-			+ folder + skin_name, "Material"))
+					"res://resources/materials/vehicles/"
+					+ folder + skin_name, "Material"))
+	for folder in weapon_folders:
+		for skin_name in weapon_skins:
+			materials.append(ResourceLoader.load(\
+					"res://resources/materials/vehicles/"
+					+ folder + skin_name, "Material"))
 
 
 func emit_particles():

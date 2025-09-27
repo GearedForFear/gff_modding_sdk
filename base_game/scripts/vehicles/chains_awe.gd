@@ -24,12 +24,19 @@ var right_saws_up: bool = true
 var left_saws_active: bool = false
 var right_saws_active: bool = false
 
+var chainsaw_skin: ShaderMaterial
+
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($MuzzleFlash/CPUParticles)
 	else:
 		delete($MuzzleFlash/Particles)
+	var path_ending: String = random_skin("", "")
+	path_ending.replace("flame", "stock")
+	chainsaw_skin = ResourceLoader.load(
+			"res://resources/materials/weapon_components/chainsaw/"
+			+ path_ending, "ShaderMaterial")
 
 
 func _physics_process(_delta):
@@ -183,6 +190,7 @@ func shoot_chainsaw():
 	var new_chainsaw: ArcProjectile = pools.get_chainsaw()
 	new_chainsaw.start($ShotPositionLauncher.global_transform, launcher_damage,\
 			launcher_reward, launcher_burn, self)
+	new_chainsaw.get_node("MeshInstance").material_override = chainsaw_skin
 
 
 func get_vehicle_name() -> String:

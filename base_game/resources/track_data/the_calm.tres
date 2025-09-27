@@ -6,3 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 theme_start = ExtResource( 2 )
+water_color_0 = Color( 0, 0, 0, 1 )
+water_color_1 = Color( 0, 0, 0, 1 )

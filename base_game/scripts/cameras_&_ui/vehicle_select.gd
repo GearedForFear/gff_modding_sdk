@@ -99,6 +99,10 @@ func _process(_delta):
 						vehicle = ResourceLoader.load(\
 								"res://scenes/vehicles/eternal_bond.tscn", \
 								"PackedScene").instance()
+					3:
+						vehicle = ResourceLoader.load(\
+								"res://scenes/vehicles/missilodon.tscn", \
+								"PackedScene").instance()
 					_:
 						return
 			category_names.SWITCH:

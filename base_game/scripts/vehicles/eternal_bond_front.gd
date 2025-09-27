@@ -129,7 +129,6 @@ func shoot_left():
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
 				shotgun_reward, shotgun_burn, self)
-		n.add_child(new_bullet)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
@@ -151,7 +150,6 @@ func shoot_right():
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
 				shotgun_reward, shotgun_burn, self)
-		n.add_child(new_bullet)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
@@ -168,19 +166,9 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				alive = false
-				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = scoreboard_record.score / 10
-				scoreboard_record.lose(payout)
-				acid_duration = 0
-				acid_cause = null
-				if gles3:
-					$ExplosionParticles.emitting = true
-					$DeathParticles.emitting = true
-				else:
-					$ExplosionCPUParticles.emitting = true
-					$DeathCPUParticles.emitting = true
+				var payout: int = kill(10)
 				if other_half.alive:
+					get_node("../RespawnTimer").stop()
 					other_half.master_body = true
 					master_body = false
 					replacement = other_half
@@ -197,7 +185,6 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 					gameplay_manager.pursuers.insert(array_position, other_half)
 				else:
 					get_node("../..").alive = false
-					get_node("../RespawnTimer").start()
 				return payout
 	return 0
 
@@ -207,12 +194,8 @@ func _on_MachineGunTimer_timeout():
 
 
 func _on_RespawnTimer_timeout():
-	if gles3:
-		$DeathParticles.emitting = false
-		other_half.get_node("DeathParticles").emitting = false
-	else:
-		$DeathCPUParticles.emitting = false
-		other_half.get_node("DeathCPUParticles").emitting = false
+	$DeathParticles.emitting = false
+	other_half.get_node("DeathParticles").emitting = false
 	var parent_body: AmmoVehicle = get_node("../..")
 	parent_body.split(false)
 	parent_body.alive = true

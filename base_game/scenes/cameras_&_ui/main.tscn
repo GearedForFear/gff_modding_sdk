@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=2]
+[gd_scene load_steps=101 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
@@ -63,6 +63,7 @@
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
 [ext_resource path="res://scripts/managers/loading_manager.gd" type="Script" id=62]
 [ext_resource path="res://scripts/managers/extrapolation_manager.gd" type="Script" id=63]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_shadows.gd" type="Script" id=64]
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
 [ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=67]
@@ -187,8 +188,6 @@ ss_reflections_roughness = false
 [node name="RootControl" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_right = 1.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 script = ExtResource( 7 )
@@ -570,9 +569,9 @@ margin_right = 112.0
 margin_bottom = 172.0
 size_flags_vertical = 3
 theme = ExtResource( 71 )
-disabled = true
 text = "PILLARS"
 script = ExtResource( 22 )
+track_path = "res://scenes/world/tracks/pillars.tscn"
 
 [node name="Sunbreaker" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
 margin_top = 176.0
@@ -1271,7 +1270,7 @@ scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/AdvancedMenu/Sliders"]
 margin_right = 234.48
-margin_bottom = 918.0
+margin_bottom = 995.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -1452,6 +1451,23 @@ value = 2.0
 rounded = true
 scrollable = false
 script = ExtResource( 102 )
+
+[node name="RearViewShadowsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 153.0
+margin_right = 224.0
+margin_bottom = 176.0
+text = "Rear View Shadows: Always Off"
+autowrap = true
+
+[node name="RearViewShadowsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
+margin_top = 180.0
+margin_right = 224.0
+margin_bottom = 200.0
+theme = ExtResource( 71 )
+max_value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 64 )
 
 [node name="MaximumRigidBodiesLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
 margin_top = 614.0
@@ -2025,6 +2041,8 @@ script = ExtResource( 55 )
 [connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_value_changed"]
 [connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_focus_entered"]
 [connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_value_changed"]
+[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_focus_entered"]
+[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_value_changed"]
 [connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_focus_entered"]
 [connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_value_changed"]
 [connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_focus_entered"]

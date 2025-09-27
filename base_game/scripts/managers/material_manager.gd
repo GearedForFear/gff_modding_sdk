@@ -1,14 +1,19 @@
+class_name MaterialManager
 extends Node
 
 
-const Money: ShaderMaterial = \
+const MONEY: ShaderMaterial = \
 		preload("res://resources/materials/collectibles/money.material")
-const Explosion0: ShaderMaterial = \
+const EXPLOSION_0: ShaderMaterial = \
 		preload("res://resources/materials/destruction/explosion_0.material")
-const Explosion1: ShaderMaterial = \
+const EXPLOSION_1: ShaderMaterial = \
 		preload("res://resources/materials/destruction/explosion_1.material")
-const Buzzsaw: ShaderMaterial = \
+const BUZZSAW: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/buzzsaw.material")
+const WATER_0: ShaderMaterial = \
+		preload("res://resources/materials/world/decorations/water_0.material")
+const WATER_1: ShaderMaterial = \
+		preload("res://resources/materials/world/decorations/water_1.material")
 
 const ColorBillboardUnshaded: Shader = \
 		preload("res://shaders/simple/color_billboard_unshaded.gdshader")
@@ -62,7 +67,7 @@ func update_settings():
 				"ShaderMaterial")
 	match get_node("/root/RootControl/SettingsManager").materials:
 		0:
-			Money.shader = ColorBillboardUnshaded
+			MONEY.shader = ColorBillboardUnshaded
 			
 			rock_usa_material.shader = ColorNoSpecular
 			rock_usa_material.set_shader_param("albedo", RockUSAColor)
@@ -99,8 +104,12 @@ func update_settings():
 	get_node("/root/RootControl/Precompiler").start()
 
 
+static func get_this() -> MaterialManager:
+	return Global.root_control.get_node("MaterialManager") as MaterialManager
+
+
 func enable_textures():
-	Money.shader = MoneyShader
+	MONEY.shader = MoneyShader
 	
 	var usa_image: StreamTexture = ResourceLoader.load(\
 			"res://resources/images/world/usa.png", \
@@ -119,7 +128,14 @@ func enable_textures():
 	usa_material.set_shader_param("texture_albedo", usa_image)
 
 
+func set_colors(var track_data: TrackData):
+	for n in [WATER_0, WATER_1]:
+		n.set_shader_param("albedo_0", track_data.water_color_0)
+		n.set_shader_param("albedo_1", track_data.water_color_1)
+
+
 func set_movement(var b: bool):
-	Explosion0.set_shader_param("rotate", b)
-	Explosion1.set_shader_param("rotate", b)
-	Buzzsaw.set_shader_param("rotate", b)
+	for n in [EXPLOSION_0, EXPLOSION_1, BUZZSAW]:
+		n.set_shader_param("rotate", b)
+	for n in [WATER_0, WATER_1]:
+		n.set_shader_param("move", b)

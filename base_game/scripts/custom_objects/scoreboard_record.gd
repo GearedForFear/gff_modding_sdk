@@ -33,7 +33,6 @@ func reward(var amount: int):
 	else:
 		rank = list_position
 	Global.gameplay_manager.update_scores()
-	find_first().assert_correct()
 
 
 func lose(var amount: int):
@@ -43,7 +42,6 @@ func lose(var amount: int):
 	if score == next.score:
 		next.update_rank_downwards(rank)
 	Global.gameplay_manager.update_scores()
-	find_first().assert_correct()
 
 
 func move_up():
@@ -102,11 +100,3 @@ func to_array() -> Array:
 		return_value.append(record)
 		record = record.next
 	return return_value
-
-
-func assert_correct():
-	if next.score == -1:
-		return
-	assert(rank == next.rank or score != next.score)
-	assert(list_position == next.list_position - 1)
-	next.assert_correct()

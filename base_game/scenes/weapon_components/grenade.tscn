@@ -34,8 +34,5 @@ process_mode = 0
 wait_time = 2.0
 one_shot = true
 
-[node name="RayCast" type="RayCast" parent="."]
-cast_to = Vector3( 0, 0, 0.5 )
-
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

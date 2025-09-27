@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=38]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=39]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=40]
+[ext_resource path="res://resources/animations/vehicles/restless/death.anim" type="Animation" id=41]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -244,6 +245,57 @@ tracks/4/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/RocketMeshLeft:material/0:shader_param/brightness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/DoorMesh:material/0:shader_param/brightness")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
 [node name="RootSpatial" type="Spatial"]
 _import_path = NodePath(".")
 __meta__ = {
@@ -314,8 +366,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.974, 0.9 )
 [node name="BodyMesh" type="MeshInstance" parent="Body"]
 physics_interpolation_mode = 1
 portal_mode = 3
-material_override = ExtResource( 6 )
 mesh = ExtResource( 5 )
+material/0 = ExtResource( 6 )
 script = ExtResource( 40 )
 required_setting = 1
 wheel_scale = 0.8
@@ -323,42 +375,38 @@ wheel_scale = 0.8
 [node name="WheelFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.886013, 0.101966, 1.5867 )
 portal_mode = 3
-material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontLeft")
+material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontLeft")
 
 [node name="WheelFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.88, 0.101966, 1.58692 )
 portal_mode = 3
-material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelFrontRight")
+material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
-wheel_path = NodePath("../../WheelFrontRight")
 
 [node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.886013, 0.101966, -1.23149 )
 portal_mode = 3
-material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
+material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackLeft")
 
 [node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.88, 0.101966, -1.23115 )
 portal_mode = 3
-material_override = ExtResource( 12 )
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
+material/0 = ExtResource( 12 )
 script = ExtResource( 31 )
 required_setting = 3
-wheel_path = NodePath("../../WheelBackRight")
 
 [node name="SniperMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.52865, 0.717167, 1.41345 )
@@ -380,8 +428,8 @@ required_setting = 3
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0 )
 visible = false
 portal_mode = 3
-material_override = ExtResource( 13 )
 mesh = ExtResource( 24 )
+material/0 = ExtResource( 13 )
 script = ExtResource( 34 )
 required_setting = 3
 
@@ -389,16 +437,16 @@ required_setting = 3
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0, 0 )
 visible = false
 portal_mode = 3
-material_override = ExtResource( 13 )
 mesh = ExtResource( 24 )
+material/0 = ExtResource( 13 )
 script = ExtResource( 34 )
 required_setting = 3
 
 [node name="DoorMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -4.3873e-08, 1.39595e-11, 1, 0.0860603, 0.99629, 3.76181e-09, -0.99629, 0.0860603, -4.37114e-08, -0.646664, 0.683186, -2.40856 )
 portal_mode = 3
-material_override = ExtResource( 25 )
 mesh = ExtResource( 16 )
+material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
 required_setting = 3
 
@@ -623,6 +671,10 @@ playback_process_mode = 0
 anims/RESET = SubResource( 7 )
 anims/nitro_rocket = SubResource( 17 )
 anims/rocket_nitro = SubResource( 18 )
+
+[node name="DeathAnimation" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 20 )
+anims/death = ExtResource( 41 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0

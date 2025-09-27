@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/vehicles/grave_mistake.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
 [ext_resource path="res://resources/materials/vehicles/wheels_gm/stock.material" type="Material" id=25]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=26]
+[ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=27]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -36,6 +37,33 @@ points = PoolVector3Array( 1.076, 1.004, 2.751, -1.076, 1.004, 2.751, 1.035, 2.0
 [sub_resource type="DynamicFont" id=19]
 size = 9
 font_data = ExtResource( 21 )
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
 [node name="RootSpatial" type="Spatial"]
 _import_path = NodePath(".")
@@ -274,6 +302,10 @@ stream = ExtResource( 11 )
 autoplay = true
 stream_paused = true
 bus = "Effects"
+
+[node name="DeathAnimation" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 20 )
+anims/death = ExtResource( 27 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0

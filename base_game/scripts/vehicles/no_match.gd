@@ -27,11 +27,13 @@ func _ready():
 	get_node("../AnimationPlayerHeat").play("RESET")
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($MuzzleFlashLeft/CPUParticles)
-		delete($MuzzleFlashRight/CPUParticles)
+		delete($MuzzleFlashLeftCPU)
+		delete($MuzzleFlashRightCPU)
 	else:
-		delete($MuzzleFlashLeft/Particles)
-		delete($MuzzleFlashRight/Particles)
+		delete($MuzzleFlashLeft)
+		delete($MuzzleFlashRight)
+		$MuzzleFlashLeftCPU.name = "MuzzleFlashLeft"
+		$MuzzleFlashRightCPU.name = "MuzzleFlashRight"
 
 
 func _physics_process(_delta):
@@ -137,7 +139,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 					bullet_reward, bullet_burn, self)
 			new_bullet.play_audio_lmg()
 			
-			var flash: GeometryInstance = $MuzzleFlashRight.get_child(0)
+			var flash: GeometryInstance = $MuzzleFlashRight
 			flash.restart()
 			flash.emitting = true
 		else:
@@ -154,7 +156,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 					bullet_reward, bullet_burn, self)
 			new_bullet.play_audio_lmg()
 			
-			var flash: GeometryInstance = $MuzzleFlashLeft.get_child(0)
+			var flash: GeometryInstance = $MuzzleFlashLeft
 			flash.restart()
 			flash.emitting = true
 	else:

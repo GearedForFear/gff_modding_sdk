@@ -496,11 +496,11 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 	var next_vehicle: int = first_vehicle
 	var names: PoolStringArray = ["chains_awe", "suicide_door", "grave_mistake",
 			"metal_undertow", "warm_welcome", "turbulence", "eternal_bond",
-			"restless", "well_raised", "no_match"]
+			"missilodon", "restless", "well_raised", "no_match"]
 	for n in spawns:
 		vehicle = ResourceLoader.load("res://scenes/vehicles/"
 				+ names[next_vehicle] + ".tscn", "PackedScene").instance()
-		next_vehicle = (next_vehicle + 1) % 10
+		next_vehicle = (next_vehicle + 1) % 11
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
 

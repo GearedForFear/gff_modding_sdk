@@ -146,7 +146,6 @@ func shoot_left():
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
 				shotgun_reward, shotgun_burn, self)
-		n.add_child(new_bullet)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
@@ -168,7 +167,6 @@ func shoot_right():
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
 				shotgun_reward, shotgun_burn, self)
-		n.add_child(new_bullet)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
@@ -256,6 +254,8 @@ func split(var b: bool):
 		collision_mask = 0
 		acid_duration = 0
 		acid_cause = null
+		front_half.get_node("DeathAnimation").play("RESET")
+		back_half.get_node("DeathAnimation").play("RESET")
 	else:
 		var body: AmmoVehicle = front_half.get_child(0)
 		body.collision_layer = 0
@@ -326,20 +326,7 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				alive = false
-				get_node("../RespawnTimer").start()
-				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = scoreboard_record.score / 5
-				scoreboard_record.lose(payout)
-				acid_duration = 0
-				acid_cause = null
-				if gles3:
-					$ExplosionParticles.emitting = true
-					$DeathParticles.emitting = true
-				else:
-					$ExplosionCPUParticles.emitting = true
-					$DeathCPUParticles.emitting = true
-				return payout
+				return kill(5)
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0

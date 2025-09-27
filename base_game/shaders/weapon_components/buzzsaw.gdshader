@@ -7,7 +7,7 @@ uniform sampler2D texture_albedo : hint_albedo;
 
 
 void vertex() {
-	if (rotate){
+	if (rotate) {
 		float time = TIME * 15.0;
 		float cos_time = cos(time);
 		float sin_time = sin(time);

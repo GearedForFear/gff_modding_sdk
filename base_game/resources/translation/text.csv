@@ -61,6 +61,7 @@ FULL,Full,Vollständig
 REDUCED,Reduced,Reduziert
 AUTOMATIC,Automatic,Automatisch
 ALWAYS_OFF,Always Off,Immer aus
+ALWAYS_ON,Always On,Immer an
 AA,Anti-Aliasing,Antialiasing
 AA_LOWEST,No MSAA,Kein MSAA
 SSR,Reflection Range,Reichweite der Reflektionen
@@ -74,6 +75,8 @@ SHADOW_CASTERS,Shadow Casters,Anzahl an Schatten
 SHADOW_SPLITS,Shadow Map Splits,Kaskaden pro Schattenkarte
 SHADOW_SPLITS_MP,Shadow Map Splits (Multiplayer),Kaskaden pro Schattenkarte (Mehrspieler)
 SHADOW_RES,Shadow Resolution,Schattenauflösung
+REAR_VIEW_SHADOWS,Rear View Shadows,Rückspiegel Schatten
+SINGLEPLAYER_ONLY,Singleplayer Only,Nur im Einzelspielermodus
 MAX_RIGID_BODIES,Maximum Rigid Bodies,Maximum an Starrkörpern (Rigid bodies)
 V_SYNC,V Sync,V Sync
 MIRROR_FRAME_RATE,Rear View Mirror Frame Rate (Multiplayer),Rückspiegel Frame Rate (Mehrspieler)

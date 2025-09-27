@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-array = [ "grave_mistake", "metal_undertow", "no_match", "wheels_gm" ]
+array = [ "grave_mistake", "metal_undertow", "no_match", "wheels_gm", "../weapon_components/chainsaw" ]

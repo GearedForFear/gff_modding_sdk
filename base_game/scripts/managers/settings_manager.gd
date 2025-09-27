@@ -4,11 +4,13 @@ extends Node
 
 const THE_CALM: Environment = \
 		preload("res://resources/environments/the_calm.tres")
+const PILLARS: Environment = \
+		preload("res://resources/environments/pillars.tres")
 const BELOW: Environment = \
 		preload("res://resources/environments/below.tres")
 const TWISTED: Environment = \
 		preload("res://resources/environments/twisted.tres")
-const ENVIRONMENTS: Array = [THE_CALM, BELOW, TWISTED]
+const ENVIRONMENTS: Array = [THE_CALM, PILLARS, BELOW, TWISTED]
 
 var resolution: int = 1
 var msaa: int = Viewport.MSAA_DISABLED
@@ -22,6 +24,7 @@ var shadow_casters: int = 2
 var splits: int = 3
 var splits_multiplayer: int = 2
 var shadow_resolution: int = 8192
+var rear_view_shadows: int = 0
 var max_rigid_bodies: int = 100
 var mirror_frame_rate: bool = true
 var transform_interpolation: bool = true
@@ -41,11 +44,6 @@ func apply_settings():
 
 static func get_this() -> SettingsManager:
 	return Global.root_control.get_node("SettingsManager") as SettingsManager
-
-
-func set_reflections(value: int):
-	reflections = value
-	THE_CALM.ss_reflections_max_steps = value
 
 
 func shadow_distance() -> float:

@@ -25,6 +25,9 @@ func start(global_transform: Transform, damage: float, reward: int, \
 	$OmniLight.global_translation = global_translation + Vector3(0, 0.2, 0)
 	$AudioStreamPlayer3D.play()
 	$Lifetime.start()
+	$CollisionShape.disabled = true
+	yield(get_tree(), "physics_frame")
+	$CollisionShape.disabled = false
 
 
 func _on_Lifetime_timeout():

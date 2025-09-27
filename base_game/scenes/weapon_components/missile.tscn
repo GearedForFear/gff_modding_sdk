@@ -37,9 +37,6 @@ process_mode = 0
 wait_time = 30.0
 one_shot = true
 
-[node name="RayCast" type="RayCast" parent="."]
-cast_to = Vector3( 0, 0, 1 )
-
 [node name="Particles" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.25, 0, -4.76454e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.545, 0, 0, -0.2 )
 

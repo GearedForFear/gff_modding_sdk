@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/custom_resources/track_data.gd" type="Script" id=1]
+[ext_resource path="res://resources/custom/music_states/theme_3/intro_1.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+theme_start = ExtResource( 2 )
+water_color_0 = Color( 0.509804, 0.85098, 1, 1 )
+water_color_1 = Color( 0.537255, 0.933333, 1, 1 )

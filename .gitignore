@@ -12,7 +12,6 @@ data_*/
 *.ico
 /base_game/resources/sounds
 base_game/resources/materials/weapon_components/grenade.material
-base_game/resources/materials/weapon_components/chainsaw.material
 base_game/resources/materials/weapon_components/missile.material
 base_game/resources/materials/cameras_&_ui/heart.material
 base_game/resources/materials/cameras_&_ui/hud_bullet.material
@@ -51,3 +50,8 @@ base_game/resources/images/vehicles/restless/restless_wheel.png
 *.mp3
 *.wav
 base_game/resources/images/world/icicle.png
+base_game/resources/meshes/vehicles/missilodon.tres
+base_game/resources/images/vehicles/missilodon/missilodon.png
+base_game/resources/images/vehicles/missilodon/missilodon_wheel.png
+base_game/resources/images/weapon_components/chainsaw.png
+base_game/resources/images/world/iceland_decorations.png

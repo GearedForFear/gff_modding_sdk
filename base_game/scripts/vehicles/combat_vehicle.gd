@@ -5,7 +5,7 @@ extends VehicleBody
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
 
-enum boost_types {NITRO, ROCKET, NONE, BURST, OVERCHARGE, NITRO_OVERCHARGE}
+enum boost_types {NITRO, ROCKET, NONE, BURST, OVERCHARGE}
 
 export var base_health: float = 100.0
 export var base_engine_force: float = 40.0
@@ -48,17 +48,26 @@ func _enter_tree():
 				viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
 				viewport.render_target_clear_mode = \
 						Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
-			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
-					$CameraBase)
+			delete($CameraBase)
 		else:
-			get_node("/root/RootControl/DeletionManager").to_be_deleted.append(\
-					get_node("../StuckTimer"))
+			delete(get_node("../StuckTimer"))
+		
 		if not is_in_group("heist_target"):
 			global_transform.origin = track.get_node("StartSpawns").translation \
 					+ get_node("../..").translation.rotated(Vector3.UP, \
 					track.get_node("StartSpawns").rotation.y)
 			rotation = track.get_node("StartSpawns").rotation
 			gameplay_manager.pursuers.append(self)
+			
+			if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+				delete($ExplosionCPUParticles)
+				delete($DeathCPUParticles)
+			else:
+				delete($ExplosionParticles)
+				delete($DeathParticles)
+				$ExplosionCPUParticles.name = "ExplosionParticles"
+				$DeathCPUParticles.name = "DeathParticles"
+		
 		reset_physics_interpolation()
 
 
@@ -294,24 +303,25 @@ func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				alive = false
-				get_node("../RespawnTimer").start()
-				apply_central_impulse(transform.basis.y * 900)
-				var payout: int = scoreboard_record.score / 5
-				if payout != 0:
-					scoreboard_record.lose(payout)
-				acid_duration = 0
-				acid_cause = null
-				if gles3:
-					$ExplosionParticles.emitting = true
-					$DeathParticles.emitting = true
-				else:
-					$ExplosionCPUParticles.emitting = true
-					$DeathCPUParticles.emitting = true
-				return payout
+				return kill(5)
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0
+
+
+func kill(penalty_divisor: int) -> int:
+	alive = false
+	get_node("../RespawnTimer").start()
+	apply_central_impulse(transform.basis.y * 900)
+	var payout: int = scoreboard_record.score / penalty_divisor
+	if payout != 0:
+		scoreboard_record.lose(payout)
+	acid_duration = 0
+	acid_cause = null
+	$ExplosionParticles.emitting = true
+	$DeathParticles.emitting = true
+	get_node("../DeathAnimation").play("death")
+	return payout
 
 
 func reward(amount: int):
@@ -351,10 +361,10 @@ func get_vehicle_name() -> String: #overridden in vehicle-specific scripts
 	return ""
 
 
-func random_skin(var body_path: String, var wheels_path: String):
+func random_skin(var body_path: String, var wheels_path: String) -> String:
 	var r: int = randi() % 200
 	if r < 26:
-		return
+		return "stock.material"
 	var path_ending: String
 	if (r < 52):
 		path_ending = "demon"
@@ -381,8 +391,9 @@ func random_skin(var body_path: String, var wheels_path: String):
 	path_ending += ".material"
 	
 	var body: MeshInstance = $BodyMesh
-	body.material_override = ResourceLoader.load(body_path + path_ending,
-			"ShaderMaterial")
+	if body_path != "":
+		body.set_surface_material(0, ResourceLoader.load(
+				body_path + path_ending, "ShaderMaterial"))
 	if wheels_path != "":
 		var material: ShaderMaterial
 		if path_ending == "flame.material":
@@ -391,15 +402,16 @@ func random_skin(var body_path: String, var wheels_path: String):
 					.set_shader_param("paint_color", yellow)
 			material = ResourceLoader.load(wheels_path +
 					"stock_duplicate.material", "ShaderMaterial")
-			body.get_node("WheelBackLeft").material_override = material
-			body.get_node("WheelBackRight").material_override = material
+			body.get_node("WheelBackLeft").set_surface_material(0, material)
+			body.get_node("WheelBackRight").set_surface_material(0, material)
 		else:
 			material = ResourceLoader.load(wheels_path + path_ending,
 					"ShaderMaterial")
-			body.get_node("WheelFrontLeft").material_override = material
-			body.get_node("WheelFrontRight").material_override = material
-			body.get_node("WheelBackLeft").material_override = material
-			body.get_node("WheelBackRight").material_override = material
+			body.get_node("WheelFrontLeft").set_surface_material(0, material)
+			body.get_node("WheelFrontRight").set_surface_material(0, material)
+			body.get_node("WheelBackLeft").set_surface_material(0, material)
+			body.get_node("WheelBackRight").set_surface_material(0, material)
+	return path_ending
 
 
 func _on_RespawnTimer_timeout():
@@ -408,12 +420,10 @@ func _on_RespawnTimer_timeout():
 	remove_heat()
 	if controls == null:
 		get_node("../StuckTimer").start()
-	if gles3:
-		$DeathParticles.emitting = false
-	else:
-		$DeathCPUParticles.emitting = false
+	$DeathParticles.emitting = false
 	if controls != null:
 		get_viewport().stop()
+	get_node("../DeathAnimation").play("RESET")
 	gameplay_manager.respawn(self)
 
 

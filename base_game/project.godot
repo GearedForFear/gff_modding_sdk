@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/loading_manager.gd"
 }, {
+"base": "Node",
+"class": "MaterialManager",
+"language": "GDScript",
+"path": "res://scripts/managers/material_manager.gd"
+}, {
 "base": "AudioStreamPlayer",
 "class": "MusicPlayer",
 "language": "GDScript",
@@ -165,6 +170,7 @@ _global_script_class_icons={
 "HeatVehicle": "",
 "LevelVehicle": "",
 "LoadingManager": "",
+"MaterialManager": "",
 "MusicPlayer": "",
 "MusicState": "",
 "MusicStateContainer": "",
