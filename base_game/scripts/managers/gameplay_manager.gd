@@ -24,10 +24,7 @@ func _process(_delta):
 	if get_node("/root/RootControl/DeletionManager").to_be_deleted.empty():
 		get_node("/root/FrontContainer/Loading").hide()
 		if pursuers.size() == 12:
-			var music_player := MusicPlayer.get_this()
-			music_player.is_on_vehicle_select = false
 			var track_data: TrackData = get_parent().data
-			music_player.start(track_data.theme_start, $Timer)
 			$Timer.start()
 			heist_target.alive = true
 			heist_target.get_node("../StuckTimer").start()
@@ -84,6 +81,10 @@ func _process(_delta):
 			get_node("/root/RootControl/DeletionManager").delete = false
 			update_scores()
 			set_process(false)
+			
+			var music_player := MusicPlayer.get_this()
+			music_player.is_on_vehicle_select = false
+			music_player.start(track_data.theme_start, $Timer)
 
 
 func _physics_process(_delta):

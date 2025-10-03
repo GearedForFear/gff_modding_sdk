@@ -2,6 +2,8 @@ class_name LoadingManager
 extends Node
 
 
+signal resources_loaded
+
 var loading_finished: bool = false
 
 
@@ -72,6 +74,7 @@ func _process(_delta):
 		yield(get_tree(), "idle_frame")
 		main_menu.get_node("Viewports").show()
 		get_node("../Precompiler").can_finish = true
+		emit_signal("resources_loaded")
 		set_process(false)
 
 

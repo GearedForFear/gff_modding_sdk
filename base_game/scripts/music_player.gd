@@ -4,22 +4,15 @@ extends AudioStreamPlayer
 
 const MENU_MUSIC: MusicState = preload(
 		"res://resources/custom/music_states/theme_1/before_intro.tres")
+const SECONDS_IN_A_DAY: float = 86400.0
 
 var is_on_vehicle_select := false
 var bridge_was_played := false
 var spent_ten_minutes_in_menu := false
 var round_timer: Timer
 var current_state: MusicState = MENU_MUSIC
-
-
-func _ready():
-	var next_stream_timer: NextStreamTimer = $NextStreamTimer
-	next_stream_timer.set_time(stream.get_length())
-	while true:
-		next_stream_timer.start()
-		yield(next_stream_timer, "timeout")
-		var time_to_next_stream: float = play_next()
-		next_stream_timer.set_time(time_to_next_stream)
+var next_music_thread := Thread.new()
+var next_finish: int
 
 
 static func get_this() -> MusicPlayer:
@@ -28,25 +21,40 @@ static func get_this() -> MusicPlayer:
 
 func start(start_state: MusicState, round_timer: Timer):
 	current_state = start_state
-	stream = current_state.audio
+	play_next(false)
 	self.round_timer = round_timer
-	var next_stream_timer: NextStreamTimer = $NextStreamTimer
-	$NextStreamTimer.refresh()
-	next_stream_timer.set_time(stream.get_length())
-	play()
+	bridge_was_played = false
 
 
-func play_next() -> float:
-	var next: MusicState = current_state.get_next(self)
-	if next == null:
-		return 86400.0
-	elif not next.resource_name == "repeat":
-		bridge_was_played = bridge_was_played or current_state.bridge
-		current_state = next
-	stream = current_state.audio
+func play_next(wait: bool):
+	var parameters: Array = [current_state, wait]
+	if next_music_thread.start(self, "play_stream", parameters) != OK:
+		push_error("Next music thread did not start!")
+	$NextStreamTimer.set_time(next_music_thread)
+
+
+func play_stream(parameters: Array) -> float:
+	var state: MusicState = parameters[0]
+	if state == null:
+		return SECONDS_IN_A_DAY
+	bridge_was_played = bridge_was_played or state.bridge
+	var wait: bool = parameters[1]
+	if wait:
+		while next_finish > OS.get_ticks_usec():
+			pass
+	self.stream = state.audio
 	play()
-	return stream.get_length()
+	next_finish = int(OS.get_ticks_usec() + stream.get_length() * 1_000_000)
+	return stream.get_length() - 0.04
 
 
 func _on_MenuTimer_timeout():
 	spent_ten_minutes_in_menu = true
+
+
+func _on_LoadingManager_resources_loaded():
+	start(MENU_MUSIC, null)
+	while true:
+		yield($NextStreamTimer, "timeout")
+		current_state = current_state.get_next(self)
+		play_next(true)

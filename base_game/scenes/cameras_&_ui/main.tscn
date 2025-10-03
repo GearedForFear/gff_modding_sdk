@@ -1976,7 +1976,6 @@ environment = SubResource( 14 )
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 21 )
-autoplay = true
 bus = "Music"
 script = ExtResource( 20 )
 
@@ -2059,6 +2058,7 @@ script = ExtResource( 55 )
 [connection signal="focus_entered" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_focus_entered"]
 [connection signal="value_changed" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_value_changed"]
 [connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
+[connection signal="resources_loaded" from="LoadingManager" to="MusicPlayer" method="_on_LoadingManager_resources_loaded"]
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
 [connection signal="timeout" from="MenuTimer" to="MusicPlayer" method="_on_MenuTimer_timeout"]
 [connection signal="tree_entered" from="MenuTimer" to="MenuTimer" method="_on_MenuTimer_tree_entered"]

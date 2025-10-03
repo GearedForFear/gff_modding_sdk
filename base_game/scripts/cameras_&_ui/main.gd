@@ -30,7 +30,7 @@ func _ready():
 	
 	VisualServer.set_default_clear_color(Color.black)
 	if thread.start($LoadingManager, "prepare") != OK:
-		push_error("Thread did not start!")
+		push_error("Loading thread did not start!")
 	$AspectRatioContainer/MainMenu/Arcade.grab_focus()
 	
 	yield(get_tree(), "idle_frame")

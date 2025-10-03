@@ -66,17 +66,14 @@ monitorable = false
 script = ExtResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint0/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint0/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 script = ExtResource( 3 )
 
 [node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint0/RespawnPoints" instance=ExtResource( 6 )]
 transform = Transform( 0.930412, 0, -0.366518, 0, 1, 0, 0.366518, 0, 0.930412, 5.99594, -1.45111, -29.7607 )
@@ -92,17 +89,14 @@ monitorable = false
 script = ExtResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="GameplayManager/NonPlayerPath/Waypoint1/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="GameplayManager/NonPlayerPath/Waypoint1/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
 script = ExtResource( 3 )
 
 [node name="RespawnPoints" type="Spatial" parent="GameplayManager/NonPlayerPath/Waypoint1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="RespawnPoint0" parent="GameplayManager/NonPlayerPath/Waypoint1/RespawnPoints" instance=ExtResource( 6 )]
 transform = Transform( 0.490509, 0, -0.871438, 0, 1, 0, 0.871438, 0, 0.490509, 17.0077, 0.56282, -18.2182 )
