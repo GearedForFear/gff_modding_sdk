@@ -33,7 +33,7 @@ func _ready():
 	else:
 		delete($MuzzleFlash/Particles)
 	var path_ending: String = random_skin("", "")
-	path_ending.replace("flame", "stock")
+	path_ending = path_ending.replace("flame", "stock")
 	chainsaw_skin = ResourceLoader.load(
 			"res://resources/materials/weapon_components/chainsaw/"
 			+ path_ending, "ShaderMaterial")
