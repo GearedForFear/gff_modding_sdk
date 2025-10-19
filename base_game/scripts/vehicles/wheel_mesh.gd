@@ -15,3 +15,8 @@ func update_transform(body_transform: Transform, wheel_scale: float):
 	rotation = gameplay_wheel.rotation
 	rotate(transform.basis.x.normalized(), gameplay_wheel.get_rpm()
 			* Global.extrapolation_manager.wheel_extrapolation_factor)
+
+
+func update_blur(factor: float):
+	var blur: float = ease(abs(gameplay_wheel.get_rpm()) * factor, 3)
+	get_active_material(0).set_shader_param("blur", blur)

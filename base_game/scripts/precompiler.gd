@@ -50,7 +50,16 @@ func add_materials():
 			"res://resources/custom/precompiled_materials.tres", \
 			"Resource").array:
 		for material_path in array:
-			materials.append(ResourceLoader.load(material_path, "Material"))
+			if material_path.begins_with(
+					"res://resources/materials/vehicles/wheels_standard/"):
+				materials.append(ResourceLoader.load(material_path.replace(
+						"wheels_standard", "wheels_standard/front"),
+						"Material"))
+				materials.append(ResourceLoader.load(material_path.replace(
+						"wheels_standard", "wheels_standard/back"),
+						"Material"))
+			else:
+				materials.append(ResourceLoader.load(material_path, "Material"))
 	
 	var skin_names := Array()
 	for skin_name in ResourceLoader.load(\
@@ -60,7 +69,6 @@ func add_materials():
 	var body_skins: Array = skin_names.duplicate()
 	body_skins.append("/flame.material")
 	var wheel_skins: Array = skin_names.duplicate()
-	wheel_skins.append("/stock_duplicate.material")
 	var weapon_skins: Array = skin_names.duplicate()
 	
 	var body_folders := Array()
@@ -70,7 +78,8 @@ func add_materials():
 			"res://resources/custom/skin_folders.tres", \
 			"Resource").array:
 		if folder.begins_with("wheels_"):
-			wheel_folders.append(folder)
+			wheel_folders.append(folder + "/front")
+			wheel_folders.append(folder + "/back")
 		elif folder.begins_with("../weapon_components/"):
 			weapon_folders.append(folder)
 		else:

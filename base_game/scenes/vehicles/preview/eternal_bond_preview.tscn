@@ -2,10 +2,11 @@
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/meshes/vehicles/eternal_bond.tres" type="ArrayMesh" id=2]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/eternal_bond.material" type="Material" id=3]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/eternal_bond.material" type="Material" id=3]
 [ext_resource path="res://resources/materials/vehicles/eternal_bond/stock.material" type="Material" id=4]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=18]
+
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5

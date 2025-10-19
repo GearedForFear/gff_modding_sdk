@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/vehicles/eternal_bond.gd" type="Script" id=5]
 [ext_resource path="res://resources/materials/vehicles/eternal_bond/stock.material" type="Material" id=6]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/eternal_bond.material" type="Material" id=7]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/eternal_bond.material" type="Material" id=7]
 [ext_resource path="res://resources/meshes/vehicles/eternal_bond.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/back/eternal_bond.material" type="Material" id=10]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=13]
@@ -235,7 +236,7 @@ script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelMiddleFrontLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.16, 0.868 )
 portal_mode = 3
 mesh = ExtResource( 9 )
@@ -245,7 +246,7 @@ script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelMiddleFrontRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.16, 0.868 )
 portal_mode = 3
 mesh = ExtResource( 9 )
@@ -255,42 +256,42 @@ script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelFrontLeft2" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelMiddleBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.16, -0.48389 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontLeft2")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 10 )
 script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelFrontRight2" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelMiddleBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.16, -0.48389 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelFrontRight2")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 10 )
 script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelBackLeft2" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelBackLeft" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.16, -3.83789 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackLeft2")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 10 )
 script = ExtResource( 18 )
 required_setting = 3
 mirror = true
 
-[node name="WheelBackRight2" type="MeshInstance" parent="Body/BodyMesh"]
+[node name="WheelBackRight" type="MeshInstance" parent="Body/BodyMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.16, -3.83789 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackRight2")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 10 )
 script = ExtResource( 18 )
 required_setting = 3
 mirror = true

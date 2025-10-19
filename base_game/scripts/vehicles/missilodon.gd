@@ -1,6 +1,13 @@
 extends AmmoVehicle
 
 
+const PEARL_TEETH: ShaderMaterial = preload(
+		"res://resources/materials/vehicles/simple_part_cull_disabled/pearl.material")
+const GLOW_TEETH: ShaderMaterial = preload(
+		"res://resources/materials/vehicles/simple_part_cull_disabled/glow.material")
+const GOLD_TEETH: ShaderMaterial = preload(
+		"res://resources/materials/vehicles/simple_part_cull_disabled/gold.material")
+
 export var missile_damage: float = 40.0
 export var missile_reward: int = 15
 export var missile_burn: float = 10.0
@@ -11,9 +18,16 @@ var back_steering: float = 0.0
 
 
 func _ready():
-#	if controls != null:
-#		random_skin("res://resources/materials/vehicles/missilodon/", "")
-	pass
+	if controls != null:
+		var skin: String = random_skin("res://resources/materials/vehicles/missilodon/",
+				"")
+		match skin:
+			"pearl.material":
+				$Teeth.set_surface_material(0, PEARL_TEETH)
+			"glow.material":
+				$Teeth.set_surface_material(0, GLOW_TEETH)
+			"gold.material":
+				$Teeth.set_surface_material(0, GOLD_TEETH)
 
 
 func _physics_process(_delta):

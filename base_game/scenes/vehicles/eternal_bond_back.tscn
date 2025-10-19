@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/vehicles/eternal_bond_back.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/sounds/vehicles/tyre_skid_loop_01.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/materials/vehicles/eternal_bond/stock.material" type="Material" id=6]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/eternal_bond.material" type="Material" id=7]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/eternal_bond.material" type="Material" id=7]
 [ext_resource path="res://resources/meshes/vehicles/eternal_bond_back.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_02.wav" type="AudioStream" id=10]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=20]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/back/eternal_bond.material" type="Material" id=21]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -184,7 +185,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, -1.33789 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 21 )
 script = ExtResource( 12 )
 required_setting = 3
 
@@ -193,7 +194,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.88, 0.160011, -1.33789 )
 portal_mode = 3
 mesh = ExtResource( 9 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 21 )
 script = ExtResource( 12 )
 required_setting = 3
 

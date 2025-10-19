@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/particles/nitro_flame_cpu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=6]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/chains_awe.material" type="Material" id=7]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/chains_awe.material" type="Material" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://resources/materials/vehicles/chains_awe/stock.material" type="Material" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
@@ -38,6 +38,7 @@
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=36]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=37]
 [ext_resource path="res://resources/animations/vehicles/chains_awe/death.anim" type="Animation" id=38]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/back/chains_awe.material" type="Material" id=39]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -515,7 +516,7 @@ transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0.925, 0.197, -2.16 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 39 )
 script = ExtResource( 26 )
 required_setting = 3
 
@@ -524,7 +525,7 @@ transform = Transform( 1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, -0.925, 0.197, -2.16 
 portal_mode = 3
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 39 )
 script = ExtResource( 26 )
 required_setting = 3
 

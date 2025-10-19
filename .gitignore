@@ -51,7 +51,7 @@ base_game/resources/images/vehicles/restless/restless_wheel.png
 *.wav
 base_game/resources/images/world/icicle.png
 base_game/resources/meshes/vehicles/missilodon.tres
-base_game/resources/images/vehicles/missilodon/missilodon.png
-base_game/resources/images/vehicles/missilodon/missilodon_wheel.png
 base_game/resources/images/weapon_components/chainsaw.png
 base_game/resources/images/world/iceland_decorations.png
+/base_game/resources/images/vehicles/missilodon
+base_game/resources/images/vehicles/restless/restless_wheel_blurry.png

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/no_match/stock.material" type="Material" id=2]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/no_match.material" type="Material" id=3]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/no_match.material" type="Material" id=3]
 [ext_resource path="res://resources/meshes/vehicles/no_match.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://resources/meshes/weapon_components/nm_gun.tres" type="ArrayMesh" id=13]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]

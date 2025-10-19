@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/vehicles/well_raised.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -6,12 +6,13 @@
 [ext_resource path="res://scenes/particles/burst_flame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/sounds/vehicles/fuse_stop_burn_out_bomb_dynamite_05.wav" type="AudioStream" id=5]
 [ext_resource path="res://scenes/particles/burst_flame_cpu.tscn" type="PackedScene" id=6]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/well_raised.material" type="Material" id=7]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/well_raised.material" type="Material" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/well_raised.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://scenes/vehicles/merge_groups/wr_guns.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resources/materials/vehicles/wheels_standard/back/well_raised.material" type="Material" id=13]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/materials/vehicles/well_raised/stock.material" type="Material" id=17]
@@ -191,7 +192,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, -1.59422 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 13 )
 script = ExtResource( 26 )
 required_setting = 3
 
@@ -200,7 +201,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.859, 0.18458, -1.59388 )
 portal_mode = 3
 mesh = ExtResource( 15 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 7 )
+material/0 = ExtResource( 13 )
 script = ExtResource( 26 )
 required_setting = 3
 
