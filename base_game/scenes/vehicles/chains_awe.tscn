@@ -39,6 +39,7 @@
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=37]
 [ext_resource path="res://resources/animations/vehicles/chains_awe/death.anim" type="Animation" id=38]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/chains_awe.material" type="Material" id=39]
+[ext_resource path="res://resources/animations/vehicles/chains_awe/RESET.anim" type="Animation" id=40]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -376,45 +377,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( -1.1, 0.23, -0.358 ), Vector3( -1.1, 0.25, -0.358 ), Vector3( -1.1, 1, -0.358 ), Vector3( -1.1, 0.94, -0.358322 ) ]
-}
-
-[sub_resource type="Animation" id=26]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/ChainsawFrontLeft:material/0:shader_param/brightness")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
 }
 
 [node name="RootSpatial" type="Spatial"]
@@ -789,7 +751,7 @@ anims/right_saws_down = SubResource( 21 )
 anims/right_saws_up = SubResource( 22 )
 
 [node name="DeathAnimation" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 26 )
+anims/RESET = ExtResource( 40 )
 anims/death = ExtResource( 38 )
 
 [node name="RespawnTimer" type="Timer" parent="."]

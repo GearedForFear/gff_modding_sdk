@@ -34,6 +34,8 @@
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=33]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/no_match.material" type="Material" id=34]
+[ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=35]
+[ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=36]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -171,59 +173,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
 "update": 0,
 "values": [ 0.0, 2.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=28]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-
-[sub_resource type="Animation" id=29]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 2.5, 1 ),
-"update": 0,
-"values": [ 1.0, 0.05 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 2.5, 1 ),
-"update": 0,
-"values": [ 1.0, 0.05 ]
 }
 
 [node name="RootSpatial" type="Spatial"]
@@ -588,8 +537,8 @@ anims/overheat_light = SubResource( 22 )
 anims/overheat_medium = SubResource( 25 )
 
 [node name="DeathAnimation" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 28 )
-anims/death = SubResource( 29 )
+anims/RESET = ExtResource( 36 )
+anims/death = ExtResource( 35 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0

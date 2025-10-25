@@ -33,6 +33,7 @@
 [ext_resource path="res://resources/materials/vehicles/simple_part/stock.material" type="Material" id=31]
 [ext_resource path="res://resources/animations/vehicles/turbulence/death.anim" type="Animation" id=32]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/turbulence.material" type="Material" id=33]
+[ext_resource path="res://resources/animations/vehicles/turbulence/RESET.anim" type="Animation" id=34]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -343,45 +344,6 @@ tracks/7/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
-}
-
-[sub_resource type="Animation" id=20]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/brightness")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/BodyMesh/WheelFrontLeft:material/0:shader_param/brightness")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/BigWingMeshLeft:material/0:shader_param/brightness")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
 }
 
 [node name="RootSpatial" type="Spatial"]
@@ -718,7 +680,7 @@ anims/in_out = SubResource( 17 )
 anims/out_in = SubResource( 18 )
 
 [node name="DeathAnimation" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 20 )
+anims/RESET = ExtResource( 34 )
 anims/death = ExtResource( 32 )
 
 [node name="RespawnTimer" type="Timer" parent="."]
