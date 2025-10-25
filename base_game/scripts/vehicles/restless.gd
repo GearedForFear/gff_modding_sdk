@@ -27,7 +27,7 @@ var next_out: int = cartridge_out.NONE
 
 
 func _ready():
-	boost_type = boost_types.NITRO
+	boost_type = BoostTypes.NITRO
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($ShotgunFlash/CPUParticles)
@@ -120,8 +120,8 @@ func _physics_process(_delta):
 					and Input.is_action_pressed(controls.weapon_right):
 				shoot_lmg()
 			if Input.is_action_just_pressed(controls.weapon_back):
-				if boost_type == boost_types.NITRO:
-					boost_type = boost_types.ROCKET
+				if boost_type == BoostTypes.NITRO:
+					boost_type = BoostTypes.ROCKET
 					get_node("../AnimationPlayer").play("nitro_rocket")
 					$OpenAudio.play()
 					$LoopingAudio/NitroAudio.stream_paused = true
@@ -132,7 +132,7 @@ func _physics_process(_delta):
 						for n in $NitroCPUParticles.get_children():
 							n.emitting = false
 				else:
-					boost_type = boost_types.NITRO
+					boost_type = BoostTypes.NITRO
 					get_node("../AnimationPlayer").play("rocket_nitro")
 					$CloseAudio.play()
 					$LoopingAudio/RocketAudio.stream_paused = true

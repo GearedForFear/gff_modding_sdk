@@ -2,14 +2,14 @@ class_name CombatVehicle
 extends VehicleBody
 
 
+enum BoostTypes {NITRO, ROCKET, NONE, BURST, OVERCHARGE}
+
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
 
-enum boost_types {NITRO, ROCKET, NONE, BURST, OVERCHARGE}
-
 export var base_health: float = 100.0
 export var base_engine_force: float = 40.0
-export(boost_types) var base_boost_type: int = boost_types.NITRO
+export(BoostTypes) var base_boost_type: int = BoostTypes.NITRO
 export var nitro_force: float = 400.0
 export var rocket_force: float = 15.0
 export var burst_force: float = 400.0
@@ -52,7 +52,10 @@ func _enter_tree():
 		else:
 			delete(get_node("../StuckTimer"))
 		
-		if not is_in_group("heist_target"):
+		if is_in_group("heist_target"):
+			get_parent().rotation = -track.get_node("TargetStartSpawn").rotation
+			rotation = track.get_node("TargetStartSpawn").rotation
+		else:
 			global_transform.origin = track.get_node("StartSpawns").translation \
 					+ get_node("../..").translation.rotated(Vector3.UP, \
 					track.get_node("StartSpawns").rotation.y)
@@ -81,8 +84,8 @@ func _physics_process(_delta):
 		var acceleration_factor: float = 0.0
 		
 		if controls == null and target != null:
-			var direction: Vector3 = global_transform.origin.direction_to(\
-					target.global_transform.origin).rotated(Vector3.UP, \
+			var direction: Vector3 = global_translation.direction_to(\
+					target.global_translation).rotated(Vector3.UP, \
 					-rotation.y)
 			steer_target = direction.x
 			if direction.z < 0: # If the target is behind this vehicle:
@@ -97,7 +100,7 @@ func _physics_process(_delta):
 			
 			if Input.is_action_pressed(controls.boost):
 				match boost_type:
-					boost_types.NITRO:
+					BoostTypes.NITRO:
 						acceleration_factor = nitro_force
 						if $WheelBackLeft.is_in_contact() or \
 								$WheelBackRight.is_in_contact():
@@ -110,7 +113,7 @@ func _physics_process(_delta):
 						else:
 							for n in $NitroCPUParticles.get_children():
 								n.emitting = true
-					boost_types.ROCKET:
+					BoostTypes.ROCKET:
 						if Input.is_action_pressed(controls.reverse):
 							apply_central_impulse(transform.basis.z \
 									* -rocket_force)
@@ -142,7 +145,7 @@ func _physics_process(_delta):
 								for n in $ReverseRocketCPUParticles.get_children():
 									n.emitting = false
 						acceleration_factor = base_engine_force
-					boost_types.OVERCHARGE:
+					BoostTypes.OVERCHARGE:
 						change_heat(0.5)
 						acceleration_factor = overcharge_force
 						$LoopingAudio/NitroAudio.stream_paused = false
@@ -154,7 +157,7 @@ func _physics_process(_delta):
 								n.emitting = true
 			else:
 				match boost_type:
-					boost_types.NITRO:
+					BoostTypes.NITRO:
 						$LoopingAudio/NitroAudio.stream_paused = true
 						if gles3:
 							for n in $NitroParticles.get_children():
@@ -162,7 +165,7 @@ func _physics_process(_delta):
 						else:
 							for n in $NitroCPUParticles.get_children():
 								n.emitting = false
-					boost_types.ROCKET:
+					BoostTypes.ROCKET:
 						$LoopingAudio/RocketAudio.stream_paused = true
 						$LoopingAudio/ReverseRocketAudio.stream_paused = true
 						if gles3:
@@ -175,7 +178,7 @@ func _physics_process(_delta):
 								n.emitting = false
 							for n in $ReverseRocketCPUParticles.get_children():
 								n.emitting = false
-					boost_types.OVERCHARGE:
+					BoostTypes.OVERCHARGE:
 						$LoopingAudio/NitroAudio.stream_paused = true
 						if gles3:
 							for n in $OverchargeParticles.get_children():
@@ -185,7 +188,7 @@ func _physics_process(_delta):
 								n.emitting = false
 			
 			if Input.is_action_just_pressed(controls.boost) \
-					and boost_type == boost_types.BURST:
+					and boost_type == BoostTypes.BURST:
 				var lv: int = burst()
 				burst_duration = 6 * lv
 				$LoopingAudio/BurstAudio.unit_size = lv * 0.5
@@ -199,7 +202,7 @@ func _physics_process(_delta):
 				else:
 					for n in $BurstCPUParticles.get_children():
 						n.emitting = true
-			elif boost_type == boost_types.BURST:
+			elif boost_type == BoostTypes.BURST:
 				if gles3:
 					for n in $BurstParticles.get_children():
 						n.emitting = false
