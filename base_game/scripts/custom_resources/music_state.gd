@@ -2,7 +2,7 @@ class_name MusicState
 extends Resource
 
 
-enum GUARD_OPERATIONS {NULL, IS_ON_VEHICLE_SELECT, BRIDGE_WAS_PLAYED,
+enum GuardOperations {NULL, IS_ON_VEHICLE_SELECT, BRIDGE_WAS_PLAYED,
 		SPENT_TEN_MINUTES_IN_MENU, TIMER_IS_BEFORE}
 
 export var audio: AudioStream
@@ -10,13 +10,11 @@ export var default_next: Resource
 export var bridge := false
 
 export var next_1: Resource
-export(GUARD_OPERATIONS) var guard_operation_1: int \
-		= GUARD_OPERATIONS.NULL
+export(GuardOperations) var guard_operation_1: int = GuardOperations.NULL
 export(float, 0, 100) var guard_time_1: float = 100.0
 
 export var next_2: Resource
-export(GUARD_OPERATIONS) var guard_operation_2: int \
-		= GUARD_OPERATIONS.NULL
+export(GuardOperations) var guard_operation_2: int = GuardOperations.NULL
 export(float, 0, 100) var guard_time_2: float = 100.0
 
 
@@ -38,15 +36,15 @@ func get_next(music_player: AudioStreamPlayer)\
 func check(guard_operation: int, guard_time: float,
 		music_player: AudioStreamPlayer) -> bool:
 	match guard_operation:
-		GUARD_OPERATIONS.NULL:
+		GuardOperations.NULL:
 			return false
-		GUARD_OPERATIONS.IS_ON_VEHICLE_SELECT:
+		GuardOperations.IS_ON_VEHICLE_SELECT:
 			return music_player.is_on_vehicle_select
-		GUARD_OPERATIONS.BRIDGE_WAS_PLAYED:
+		GuardOperations.BRIDGE_WAS_PLAYED:
 			return music_player.bridge_was_played
-		GUARD_OPERATIONS.SPENT_TEN_MINUTES_IN_MENU:
+		GuardOperations.SPENT_TEN_MINUTES_IN_MENU:
 			return music_player.spent_ten_minutes_in_menu
-		GUARD_OPERATIONS.TIMER_IS_BEFORE:
+		GuardOperations.TIMER_IS_BEFORE:
 			var timer: Timer = music_player.round_timer
 			return is_instance_valid(timer) and timer.time_left > guard_time
 		_:

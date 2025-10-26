@@ -56,5 +56,7 @@ func _on_LoadingManager_resources_loaded():
 	start(MENU_MUSIC, null)
 	while true:
 		yield($NextStreamTimer, "timeout")
-		current_state = current_state.get_next(self)
+		var next_state: MusicState = current_state.get_next(self)
+		if next_state == null or next_state.resource_name != "repeat":
+			current_state = next_state
 		play_next(true)
