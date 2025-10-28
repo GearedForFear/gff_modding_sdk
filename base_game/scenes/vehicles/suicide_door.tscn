@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/vehicles/suicide_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -27,6 +27,9 @@
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/suicide_door.material" type="Material" id=25]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=26]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=27]
+[ext_resource path="res://scripts/weapon_compontents/gun.gd" type="Script" id=28]
+[ext_resource path="res://resources/custom/vehicle_values/suicide_door/missile_static_target.tres" type="Resource" id=29]
+[ext_resource path="res://resources/custom/vehicle_values/suicide_door/missile_dynamic_target.tres" type="Resource" id=30]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -159,17 +162,58 @@ fixed_size = true
 font = SubResource( 19 )
 script = ExtResource( 22 )
 
-[node name="ShotPositionFront" type="Position3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.14033, -1.64765 )
+[node name="LauncherFront" type="Spatial" parent="Body"]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 1.14033, -1.64765 )
+script = ExtResource( 28 )
+projectile_values = ExtResource( 29 )
+cooldown_timer = NodePath("Timer")
 
-[node name="ShotPositionBack" type="Position3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.989863, -2.00832 )
+[node name="Timer" type="Timer" parent="Body/LauncherFront"]
+process_mode = 0
+wait_time = 0.2
+one_shot = true
 
-[node name="ShotPositionLeft" type="Position3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.136988, 1.06337, -1.83407 )
+[node name="Target" type="Position3D" parent="Body/LauncherFront"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.352, -6.14 )
 
-[node name="ShotPositionRight" type="Position3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.137, 1.06304, -1.834 )
+[node name="LauncherLeft" type="Spatial" parent="Body"]
+transform = Transform( -0.866025, -0.5, 2.18557e-08, 0, -4.37114e-08, -1, 0.5, -0.866025, 3.78552e-08, 0.136988, 1.06337, -1.83407 )
+script = ExtResource( 28 )
+projectile_values = ExtResource( 29 )
+cooldown_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Body/LauncherLeft"]
+process_mode = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="Target" type="Position3D" parent="Body/LauncherLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.352, -6.14 )
+
+[node name="LauncherRight" type="Spatial" parent="Body"]
+transform = Transform( -0.866026, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, -0.866026, 3.78552e-08, -0.137, 1.06304, -1.834 )
+script = ExtResource( 28 )
+projectile_values = ExtResource( 29 )
+cooldown_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Body/LauncherRight"]
+process_mode = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="Target" type="Position3D" parent="Body/LauncherRight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.352, -6.14 )
+
+[node name="LauncherBack" type="Spatial" parent="Body"]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.989863, -2.00832 )
+script = ExtResource( 28 )
+projectile_values = ExtResource( 30 )
+cooldown_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Body/LauncherBack"]
+process_mode = 0
+wait_time = 0.2
+one_shot = true
 
 [node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
@@ -262,33 +306,9 @@ process_mode = 0
 wait_time = 3.0
 one_shot = true
 
-[node name="FrontTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.2
-one_shot = true
-
-[node name="BackTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.2
-one_shot = true
-
-[node name="LeftTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.2
-one_shot = true
-
-[node name="RightTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.2
-one_shot = true
-
 [node name="StuckTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 30.0
 
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
-[connection signal="timeout" from="FrontTimer" to="Body" method="_on_FrontTimer_timeout"]
-[connection signal="timeout" from="BackTimer" to="Body" method="_on_BackTimer_timeout"]
-[connection signal="timeout" from="LeftTimer" to="Body" method="_on_LeftTimer_timeout"]
-[connection signal="timeout" from="RightTimer" to="Body" method="_on_RightTimer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

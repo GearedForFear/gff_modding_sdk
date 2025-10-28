@@ -246,10 +246,9 @@ func split(var b: bool):
 		body.alive = true
 		body.replacement = null
 		body.global_transform = global_transform
-		
 		body.global_translation -= transform.basis.z * 2.5
-		body.can_shoot = false
-		back_half.get_node("MissileTimer").start()
+		body.get_node("Launcher").start_cooldown()
+		
 		collision_layer = 0
 		collision_mask = 0
 		acid_duration = 0

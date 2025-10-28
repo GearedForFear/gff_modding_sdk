@@ -14,7 +14,6 @@ export var missile_burn: float = 10.0
 export var missile_ammo_cost: float = 10.0
 
 var can_shoot: bool = true
-var back_steering: float = 0.0
 
 
 func _ready():
@@ -45,16 +44,9 @@ func _physics_process(_delta):
 						ammo -= missile_ammo_cost
 						can_shoot = false
 			
-			if Input.is_action_pressed(controls.weapon_left):
-				steer_target = 1.0
-			
-			if Input.is_action_pressed(controls.weapon_right):
-				steer_target -= 1.0
-		
-		steer_target *= STEER_LIMIT
-		back_steering = move_toward(back_steering, steer_target, STEER_SPEED)
-		$WheelBackLeft.steering = back_steering
-		$WheelBackRight.steering = back_steering
+			MonsterTruckSteering.use([$WheelBackLeft, $WheelBackRight],
+					Input.is_action_pressed(controls.weapon_left),
+					Input.is_action_pressed(controls.weapon_right))
 
 
 func get_vehicle_name() -> String:

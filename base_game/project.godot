@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ProjectileValues",
+"class": "AmmoProjectileValues",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/ammo_projectile_values.gd"
+}, {
 "base": "CombatVehicle",
 "class": "AmmoVehicle",
 "language": "GDScript",
@@ -44,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/gameplay_manager.gd"
 }, {
+"base": "Spatial",
+"class": "Gun",
+"language": "GDScript",
+"path": "res://scripts/weapon_compontents/gun.gd"
+}, {
 "base": "CombatVehicle",
 "class": "HeatVehicle",
 "language": "GDScript",
@@ -63,6 +73,11 @@ _global_script_classes=[ {
 "class": "MaterialManager",
 "language": "GDScript",
 "path": "res://scripts/managers/material_manager.gd"
+}, {
+"base": "Object",
+"class": "MonsterTruckSteering",
+"language": "GDScript",
+"path": "res://scripts/gadgets/monster_truck_steering.gd"
 }, {
 "base": "AudioStreamPlayer",
 "class": "MusicPlayer",
@@ -103,6 +118,11 @@ _global_script_classes=[ {
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://scripts/weapon_compontents/projectile.gd"
+}, {
+"base": "Resource",
+"class": "ProjectileValues",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/projectile_values.gd"
 }, {
 "base": "HSlider",
 "class": "Reflections",
@@ -160,6 +180,7 @@ _global_script_classes=[ {
 "path": "res://scripts/cameras_&_ui/vehicle_select.gd"
 } ]
 _global_script_class_icons={
+"AmmoProjectileValues": "",
 "AmmoVehicle": "",
 "ArcProjectile": "",
 "ArrayResource": "",
@@ -167,10 +188,12 @@ _global_script_class_icons={
 "DynamicShadowBody": "",
 "ExtrapolationManager": "",
 "GameplayManager": "",
+"Gun": "",
 "HeatVehicle": "",
 "LevelVehicle": "",
 "LoadingManager": "",
 "MaterialManager": "",
+"MonsterTruckSteering": "",
 "MusicPlayer": "",
 "MusicState": "",
 "MusicStateContainer": "",
@@ -179,6 +202,7 @@ _global_script_class_icons={
 "PlayerControls": "",
 "Precompiler": "",
 "Projectile": "",
+"ProjectileValues": "",
 "Reflections": "",
 "Resolution": "",
 "ScoreboardRecord": "",

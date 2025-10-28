@@ -8,12 +8,10 @@ const ACID_MATERIAL: ShaderMaterial = \
 const RICOCHET_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/ricochet_bullet.material")
 
-enum bullet_types {NORMAL, ACID, RICOCHET}
-
 var spawn_time: int = 0
 
 
-func set_type(var sniper: bool, var bullet_type: int):
+func set_type(var sniper: bool, var impact_type: int):
 	if sniper and speed != 2.0:
 		speed = 2.0
 		$CollisionShape.translation = Vector3(0, 0, 1)
@@ -22,18 +20,18 @@ func set_type(var sniper: bool, var bullet_type: int):
 		speed = 1.0
 		$CollisionShape.translation = Vector3(0, 0, 0.5)
 		$CollisionShape.scale = Vector3.ONE
-	match bullet_type:
-		bullet_types.NORMAL:
+	match impact_type:
+		ImpactTypes.NORMAL:
 			$CollisionShape/MeshInstance.material_override = NORMAL_MATERIAL
-		bullet_types.ACID:
+		ImpactTypes.ACID:
 			$CollisionShape/MeshInstance.material_override = ACID_MATERIAL
-		bullet_types.RICOCHET:
+		ImpactTypes.RICOCHET:
 			$CollisionShape/MeshInstance.material_override = RICOCHET_MATERIAL
 			spawn_time = Engine.get_physics_frames()
 	
-	if (bullet_type != bullet_types.ACID):
+	if (impact_type != ImpactTypes.ACID):
 		acid_duration = 0
-	bounce = bullet_type == bullet_types.RICOCHET
+	bounce = impact_type == ImpactTypes.RICOCHET
 
 
 func impact_audio(var body: PhysicsBody):

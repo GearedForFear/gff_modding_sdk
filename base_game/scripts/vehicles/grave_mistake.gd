@@ -90,16 +90,9 @@ func _physics_process(_delta):
 				next_out_back = cartridge_out.LINK
 				get_node("../BackTimer").start()
 			
-			if Input.is_action_pressed(controls.weapon_left):
-				steer_target = 1.0
-			
-			if Input.is_action_pressed(controls.weapon_right):
-				steer_target -= 1.0
-		
-		steer_target *= STEER_LIMIT
-		back_steering = move_toward(back_steering, steer_target, STEER_SPEED)
-		$WheelBackLeft.steering = back_steering
-		$WheelBackRight.steering = back_steering
+			MonsterTruckSteering.use([$WheelBackLeft, $WheelBackRight],
+					Input.is_action_pressed(controls.weapon_left),
+					Input.is_action_pressed(controls.weapon_right))
 
 
 func shoot(var gun: RayCast):

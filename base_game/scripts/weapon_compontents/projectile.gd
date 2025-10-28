@@ -2,10 +2,10 @@ class_name Projectile
 extends Area
 
 
-enum explosive_types {NONE, FIRE}
+enum ImpactTypes {NORMAL, ACID, RICOCHET}
 
-export(explosive_types) var explosive_type: int = explosive_types.NONE
 export var speed: float = 1.0
+export var explosive := false
 
 var damage: float
 var reward: int
@@ -58,30 +58,28 @@ func try_make_available():
 func _on_Area_body_entered(body):
 	if body != shooter:
 		var pools: Node = get_node("../..")
-		match explosive_type:
-			explosive_types.NONE:
-				if body.is_in_group("combat_vehicle") \
-						and explosive_type == explosive_types.NONE:
-					if acid_duration > 0 and body.alive:
-						body.acid_duration += acid_duration
-						body.acid_cause = shooter
-					
-					pools.get_sparks().start(global_transform)
-					
-					var payout: int = body.damage(damage, reward, burn, shooter)
-					if payout > 0 and shooter != null:
-						pools.get_money().start(global_transform, shooter, body, \
-								payout)
-					if bounce:
-						if body.is_in_group("heist_target"):
-							shooter = null
-						else:
-							shooter = body
-				elif bounce:
-					shooter = null
-			explosive_types.FIRE:
-				pools.get_explosion().start(global_transform, damage, reward, \
-						burn, shooter)
+		if explosive:
+			pools.get_explosion().start(global_transform, damage, reward, burn,
+					shooter)
+		else:
+			if body.is_in_group("combat_vehicle"):
+				if acid_duration > 0 and body.alive:
+					body.acid_duration += acid_duration
+					body.acid_cause = shooter
+				
+				pools.get_sparks().start(global_transform)
+				
+				var payout: int = body.damage(damage, reward, burn, shooter)
+				if payout > 0 and shooter != null:
+					pools.get_money().start(global_transform, shooter, body, \
+							payout)
+				if bounce:
+					if body.is_in_group("heist_target"):
+						shooter = null
+					else:
+						shooter = body
+			elif bounce:
+				shooter = null
 		collide(body)
 		if bounce:
 			reset_physics_interpolation()

@@ -25,8 +25,6 @@ const homing_missile_script: GDScript \
 const straight_missile_script: GDScript \
 		= preload("res://scripts/weapon_compontents/straight_missile.gd")
 
-enum bullet_types {NORMAL, ACID, RICOCHET}
-
 onready var money_available: Array = $Money.get_children()
 onready var explosions_available: Array = $Explosions.get_children()
 onready var sparks_available: Array = $Sparks.get_children()
@@ -53,7 +51,7 @@ func get_bullet() -> StraightProjectile:
 		$Bullets.add_child(return_value)
 	else:
 		return_value = bullets_available.pop_back()
-	return_value.set_type(false, bullet_types.NORMAL)
+	return_value.set_type(false, Projectile.ImpactTypes.NORMAL)
 	return return_value
 
 
@@ -64,7 +62,7 @@ func get_sniper_bullet() -> StraightProjectile:
 		$Bullets.add_child(return_value)
 	else:
 		return_value = bullets_available.pop_back()
-	return_value.set_type(true, bullet_types.NORMAL)
+	return_value.set_type(true, Projectile.ImpactTypes.NORMAL)
 	return return_value
 
 
@@ -75,7 +73,7 @@ func get_acid_bullet() -> StraightProjectile:
 		$Bullets.add_child(return_value)
 	else:
 		return_value = bullets_available.pop_back()
-	return_value.set_type(false, bullet_types.ACID)
+	return_value.set_type(false, Projectile.ImpactTypes.ACID)
 	return return_value
 
 
@@ -86,7 +84,7 @@ func get_ricochet_bullet() -> StraightProjectile:
 		$Bullets.add_child(return_value)
 	else:
 		return_value = bullets_available.pop_back()
-	return_value.set_type(false, bullet_types.RICOCHET)
+	return_value.set_type(false, Projectile.ImpactTypes.RICOCHET)
 	return return_value
 
 

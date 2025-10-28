@@ -15,8 +15,8 @@ func _ready():
 
 func start(global_transform: Transform, damage: float, reward: int, \
 		burn: float, shooter: CombatVehicle):
-	explosive_type = explosive_types.FIRE
 	speed = 0.5
+	explosive = true
 	$Particles.emitting = true
 	$AudioStreamPlayer3D.play()
 	.start(global_transform, damage, reward, burn, shooter)
