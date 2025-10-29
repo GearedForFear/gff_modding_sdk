@@ -17,6 +17,8 @@ const TU_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/turbulence_preview.tscn")
 const EB_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/eternal_bond_preview.tscn")
+const MI_PREVIEW: PackedScene \
+		= preload("res://scenes/vehicles/preview/missilodon_preview.tscn")
 const RE_PREVIEW: PackedScene \
 		= preload("res://scenes/vehicles/preview/restless_preview.tscn")
 const WR_PREVIEW: PackedScene \
@@ -61,6 +63,8 @@ func update_vehicle(category: int, vehicle: int):
 					preview_vehicle = TU_PREVIEW.instance()
 				2:
 					preview_vehicle = EB_PREVIEW.instance()
+				3:
+					preview_vehicle = MI_PREVIEW.instance()
 				_:
 					return
 		VehicleSelect.category_names.SWITCH:

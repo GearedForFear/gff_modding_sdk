@@ -75,6 +75,11 @@ _global_script_classes=[ {
 "path": "res://scripts/managers/material_manager.gd"
 }, {
 "base": "Object",
+"class": "MissileRemote",
+"language": "GDScript",
+"path": "res://scripts/gadgets/missile_remote.gd"
+}, {
+"base": "Object",
 "class": "MonsterTruckSteering",
 "language": "GDScript",
 "path": "res://scripts/gadgets/monster_truck_steering.gd"
@@ -193,6 +198,7 @@ _global_script_class_icons={
 "LevelVehicle": "",
 "LoadingManager": "",
 "MaterialManager": "",
+"MissileRemote": "",
 "MonsterTruckSteering": "",
 "MusicPlayer": "",
 "MusicState": "",

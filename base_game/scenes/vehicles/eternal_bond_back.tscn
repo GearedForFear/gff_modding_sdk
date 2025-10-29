@@ -200,7 +200,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761882, 0 )
 [node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 18 )]
 
 [node name="Launcher" type="Spatial" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.747841, 2.5 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.747841, 2.5 )
 script = ExtResource( 24 )
 projectile_values = ExtResource( 25 )
 cooldown_timer = NodePath("Timer")

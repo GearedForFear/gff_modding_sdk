@@ -42,7 +42,11 @@ func shoot(shooter: CombatVehicle, pools: Node):
 					new_projectile.movement_type\
 							= ProjectileValues.MovementTypes.DYNAMIC_TARGET
 				ProjectileValues.MovementTypes.REMOTE:
-					new_projectile = pools.get_straight_missile()
+					new_projectile = pools.get_homing_missile()
+					new_projectile.movement_type\
+							= ProjectileValues.MovementTypes.REMOTE
+					new_projectile.target = $Target.global_translation
+					shooter.missiles.append(new_projectile)
 	
 	new_projectile.start(global_transform, projectile_values.damage,
 			projectile_values.reward, projectile_values.burn, shooter)

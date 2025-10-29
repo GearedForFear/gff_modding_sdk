@@ -17,6 +17,16 @@ func _ready():
 		$CPUParticles.name = "Particles"
 
 
+func _physics_process(_delta):
+	translation -= transform.basis.z * speed
+	global_transform = global_transform.interpolate_with(\
+			global_transform.looking_at(target, Vector3.UP), 0.15)
+	if movement_type == ProjectileValues.MovementTypes.DYNAMIC_TARGET:
+		target = shooter.global_translation - global_transform.basis.z * 5.0
+	else:
+		target.y -= 0.3
+
+
 func start(global_transform: Transform, damage: float, reward: int, \
 		burn: float, shooter: CombatVehicle):
 	speed = 0.5
@@ -26,16 +36,10 @@ func start(global_transform: Transform, damage: float, reward: int, \
 	.start(global_transform, damage, reward, burn, shooter)
 
 
-func _physics_process(_delta):
-	translation -= transform.basis.z * speed
-	global_transform = global_transform.interpolate_with(\
-			global_transform.looking_at(target, Vector3.UP), 0.15)
-	if movement_type == ProjectileValues.MovementTypes.STATIC_TARGET:
-		target.y -= 0.3
-	elif movement_type == ProjectileValues.MovementTypes.DYNAMIC_TARGET:
-		target = shooter.global_translation - global_transform.basis.z * 5.0
-	else:
-		pass
+func try_make_available():
+	if movement_type == ProjectileValues.MovementTypes.REMOTE:
+		shooter.missiles.erase(self)
+	.try_make_available()
 
 
 func make_available():

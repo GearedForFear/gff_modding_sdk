@@ -13,8 +13,8 @@ onready var unlocked: Array = [get_node("Nitro/ChainsAwe"), \
 		get_node("Nitro/SuicideDoor"), get_node("Nitro/GraveMistake"), \
 		get_node("Nitro/MetalUndertow"), get_node("Rocket/WarmWelcome"), \
 		get_node("Rocket/Turbulence"), get_node("Rocket/EternalBond"), \
-		get_node("Switch/Restless"), get_node("Burst/WellRaised"), \
-		get_node("Overcharge/NoMatch")]
+		get_node("Rocket/Missilodon"), get_node("Switch/Restless"), \
+		get_node("Burst/WellRaised"), get_node("Overcharge/NoMatch")]
 
 
 func _ready():
