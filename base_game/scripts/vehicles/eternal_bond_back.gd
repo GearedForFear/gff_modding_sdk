@@ -38,7 +38,7 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				var payout: int = kill(10)
+				var payout: int = kill(10, shooter)
 				if other_half.alive:
 					get_node("../RespawnTimer").stop()
 				else:

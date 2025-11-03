@@ -325,7 +325,7 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 			if shooter == null:
 				health = 0
 			else:
-				return kill(5)
+				return kill(5, shooter)
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0

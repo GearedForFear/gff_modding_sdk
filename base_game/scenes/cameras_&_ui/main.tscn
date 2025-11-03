@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=105 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
@@ -19,7 +19,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/sliders/volume.gd" type="Script" id=17]
 [ext_resource path="res://resources/images/cameras_&_ui/arcade.png" type="Texture" id=18]
 [ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=19]
-[ext_resource path="res://scripts/music_player.gd" type="Script" id=20]
+[ext_resource path="res://scripts/global/music_player.gd" type="Script" id=20]
 [ext_resource path="res://resources/music/theme_1/G4F T.1_Sweep before intro NO LOOP.wav" type="AudioStream" id=21]
 [ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=22]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
@@ -68,10 +68,14 @@
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
 [ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=67]
 [ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=68]
+[ext_resource path="res://resources/sounds/global_impacts/CSDS HIT CLEAN The Empire.wav" type="AudioStream" id=69]
+[ext_resource path="res://resources/sounds/global_impacts/CSDS HIT AGGRESSIVE Gun Fun.wav" type="AudioStream" id=70]
 [ext_resource path="res://resources/theme/main.theme" type="Theme" id=71]
+[ext_resource path="res://scripts/global/global_sound_effect.gd" type="Script" id=72]
 [ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=73]
 [ext_resource path="res://resources/environments/below.tres" type="Environment" id=74]
 [ext_resource path="res://resources/environments/twisted.tres" type="Environment" id=75]
+[ext_resource path="res://scripts/global/global_audio.gd" type="Script" id=76]
 [ext_resource path="res://scripts/world/main_light.gd" type="Script" id=78]
 [ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=89]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_small_05.wav" type="AudioStream" id=90]
@@ -1973,6 +1977,31 @@ script = null
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Precompiler/Viewport/Camera"]
 environment = SubResource( 14 )
 
+[node name="GlobalAudio" type="Node" parent="."]
+script = ExtResource( 76 )
+
+[node name="KillImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 70 )
+volume_db = -5.0
+bus = "Effects"
+script = ExtResource( 72 )
+starts = PoolRealArray( 0.21, 6.57, 12.42, 18.61 )
+
+[node name="Timer" type="Timer" parent="GlobalAudio/KillImpact"]
+wait_time = 4.0
+one_shot = true
+
+[node name="SniperImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 69 )
+volume_db = -5.0
+bus = "Effects"
+script = ExtResource( 72 )
+starts = PoolRealArray( 0.21, 5.76, 12, 17.36 )
+
+[node name="Timer" type="Timer" parent="GlobalAudio/SniperImpact"]
+wait_time = 4.0
+one_shot = true
+
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 21 )
@@ -2060,5 +2089,7 @@ script = ExtResource( 55 )
 [connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
 [connection signal="resources_loaded" from="LoadingManager" to="MusicPlayer" method="_on_LoadingManager_resources_loaded"]
 [connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
+[connection signal="timeout" from="GlobalAudio/KillImpact/Timer" to="GlobalAudio/KillImpact" method="_on_Timer_timeout"]
+[connection signal="timeout" from="GlobalAudio/SniperImpact/Timer" to="GlobalAudio/SniperImpact" method="_on_Timer_timeout"]
 [connection signal="timeout" from="MenuTimer" to="MusicPlayer" method="_on_MenuTimer_timeout"]
 [connection signal="tree_entered" from="MenuTimer" to="MenuTimer" method="_on_MenuTimer_tree_entered"]

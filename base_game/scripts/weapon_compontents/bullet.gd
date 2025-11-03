@@ -34,6 +34,12 @@ func set_type(var sniper: bool, var impact_type: int):
 	bounce = impact_type == ImpactTypes.RICOCHET
 
 
+func collide(var body: PhysicsBody):
+	if bounce:
+		rotation.x += PI + 0.001 * (Engine.get_physics_frames() - spawn_time)
+	impact_audio(body)
+
+
 func impact_audio(var body: PhysicsBody):
 	if body.is_in_group("combat_vehicle"):
 		impact_audio_playing = true
@@ -43,11 +49,8 @@ func impact_audio(var body: PhysicsBody):
 			$ImpactAudioMedium.play()
 		else:
 			$ImpactAudioHeavy.play()
-
-
-func collide(var _body: PhysicsBody):
-	if bounce:
-		rotation.x += PI + 0.001 * (Engine.get_physics_frames() - spawn_time)
+			if shooter.controls != null:
+				GlobalAudio.play("SniperImpact")
 
 
 func make_available():

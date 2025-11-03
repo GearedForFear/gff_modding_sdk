@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/gameplay_manager.gd"
 }, {
+"base": "Node",
+"class": "GlobalAudio",
+"language": "GDScript",
+"path": "res://scripts/global/global_audio.gd"
+}, {
 "base": "Spatial",
 "class": "Gun",
 "language": "GDScript",
@@ -84,10 +89,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/gadgets/monster_truck_steering.gd"
 }, {
-"base": "AudioStreamPlayer",
+"base": "Reference",
 "class": "MusicPlayer",
 "language": "GDScript",
-"path": "res://scripts/music_player.gd"
+"path": "res://scripts/global/music_player.gd"
 }, {
 "base": "Resource",
 "class": "MusicState",
@@ -193,6 +198,7 @@ _global_script_class_icons={
 "DynamicShadowBody": "",
 "ExtrapolationManager": "",
 "GameplayManager": "",
+"GlobalAudio": "",
 "Gun": "",
 "HeatVehicle": "",
 "LevelVehicle": "",
@@ -237,7 +243,7 @@ default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://scripts/global/global.gd"
 
 [debug]
 

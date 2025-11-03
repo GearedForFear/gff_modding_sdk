@@ -81,7 +81,7 @@ MAX_RIGID_BODIES,Maximum Rigid Bodies,Maximum an Starrkörpern (Rigid bodies)
 V_SYNC,V Sync,V Sync
 MIRROR_FRAME_RATE,Rear View Mirror Frame Rate (Multiplayer),Rückspiegel Frame Rate (Mehrspieler)
 INTERPOLATION,Transform Interpolation,Transformationsmatrix Interpolation
-CREDITS_LIST,"Developer\nGero Kappel\n\nComposer\nStef Koonings\n\nSound Effects (store-bought assets)\nGamemaster Audio\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOpen Fonts (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan","Entwickler\nGero Kappel\n\nMusik Produzent\nStef Koonings\n\nSound Effekte (gekaufte Assets)\nGamemaster Audio\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOffene Schriftarten (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan"
+CREDITS_LIST,"Developer\nGero Kappel\n\nComposer\nStef Koonings\n\nSound Effects (store-bought assets)\nBOOM Library\nGamemaster Audio\nLauren Kosty\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOpen Fonts (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan","Entwickler\nGero Kappel\n\nMusik Produzent\nStef Koonings\n\nSound Effekte (gekaufte Assets)\nBOOM Library\nGamemaster Audio\nLauren Kosty\n\nOpen-Source Code (MIT)\nAlex ""CptPotato""\nAriel Manzur\nGodot Engine contributors\nHugo Locurcio\nJuan Linietsky\n\nOffene Schriftarten (SIL 1.1)\nDathan Boardman\nEli Block\n""GGBot""\nNiki Polyocan"
 STAGE,Stage,Arena
 FINALE,Finale,Finale
 FIRST,1st,1.
