@@ -89,7 +89,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/gadgets/monster_truck_steering.gd"
 }, {
-"base": "Reference",
+"base": "AudioStreamPlayer",
 "class": "MusicPlayer",
 "language": "GDScript",
 "path": "res://scripts/global/music_player.gd"

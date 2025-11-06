@@ -26,9 +26,9 @@ const TextureNoSpecular: Shader = \
 const MoneyShader: Shader = \
 		preload("res://shaders/collectibles/money.gdshader")
 const Tornado: Shader = \
-		preload("res://shaders/world/decorations/tornado.gdshader")
+		preload("res://shaders/world/gameplay_objects/tornado.gdshader")
 const TornadoNoFade: Shader = \
-		preload("res://shaders/world/decorations/tornado_no_fade.gdshader")
+		preload("res://shaders/world/gameplay_objects/tornado_no_fade.gdshader")
 const IcelandScriptDefault: Shader = \
 		preload("res://shaders/world/maps/iceland.gdshader")
 
@@ -46,7 +46,7 @@ const RockUSAColor: Color = Color("bb885f")
 const TornadoUSAColor: Color = Color("cc9a76")
 
 var rock_usa_material: ShaderMaterial
-var tornado_usa_material: ShaderMaterial
+var tornado_material: ShaderMaterial
 var iceland_material: ShaderMaterial
 var usa_material: ShaderMaterial
 
@@ -56,8 +56,8 @@ func update_settings():
 		rock_usa_material = ResourceLoader.load(\
 				"res://resources/materials/world/decorations/rock_usa.material",
 				"ShaderMaterial")
-		tornado_usa_material = ResourceLoader.load(\
-				"res://resources/materials/world/decorations/tornado_usa.material",
+		tornado_material = ResourceLoader.load(\
+				"res://resources/materials/world/gameplay_objects/tornado.material",
 				"ShaderMaterial")
 		iceland_material = ResourceLoader.load(\
 				"res://resources/materials/world/maps/iceland.material",
@@ -72,8 +72,8 @@ func update_settings():
 			rock_usa_material.shader = ColorNoSpecular
 			rock_usa_material.set_shader_param("albedo", RockUSAColor)
 			
-			tornado_usa_material.shader = ColorNoSpecularNoCull
-			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
+			tornado_material.shader = ColorNoSpecularNoCull
+			tornado_material.set_shader_param("albedo", TornadoUSAColor)
 			
 			if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 				iceland_material.shader = IcelandScriptNoTexture
@@ -87,9 +87,9 @@ func update_settings():
 			var tornado_image: StreamTexture = ResourceLoader.load(\
 					"res://resources/images/world/tornado.png", \
 					"ImageTexture")
-			tornado_usa_material.shader = TornadoNoFade
-			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
-			tornado_usa_material.set_shader_param("texture_albedo",
+			tornado_material.shader = TornadoNoFade
+			tornado_material.set_shader_param("albedo", TornadoUSAColor)
+			tornado_material.set_shader_param("texture_albedo",
 					tornado_image)
 		2:
 			enable_textures()
@@ -97,9 +97,9 @@ func update_settings():
 			var tornado_image: StreamTexture = ResourceLoader.load(\
 					"res://resources/images/world/tornado.png", \
 					"ImageTexture")
-			tornado_usa_material.shader = Tornado
-			tornado_usa_material.set_shader_param("albedo", TornadoUSAColor)
-			tornado_usa_material.set_shader_param("texture_albedo",
+			tornado_material.shader = Tornado
+			tornado_material.set_shader_param("albedo", TornadoUSAColor)
+			tornado_material.set_shader_param("texture_albedo",
 					tornado_image)
 	get_node("/root/RootControl/Precompiler").start()
 

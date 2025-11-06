@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/world/gameplay_zones/target_start_spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/gameplay_zones/start_spawns.tscn" type="PackedScene" id=2]
@@ -8,13 +8,9 @@
 [ext_resource path="res://scripts/world/editor_only.gd" type="Script" id=6]
 [ext_resource path="res://scripts/world/waypoint_area.gd" type="Script" id=7]
 [ext_resource path="res://scripts/managers/gameplay_manager.gd" type="Script" id=8]
-[ext_resource path="res://scripts/world/tornado_area.gd" type="Script" id=9]
+[ext_resource path="res://scenes/world/gameplay_objects/tornado.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/world/main_light.gd" type="Script" id=10]
-[ext_resource path="res://resources/track_data/twisted.tres" type="Resource" id=11]
-[ext_resource path="res://resources/meshes/world/decorations/tornado.tres" type="ArrayMesh" id=12]
-[ext_resource path="res://resources/materials/world/decorations/tornado_usa.material" type="Material" id=13]
-[ext_resource path="res://scripts/world/tornado.gd" type="Script" id=14]
-[ext_resource path="res://scripts/world/tornado_audio.gd" type="Script" id=15]
+[ext_resource path="res://resources/custom/track_data/twisted.tres" type="Resource" id=11]
 [ext_resource path="res://scenes/pooling/pools.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/world/track.gd" type="Script" id=17]
 
@@ -27,89 +23,6 @@ size = Vector3( 42.088, 36.47, 69.25 )
 [sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 albedo_color = Color( 1, 1, 0, 0.54902 )
-
-[sub_resource type="CylinderShape" id=12]
-height = 300.0
-radius = 50.0
-
-[sub_resource type="Animation" id=10]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Tornado/MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Tornado/MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Tornado/MeshInstance3:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "Spin"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Tornado/MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 360, 0 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Tornado/MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 360, 0 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Tornado/MeshInstance3:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 360, 0 ), Vector3( 0, 0, 0 ) ]
-}
 
 [node name="RootSpatial" type="Spatial"]
 physics_interpolation_mode = 2
@@ -494,66 +407,7 @@ transform = Transform( 0.912184, 0, -0.40978, 0, 1, 0, 0.40978, 0, 0.912184, -78
 [node name="TargetStartSpawn" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.591155, 0, -0.806558, 0, 1, 0, 0.806558, 0, 0.591155, -122.645, -0.743996, 298.652 )
 
-[node name="Tornado" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -171.604, 61.1377, 257.034 )
-script = ExtResource( 14 )
-
-[node name="Area" type="Area" parent="Tornado"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70.1216, 0 )
-collision_layer = 16
-collision_mask = 5
-monitorable = false
-script = ExtResource( 9 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Tornado/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.8852, 0 )
-shape = SubResource( 12 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Tornado"]
-portal_mode = 3
-mesh = ExtResource( 12 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 13 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="Tornado"]
-transform = Transform( 0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 12 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 13 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="Tornado"]
-transform = Transform( 0.6, 0, 0, 0, 1, 0, 0, 0, 0.6, 0, 0, 0 )
-portal_mode = 3
-mesh = ExtResource( 12 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 13 )
-
-[node name="AudioTop" type="AudioStreamPlayer3D" parent="Tornado"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.1578, 0 )
-unit_size = 10.0
-autoplay = true
-bus = "Effects"
-script = ExtResource( 15 )
-
-[node name="AudioMiddle" type="AudioStreamPlayer3D" parent="Tornado"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.4405, 0 )
-unit_size = 10.0
-autoplay = true
-bus = "Effects"
-script = ExtResource( 15 )
-
-[node name="AudioBottom" type="AudioStreamPlayer3D" parent="Tornado"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -52.7795, 0 )
-unit_size = 10.0
-autoplay = true
-bus = "Effects"
-script = ExtResource( 15 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Tornado"]
-root_node = NodePath("../..")
-anims/RESET = SubResource( 10 )
-anims/Spin = SubResource( 11 )
+[node name="Tornado" parent="." instance=ExtResource( 9 )]
 
 [connection signal="timeout" from="GameplayManager/Timer" to="GameplayManager" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="GameplayManager/NonPlayerPath/Waypoint0/Area" to="GameplayManager/NonPlayerPath/Waypoint0/Area" method="_on_Area_body_entered"]
