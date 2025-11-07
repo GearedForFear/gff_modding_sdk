@@ -29,6 +29,8 @@ var next_out_sides: int = cartridge_out.NONE
 
 
 func _ready():
+	if controls != null:
+		random_skin("res://resources/materials/vehicles/well_raised/", "")
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		delete($MGLeft/MuzzleFlash/CPUParticles)
 		delete($MGMiddle/MuzzleFlash/CPUParticles)

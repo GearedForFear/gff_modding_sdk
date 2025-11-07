@@ -411,6 +411,9 @@ func random_skin(var body_path: String, var wheels_path: String) -> String:
 					"back/stock.material", "ShaderMaterial")
 			body.get_node("WheelBackLeft").set_surface_material(0, material)
 			body.get_node("WheelBackRight").set_surface_material(0, material)
+			var red: Color = Color("ff1800")
+			body.get_node("WheelBackLeft").get_active_material(0)\
+					.set_shader_param("paint_color", red)
 		else:
 			material = ResourceLoader.load(wheels_path + "front/" + path_ending,
 					"ShaderMaterial")
