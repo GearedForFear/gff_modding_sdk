@@ -6,10 +6,18 @@ export var projectile_values: Resource
 export var cooldown_timer: NodePath
 
 var on_cooldown := false
+var particles_set: int = 0
 
 
 func _enter_tree():
 	get_node(cooldown_timer).connect("timeout", self, "_on_Timer_timeout")
+	var particles_root: Spatial = get_node_or_null("ParticlesRoot")
+	if particles_root != null:
+		var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
+		for set in particles_root.get_children():
+			for particles in set.get_children():
+				if particles.name.ends_with("CPU") == gles3:
+					DeletionManager.add_to_stack(particles)
 
 
 func try_shoot(shooter: CombatVehicle, pools: Node) -> bool:
@@ -51,6 +59,14 @@ func shoot(shooter: CombatVehicle, pools: Node):
 	new_projectile.start(global_transform, projectile_values.damage,
 			projectile_values.reward, projectile_values.burn, shooter)
 	start_cooldown()
+	
+	var particles_root: Spatial = get_node_or_null("ParticlesRoot")
+	if particles_root != null:
+		var set: Spatial = particles_root.get_child(particles_set)
+		for n in set.get_children():
+			n.restart()
+			n.emitting = true
+		particles_set = (particles_set + 1) % particles_root.get_child_count()
 
 
 func start_cooldown():

@@ -1,3 +1,4 @@
+class_name DeletionManager
 extends Node
 
 
@@ -31,3 +32,11 @@ func _physics_process(_delta):
 					delete_body.hide()
 					to_be_deleted.append(delete_body)
 					delete_body.get_parent().remove_child(delete_body)
+
+
+static func get_this() -> DeletionManager:
+	return Global.root_control.get_node("DeletionManager") as DeletionManager
+
+
+static func add_to_stack(to_delete: Node):
+	get_this().to_be_deleted.append(to_delete)
