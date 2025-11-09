@@ -38,11 +38,6 @@ mesh = SubResource( 1 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 1 )
 
-[node name="Lifetime" type="Timer" parent="."]
-process_mode = 0
-wait_time = 3.0
-one_shot = true
-
 [node name="ShotAudioLMG" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 5 )
 bus = "Effects"
@@ -69,7 +64,6 @@ stream = ExtResource( 8 )
 bus = "Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
-[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
 [connection signal="finished" from="ShotAudioLMG" to="." method="_on_ShotAudioLMG_finished"]
 [connection signal="finished" from="ShotAudioShotgun" to="." method="_on_ShotAudioShotgun_finished"]
 [connection signal="finished" from="ShotAudioSniper" to="." method="_on_ShotAudioSniper_finished"]

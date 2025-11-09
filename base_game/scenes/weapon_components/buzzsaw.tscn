@@ -45,11 +45,6 @@ material/0 = ExtResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.35 )
 shape = SubResource( 6 )
 
-[node name="Lifetime" type="Timer" parent="."]
-process_mode = 0
-wait_time = 2.0
-one_shot = true
-
 [node name="ShotAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
 unit_size = 1.6
@@ -66,7 +61,6 @@ unit_size = 3.0
 bus = "Effects"
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
-[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
 [connection signal="finished" from="ShotAudio" to="." method="_on_ShotAudio_finished"]
 [connection signal="finished" from="ImpactAudioDamage" to="." method="_on_ImpactAudioDamage_finished"]
 [connection signal="finished" from="ImpactAudioCorpse" to="." method="_on_ImpactAudioCorpse_finished"]

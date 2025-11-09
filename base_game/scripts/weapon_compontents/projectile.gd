@@ -54,7 +54,9 @@ func stop():
 	hide()
 	collision_layer = 0
 	collision_mask = 0
-	$Lifetime.stop()
+	var lifetime: Timer = get_node_or_null("Lifetime")
+	if lifetime != null:
+		lifetime.stop()
 	timer_finished = true
 	try_make_available()
 
