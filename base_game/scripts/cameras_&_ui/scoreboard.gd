@@ -1,7 +1,7 @@
 extends ColorRect
 
 
-const Orange := Color("fd5602")
+const ORANGE := Color("fd5602")
 
 var scoreboard_record: ScoreboardRecord
 
@@ -14,7 +14,7 @@ func update_scores():
 
 	match scoreboard_record.list_position:
 		1:
-			get_child(4).modulate = Orange
+			get_child(4).modulate = ORANGE
 			get_child(5).modulate = Color.white
 			get_child(6).modulate = Color.white
 			get_child(7).modulate = Color.white
@@ -24,7 +24,7 @@ func update_scores():
 			fourth = third.next
 		2:
 			get_child(4).modulate = Color.white
-			get_child(5).modulate = Orange
+			get_child(5).modulate = ORANGE
 			get_child(6).modulate = Color.white
 			get_child(7).modulate = Color.white
 			first = scoreboard_record.prev
@@ -35,7 +35,7 @@ func update_scores():
 			get_child(4).modulate = Color.white
 			get_child(5).modulate = Color.white
 			get_child(6).modulate = Color.white
-			get_child(7).modulate = Orange
+			get_child(7).modulate = ORANGE
 			fourth = scoreboard_record
 			third = fourth.prev
 			second = third.prev
@@ -43,7 +43,7 @@ func update_scores():
 		_:
 			get_child(4).modulate = Color.white
 			get_child(5).modulate = Color.white
-			get_child(6).modulate = Orange
+			get_child(6).modulate = ORANGE
 			get_child(7).modulate = Color.white
 			fourth = scoreboard_record.next
 			third = scoreboard_record

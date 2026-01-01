@@ -23,13 +23,12 @@ albedo_color = Color( 0, 0, 1, 1 )
 [node name="Spatial" type="Spatial"]
 
 [node name="SpawnPoint1" type="ViewportContainer" parent="."]
-visible = false
 stretch = true
 script = ExtResource( 3 )
 
 [node name="Viewport" type="Viewport" parent="SpawnPoint1"]
 handle_input_locally = false
-render_target_update_mode = 0
+render_target_update_mode = 3
 audio_listener_enable_3d = true
 shadow_atlas_size = 4096
 script = ExtResource( 1 )

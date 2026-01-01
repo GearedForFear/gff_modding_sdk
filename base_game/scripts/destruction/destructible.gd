@@ -25,22 +25,23 @@ func _ready():
 
 
 func _exit_tree():
-	get_node("/root/RootControl/DeletionManager").to_be_deleted.append(parts)
+	DeletionManager.add_to_stack(parts)
 
 
 func destroy(var position: Vector3, var force: float):
 	if not destroyed:
 		add_child(parts)
-		for n in parts.get_node("Bodies").get_children():
-			get_node("/root/RootControl/DeletionManager").rigid_bodies.append(n)
+		var children: Array = parts.get_node("Bodies").get_children()
+		for n in children:
 			n.apply_central_impulse((n.global_transform.origin - position)\
 					.normalized() * force * force_factor)
+		DeletionManager.add_array_to_stack(children)
 		collision_layer = 0
 		var mesh: MeshInstance = $MeshInstance
 		mesh.get_node("StaticBody").collision_layer = 0
 		destroyed = true
 		set_process(false)
-		get_node("/root/RootControl/DeletionManager").to_be_deleted.append(mesh)
+		DeletionManager.add_to_stack(mesh)
 		remove_child(mesh)
 
 

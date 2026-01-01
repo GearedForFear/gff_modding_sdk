@@ -22,11 +22,11 @@ var next_out: int = cartridge_out.NONE
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($MuzzleFlash/CPULeft)
-		delete($MuzzleFlash/CPURight)
+		DeletionManager.add_to_stack($MuzzleFlash/CPULeft)
+		DeletionManager.add_to_stack($MuzzleFlash/CPURight)
 	else:
-		delete($MuzzleFlash/Left)
-		delete($MuzzleFlash/Right)
+		DeletionManager.add_to_stack($MuzzleFlash/Left)
+		DeletionManager.add_to_stack($MuzzleFlash/Right)
 
 
 func _physics_process(_delta):

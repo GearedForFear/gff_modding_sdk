@@ -1,0 +1,384 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://scenes/world/maps/iceland.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/world/maps/usa.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=3]
+[ext_resource path="res://scripts/cameras_&_ui/updating_camera.gd" type="Script" id=4]
+[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=5]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=6]
+[ext_resource path="res://scenes/vehicles/preview/chains_awe_preview.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/vehicles/preview/fungibber_preview.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/level.gd" type="Script" id=9]
+[ext_resource path="res://scenes/vehicles/preview/turbulence_preview.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/vehicles/preview/suicide_door_preview.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/vehicles/preview/metal_undertow_preview.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/vehicles/preview/eternal_bond_preview.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/vehicles/preview/grave_mistake_preview.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/vehicles/preview/warm_welcome_preview.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/vehicles/preview/restless_preview.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/player_amount_view.gd" type="Script" id=17]
+[ext_resource path="res://scenes/vehicles/preview/no_match_preview.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/vehicles/preview/well_raised_preview.tscn" type="PackedScene" id=19]
+[ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=20]
+[ext_resource path="res://resources/environments/twisted.tres" type="Environment" id=21]
+[ext_resource path="res://resources/environments/below.tres" type="Environment" id=22]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/arcade.gd" type="Script" id=23]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=32]
+[ext_resource path="res://resources/theme/main.theme" type="Theme" id=37]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=2]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=3]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=4]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=5]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=6]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=7]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=8]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=9]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=10]
+friction = 0.5
+
+[sub_resource type="PhysicsMaterial" id=11]
+friction = 0.5
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="Menu" type="Control" parent="."]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="Arcade" type="Button" parent="Menu"]
+anchor_top = 0.427
+anchor_right = 0.618
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../PlayerAmount")
+focus_neighbour_top = NodePath("../Customization")
+theme = ExtResource( 37 )
+text = "ARCADE"
+script = ExtResource( 23 )
+autograb = true
+
+[node name="Challenges" type="Button" parent="Menu"]
+anchor_left = 0.618
+anchor_top = 0.427
+anchor_right = 0.809
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_top = NodePath("../Level")
+theme = ExtResource( 37 )
+disabled = true
+text = "CHALLENGES"
+
+[node name="PlayerAmount" type="Button" parent="Menu"]
+anchor_left = 0.809
+anchor_top = 0.427
+anchor_right = 1.0
+anchor_bottom = 0.618
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_right = NodePath("../Arcade")
+theme = ExtResource( 37 )
+text = "PLAYER_AMOUNT"
+script = ExtResource( 32 )
+
+[node name="SingleTrack" type="Button" parent="Menu"]
+anchor_top = 0.618
+anchor_right = 0.618
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../Credits")
+theme = ExtResource( 37 )
+text = "SINGLE_TRACK"
+clip_text = true
+script = ExtResource( 32 )
+
+[node name="Freeroam" type="Button" parent="Menu"]
+anchor_left = 0.618
+anchor_top = 0.618
+anchor_right = 0.809
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = ExtResource( 37 )
+disabled = true
+text = "FREEROAM"
+clip_text = true
+
+[node name="Credits" type="Button" parent="Menu"]
+anchor_left = 0.809
+anchor_top = 0.618
+anchor_right = 1.0
+anchor_bottom = 0.809
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_right = NodePath("../SingleTrack")
+theme = ExtResource( 37 )
+text = "CREDITS"
+clip_text = true
+script = ExtResource( 32 )
+
+[node name="Customization" type="Button" parent="Menu"]
+anchor_top = 0.809
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_left = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Arcade")
+theme = ExtResource( 37 )
+text = "CUSTOMIZATION"
+clip_text = true
+script = ExtResource( 32 )
+
+[node name="Level" type="Button" parent="Menu"]
+anchor_left = 0.618
+anchor_top = 0.809
+anchor_right = 0.809
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_bottom = NodePath("../Challenges")
+theme = ExtResource( 37 )
+disabled = true
+text = "LEVEL_X"
+clip_text = true
+script = ExtResource( 9 )
+
+[node name="Options" type="Button" parent="Menu"]
+anchor_left = 0.809
+anchor_top = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+focus_neighbour_right = NodePath("../Customization")
+focus_neighbour_bottom = NodePath("../PlayerAmount")
+theme = ExtResource( 37 )
+text = "OPTIONS"
+clip_text = true
+script = ExtResource( 32 )
+
+[node name="ArcadeView" type="ViewportContainer" parent="Menu"]
+anchor_right = 0.618
+anchor_bottom = 0.427
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = 5.0
+stretch = true
+script = ExtResource( 6 )
+
+[node name="Viewport" type="Viewport" parent="Menu/ArcadeView"]
+size = Vector2( 385, 153 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="Menu/ArcadeView/Viewport"]
+transform = Transform( -0.370186, -0.145542, 0.917486, -0.0226569, 0.988771, 0.147708, -0.928681, 0.0338921, -0.369327, 274.843, 2.238, 243.594 )
+environment = ExtResource( 20 )
+fov = 37.8
+far = 2500.0
+script = ExtResource( 4 )
+
+[node name="Map" parent="Menu/ArcadeView/Viewport" instance=ExtResource( 2 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/ArcadeView/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 5 )
+
+[node name="Body" parent="Menu/ArcadeView/Viewport" instance=ExtResource( 8 )]
+transform = Transform( -0.00666713, 0, -0.999978, 0, 1, 0, 0.999978, 0, -0.00666713, 254.933, 0.186154, 247.022 )
+physics_material_override = SubResource( 1 )
+
+[node name="Body2" parent="Menu/ArcadeView/Viewport" instance=ExtResource( 7 )]
+transform = Transform( -0.00947695, 0, -0.999955, 0, 1, 0, 0.999955, 0, -0.00947695, 271.267, 0.202862, 246.571 )
+physics_material_override = SubResource( 2 )
+
+[node name="ChallengesView" type="ViewportContainer" parent="Menu"]
+anchor_left = 0.618
+anchor_right = 0.809
+anchor_bottom = 0.427
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = 5.0
+stretch = true
+script = ExtResource( 6 )
+
+[node name="Viewport" type="Viewport" parent="Menu/ChallengesView"]
+size = Vector2( 112, 153 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="Menu/ChallengesView/Viewport"]
+transform = Transform( -0.282325, -0.867046, 0.410517, 0, 0.427926, 0.903814, -0.959319, 0.255169, -0.120814, -245.812, 76.653, -867.319 )
+environment = ExtResource( 22 )
+fov = 34.8
+far = 2500.0
+script = ExtResource( 4 )
+
+[node name="Map" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 1 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/ChallengesView/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 5 )
+
+[node name="Body" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 19 )]
+transform = Transform( 0.0654031, 0, -0.997859, 0, 1, 0, 0.997859, 0, 0.0654031, -258.882, 47.7932, -863.938 )
+physics_material_override = SubResource( 3 )
+
+[node name="Body2" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 13 )]
+transform = Transform( -0.342971, 0, 0.939346, 0, 1, 0, -0.939346, 0, -0.342971, -268.266, 47.8161, -859.706 )
+physics_material_override = SubResource( 4 )
+
+[node name="Body3" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 18 )]
+transform = Transform( 0.0836257, 0, 0.996497, 0, 1, 0, -0.996497, 0, 0.0836257, -267.158, 47.8206, -866.151 )
+physics_material_override = SubResource( 5 )
+
+[node name="Body4" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 12 )]
+transform = Transform( -0.0903718, 0, -0.995908, 0, 1, 0, 0.995908, 0, -0.0903718, -250.033, 47.8119, -863.58 )
+physics_material_override = SubResource( 6 )
+
+[node name="Body5" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 11 )]
+transform = Transform( -0.323075, 0, -0.946373, 0, 1, 0, 0.946373, 0, -0.323075, -252.172, 47.8242, -860.746 )
+physics_material_override = SubResource( 7 )
+
+[node name="Body6" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 16 )]
+transform = Transform( -0.162482, 0, 0.986711, 0, 1, 0, -0.986711, 0, -0.162482, -267.757, 47.8091, -863.21 )
+physics_material_override = SubResource( 8 )
+
+[node name="Body7" parent="Menu/ChallengesView/Viewport" instance=ExtResource( 15 )]
+transform = Transform( 0.277432, 0, -0.960745, 0, 1, 0, 0.960745, 0, 0.277432, -251.642, 47.8217, -866.841 )
+physics_material_override = SubResource( 9 )
+
+[node name="PlayerAmountView" type="ViewportContainer" parent="Menu"]
+anchor_left = 0.809
+anchor_right = 1.0
+anchor_bottom = 0.427
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = 5.0
+stretch = true
+script = ExtResource( 17 )
+
+[node name="Viewport" type="Viewport" parent="Menu/PlayerAmountView"]
+size = Vector2( 112, 153 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="Menu/PlayerAmountView/Viewport"]
+transform = Transform( 0.862796, 0.136531, -0.486767, 0, 0.962843, 0.270063, 0.505552, -0.233009, 0.830737, -95.369, 5.41, 271.577 )
+environment = ExtResource( 21 )
+fov = 31.8
+far = 2500.0
+script = ExtResource( 4 )
+
+[node name="Map" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 2 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/PlayerAmountView/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 5 )
+
+[node name="Body" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 10 )]
+transform = Transform( 0.87136, 0, -0.490646, 0, 1, 0, 0.490646, 0, 0.87136, -87.3387, -0.566962, 257.897 )
+physics_material_override = SubResource( 10 )
+
+[node name="Body2" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 11 )]
+transform = Transform( 0.902111, 0, -0.431504, 0, 1, 0, 0.431504, 0, 0.902111, -88.485, -0.567714, 254.644 )
+physics_material_override = SubResource( 7 )
+
+[node name="Body3" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 12 )]
+transform = Transform( 0.825399, 0, -0.564549, 0, 1, 0, 0.564549, 0, 0.825399, -83.9403, -0.576814, 257.291 )
+physics_material_override = SubResource( 6 )
+
+[node name="Body4" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 14 )]
+transform = Transform( 0.888785, 0, -0.458324, 0, 1, 0, 0.458324, 0, 0.888785, -80.744, -0.581782, 245.599 )
+physics_material_override = SubResource( 11 )
+
+[node name="Body5" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 15 )]
+transform = Transform( 0.903665, 0, -0.428241, 0, 1, 0, 0.428241, 0, 0.903665, -84.7542, -0.570826, 246.148 )
+physics_material_override = SubResource( 9 )
+
+[node name="Body6" parent="Menu/PlayerAmountView/Viewport" instance=ExtResource( 16 )]
+transform = Transform( 0.861682, 0, -0.507448, 0, 1, 0, 0.507448, 0, 0.861682, -79.2377, -0.58684, 249.758 )
+physics_material_override = SubResource( 8 )
+
+[connection signal="visibility_changed" from="Menu/Level" to="Menu/Level" method="_on_Level_visibility_changed"]

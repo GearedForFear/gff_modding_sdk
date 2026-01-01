@@ -1,3 +1,4 @@
+class_name MenuViewportContainer
 extends ViewportContainer
 
 
@@ -8,3 +9,4 @@ func _draw():
 	target_size.x = max(target_size.x, 4.0)
 	target_size.y = max(target_size.y, 4.0)
 	$Viewport.size = target_size
+	SettingsManager.apply_settings()

@@ -1,0 +1,430 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/sliders/reflections.gd" type="Script" id=1]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=3]
+[ext_resource path="res://resources/environments/below.tres" type="Environment" id=4]
+[ext_resource path="res://scenes/world/maps/iceland.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/cameras_&_ui/settings_warning.gd" type="Script" id=6]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=7]
+[ext_resource path="res://scripts/cameras_&_ui/updating_camera.gd" type="Script" id=8]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/lighting.gd" type="Script" id=10]
+[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=12]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/max_rigid_bodies.gd" type="Script" id=13]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=14]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/mirror_frame_rate.gd" type="Script" id=15]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/materials.gd" type="Script" id=16]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_shadows.gd" type="Script" id=24]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_distance.gd" type="Script" id=25]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_casters.gd" type="Script" id=27]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_resolution.gd" type="Script" id=29]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits.gd" type="Script" id=30]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits_multiplayer.gd" type="Script" id=33]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/v_sync.gd" type="Script" id=34]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/transform_interpolation.gd" type="Script" id=35]
+[ext_resource path="res://scripts/cameras_&_ui/sliders/view_distance.gd" type="Script" id=36]
+[ext_resource path="res://resources/theme/main.theme" type="Theme" id=37]
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="Menu" type="Control" parent="."]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ColorRectRight" type="ColorRect" parent="Menu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Menu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 14 )
+
+[node name="Viewport" type="Viewport" parent="Menu/ViewportContainer"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Menu/ViewportContainer/Viewport"]
+transform = Transform( 0.999417, 0, 0.0341316, 0, 1, 0, -0.0341316, 0, 0.999417, -262.915, -26.9245, -568.048 )
+environment = ExtResource( 4 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="Map" parent="Menu/ViewportContainer/Viewport" instance=ExtResource( 5 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/ViewportContainer/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="Sliders" type="ScrollContainer" parent="Menu"]
+anchor_left = 0.618
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+theme = ExtResource( 37 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Sliders"]
+margin_right = 224.48
+margin_bottom = 918.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AntiAliasingLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_right = 224.0
+margin_bottom = 23.0
+text = "Anti-Aliasing: No MSAA"
+autowrap = true
+
+[node name="AntiAliasingSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 27.0
+margin_right = 224.0
+margin_bottom = 47.0
+focus_neighbour_top = NodePath("../TransformInterpolationSlider")
+theme = ExtResource( 37 )
+max_value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 3 )
+
+[node name="ReflectionsLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 51.0
+margin_right = 224.0
+margin_bottom = 74.0
+text = "Reflections: Off"
+autowrap = true
+
+[node name="ReflectionsSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 78.0
+margin_right = 224.0
+margin_bottom = 98.0
+theme = ExtResource( 37 )
+max_value = 11.0
+rounded = true
+scrollable = false
+script = ExtResource( 1 )
+on_change = 1
+
+[node name="MaterialsLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 102.0
+margin_right = 224.0
+margin_bottom = 125.0
+text = "Materials: Default"
+autowrap = true
+
+[node name="MaterialsSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 129.0
+margin_right = 224.0
+margin_bottom = 149.0
+theme = ExtResource( 37 )
+max_value = 2.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 16 )
+on_change = 2
+
+[node name="LightingLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 153.0
+margin_right = 224.0
+margin_bottom = 176.0
+text = "Lighting: Default"
+autowrap = true
+
+[node name="LightingSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 180.0
+margin_right = 224.0
+margin_bottom = 200.0
+theme = ExtResource( 37 )
+max_value = 2.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 10 )
+
+[node name="ViewDistanceLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 204.0
+margin_right = 224.0
+margin_bottom = 227.0
+text = "View Distance: 2500m"
+autowrap = true
+
+[node name="ViewDistanceSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 231.0
+margin_right = 224.0
+margin_bottom = 251.0
+theme = ExtResource( 37 )
+max_value = 8.0
+value = 8.0
+rounded = true
+scrollable = false
+script = ExtResource( 36 )
+
+[node name="RearViewDistanceLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 255.0
+margin_right = 224.0
+margin_bottom = 304.0
+text = "Rear View Mirror Distance: 200m"
+autowrap = true
+
+[node name="RearViewDistanceSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 308.0
+margin_right = 224.0
+margin_bottom = 328.0
+theme = ExtResource( 37 )
+max_value = 11.0
+value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 25 )
+
+[node name="ShadowCastersLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 332.0
+margin_right = 224.0
+margin_bottom = 381.0
+text = "Shadow Casters: Default"
+autowrap = true
+
+[node name="ShadowCastersSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 385.0
+margin_right = 224.0
+margin_bottom = 405.0
+theme = ExtResource( 37 )
+max_value = 5.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 27 )
+
+[node name="ShadowSplitsLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 409.0
+margin_right = 224.0
+margin_bottom = 432.0
+text = "Shadow Map Splits: 3"
+autowrap = true
+
+[node name="ShadowSplitsSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 436.0
+margin_right = 224.0
+margin_bottom = 456.0
+theme = ExtResource( 37 )
+max_value = 4.0
+value = 3.0
+rounded = true
+scrollable = false
+script = ExtResource( 30 )
+
+[node name="ShadowSplitsMultiplayerLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 460.0
+margin_right = 224.0
+margin_bottom = 509.0
+text = "Shadow Map Splits (Multiplayer): 2"
+autowrap = true
+
+[node name="ShadowSplitsMultiplayerSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 513.0
+margin_right = 224.0
+margin_bottom = 533.0
+theme = ExtResource( 37 )
+max_value = 4.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 33 )
+
+[node name="ShadowResolutionLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 537.0
+margin_right = 224.0
+margin_bottom = 586.0
+text = "Shadow Resolution: 8192 x 8192"
+autowrap = true
+
+[node name="ShadowResolutionSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 590.0
+margin_right = 224.0
+margin_bottom = 610.0
+theme = ExtResource( 37 )
+max_value = 3.0
+value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 29 )
+
+[node name="RearViewShadowsLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 614.0
+margin_right = 224.0
+margin_bottom = 663.0
+text = "Rear View Shadows: Always Off"
+autowrap = true
+
+[node name="RearViewShadowsSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 667.0
+margin_right = 224.0
+margin_bottom = 687.0
+theme = ExtResource( 37 )
+max_value = 2.0
+rounded = true
+scrollable = false
+script = ExtResource( 24 )
+
+[node name="MaximumRigidBodiesLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 691.0
+margin_right = 224.0
+margin_bottom = 740.0
+text = "Maximum Rigid Bodies: 100"
+autowrap = true
+
+[node name="MaximumRigidBodiesSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 744.0
+margin_right = 224.0
+margin_bottom = 764.0
+theme = ExtResource( 37 )
+max_value = 10.0
+value = 4.0
+rounded = true
+scrollable = false
+script = ExtResource( 13 )
+
+[node name="VSyncLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 768.0
+margin_right = 224.0
+margin_bottom = 791.0
+text = "V Sync: On"
+autowrap = true
+
+[node name="VSyncSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 795.0
+margin_right = 224.0
+margin_bottom = 815.0
+theme = ExtResource( 37 )
+max_value = 1.0
+value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 34 )
+
+[node name="ToggleMirrorLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 819.0
+margin_right = 224.0
+margin_bottom = 894.0
+text = "Rear View Mirror Frame Rate (Multiplayer): Reduced"
+autowrap = true
+
+[node name="ToggleMirrorSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+margin_top = 898.0
+margin_right = 224.0
+margin_bottom = 918.0
+theme = ExtResource( 37 )
+max_value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 15 )
+
+[node name="TransformInterpolationLabel" type="Label" parent="Menu/Sliders/VBoxContainer"]
+visible = false
+margin_top = 922.0
+margin_right = 224.0
+margin_bottom = 971.0
+text = "Transform Interpolation: Automatic"
+autowrap = true
+
+[node name="TransformInterpolationSlider" type="HSlider" parent="Menu/Sliders/VBoxContainer"]
+visible = false
+margin_top = 922.0
+margin_right = 224.0
+margin_bottom = 942.0
+focus_neighbour_bottom = NodePath("../AntiAliasingSlider")
+theme = ExtResource( 37 )
+max_value = 1.0
+value = 1.0
+rounded = true
+scrollable = false
+script = ExtResource( 35 )
+
+[node name="Warning" type="Label" parent="Menu"]
+anchor_top = 0.708
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+grow_vertical = 0
+theme = ExtResource( 37 )
+text = "NEED_MORE_VRAM"
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 6 )
+advanced = true
+
+[node name="ColorRect" type="ColorRect" parent="Menu/Warning"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/AntiAliasingSlider" to="Menu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/AntiAliasingSlider" to="Menu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_value_changed"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/AntiAliasingSlider" to="Menu/Warning" method="_on_AntiAliasingSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ReflectionsSlider" to="Menu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ReflectionsSlider" to="Menu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/MaterialsSlider" to="Menu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/MaterialsSlider" to="Menu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/LightingSlider" to="Menu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/LightingSlider" to="Menu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ViewDistanceSlider" to="Menu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ViewDistanceSlider" to="Menu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/RearViewDistanceSlider" to="Menu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/RearViewDistanceSlider" to="Menu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ShadowCastersSlider" to="Menu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ShadowCastersSlider" to="Menu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ShadowSplitsSlider" to="Menu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ShadowSplitsSlider" to="Menu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="Menu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="Menu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ShadowResolutionSlider" to="Menu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ShadowResolutionSlider" to="Menu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_value_changed"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ShadowResolutionSlider" to="Menu/Warning" method="_on_ShadowResolutionSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/RearViewShadowsSlider" to="Menu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/RearViewShadowsSlider" to="Menu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="Menu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="Menu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_value_changed"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="Menu/Warning" method="_on_MaximumRigidBodiesSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/VSyncSlider" to="Menu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/VSyncSlider" to="Menu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/ToggleMirrorSlider" to="Menu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/ToggleMirrorSlider" to="Menu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_value_changed"]
+[connection signal="focus_entered" from="Menu/Sliders/VBoxContainer/TransformInterpolationSlider" to="Menu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_focus_entered"]
+[connection signal="value_changed" from="Menu/Sliders/VBoxContainer/TransformInterpolationSlider" to="Menu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_value_changed"]

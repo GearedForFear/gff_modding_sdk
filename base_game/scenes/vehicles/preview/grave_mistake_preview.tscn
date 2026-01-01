@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/grave_mistake/stock.material" type="Material" id=2]
 [ext_resource path="res://resources/materials/vehicles/wheels_gm/front/stock.material" type="Material" id=3]
-[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=4]
+[ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=4]
 [ext_resource path="res://resources/meshes/vehicles/grave_mistake.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
 
@@ -41,8 +41,6 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-required_setting = 3
-mirror = true
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, 0.642758, 1.8106 )
@@ -60,7 +58,6 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17043, 0.642735, -1.66431 )
@@ -76,8 +73,6 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-required_setting = 3
-mirror = true
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, 0.642758, -1.66475 )
@@ -94,7 +89,6 @@ portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.629142, 0 )
@@ -104,3 +98,4 @@ shape = SubResource( 6 )
 portal_mode = 3
 mesh = ExtResource( 19 )
 material/0 = ExtResource( 2 )
+script = ExtResource( 4 )

@@ -2,8 +2,7 @@ keys,en,de
 LOADING,Loading,Lädt
 ARCADE,Arcade,Arkade
 CHALLENGES,Challenges,Herausfor-\nderungen
-SINGLEPLAYER,Singleplayer,Einzel-\nspieler
-MULTIPLAYER,Multiplayer,Mehrspieler
+PLAYER_AMOUNT,Player\nAmount,Anzahl an\nSpielern
 SINGLE_TRACK,Single Track,Einzelner Kampf
 FREEROAM,Freeroam,Freie Fahrt
 CREDITS,Credits,Credits
@@ -16,6 +15,7 @@ PILLARS,Pillars,Säulen
 SUNBREAKER,Sunbreaker,Sonnen-\nbrecher
 BELOW,Below,Unter Null
 TWISTED,Twisted,Twisted
+SINGLEPLAYER,Singleplayer,Einzel-\nspieler
 2_PLAYERS,2 Players,2 Spieler
 3_PLAYERS,3 Players,3 Spieler
 4_PLAYERS,4 Players,4 Spieler
@@ -40,7 +40,9 @@ CONTROLS,Controls,Steuerung
 LANGUAGE,Language,Sprache
 ACCESSIBILITY,Accessibility,Barrierefreiheit
 ADVANCED,Advanced,Erweitert
+GL2_VERSION,OpenGL 2.1 version,OpenGL 2.1 Version
 NEED_MORE_VRAM,Current settings may need more than 8GB of VRAM. This can ruin performance.,Die aktuellen Einstellungen benötigen möglicherweise mehr als 8GB an VRAM. Dies kann die Leistung ruinieren.
+MANY_RIGID_BODIES,Current rigid body setting only runs well on modern high-end CPUs.,Die aktuelle Starrkörper-Einstellunge ist für moderne High-End-CPUs gedacht.
 FULLSCREEN,Fullscreen,Vollbild
 WINDOWED,Window with Border,Fenster mit Rand
 BORDERLESS,Borderless Window,Randloses Fenster

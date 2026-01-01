@@ -1,0 +1,325 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://resources/environments/below.tres" type="Environment" id=4]
+[ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=5]
+[ext_resource path="res://resources/environments/twisted.tres" type="Environment" id=6]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=7]
+[ext_resource path="res://scripts/cameras_&_ui/updating_camera.gd" type="Script" id=8]
+[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=12]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=14]
+[ext_resource path="res://scripts/cameras_&_ui/selected_track_view.gd" type="Script" id=18]
+[ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=28]
+[ext_resource path="res://resources/theme/main.theme" type="Theme" id=37]
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="Menu" type="Control" parent="."]
+visible = false
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="SelectedView" type="ViewportContainer" parent="Menu"]
+anchor_right = 0.618
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+stretch = true
+script = ExtResource( 14 )
+
+[node name="Viewport" type="Viewport" parent="Menu/SelectedView"]
+size = Vector2( 385, 349 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+shadow_atlas_size = 4096
+script = ExtResource( 18 )
+
+[node name="TheCalmCamera" type="Camera" parent="Menu/SelectedView/Viewport"]
+transform = Transform( 0.8782, 0.399523, -0.262957, 0, 0.549781, 0.835309, 0.478293, -0.733568, 0.482818, 213.456, 118.093, 325.372 )
+visible = false
+environment = ExtResource( 5 )
+current = true
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="BelowCamera" type="Camera" parent="Menu/SelectedView/Viewport"]
+transform = Transform( 0.148983, 0.702345, -0.696072, 0, 0.703928, 0.710271, 0.98884, -0.105818, 0.104873, -728.759, 161.104, -984.393 )
+visible = false
+environment = ExtResource( 4 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="TwistedCamera" type="Camera" parent="Menu/SelectedView/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.555454, 0.831547, 0, -0.831547, 0.555454, -167.574, 189.869, 325.362 )
+visible = false
+environment = ExtResource( 6 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="Iceland" type="Spatial" parent="Menu/SelectedView/Viewport"]
+visible = false
+
+[node name="USA" type="Spatial" parent="Menu/SelectedView/Viewport"]
+visible = false
+
+[node name="TheCalmLight" type="DirectionalLight" parent="Menu/SelectedView/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+visible = false
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="BelowLight" type="DirectionalLight" parent="Menu/SelectedView/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
+visible = false
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="TwistedLight" type="DirectionalLight" parent="Menu/SelectedView/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+visible = false
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+anchor_left = 0.618
+anchor_right = 0.809
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Downpour" type="Button" parent="Menu/Buttons"]
+margin_right = 112.0
+margin_bottom = 54.0
+focus_neighbour_top = NodePath("../Twisted")
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+disabled = true
+text = "DOWNPOUR"
+script = ExtResource( 28 )
+
+[node name="TheCalm" type="Button" parent="Menu/Buttons"]
+margin_top = 58.0
+margin_right = 112.0
+margin_bottom = 113.0
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+text = "THE_CALM"
+script = ExtResource( 28 )
+track_path = "res://scenes/world/tracks/the_calm.tscn"
+
+[node name="Pillars" type="Button" parent="Menu/Buttons"]
+margin_top = 117.0
+margin_right = 112.0
+margin_bottom = 172.0
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+text = "PILLARS"
+script = ExtResource( 28 )
+track_path = "res://scenes/world/tracks/pillars.tscn"
+
+[node name="Sunbreaker" type="Button" parent="Menu/Buttons"]
+margin_top = 176.0
+margin_right = 112.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+disabled = true
+text = "SUNBREAKER"
+script = ExtResource( 28 )
+
+[node name="Below" type="Button" parent="Menu/Buttons"]
+margin_top = 235.0
+margin_right = 112.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+text = "BELOW"
+script = ExtResource( 28 )
+track_path = "res://scenes/world/tracks/below.tscn"
+
+[node name="Twisted" type="Button" parent="Menu/Buttons"]
+margin_top = 294.0
+margin_right = 112.0
+margin_bottom = 349.0
+focus_neighbour_bottom = NodePath("../Downpour")
+size_flags_vertical = 3
+theme = ExtResource( 37 )
+text = "TWISTED"
+script = ExtResource( 28 )
+track_path = "res://scenes/world/tracks/twisted.tscn"
+
+[node name="SmallViewports" type="VBoxContainer" parent="Menu"]
+anchor_left = 0.809
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+alignment = 1
+
+[node name="Placeholder" type="Control" parent="Menu/SmallViewports"]
+margin_right = 122.0
+margin_bottom = 54.0
+size_flags_vertical = 3
+
+[node name="TheCalmView" type="ViewportContainer" parent="Menu/SmallViewports"]
+margin_top = 58.0
+margin_right = 122.0
+margin_bottom = 113.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 14 )
+
+[node name="Viewport" type="Viewport" parent="Menu/SmallViewports/TheCalmView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+shadow_atlas_size = 4096
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Menu/SmallViewports/TheCalmView/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.266801, 0.963752, 0, -0.963752, 0.266801, 173.16, 115.359, 251.395 )
+environment = ExtResource( 5 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="Map" type="Spatial" parent="Menu/SmallViewports/TheCalmView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/SmallViewports/TheCalmView/Viewport"]
+transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
+light_energy = 0.5
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="Placeholder2" type="Control" parent="Menu/SmallViewports"]
+margin_top = 117.0
+margin_right = 122.0
+margin_bottom = 172.0
+size_flags_vertical = 3
+
+[node name="Placeholder3" type="Control" parent="Menu/SmallViewports"]
+margin_top = 176.0
+margin_right = 122.0
+margin_bottom = 231.0
+size_flags_vertical = 3
+
+[node name="BelowView" type="ViewportContainer" parent="Menu/SmallViewports"]
+margin_top = 235.0
+margin_right = 122.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 14 )
+
+[node name="Viewport" type="Viewport" parent="Menu/SmallViewports/BelowView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+shadow_atlas_size = 4096
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Menu/SmallViewports/BelowView/Viewport"]
+transform = Transform( -0.912127, -0.075628, 0.40287, 0, 0.982832, 0.1845, -0.409907, 0.168288, -0.896468, -225.349, 32.0347, -930.875 )
+environment = ExtResource( 4 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="Map" type="Spatial" parent="Menu/SmallViewports/BelowView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/SmallViewports/BelowView/Viewport"]
+transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
+light_color = Color( 0.831373, 0.964706, 1, 1 )
+light_energy = 0.2
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[node name="TwistedView" type="ViewportContainer" parent="Menu/SmallViewports"]
+margin_top = 294.0
+margin_right = 122.0
+margin_bottom = 349.0
+size_flags_vertical = 3
+stretch = true
+script = ExtResource( 14 )
+
+[node name="Viewport" type="Viewport" parent="Menu/SmallViewports/TwistedView"]
+size = Vector2( 122, 55 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 0
+shadow_atlas_size = 4096
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Menu/SmallViewports/TwistedView/Viewport"]
+transform = Transform( 0.934888, -0.147779, 0.322717, 0, 0.909207, 0.416344, -0.354944, -0.389235, 0.850006, -124.372, 63.4621, 377.347 )
+environment = ExtResource( 6 )
+fov = 75.0
+far = 2500.0
+script = ExtResource( 8 )
+
+[node name="Map" type="Spatial" parent="Menu/SmallViewports/TwistedView/Viewport"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Menu/SmallViewports/TwistedView/Viewport"]
+transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
+light_color = Color( 1, 0.960784, 0.796078, 1 )
+light_energy = 0.25
+shadow_enabled = true
+directional_shadow_mode = 2
+directional_shadow_fade_start = 0.9
+directional_shadow_bias_split_scale = 1.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 324.0
+script = ExtResource( 12 )
+
+[connection signal="focus_entered" from="Menu/Buttons/Downpour" to="Menu/SelectedView/Viewport" method="_on_Downpour_focus_entered"]
+[connection signal="focus_entered" from="Menu/Buttons/TheCalm" to="Menu/SelectedView/Viewport" method="_on_TheCalm_focus_entered"]
+[connection signal="focus_entered" from="Menu/Buttons/Pillars" to="Menu/SelectedView/Viewport" method="_on_Pillars_focus_entered"]
+[connection signal="focus_entered" from="Menu/Buttons/Sunbreaker" to="Menu/SelectedView/Viewport" method="_on_Sunbreaker_focus_entered"]
+[connection signal="focus_entered" from="Menu/Buttons/Below" to="Menu/SelectedView/Viewport" method="_on_Below_focus_entered"]
+[connection signal="focus_entered" from="Menu/Buttons/Twisted" to="Menu/SelectedView/Viewport" method="_on_Twisted_focus_entered"]

@@ -30,13 +30,13 @@ func _ready():
 	boost_type = BoostTypes.NITRO
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($ShotgunFlash/CPUParticles)
-		delete($SniperFlash/CPUParticles)
-		delete($MachineGunFlash/CPUParticles)
+		DeletionManager.add_to_stack($ShotgunFlash/CPUParticles)
+		DeletionManager.add_to_stack($SniperFlash/CPUParticles)
+		DeletionManager.add_to_stack($MachineGunFlash/CPUParticles)
 	else:
-		delete($ShotgunFlash/Particles)
-		delete($SniperFlash/Particles)
-		delete($MachineGunFlash/Particles)
+		DeletionManager.add_to_stack($ShotgunFlash/Particles)
+		DeletionManager.add_to_stack($SniperFlash/Particles)
+		DeletionManager.add_to_stack($MachineGunFlash/Particles)
 
 
 func _physics_process(_delta):

@@ -29,7 +29,7 @@ const NM_PREVIEW: PackedScene \
 onready var container = get_node("../..")
 onready var unavailable = container.get_node("../Unavailable")
 
-
+"""
 func _enter_tree():
 	add_child(CA_PREVIEW.instance())
 	yield(get_tree(), "idle_frame")
@@ -97,3 +97,4 @@ func show_unavailable(var b: bool):
 	else:
 		container.modulate = Color.white
 	unavailable.visible = b
+"""

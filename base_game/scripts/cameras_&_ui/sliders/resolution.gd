@@ -1,5 +1,4 @@
-class_name Resolution
-extends HSlider
+extends SettingsSlider
 
 
 const LABEL_PATH = "../Label"
@@ -9,10 +8,10 @@ var resolutions: Array
 
 func _enter_tree():
 	update_resolutions()
-	var root_control: Control = get_node("/root/RootControl")
-	value = find_position(root_control.config.get_value(\
+	value = find_position(SettingsManager.get_config().get_value(\
 			"graphics", "resolution", 1))
-	root_control.get_node("SettingsManager").resolution = resolutions[value]
+	SettingsManager.get_this().resolution = resolutions[value]
+	update_label()
 
 
 func find_position(var resolution_divisor) -> int:
@@ -31,7 +30,6 @@ func find_position(var resolution_divisor) -> int:
 func update_all():
 	update_resolutions()
 	update_label()
-	get_node("../../Warning").visible = vram_hungry()
 
 
 func update_resolutions():
@@ -64,31 +62,13 @@ func to_resolution(var divisor: int) -> Vector2:
 	return return_value
 
 
-static func vram_hungry() -> bool:
-	var settings_manager: SettingsManager = SettingsManager.get_this()
-	var resolution: Vector2 = OS.window_size / settings_manager.resolution
-	var pixels: int = resolution.x * resolution.y
-	match settings_manager.msaa:
-		VisualServer.VIEWPORT_MSAA_4X:
-			return pixels > 11_000_000
-		VisualServer.VIEWPORT_MSAA_8X:
-			return pixels > 6_000_000
-		VisualServer.VIEWPORT_MSAA_16X:
-			return pixels > 3_000_000
-	return false
-
-
-func _on_AntiAliasingSlider_value_changed(value):
-	var root_control: Control = get_node("/root/RootControl")
-	var settings_manager: SettingsManager = root_control.get_node(\
-			"SettingsManager")
-	settings_manager.resolution = resolutions[value]
-	Reflections.update_reflections()
-	var config: ConfigFile = root_control.config
+func _on_HSlider_value_changed(value):
+	SettingsManager.get_this().resolution = resolutions[value]
+	var config: ConfigFile = SettingsManager.get_config()
 	config.set_value("graphics", "resolution", resolutions[value])
 	config.save("user://config.cfg")
-	root_control.get_node("SliderChangeAudio").play()
 	get_node("../../ViewportContainer")._draw()
+	update_setting()
 	update_all()
 
 

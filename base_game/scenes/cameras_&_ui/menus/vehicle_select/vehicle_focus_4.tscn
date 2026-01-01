@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/vehicle_focus.gd" type="Script" id=1]
+[ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=2]
+
+[node name="Focus" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+number = 4
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.3
+anchor_top = 0.8
+anchor_right = 0.52
+anchor_bottom = 0.96
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="ColorRect"]
+anchor_left = 0.15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.6, 1, 1 )
+text = "P4"
+align = 1
+valign = 1

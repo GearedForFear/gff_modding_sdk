@@ -21,11 +21,12 @@ func _ready():
 				"res://resources/materials/vehicles/wheels_gm/")
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($ShotPositionFront/MuzzleFlash/CPUParticles)
-		delete($ShotPositionBack/MuzzleFlash/CPUParticles)
+		DeletionManager.add_to_stack(
+					$ShotPositionFront/MuzzleFlash/CPUParticles)
+		DeletionManager.add_to_stack($ShotPositionBack/MuzzleFlash/CPUParticles)
 	else:
-		delete($ShotPositionFront/MuzzleFlash/Particles)
-		delete($ShotPositionBack/MuzzleFlash/Particles)
+		DeletionManager.add_to_stack($ShotPositionFront/MuzzleFlash/Particles)
+		DeletionManager.add_to_stack($ShotPositionBack/MuzzleFlash/Particles)
 
 
 func _physics_process(_delta):

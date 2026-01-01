@@ -83,12 +83,32 @@ func _process(_delta):
 #	return Global.root_control.get_node("LoadingManager") as LoadingManager
 
 
-func prepare():
+func prepare() -> Array:
+	SettingsManager.get_this().start()
 	var root_control: Control = get_parent()
-	root_control.get_node("Precompiler").add_materials()
-	root_control.get_node("ResourceManager").load_resources()
-	root_control.get_node("MaterialManager").update_settings()
-	loading_finished = true
+	Precompiler.get_this().add_materials()
+	ResourceManager.get_this().load_resources()
+	MaterialManager.get_this().update_settings()
+	
+	var menu_hierarchy: Node = ResourceLoader.load(
+			"res://scenes/cameras_&_ui/menus/menu_hierarchy.tscn",
+			"PackedScene").instance()
+	menu_hierarchy.propagate_call("instantiate_scene")
+	menu_hierarchy.propagate_call("instantiate_scene")
+	
+	var previous_menu: Control = root_control.get_node("Current")
+	root_control.remove_child(previous_menu)
+	var to_delete := Array()
+	to_delete.append(previous_menu)
+	
+	get_node("../BackgroundShader").show()
+	var hierarchy_position: HierarchyNode = menu_hierarchy.get_node("Main")
+	MenuManager.get_this().hierarchy_position = hierarchy_position
+	var main_menu: AspectRatioContainer = hierarchy_position.scene
+	root_control.add_child(main_menu)
+	
+	AudioServer.set_bus_volume_db(0, linear2db(1.0))
+	return to_delete
 
 
 static func wait_for_loading():

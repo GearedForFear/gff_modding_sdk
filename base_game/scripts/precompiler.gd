@@ -35,6 +35,10 @@ func _process(_delta):
 				position_in_array = 0
 
 
+static func get_this() -> Precompiler:
+	return MaterialManager.get_this().get_node("Precompiler") as Precompiler
+
+
 func start():
 	if is_inside_tree():
 		var loading: Control = get_node_or_null("/root/FrontContainer/Loading")
@@ -108,6 +112,7 @@ func emit_particles():
 
 
 func _on_Precompiler_visibility_changed():
-	var rendering: bool = get_parent().visible
-	for n in $Viewport/Camera/Particles.get_children():
-		n.emitting = rendering
+	pass
+#	var rendering: bool = get_parent().visible
+#	for n in $Viewport/Camera/Particles.get_children():
+#		n.emitting = rendering

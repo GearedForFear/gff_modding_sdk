@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/hierarchy_node.gd" type="Script" id=1]
+
+[node name="Quit" type="Node"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/quit.tscn"
+
+[node name="Main" type="Node" parent="."]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/main_menu.tscn"
+
+[node name="Arcade" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/controller_select.tscn"
+
+[node name="Next1" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_1.tscn"
+
+[node name="Next2" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_2.tscn"
+
+[node name="Next3" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_3.tscn"
+
+[node name="Next4" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_4.tscn"
+
+[node name="Next5" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_5.tscn"
+
+[node name="Next6" type="Node" parent="Main/Arcade"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_6.tscn"
+
+[node name="PlayerAmount" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/player_amount.tscn"
+
+[node name="SingleTrack" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/controller_select.tscn"
+
+[node name="Next1" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next1")
+
+[node name="Next2" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next2")
+
+[node name="Next3" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next3")
+
+[node name="Next4" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next4")
+
+[node name="Next5" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next5")
+
+[node name="Next6" type="Node" parent="Main/SingleTrack"]
+script = ExtResource( 1 )
+twin = NodePath("../../Arcade/Next6")
+
+[node name="Credits" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/credits.tscn"
+
+[node name="Customization" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_any.tscn"
+
+[node name="Options" type="Node" parent="Main"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/options.tscn"
+
+[node name="Resolution" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/resolution.tscn"
+
+[node name="FieldOfView" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/fov.tscn"
+
+[node name="WindowMode" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/window_mode.tscn"
+
+[node name="Sound" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/sound.tscn"
+
+[node name="Language" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/language.tscn"
+
+[node name="Advanced" type="Node" parent="Main/Options"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/advanced.tscn"
+
+[node name="GameplayView" type="Node" parent="."]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/gameplay_view.tscn"

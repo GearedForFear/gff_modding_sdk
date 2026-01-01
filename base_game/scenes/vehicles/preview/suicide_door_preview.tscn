@@ -3,10 +3,9 @@
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/suicide_door.material" type="Material" id=2]
 [ext_resource path="res://resources/materials/vehicles/suicide_door/stock.material" type="Material" id=3]
-[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=4]
+[ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=4]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/suicide_door.tres" type="ArrayMesh" id=19]
-
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -43,7 +42,6 @@ portal_mode = 3
 material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877, 0.161023, 1.9783 )
@@ -61,7 +59,6 @@ portal_mode = 3
 material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.877, 0.161, -1.375 )
@@ -78,7 +75,6 @@ portal_mode = 3
 material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877, 0.161023, -1.37544 )
@@ -95,7 +91,6 @@ portal_mode = 3
 material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
 script = ExtResource( 4 )
-required_setting = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 6 )
@@ -104,3 +99,4 @@ shape = SubResource( 6 )
 portal_mode = 3
 material_override = ExtResource( 3 )
 mesh = ExtResource( 19 )
+script = ExtResource( 4 )

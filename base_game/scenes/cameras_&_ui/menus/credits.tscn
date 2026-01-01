@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=39]
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.778
+
+[node name="Credits" type="Control" parent="."]
+margin_top = 0.0224915
+margin_right = 640.0
+margin_bottom = 359.978
+
+[node name="ColorRectRight" type="ColorRect" parent="Credits"]
+anchor_left = 0.3
+anchor_right = 0.7
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = -5.0
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Label" type="Label" parent="Credits/ColorRectRight"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 39 )
+text = "CREDITS_LIST"
+align = 1
+valign = 1

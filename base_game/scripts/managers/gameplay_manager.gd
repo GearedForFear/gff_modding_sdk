@@ -14,77 +14,76 @@ onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
 func _ready():
-	get_node("/root/RootControl/DeletionManager").delete = true
+	DeletionManager.get_this().delete = true
 	Global.gameplay_manager = self
 	MusicPlayer.get_this().is_on_vehicle_select = true
 	get_node("/root/FrontContainer/Loading").show()
 
 
 func _process(_delta):
-	if get_node("/root/RootControl/DeletionManager").to_be_deleted.empty():
+	if DeletionManager.get_this().TO_DELETE.empty():
 		get_node("/root/FrontContainer/Loading").hide()
-		if pursuers.size() == 12:
-			var track_data: TrackData = get_parent().data
-			$Timer.start()
-			heist_target.alive = true
-			heist_target.get_node("../StuckTimer").start()
-			
-			var scoreboards_already_exists: bool = \
-					pursuers[0].scoreboard_record != null
-			var scoreboard_head: ScoreboardRecord
+		var track_data: TrackData = get_parent().data
+		$Timer.start()
+		heist_target.alive = true
+		heist_target.get_node("../StuckTimer").start()
+		
+		var scoreboards_already_exists: bool = \
+				pursuers[0].scoreboard_record != null
+		var scoreboard_head: ScoreboardRecord
+		if scoreboards_already_exists:
+			scoreboard_head = pursuers[0].scoreboard_record.find_first().prev
+		else:
+			scoreboard_head = ScoreboardRecord.new(0)
+		
+		for n in pursuers:
+			n.target = heist_target
+			n.alive = true
+			var scoreboard_record: ScoreboardRecord
 			if scoreboards_already_exists:
-				scoreboard_head = pursuers[0].scoreboard_record.find_first().prev
+				scoreboard_record = n.scoreboard_record
 			else:
-				scoreboard_head = ScoreboardRecord.new(0)
+				scoreboard_record = ScoreboardRecord.new(1)
+				scoreboard_head.append(scoreboard_record, 1)
+				n.scoreboard_record = scoreboard_record
+			score_ui.append(n.get_node("ScoreLabel"))
+			if n.get_vehicle_name() == "Eternal Bond":
+				n.front_half.get_node("Body").scoreboard_record = scoreboard_record
+				n.back_half.get_node("Body").scoreboard_record = scoreboard_record
 			
-			for n in pursuers:
-				n.target = heist_target
-				n.alive = true
-				var scoreboard_record: ScoreboardRecord
-				if scoreboards_already_exists:
-					scoreboard_record = n.scoreboard_record
-				else:
-					scoreboard_record = ScoreboardRecord.new(1)
-					scoreboard_head.append(scoreboard_record, 1)
-					n.scoreboard_record = scoreboard_record
-				score_ui.append(n.get_node("ScoreLabel"))
-				if n.get_vehicle_name() == "Eternal Bond":
-					n.front_half.get_node("Body").scoreboard_record = scoreboard_record
-					n.back_half.get_node("Body").scoreboard_record = scoreboard_record
-				
-				if n.controls == null:
-					n.get_node("../StuckTimer").start()
-					scoreboard_record.name = n.get_vehicle_name()
-				else:
-					match n.get_node("../../../..").name:
-						"SpawnPoint1":
-							scoreboard_record.name = "Player 1"
-						"SpawnPoint2":
-							scoreboard_record.name = "Player 2"
-						"SpawnPoint3":
-							scoreboard_record.name = "Player 3"
-						"SpawnPoint4":
-							scoreboard_record.name = "Player 4"
-						"SpawnPoint5":
-							scoreboard_record.name = "Player 5"
-						"SpawnPoint6":
-							scoreboard_record.name = "Player 6"
-					var new_score_ui: ColorRect = n.get_node(\
-							"CameraBase/Camera/AspectRatioContainer/Control/Scores")
-					new_score_ui.scoreboard_record = scoreboard_record
-					score_ui.append(new_score_ui)
-			
-			if not scoreboards_already_exists:
-				scoreboard_head.append(ScoreboardRecord.new(13), 1)
-			
-			heist_target.scoreboard_record = scoreboard_head
-			get_node("/root/RootControl/DeletionManager").delete = false
-			update_scores()
-			set_process(false)
-			
-			var music_player := MusicPlayer.get_this()
-			music_player.is_on_vehicle_select = false
-			music_player.start(track_data.theme_start, $Timer)
+			if n.controls == null:
+				n.get_node("../StuckTimer").start()
+				scoreboard_record.name = n.get_vehicle_name()
+			else:
+				match n.get_node("../../../..").name:
+					"SpawnPoint1":
+						scoreboard_record.name = "Player 1"
+					"SpawnPoint2":
+						scoreboard_record.name = "Player 2"
+					"SpawnPoint3":
+						scoreboard_record.name = "Player 3"
+					"SpawnPoint4":
+						scoreboard_record.name = "Player 4"
+					"SpawnPoint5":
+						scoreboard_record.name = "Player 5"
+					"SpawnPoint6":
+						scoreboard_record.name = "Player 6"
+				var new_score_ui: ColorRect = n.get_node(\
+						"CameraBase/Camera/AspectRatioContainer/Control/Scores")
+				new_score_ui.scoreboard_record = scoreboard_record
+				score_ui.append(new_score_ui)
+		
+		if not scoreboards_already_exists:
+			scoreboard_head.append(ScoreboardRecord.new(13), 1)
+		
+		heist_target.scoreboard_record = scoreboard_head
+		get_node("/root/RootControl/DeletionManager").delete = false
+		update_scores()
+		set_process(false)
+		
+		var music_player := MusicPlayer.get_this()
+		music_player.is_on_vehicle_select = false
+		music_player.start(track_data.theme_start, $Timer)
 
 
 func _physics_process(_delta):

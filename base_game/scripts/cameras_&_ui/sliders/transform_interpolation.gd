@@ -1,6 +1,6 @@
 extends HSlider
 
-
+"""
 const LABEL_PATH = "../TransformInterpolationLabel"
 
 
@@ -8,7 +8,7 @@ func _enter_tree():
 	var root_control: Control = get_node("/root/RootControl")
 	value = float(root_control.config.get_value(
 			"graphics", "transform_interpolation", true))
-	root_control.get_node("SettingsManager").transform_interpolation \
+	root_control.get_node("SettingsManager").transform_interpolation 
 			= bool(value)
 
 
@@ -37,3 +37,4 @@ func _on_TransformInterpolationSlider_value_changed(value):
 	config.save("user://config.cfg")
 	root_control.get_node("SliderChangeAudio").play()
 	_draw()
+"""

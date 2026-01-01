@@ -45,19 +45,19 @@ func _ready():
 			.max_value = base_health / 2
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($MuzzleFlashMG/CPULeft)
-		delete($MuzzleFlashMG/CPURight)
-		delete($MuzzleFlashLeft/CPUFront)
-		delete($MuzzleFlashLeft/CPUBack)
-		delete($MuzzleFlashRight/CPUFront)
-		delete($MuzzleFlashRight/CPUBack)
+		DeletionManager.add_to_stack($MuzzleFlashMG/CPULeft)
+		DeletionManager.add_to_stack($MuzzleFlashMG/CPURight)
+		DeletionManager.add_to_stack($MuzzleFlashLeft/CPUFront)
+		DeletionManager.add_to_stack($MuzzleFlashLeft/CPUBack)
+		DeletionManager.add_to_stack($MuzzleFlashRight/CPUFront)
+		DeletionManager.add_to_stack($MuzzleFlashRight/CPUBack)
 	else:
-		delete($MuzzleFlashMG/Left)
-		delete($MuzzleFlashMG/Right)
-		delete($MuzzleFlashLeft/Front)
-		delete($MuzzleFlashLeft/Back)
-		delete($MuzzleFlashRight/Front)
-		delete($MuzzleFlashRight/Back)
+		DeletionManager.add_to_stack($MuzzleFlashMG/Left)
+		DeletionManager.add_to_stack($MuzzleFlashMG/Right)
+		DeletionManager.add_to_stack($MuzzleFlashLeft/Front)
+		DeletionManager.add_to_stack($MuzzleFlashLeft/Back)
+		DeletionManager.add_to_stack($MuzzleFlashRight/Front)
+		DeletionManager.add_to_stack($MuzzleFlashRight/Back)
 
 
 func _physics_process(_delta):

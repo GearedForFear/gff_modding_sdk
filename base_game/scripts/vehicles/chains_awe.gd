@@ -29,9 +29,9 @@ var chainsaw_skin: ShaderMaterial
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		delete($MuzzleFlash/CPUParticles)
+		DeletionManager.add_to_stack($MuzzleFlash/CPUParticles)
 	else:
-		delete($MuzzleFlash/Particles)
+		DeletionManager.add_to_stack($MuzzleFlash/Particles)
 	var path_ending: String = random_skin("", "")
 	path_ending = path_ending.replace("flame", "stock")
 	chainsaw_skin = ResourceLoader.load(

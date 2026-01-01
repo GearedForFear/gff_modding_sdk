@@ -1,7 +1,14 @@
 extends Node
 
 
-var can_cancel: bool = true
+const ALL_CONTROLS := [
+		preload("res://resources/custom/player_controls/player_1.tres"),
+		preload("res://resources/custom/player_controls/player_2.tres"),
+		preload("res://resources/custom/player_controls/player_3.tres"),
+		preload("res://resources/custom/player_controls/player_4.tres"),
+		preload("res://resources/custom/player_controls/player_5.tres"),
+		preload("res://resources/custom/player_controls/player_6.tres")]
+
 var hold_left: float = 0.0
 var hold_right: float = 0.0
 
@@ -86,82 +93,8 @@ func _process(delta):
 				hold_right -= 0.04
 				press("ui_right")
 	
-	if get_parent().visible:
-		if Input.is_action_just_pressed("ui_accept") \
-				and get_node("../AspectRatioContainer/ArcadeEnd").visible:
-			get_node("../AspectRatioContainer/ArcadeEnd").hide()
-			var menu: Control = get_node("../AspectRatioContainer/MainMenu")
-			menu.show()
-			menu.get_node("Arcade").grab_focus()
-			get_node("../ButtonPressAudio").play()
-		
-		if Input.is_action_just_pressed("ui_cancel") and can_cancel:
-			can_cancel = false
-			var sound: AudioStreamPlayer = get_node("../ReturnAudio")
-			if get_node("../AspectRatioContainer/MainMenu").visible:
-				get_tree().quit()
-			elif get_node("../AspectRatioContainer/TrackMenu").visible:
-				get_node("../AspectRatioContainer/TrackMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/MainMenu")
-				menu.show()
-				menu.get_node("SingleTrack").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/OptionsMenu").visible:
-				get_node("../AspectRatioContainer/OptionsMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/MainMenu")
-				menu.show()
-				menu.get_node("Options").grab_focus()
-				sound.play()
-			elif get_node("../ResolutionMenu").visible:
-				get_node("../ResolutionMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/Resolution").grab_focus()
-				sound.play()
-			elif get_node("../FOVMenu").visible:
-				get_node("../FOVMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/FieldOfView").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/WindowModeMenu").visible:
-				get_node("../AspectRatioContainer/WindowModeMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/WindowMode").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/SoundMenu").visible:
-				get_node("../AspectRatioContainer/SoundMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/Sound").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/LanguageMenu").visible:
-				get_node("../AspectRatioContainer/LanguageMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/Language").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/AdvancedMenu").visible:
-				get_node("../AspectRatioContainer/AdvancedMenu").hide()
-				var menu: Control = get_node("../AspectRatioContainer/OptionsMenu")
-				menu.show()
-				menu.get_node("Buttons/Advanced").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/Credits").visible:
-				get_node("../AspectRatioContainer/Credits").hide()
-				var menu: Control = get_node("../AspectRatioContainer/MainMenu")
-				menu.show()
-				menu.get_node("Credits").grab_focus()
-				sound.play()
-			elif get_node("../AspectRatioContainer/ArcadeEnd").visible:
-				get_node("../AspectRatioContainer/ArcadeEnd").hide()
-				var menu: Control = get_node("../AspectRatioContainer/MainMenu")
-				menu.show()
-				menu.get_node("Arcade").grab_focus()
-				sound.play()
-		else:
-			can_cancel = true
+	if Input.is_action_just_pressed("ui_cancel") and MenuManager.escape():
+		GlobalAudio.play("EscapeAudio")
 
 
 func press(action: String):

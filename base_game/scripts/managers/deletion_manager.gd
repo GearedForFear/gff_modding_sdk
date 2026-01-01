@@ -2,8 +2,9 @@ class_name DeletionManager
 extends Node
 
 
-var to_be_deleted: Array
-var rigid_bodies: Array
+const TO_DELETE := Array()
+const RIGID_BODIES := Array()
+
 var delete: bool = true
 
 onready var max_rigid_bodies: int \
@@ -12,17 +13,17 @@ onready var max_rigid_bodies: int \
 
 func _process(_delta):
 	if delete:
-		for _n in range(min(5, to_be_deleted.size())):
-			var next_deletion: Node = to_be_deleted.pop_back()
+		for _n in range(min(5, TO_DELETE.size())):
+			var next_deletion: Node = TO_DELETE.pop_back()
 			if(is_instance_valid(next_deletion)):
 				next_deletion.queue_free()
 
 
 func _physics_process(_delta):
-	var total_rigid_bodies: int = rigid_bodies.size()
+	var total_rigid_bodies: int = RIGID_BODIES.size()
 	if total_rigid_bodies > max_rigid_bodies:
 		for _n in range(total_rigid_bodies - max_rigid_bodies):
-			var delete_body: RigidBody = rigid_bodies.pop_front()
+			var delete_body: RigidBody = RIGID_BODIES.pop_front()
 			if is_instance_valid(delete_body):
 				if delete_body.is_in_group("pool_body"):
 					delete_body.stop()
@@ -30,7 +31,7 @@ func _physics_process(_delta):
 					delete_body.set_process(false)
 					delete_body.set_physics_process(false)
 					delete_body.hide()
-					to_be_deleted.append(delete_body)
+					TO_DELETE.append(delete_body)
 					delete_body.get_parent().remove_child(delete_body)
 
 
@@ -39,4 +40,8 @@ static func get_this() -> DeletionManager:
 
 
 static func add_to_stack(to_delete: Node):
-	get_this().to_be_deleted.append(to_delete)
+	get_this().TO_DELETE.append(to_delete)
+
+
+static func add_array_to_stack(to_delete: Array):
+	get_this().TO_DELETE.append_array(to_delete)

@@ -1,30 +1,18 @@
-[gd_scene load_steps=105 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
-[ext_resource path="res://resources/materials/cameras_&_ui/scoreboard.material" type="Material" id=2]
+[ext_resource path="res://scripts/managers/menu_manager.gd" type="Script" id=2]
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scripts/cameras_&_ui/arcade_end.gd" type="Script" id=4]
+[ext_resource path="res://scenes/particles/loading_bullets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/cameras_&_ui/front_container.gd" type="Script" id=5]
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
-[ext_resource path="res://scripts/cameras_&_ui/dynamic_font_size.gd" type="Script" id=8]
-[ext_resource path="res://resources/images/cameras_&_ui/multiplayer.png" type="Texture" id=9]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/standard_button.gd" type="Script" id=10]
-[ext_resource path="res://resources/theme/big_label.theme" type="Theme" id=11]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/multiplayer.gd" type="Script" id=12]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/language.gd" type="Script" id=13]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/resolution.gd" type="Script" id=14]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/player_amount.gd" type="Script" id=15]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/window_modes.gd" type="Script" id=16]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/volume.gd" type="Script" id=17]
-[ext_resource path="res://resources/images/cameras_&_ui/arcade.png" type="Texture" id=18]
-[ext_resource path="res://resources/theme/pixels.theme" type="Theme" id=19]
+[ext_resource path="res://scripts/global/global_audio_player.gd" type="Script" id=9]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=10]
 [ext_resource path="res://scripts/global/music_player.gd" type="Script" id=20]
 [ext_resource path="res://resources/music/theme_1/G4F T.1_Sweep before intro NO LOOP.wav" type="AudioStream" id=21]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/play.gd" type="Script" id=22]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_22.wav" type="AudioStream" id=24]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/field_of_view.gd" type="Script" id=25]
 [ext_resource path="res://scripts/precompiler.gd" type="Script" id=26]
 [ext_resource path="res://scenes/particles/chainsaw_sparks.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/particles/chainsaw_sparks_cpu.tscn" type="PackedScene" id=28]
@@ -50,9 +38,6 @@
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=48]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=49]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=50]
-[ext_resource path="res://scripts/cameras_&_ui/fov_camera.gd" type="Script" id=51]
-[ext_resource path="res://resources/images/cameras_&_ui/challenges.png" type="Texture" id=52]
-[ext_resource path="res://scripts/cameras_&_ui/buttons/level.gd" type="Script" id=53]
 [ext_resource path="res://scripts/managers/mirror_manager.gd" type="Script" id=54]
 [ext_resource path="res://scripts/cameras_&_ui/menu_timer.gd" type="Script" id=55]
 [ext_resource path="res://scripts/cameras_&_ui/next_stream_timer.gd" type="Script" id=56]
@@ -63,42 +48,24 @@
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
 [ext_resource path="res://scripts/managers/loading_manager.gd" type="Script" id=62]
 [ext_resource path="res://scripts/managers/extrapolation_manager.gd" type="Script" id=63]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_shadows.gd" type="Script" id=64]
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/anti_aliasing.gd" type="Script" id=67]
 [ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=68]
 [ext_resource path="res://resources/sounds/global_impacts/CSDS HIT CLEAN The Empire.wav" type="AudioStream" id=69]
 [ext_resource path="res://resources/sounds/global_impacts/CSDS HIT AGGRESSIVE Gun Fun.wav" type="AudioStream" id=70]
 [ext_resource path="res://resources/theme/main.theme" type="Theme" id=71]
 [ext_resource path="res://scripts/global/global_sound_effect.gd" type="Script" id=72]
 [ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=73]
-[ext_resource path="res://resources/environments/below.tres" type="Environment" id=74]
-[ext_resource path="res://resources/environments/twisted.tres" type="Environment" id=75]
 [ext_resource path="res://scripts/global/global_audio.gd" type="Script" id=76]
-[ext_resource path="res://scripts/world/main_light.gd" type="Script" id=78]
-[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=89]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_small_05.wav" type="AudioStream" id=90]
 [ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=91]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/reflections.gd" type="Script" id=92]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/materials.gd" type="Script" id=94]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/lighting.gd" type="Script" id=95]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/view_distance.gd" type="Script" id=96]
-[ext_resource path="res://scripts/cameras_&_ui/updating_camera.gd" type="Script" id=97]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/rear_view_distance.gd" type="Script" id=98]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_casters.gd" type="Script" id=99]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits.gd" type="Script" id=100]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_splits_multiplayer.gd" type="Script" id=101]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/shadow_resolution.gd" type="Script" id=102]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/max_rigid_bodies.gd" type="Script" id=103]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/v_sync.gd" type="Script" id=104]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/mirror_frame_rate.gd" type="Script" id=105]
-[ext_resource path="res://scripts/cameras_&_ui/sliders/transform_interpolation.gd" type="Script" id=106]
 [ext_resource path="res://scripts/managers/menu_input_manager.gd" type="Script" id=107]
-[ext_resource path="res://scripts/cameras_&_ui/selected_track_view.gd" type="Script" id=108]
 
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 1 )
+
+[sub_resource type="World" id=24]
+environment = ExtResource( 73 )
 
 [sub_resource type="DynamicFont" id=21]
 size = 25
@@ -200,1627 +167,70 @@ __meta__ = {
 }
 
 [node name="BackgroundShader" type="ColorRect" parent="."]
+visible = false
 material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+[node name="Current" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="RotatingVehicleView" type="ViewportContainer" parent="Current"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.0224915
+margin_bottom = 0.0224915
+stretch = true
+script = ExtResource( 10 )
+
+[node name="Viewport" type="Viewport" parent="Current/RotatingVehicleView"]
+size = Vector2( 640, 360 )
+own_world = true
+world = SubResource( 24 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 91 )
+
+[node name="Spatial" type="Spatial" parent="Current/RotatingVehicleView/Viewport"]
+physics_interpolation_mode = 2
+
+[node name="Camera" type="Camera" parent="Current/RotatingVehicleView/Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0 )
+fov = 50.0
+
+[node name="Particles" parent="Current/RotatingVehicleView/Viewport/Spatial" instance=ExtResource( 4 )]
+
+[node name="Loading" type="AspectRatioContainer" parent="Current"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 ratio = 1.778
 
-[node name="MainMenu" type="Control" parent="AspectRatioContainer"]
+[node name="Control" type="Control" parent="Current/Loading"]
 margin_top = 0.0224915
 margin_right = 640.0
 margin_bottom = 359.978
 
-[node name="Arcade" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_top = 0.427
-anchor_right = 0.618
-anchor_bottom = 0.618
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../Multiplayer")
-focus_neighbour_top = NodePath("../Customization")
-theme = ExtResource( 71 )
-text = "ARCADE"
-script = ExtResource( 22 )
-track_path = ""
-
-[node name="Challenges" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.618
-anchor_top = 0.427
-anchor_right = 0.809
-anchor_bottom = 0.618
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_top = NodePath("../Level")
-theme = ExtResource( 71 )
-disabled = true
-text = "CHALLENGES"
-
-[node name="Multiplayer" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.809
-anchor_top = 0.427
-anchor_right = 1.0
-anchor_bottom = 0.618
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_top = NodePath("../Options")
-focus_neighbour_right = NodePath("../Arcade")
-theme = ExtResource( 71 )
-text = "MULTIPLAYER"
-script = ExtResource( 12 )
-
-[node name="SingleTrack" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_top = 0.618
-anchor_right = 0.618
-anchor_bottom = 0.809
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../Credits")
-theme = ExtResource( 71 )
-text = "SINGLE_TRACK"
-clip_text = true
-script = ExtResource( 10 )
-show_parent = 2
-
-[node name="Freeroam" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.618
-anchor_top = 0.618
-anchor_right = 0.809
-anchor_bottom = 0.809
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-theme = ExtResource( 71 )
-disabled = true
-text = "FREEROAM"
-clip_text = true
-
-[node name="Credits" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.809
-anchor_top = 0.618
-anchor_right = 1.0
-anchor_bottom = 0.809
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_right = NodePath("../SingleTrack")
-theme = ExtResource( 71 )
-text = "CREDITS"
-clip_text = true
-script = ExtResource( 10 )
-selection = "../../Credits/ColorRectRight/Label"
-show_parent = 2
-
-[node name="Customization" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_top = 0.809
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_left = NodePath("../Options")
-focus_neighbour_bottom = NodePath("../Arcade")
-theme = ExtResource( 71 )
-disabled = true
-text = "CUSTOMIZATION"
-clip_text = true
-
-[node name="Level" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.618
-anchor_top = 0.809
-anchor_right = 0.809
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_bottom = NodePath("../Challenges")
-theme = ExtResource( 71 )
-disabled = true
-text = "LEVEL_X"
-clip_text = true
-script = ExtResource( 53 )
-
-[node name="Options" type="Button" parent="AspectRatioContainer/MainMenu"]
-anchor_left = 0.809
-anchor_top = 0.809
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-focus_neighbour_right = NodePath("../Customization")
-focus_neighbour_bottom = NodePath("../Multiplayer")
-theme = ExtResource( 71 )
-text = "OPTIONS"
-clip_text = true
-script = ExtResource( 10 )
-selection = "../../OptionsMenu/Buttons/Resolution"
-show_parent = 2
-
-[node name="Images" type="Control" parent="AspectRatioContainer/MainMenu"]
-anchor_right = 1.0
-anchor_bottom = 0.427
-margin_top = 5.0
-margin_bottom = 6.0
-
-[node name="Arcade" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_right = -5.0
-texture = ExtResource( 18 )
-
-[node name="Challenges" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
-anchor_left = 0.618
-anchor_right = 0.809
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_right = -5.0
-texture = ExtResource( 52 )
-
-[node name="Multiplayer" type="TextureRect" parent="AspectRatioContainer/MainMenu/Images"]
-anchor_left = 0.809
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_right = -5.0
-texture = ExtResource( 9 )
-
-[node name="PlayerAmount" type="VBoxContainer" parent="AspectRatioContainer/MainMenu"]
-visible = false
-anchor_left = 0.809
-anchor_right = 1.0
-anchor_bottom = 0.618
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Players2" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
-margin_right = 112.0
-margin_bottom = 39.0
-focus_neighbour_top = NodePath("../../Options")
-focus_neighbour_right = NodePath("../../Arcade")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "2_PLAYERS"
-script = ExtResource( 15 )
-
-[node name="Players3" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
-margin_top = 43.0
-margin_right = 112.0
-margin_bottom = 82.0
-focus_neighbour_right = NodePath("../../Arcade")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "3_PLAYERS"
-script = ExtResource( 15 )
-
-[node name="Players4" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
-margin_top = 86.0
-margin_right = 112.0
-margin_bottom = 125.0
-focus_neighbour_right = NodePath("../../Arcade")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "4_PLAYERS"
-script = ExtResource( 15 )
-
-[node name="Players5" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
-margin_top = 129.0
-margin_right = 112.0
-margin_bottom = 168.0
-focus_neighbour_right = NodePath("../../Arcade")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "5_PLAYERS"
-script = ExtResource( 15 )
-
-[node name="Players6" type="Button" parent="AspectRatioContainer/MainMenu/PlayerAmount"]
-margin_top = 172.0
-margin_right = 112.0
-margin_bottom = 212.0
-focus_neighbour_right = NodePath("../../Arcade")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "6_PLAYERS"
-script = ExtResource( 15 )
-
-[node name="TrackMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="SelectedView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SelectedView"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 108 )
-
-[node name="TheCalmCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( 0.8782, 0.399523, -0.262957, 0, 0.549781, 0.835309, 0.478293, -0.733568, 0.482818, 213.456, 118.093, 325.372 )
-visible = false
-environment = ExtResource( 73 )
-current = true
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="BelowCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( 0.148983, 0.702345, -0.696072, 0, 0.703928, 0.710271, 0.98884, -0.105818, 0.104873, -728.759, 161.104, -984.393 )
-visible = false
-environment = ExtResource( 74 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="TwistedCamera" type="Camera" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( 1, 0, 0, 0, 0.555454, 0.831547, 0, -0.831547, 0.555454, -167.574, 189.869, 325.362 )
-visible = false
-environment = ExtResource( 75 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Iceland" type="Spatial" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-visible = false
-
-[node name="USA" type="Spatial" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-visible = false
-
-[node name="TheCalmLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
-visible = false
-light_energy = 0.5
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="BelowLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
-visible = false
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="TwistedLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SelectedView/Viewport"]
-transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
-visible = false
-light_color = Color( 1, 0.960784, 0.796078, 1 )
-light_energy = 0.25
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/TrackMenu"]
-anchor_left = 0.618
-anchor_right = 0.809
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Downpour" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_right = 112.0
-margin_bottom = 54.0
-focus_neighbour_top = NodePath("../Twisted")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-disabled = true
-text = "DOWNPOUR"
-script = ExtResource( 22 )
-
-[node name="TheCalm" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_top = 58.0
-margin_right = 112.0
-margin_bottom = 113.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "THE_CALM"
-script = ExtResource( 22 )
-track_path = "res://scenes/world/tracks/the_calm.tscn"
-
-[node name="Pillars" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_top = 117.0
-margin_right = 112.0
-margin_bottom = 172.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "PILLARS"
-script = ExtResource( 22 )
-track_path = "res://scenes/world/tracks/pillars.tscn"
-
-[node name="Sunbreaker" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_top = 176.0
-margin_right = 112.0
-margin_bottom = 231.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-disabled = true
-text = "SUNBREAKER"
-script = ExtResource( 22 )
-
-[node name="Below" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_top = 235.0
-margin_right = 112.0
-margin_bottom = 290.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "BELOW"
-script = ExtResource( 22 )
-track_path = "res://scenes/world/tracks/below.tscn"
-
-[node name="Twisted" type="Button" parent="AspectRatioContainer/TrackMenu/Buttons"]
-margin_top = 294.0
-margin_right = 112.0
-margin_bottom = 349.0
-focus_neighbour_bottom = NodePath("../Downpour")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "TWISTED"
-script = ExtResource( 22 )
-track_path = "res://scenes/world/tracks/twisted.tscn"
-
-[node name="SmallViewports" type="VBoxContainer" parent="AspectRatioContainer/TrackMenu"]
-anchor_left = 0.809
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Placeholder" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_right = 122.0
-margin_bottom = 54.0
-size_flags_vertical = 3
-
-[node name="TheCalmView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_top = 58.0
-margin_right = 122.0
-margin_bottom = 113.0
-size_flags_vertical = 3
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView"]
-size = Vector2( 122, 55 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
-transform = Transform( 1, 0, 0, 0, 0.266801, 0.963752, 0, -0.963752, 0.266801, 173.16, 115.359, 251.395 )
-environment = ExtResource( 73 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/TheCalmView/Viewport"]
-transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
-light_energy = 0.5
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Placeholder2" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_top = 117.0
-margin_right = 122.0
-margin_bottom = 172.0
-size_flags_vertical = 3
-
-[node name="Placeholder3" type="Control" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_top = 176.0
-margin_right = 122.0
-margin_bottom = 231.0
-size_flags_vertical = 3
-
-[node name="BelowView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_top = 235.0
-margin_right = 122.0
-margin_bottom = 290.0
-size_flags_vertical = 3
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView"]
-size = Vector2( 122, 55 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
-transform = Transform( -0.912127, -0.075628, 0.40287, 0, 0.982832, 0.1845, -0.409907, 0.168288, -0.896468, -225.349, 32.0347, -930.875 )
-environment = ExtResource( 74 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/BelowView/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373537, 0.643717, 0.160493, -0.977923, 0.133823, -366.446, 151.616, -1016.59 )
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="TwistedView" type="ViewportContainer" parent="AspectRatioContainer/TrackMenu/SmallViewports"]
-margin_top = 294.0
-margin_right = 122.0
-margin_bottom = 349.0
-size_flags_vertical = 3
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView"]
-size = Vector2( 122, 55 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
-transform = Transform( 0.934888, -0.147779, 0.322717, 0, 0.909207, 0.416344, -0.354944, -0.389235, 0.850006, -124.372, 63.4621, 377.347 )
-environment = ExtResource( 75 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/TrackMenu/SmallViewports/TwistedView/Viewport"]
-transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
-light_color = Color( 1, 0.960784, 0.796078, 1 )
-light_energy = 0.25
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="OptionsMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/OptionsMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/OptionsMenu/ViewportContainer"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
-transform = Transform( -0.949857, 0, -0.312683, 0, 1, 0, 0.312683, 0, -0.949857, 261.703, 1.48928, 216.581 )
-environment = ExtResource( 73 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/OptionsMenu/ViewportContainer/Viewport"]
-transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
-light_energy = 0.5
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/OptionsMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Resolution" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_right = 234.0
-margin_bottom = 35.0
-focus_neighbour_top = NodePath("../Advanced")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "RESOLUTION"
-script = ExtResource( 10 )
-selection = "../../../../ResolutionMenu/SliderBackground/HSlider"
-hide_parent = 2
-show_parent = 2
-
-[node name="Graphics" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 39.0
-margin_right = 234.0
-margin_bottom = 74.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-disabled = true
-text = "GRAPHICS"
-script = ExtResource( 10 )
-
-[node name="FieldOfView" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 78.0
-margin_right = 234.0
-margin_bottom = 113.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "FIELD_OF_VIEW"
-script = ExtResource( 10 )
-selection = "../../../../FOVMenu/ColorRect/HSlider"
-hide_parent = 2
-show_parent = 2
-
-[node name="WindowMode" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 117.0
-margin_right = 234.0
-margin_bottom = 152.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "WINDOW_MODE"
-script = ExtResource( 10 )
-selection = "../../../WindowModeMenu/Buttons/Fullscreen"
-hide_parent = 2
-show_parent = 2
-
-[node name="Sound" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 156.0
-margin_right = 234.0
-margin_bottom = 192.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "SOUND"
-script = ExtResource( 10 )
-selection = "../../../SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider"
-hide_parent = 2
-show_parent = 3
-
-[node name="Controls" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 196.0
-margin_right = 234.0
-margin_bottom = 231.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-disabled = true
-text = "CONTROLS"
-script = ExtResource( 10 )
-
-[node name="Language" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 235.0
-margin_right = 234.0
-margin_bottom = 270.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "LANGUAGE"
-script = ExtResource( 10 )
-selection = "../../../LanguageMenu/Buttons/Automatic"
-hide_parent = 2
-show_parent = 2
-
-[node name="Accessibility" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 274.0
-margin_right = 234.0
-margin_bottom = 309.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-disabled = true
-text = "ACCESSIBILITY"
-script = ExtResource( 10 )
-
-[node name="Advanced" type="Button" parent="AspectRatioContainer/OptionsMenu/Buttons"]
-margin_top = 313.0
-margin_right = 234.0
-margin_bottom = 349.0
-focus_neighbour_bottom = NodePath("../Resolution")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "ADVANCED"
-script = ExtResource( 10 )
-selection = "../../../AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider"
-hide_parent = 2
-show_parent = 3
-
-[node name="WindowModeMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/WindowModeMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 0.787043, 0.616899, 0, -0.616899, 0.787043, -471.684, 145.827, -554.712 )
-environment = ExtResource( 74 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/WindowModeMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/WindowModeMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Fullscreen" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
-margin_right = 234.0
-margin_bottom = 113.0
-focus_neighbour_top = NodePath("../Borderless")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "FULLSCREEN"
-script = ExtResource( 16 )
-fullscreen = true
-
-[node name="WithBorder" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
-margin_top = 117.0
-margin_right = 234.0
-margin_bottom = 231.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "WINDOWED"
-script = ExtResource( 16 )
-
-[node name="Borderless" type="Button" parent="AspectRatioContainer/WindowModeMenu/Buttons"]
-margin_top = 235.0
-margin_right = 234.0
-margin_bottom = 349.0
-focus_neighbour_bottom = NodePath("../Fullscreen")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "BORDERLESS"
-script = ExtResource( 16 )
-borderless = true
-
-[node name="SoundMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/SoundMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -6.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/SoundMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/SoundMenu/ViewportContainer"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.987159, 0, -0.159743, 0, 1, 0, 0.159743, 0, 0.987159, 23.2897, 99.6438, 753.131 )
-environment = ExtResource( 74 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/SoundMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Sliders" type="ScrollContainer" parent="AspectRatioContainer/SoundMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-theme = ExtResource( 71 )
-follow_focus = true
-scroll_horizontal_enabled = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/SoundMenu/Sliders"]
-margin_right = 234.48
-margin_bottom = 349.955
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-
-[node name="SoundEffectsVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 125.0
-margin_right = 234.0
-margin_bottom = 148.0
-text = "Sound FX Volume: 50"
-autowrap = true
-
-[node name="SoundEffectsVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 152.0
-margin_right = 234.0
-margin_bottom = 172.0
-focus_neighbour_top = NodePath("../MusicVolumeSlider")
-theme = ExtResource( 71 )
-value = 50.0
-rounded = true
-scrollable = false
-script = ExtResource( 17 )
-
-[node name="MusicVolumeLabel" type="Label" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 176.0
-margin_right = 234.0
-margin_bottom = 199.0
-text = "Music Volume: 50"
-autowrap = true
-
-[node name="MusicVolumeSlider" type="HSlider" parent="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer"]
-margin_top = 203.0
-margin_right = 234.0
-margin_bottom = 223.0
-focus_neighbour_bottom = NodePath("../SoundEffectsVolumeSlider")
-theme = ExtResource( 71 )
-value = 50.0
-rounded = true
-scrollable = false
-script = ExtResource( 17 )
-audio_bus = 2
-
-[node name="Info" type="ColorRect" parent="AspectRatioContainer/SoundMenu"]
-visible = false
-anchor_top = 0.708
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="AspectRatioContainer/SoundMenu/Info"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_right = -3.0
-theme = ExtResource( 71 )
-text = "Current settings may need more than 8GB of VRAM. This can ruin performance."
-align = 1
-valign = 1
-autowrap = true
-
-[node name="LanguageMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/LanguageMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/LanguageMenu/ViewportContainer"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
-transform = Transform( -0.368709, 0, 0.929545, 0, 1, 0, -0.929545, 0, -0.368709, -238.446, 15.21, 333.107 )
-environment = ExtResource( 75 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/LanguageMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Buttons" type="VBoxContainer" parent="AspectRatioContainer/LanguageMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-alignment = 1
-
-[node name="Automatic" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
-margin_right = 234.0
-margin_bottom = 113.0
-focus_neighbour_top = NodePath("../German")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "AUTOMATIC"
-script = ExtResource( 13 )
-
-[node name="English" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
-margin_top = 117.0
-margin_right = 234.0
-margin_bottom = 231.0
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "ENGLISH"
-script = ExtResource( 13 )
-language = "en"
-
-[node name="German" type="Button" parent="AspectRatioContainer/LanguageMenu/Buttons"]
-margin_top = 235.0
-margin_right = 234.0
-margin_bottom = 349.0
-focus_neighbour_bottom = NodePath("../Automatic")
-size_flags_vertical = 3
-theme = ExtResource( 71 )
-text = "GERMAN"
-script = ExtResource( 13 )
-language = "de"
-
-[node name="AdvancedMenu" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/AdvancedMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -6.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="ViewportContainer" type="ViewportContainer" parent="AspectRatioContainer/AdvancedMenu"]
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer"]
-size = Vector2( 385, 349 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.999417, 0, 0.0341316, 0, 1, 0, -0.0341316, 0, 0.999417, -262.915, -26.9245, -568.048 )
-environment = ExtResource( 74 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 97 )
-
-[node name="Map" type="Spatial" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="AspectRatioContainer/AdvancedMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.624507, 0.2056, 0.753472, -0.764351, -0.0373541, 0.643718, 0.160493, -0.977923, 0.133822, -366.446, 151.616, -1016.59 )
-light_color = Color( 0.831373, 0.964706, 1, 1 )
-light_energy = 0.2
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Sliders" type="ScrollContainer" parent="AspectRatioContainer/AdvancedMenu"]
-anchor_left = 0.618
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-theme = ExtResource( 71 )
-follow_focus = true
-scroll_horizontal_enabled = false
-
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/AdvancedMenu/Sliders"]
-margin_right = 234.48
-margin_bottom = 995.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="AntiAliasingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_right = 224.0
-margin_bottom = 23.0
-text = "Anti-Aliasing: No MSAA"
-autowrap = true
-
-[node name="AntiAliasingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 27.0
-margin_right = 224.0
-margin_bottom = 47.0
-focus_neighbour_top = NodePath("../TransformInterpolationSlider")
-theme = ExtResource( 71 )
-max_value = 4.0
-rounded = true
-scrollable = false
-script = ExtResource( 67 )
-
-[node name="ReflectionsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 51.0
-margin_right = 224.0
-margin_bottom = 74.0
-text = "Reflections: Off"
-autowrap = true
-
-[node name="ReflectionsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 78.0
-margin_right = 224.0
-margin_bottom = 98.0
-theme = ExtResource( 71 )
-max_value = 11.0
-rounded = true
-scrollable = false
-script = ExtResource( 92 )
-
-[node name="MaterialsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 102.0
-margin_right = 224.0
-margin_bottom = 125.0
-text = "Materials: Default"
-autowrap = true
-
-[node name="MaterialsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 129.0
-margin_right = 224.0
-margin_bottom = 149.0
-theme = ExtResource( 71 )
-max_value = 2.0
-value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 94 )
-
-[node name="LightingLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 153.0
-margin_right = 224.0
-margin_bottom = 176.0
-text = "Lighting: Default"
-autowrap = true
-
-[node name="LightingSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 180.0
-margin_right = 224.0
-margin_bottom = 200.0
-theme = ExtResource( 71 )
-max_value = 2.0
-value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 95 )
-
-[node name="ViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 204.0
-margin_right = 224.0
-margin_bottom = 227.0
-text = "View Distance: 2500m"
-autowrap = true
-
-[node name="ViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 231.0
-margin_right = 224.0
-margin_bottom = 251.0
-theme = ExtResource( 71 )
-max_value = 8.0
-value = 8.0
-rounded = true
-scrollable = false
-script = ExtResource( 96 )
-
-[node name="RearViewDistanceLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 255.0
-margin_right = 224.0
-margin_bottom = 304.0
-text = "Rear View Mirror Distance: 200m"
-autowrap = true
-
-[node name="RearViewDistanceSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 308.0
-margin_right = 224.0
-margin_bottom = 328.0
-theme = ExtResource( 71 )
-max_value = 11.0
-value = 4.0
-rounded = true
-scrollable = false
-script = ExtResource( 98 )
-
-[node name="ShadowCastersLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 332.0
-margin_right = 224.0
-margin_bottom = 381.0
-text = "Shadow Casters: Default"
-autowrap = true
-
-[node name="ShadowCastersSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 385.0
-margin_right = 224.0
-margin_bottom = 405.0
-theme = ExtResource( 71 )
-max_value = 5.0
-value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 99 )
-
-[node name="ShadowSplitsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 409.0
-margin_right = 224.0
-margin_bottom = 432.0
-text = "Shadow Map Splits: 3"
-autowrap = true
-
-[node name="ShadowSplitsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 436.0
-margin_right = 224.0
-margin_bottom = 456.0
-theme = ExtResource( 71 )
-max_value = 4.0
-value = 3.0
-rounded = true
-scrollable = false
-script = ExtResource( 100 )
-
-[node name="ShadowSplitsMultiplayerLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 460.0
-margin_right = 224.0
-margin_bottom = 509.0
-text = "Shadow Map Splits (Multiplayer): 2"
-autowrap = true
-
-[node name="ShadowSplitsMultiplayerSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 513.0
-margin_right = 224.0
-margin_bottom = 533.0
-theme = ExtResource( 71 )
-max_value = 4.0
-value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 101 )
-
-[node name="ShadowResolutionLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 537.0
-margin_right = 224.0
-margin_bottom = 586.0
-text = "Shadow Resolution: 8192 x 8192"
-autowrap = true
-
-[node name="ShadowResolutionSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 590.0
-margin_right = 224.0
-margin_bottom = 610.0
-theme = ExtResource( 71 )
-max_value = 3.0
-value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 102 )
-
-[node name="RearViewShadowsLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 153.0
-margin_right = 224.0
-margin_bottom = 176.0
-text = "Rear View Shadows: Always Off"
-autowrap = true
-
-[node name="RearViewShadowsSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 180.0
-margin_right = 224.0
-margin_bottom = 200.0
-theme = ExtResource( 71 )
-max_value = 2.0
-rounded = true
-scrollable = false
-script = ExtResource( 64 )
-
-[node name="MaximumRigidBodiesLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 614.0
-margin_right = 224.0
-margin_bottom = 663.0
-text = "Maximum Rigid Bodies: 100"
-autowrap = true
-
-[node name="MaximumRigidBodiesSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 667.0
-margin_right = 224.0
-margin_bottom = 687.0
-theme = ExtResource( 71 )
-max_value = 10.0
-value = 4.0
-rounded = true
-scrollable = false
-script = ExtResource( 103 )
-
-[node name="VSyncLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 691.0
-margin_right = 224.0
-margin_bottom = 714.0
-text = "V Sync: On"
-autowrap = true
-
-[node name="VSyncSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 718.0
-margin_right = 224.0
-margin_bottom = 738.0
-theme = ExtResource( 71 )
-max_value = 1.0
-value = 1.0
-rounded = true
-scrollable = false
-script = ExtResource( 104 )
-
-[node name="ToggleMirrorLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 742.0
-margin_right = 224.0
-margin_bottom = 817.0
-text = "Rear View Mirror Frame Rate (Multiplayer): Reduced"
-autowrap = true
-
-[node name="ToggleMirrorSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 821.0
-margin_right = 224.0
-margin_bottom = 841.0
-theme = ExtResource( 71 )
-max_value = 1.0
-rounded = true
-scrollable = false
-script = ExtResource( 105 )
-
-[node name="TransformInterpolationLabel" type="Label" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 845.0
-margin_right = 224.0
-margin_bottom = 894.0
-text = "Transform Interpolation: Automatic"
-autowrap = true
-
-[node name="TransformInterpolationSlider" type="HSlider" parent="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer"]
-margin_top = 898.0
-margin_right = 224.0
-margin_bottom = 918.0
-focus_neighbour_bottom = NodePath("../AntiAliasingSlider")
-theme = ExtResource( 71 )
-max_value = 1.0
-value = 1.0
-rounded = true
-scrollable = false
-script = ExtResource( 106 )
-
-[node name="Info" type="ColorRect" parent="AspectRatioContainer/AdvancedMenu"]
-visible = false
-anchor_top = 0.708
-anchor_right = 0.618
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="AspectRatioContainer/AdvancedMenu/Info"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_right = -3.0
-theme = ExtResource( 71 )
-text = "NEED_MORE_VRAM"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Credits" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ColorRectRight" type="ColorRect" parent="AspectRatioContainer/Credits"]
-anchor_left = 0.3
-anchor_right = 0.7
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="AspectRatioContainer/Credits/ColorRectRight"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 19 )
-text = "CREDITS_LIST"
-align = 1
-valign = 1
-
-[node name="ArcadeEnd" type="Control" parent="AspectRatioContainer"]
-visible = false
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-script = ExtResource( 4 )
-
-[node name="Headline" type="Label" parent="AspectRatioContainer/ArcadeEnd"]
-anchor_top = 0.074
-anchor_right = 1.0
-anchor_bottom = 0.208
-theme = ExtResource( 11 )
-text = "Unknown Wins"
-align = 1
-
-[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer/ArcadeEnd"]
-material = ExtResource( 2 )
-anchor_left = 0.35
-anchor_top = 0.2
-anchor_right = 0.65
-anchor_bottom = 0.8
+[node name="ColorRect" type="ColorRect" parent="Current/Loading/Control"]
+anchor_left = 0.42
+anchor_top = 0.46
+anchor_right = 0.58
+anchor_bottom = 0.54
 color = Color( 0, 0, 0, 1 )
 
-[node name="Names" type="Label" parent="AspectRatioContainer/ArcadeEnd/ColorRect"]
-anchor_right = 0.697
-anchor_bottom = 1.0
-theme = ExtResource( 19 )
-text = "Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder
-Placeholder"
-align = 2
-valign = 1
-
-[node name="Scores" type="Label" parent="AspectRatioContainer/ArcadeEnd/ColorRect"]
-anchor_left = 0.739
+[node name="Label" type="Label" parent="Current/Loading/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 19 )
-text = "?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€
-?????€"
-valign = 1
-
-[node name="ResolutionMenu" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ViewportContainer" type="ViewportContainer" parent="ResolutionMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="ResolutionMenu/ViewportContainer"]
-size = Vector2( 640, 360 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="ResolutionMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.524402, 0, 0.851471, 0, 1, 0, -0.851471, 0, 0.524402, 307.292, 5.02689, 257.395 )
-environment = ExtResource( 73 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 51 )
-
-[node name="Map" type="Spatial" parent="ResolutionMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="ResolutionMenu/ViewportContainer/Viewport"]
-transform = Transform( -0.237395, 0.670145, -0.703242, -0.509961, 0.530184, 0.677381, 0.826791, 0.519433, 0.215885, 401.444, 33.9848, 243.163 )
-light_energy = 0.5
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="Warning" type="ColorRect" parent="ResolutionMenu"]
-visible = false
-anchor_left = 0.2
-anchor_top = 0.093
-anchor_right = 0.8
-anchor_bottom = 0.284
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="ResolutionMenu/Warning"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_right = -3.0
 theme = ExtResource( 71 )
-text = "NEED_MORE_VRAM"
+text = "LOADING"
 align = 1
 valign = 1
-autowrap = true
-script = ExtResource( 8 )
-
-[node name="SliderBackground" type="ColorRect" parent="ResolutionMenu"]
-anchor_left = 0.2
-anchor_top = 0.716
-anchor_right = 0.8
-anchor_bottom = 0.907
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="ResolutionMenu/SliderBackground"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 71 )
-text = "Resolution: 640 x 360"
-align = 1
-autowrap = true
-
-[node name="HSlider" type="HSlider" parent="ResolutionMenu/SliderBackground"]
-anchor_left = 0.1
-anchor_top = 0.32
-anchor_right = 0.9
-anchor_bottom = 1.0
-focus_neighbour_top = NodePath("../TransformInterpolationSlider")
-theme = ExtResource( 71 )
-min_value = -1000.0
-max_value = -1.0
-value = -1.0
-rounded = true
-scrollable = false
-script = ExtResource( 14 )
-
-[node name="FOVMenu" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ViewportContainer" type="ViewportContainer" parent="FOVMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-stretch = true
-script = ExtResource( 89 )
-
-[node name="Viewport" type="Viewport" parent="FOVMenu/ViewportContainer"]
-size = Vector2( 640, 360 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 0
-shadow_atlas_size = 4096
-script = ExtResource( 91 )
-
-[node name="Camera" type="Camera" parent="FOVMenu/ViewportContainer/Viewport"]
-transform = Transform( 0.524402, 0, 0.851471, 0, 1, 0, -0.851471, 0, 0.524402, 307.292, 5.02689, 257.395 )
-environment = ExtResource( 75 )
-fov = 75.0
-far = 2500.0
-script = ExtResource( 51 )
-
-[node name="Map" type="Spatial" parent="FOVMenu/ViewportContainer/Viewport"]
-
-[node name="DirectionalLight" type="DirectionalLight" parent="FOVMenu/ViewportContainer/Viewport"]
-transform = Transform( -0.557549, 0.705887, 0.436879, 0.0745388, -0.481574, 0.87323, 0.826791, 0.519433, 0.215885, -250.776, 37.4074, 243.163 )
-light_color = Color( 1, 0.960784, 0.796078, 1 )
-light_energy = 0.25
-shadow_enabled = true
-directional_shadow_mode = 2
-directional_shadow_fade_start = 0.9
-directional_shadow_bias_split_scale = 1.0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 324.0
-script = ExtResource( 78 )
-
-[node name="ColorRect" type="ColorRect" parent="FOVMenu"]
-anchor_left = 0.2
-anchor_top = 0.716
-anchor_right = 0.8
-anchor_bottom = 0.907
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-color = Color( 0, 0, 0, 0.603922 )
-
-[node name="Label" type="Label" parent="FOVMenu/ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 71 )
-text = "Field of View: 75°"
-align = 1
-autowrap = true
-
-[node name="HSlider" type="HSlider" parent="FOVMenu/ColorRect"]
-anchor_left = 0.1
-anchor_top = 0.32
-anchor_right = 0.9
-anchor_bottom = 1.0
-focus_neighbour_top = NodePath("../TransformInterpolationSlider")
-theme = ExtResource( 71 )
-min_value = 1.0
-max_value = 179.0
-value = 1.0
-rounded = true
-scrollable = false
-script = ExtResource( 25 )
 
 [node name="FrontContainer" type="AspectRatioContainer" parent="."]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1859,7 +269,10 @@ script = ExtResource( 58 )
 [node name="SettingsManager" type="Node" parent="."]
 script = ExtResource( 6 )
 
-[node name="MenuInputManager" type="Node" parent="."]
+[node name="MenuManager" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="MenuInputManager" type="Node" parent="MenuManager"]
 script = ExtResource( 107 )
 
 [node name="MirrorManager" type="Node" parent="."]
@@ -1874,6 +287,98 @@ script = ExtResource( 66 )
 [node name="MaterialManager" type="Node" parent="."]
 script = ExtResource( 65 )
 
+[node name="Precompiler" type="ViewportContainer" parent="MaterialManager"]
+anchor_left = -1.0
+anchor_top = -1.0
+anchor_right = -1.0
+anchor_bottom = -1.0
+margin_right = 4.0
+margin_bottom = 4.0
+script = ExtResource( 26 )
+
+[node name="Viewport" type="Viewport" parent="MaterialManager/Precompiler"]
+size = Vector2( 4, 4 )
+own_world = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+
+[node name="Camera" type="Camera" parent="MaterialManager/Precompiler/Viewport"]
+
+[node name="MeshInstance" type="MeshInstance" parent="MaterialManager/Precompiler/Viewport/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+portal_mode = 3
+mesh = SubResource( 15 )
+
+[node name="Particles" type="Spatial" parent="MaterialManager/Precompiler/Viewport/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="Particles" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 31 )]
+
+[node name="Particles2" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 29 )]
+
+[node name="Particles3" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 27 )]
+
+[node name="Particles4" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 35 )]
+
+[node name="Particles5" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 37 )]
+
+[node name="Particles6" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 36 )]
+
+[node name="Particles7" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 33 )]
+
+[node name="Particles8" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 34 )]
+script = null
+
+[node name="Particles14" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 60 )]
+script = null
+
+[node name="Particles9" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 50 )]
+
+[node name="Particles10" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 43 )]
+
+[node name="Particles13" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 57 )]
+
+[node name="Particles11" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 42 )]
+
+[node name="Particles12" parent="MaterialManager/Precompiler/Viewport/Camera/Particles" instance=ExtResource( 46 )]
+
+[node name="CPUParticles" type="Spatial" parent="MaterialManager/Precompiler/Viewport/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="CPUParticles" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 32 )]
+
+[node name="CPUParticles2" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 30 )]
+
+[node name="CPUParticles3" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 28 )]
+
+[node name="CPUParticles4" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 44 )]
+
+[node name="CPUParticles5" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 45 )]
+
+[node name="CPUParticles6" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 48 )]
+
+[node name="CPUParticles7" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 38 )]
+
+[node name="CPUParticles8" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 39 )]
+script = null
+
+[node name="CPUParticles14" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 61 )]
+script = null
+
+[node name="CPUParticles9" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 49 )]
+
+[node name="CPUParticles10" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 41 )]
+
+[node name="CPUParticles13" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 59 )]
+
+[node name="CPUParticles11" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 40 )]
+
+[node name="CPUParticles12" parent="MaterialManager/Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 47 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MaterialManager/Precompiler/Viewport/Camera"]
+environment = SubResource( 14 )
+
 [node name="DeletionManager" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 68 )
@@ -1884,98 +389,6 @@ script = ExtResource( 62 )
 
 [node name="ExtrapolationManager" type="Node" parent="."]
 script = ExtResource( 63 )
-
-[node name="Precompiler" type="ViewportContainer" parent="."]
-anchor_left = -1.0
-anchor_top = -1.0
-anchor_right = -1.0
-anchor_bottom = -1.0
-margin_right = 4.0
-margin_bottom = 4.0
-script = ExtResource( 26 )
-
-[node name="Viewport" type="Viewport" parent="Precompiler"]
-size = Vector2( 4, 4 )
-own_world = true
-handle_input_locally = false
-render_target_update_mode = 3
-shadow_atlas_size = 4096
-
-[node name="Camera" type="Camera" parent="Precompiler/Viewport"]
-
-[node name="MeshInstance" type="MeshInstance" parent="Precompiler/Viewport/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-portal_mode = 3
-mesh = SubResource( 15 )
-
-[node name="Particles" type="Spatial" parent="Precompiler/Viewport/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-
-[node name="Particles" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 31 )]
-
-[node name="Particles2" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 29 )]
-
-[node name="Particles3" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 27 )]
-
-[node name="Particles4" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 35 )]
-
-[node name="Particles5" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 37 )]
-
-[node name="Particles6" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 36 )]
-
-[node name="Particles7" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 33 )]
-
-[node name="Particles8" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 34 )]
-script = null
-
-[node name="Particles14" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 60 )]
-script = null
-
-[node name="Particles9" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 50 )]
-
-[node name="Particles10" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 43 )]
-
-[node name="Particles13" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 57 )]
-
-[node name="Particles11" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 42 )]
-
-[node name="Particles12" parent="Precompiler/Viewport/Camera/Particles" instance=ExtResource( 46 )]
-
-[node name="CPUParticles" type="Spatial" parent="Precompiler/Viewport/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-
-[node name="CPUParticles" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 32 )]
-
-[node name="CPUParticles2" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 30 )]
-
-[node name="CPUParticles3" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 28 )]
-
-[node name="CPUParticles4" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 44 )]
-
-[node name="CPUParticles5" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 45 )]
-
-[node name="CPUParticles6" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 48 )]
-
-[node name="CPUParticles7" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 38 )]
-
-[node name="CPUParticles8" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 39 )]
-script = null
-
-[node name="CPUParticles14" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 61 )]
-script = null
-
-[node name="CPUParticles9" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 49 )]
-
-[node name="CPUParticles10" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 41 )]
-
-[node name="CPUParticles13" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 59 )]
-
-[node name="CPUParticles11" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 40 )]
-
-[node name="CPUParticles12" parent="Precompiler/Viewport/Camera/CPUParticles" instance=ExtResource( 47 )]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Precompiler/Viewport/Camera"]
-environment = SubResource( 14 )
 
 [node name="GlobalAudio" type="Node" parent="."]
 script = ExtResource( 76 )
@@ -2002,94 +415,40 @@ starts = PoolRealArray( 0.21, 5.76, 12, 17.36 )
 wait_time = 4.0
 one_shot = true
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ButtonPressAudio" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 23 )
+bus = "Effects"
+script = ExtResource( 9 )
+
+[node name="EscapeAudio" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 24 )
+bus = "Effects"
+script = ExtResource( 9 )
+
+[node name="SliderChangeAudio" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 90 )
+bus = "Effects"
+script = ExtResource( 9 )
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="GlobalAudio"]
 pause_mode = 2
 stream = ExtResource( 21 )
 bus = "Music"
 script = ExtResource( 20 )
 
-[node name="NextStreamTimer" type="Timer" parent="MusicPlayer"]
+[node name="NextStreamTimer" type="Timer" parent="GlobalAudio/MusicPlayer"]
 script = ExtResource( 56 )
 
-[node name="ButtonPressAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 23 )
-bus = "Effects"
-
-[node name="SliderChangeAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 90 )
-bus = "Effects"
-
-[node name="ReturnAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 24 )
-bus = "Effects"
-
-[node name="MenuTimer" type="Timer" parent="."]
+[node name="MenuTimer" type="Timer" parent="GlobalAudio/MusicPlayer"]
 wait_time = 600.0
 one_shot = true
 autostart = true
 script = ExtResource( 55 )
 
-[connection signal="item_rect_changed" from="." to="." method="_on_RootControl_item_rect_changed"]
-[connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Multiplayer" to="AspectRatioContainer/MainMenu/Multiplayer" method="_on_Multiplayer_visibility_changed"]
-[connection signal="visibility_changed" from="AspectRatioContainer/MainMenu/Level" to="AspectRatioContainer/MainMenu/Level" method="_on_Level_visibility_changed"]
-[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players2" to="AspectRatioContainer/MainMenu/PlayerAmount/Players2" method="_on_Players2_focus_exited"]
-[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players3" to="AspectRatioContainer/MainMenu/PlayerAmount/Players3" method="_on_Players3_focus_exited"]
-[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players4" to="AspectRatioContainer/MainMenu/PlayerAmount/Players4" method="_on_Players4_focus_exited"]
-[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players5" to="AspectRatioContainer/MainMenu/PlayerAmount/Players5" method="_on_Players5_focus_exited"]
-[connection signal="focus_exited" from="AspectRatioContainer/MainMenu/PlayerAmount/Players6" to="AspectRatioContainer/MainMenu/PlayerAmount/Players6" method="_on_Players6_focus_exited"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Downpour" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Downpour_focus_entered"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/TheCalm" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_TheCalm_focus_entered"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Pillars" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Pillars_focus_entered"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Sunbreaker" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Sunbreaker_focus_entered"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Below" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Below_focus_entered"]
-[connection signal="focus_entered" from="AspectRatioContainer/TrackMenu/Buttons/Twisted" to="AspectRatioContainer/TrackMenu/SelectedView/Viewport" method="_on_Twisted_focus_entered"]
-[connection signal="visibility_changed" from="AspectRatioContainer/SoundMenu" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" method="_on_SoundMenu_visibility_changed"]
-[connection signal="visibility_changed" from="AspectRatioContainer/SoundMenu" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" method="_on_SoundMenu_visibility_changed"]
-[connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/SoundEffectsVolumeSlider" method="_on_SoundEffectsVolumeSlider_value_changed"]
-[connection signal="value_changed" from="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" to="AspectRatioContainer/SoundMenu/Sliders/VBoxContainer/MusicVolumeSlider" method="_on_MusicVolumeSlider_value_changed"]
-[connection signal="drag_ended" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_drag_ended"]
-[connection signal="draw" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_draw"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/AntiAliasingSlider" method="_on_AntiAliasingSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ReflectionsSlider" method="_on_ReflectionsSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaterialsSlider" method="_on_MaterialsSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/LightingSlider" method="_on_LightingSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ViewDistanceSlider" method="_on_ViewDistanceSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewDistanceSlider" method="_on_RearViewDistanceSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowCastersSlider" method="_on_ShadowCastersSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsSlider" method="_on_ShadowSplitsSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowSplitsMultiplayerSlider" method="_on_ShadowSplitsMultiplayerSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ShadowResolutionSlider" method="_on_ShadowResolutionSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/RearViewShadowsSlider" method="_on_LightingSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/MaximumRigidBodiesSlider" method="_on_MaximumRigidBodiesSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/VSyncSlider" method="_on_VSyncSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/ToggleMirrorSlider" method="_on_ToggleMirrorSlider_value_changed"]
-[connection signal="focus_entered" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_focus_entered"]
-[connection signal="value_changed" from="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" to="AspectRatioContainer/AdvancedMenu/Sliders/VBoxContainer/TransformInterpolationSlider" method="_on_TransformInterpolationSlider_value_changed"]
-[connection signal="draw" from="ResolutionMenu/ViewportContainer" to="ResolutionMenu/SliderBackground/HSlider" method="_on_ViewportContainer_draw"]
-[connection signal="drag_ended" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_drag_ended"]
-[connection signal="focus_entered" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_focus_entered"]
-[connection signal="value_changed" from="ResolutionMenu/SliderBackground/HSlider" to="ResolutionMenu/SliderBackground/HSlider" method="_on_AntiAliasingSlider_value_changed"]
-[connection signal="drag_ended" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_drag_ended"]
-[connection signal="focus_entered" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_focus_entered"]
-[connection signal="value_changed" from="FOVMenu/ColorRect/HSlider" to="FOVMenu/ColorRect/HSlider" method="_on_AntiAliasingSlider_value_changed"]
 [connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
-[connection signal="resources_loaded" from="LoadingManager" to="MusicPlayer" method="_on_LoadingManager_resources_loaded"]
-[connection signal="visibility_changed" from="Precompiler" to="Precompiler" method="_on_Precompiler_visibility_changed"]
+[connection signal="visibility_changed" from="MaterialManager/Precompiler" to="MaterialManager/Precompiler" method="_on_Precompiler_visibility_changed"]
+[connection signal="resources_loaded" from="LoadingManager" to="GlobalAudio/MusicPlayer" method="_on_LoadingManager_resources_loaded"]
 [connection signal="timeout" from="GlobalAudio/KillImpact/Timer" to="GlobalAudio/KillImpact" method="_on_Timer_timeout"]
 [connection signal="timeout" from="GlobalAudio/SniperImpact/Timer" to="GlobalAudio/SniperImpact" method="_on_Timer_timeout"]
-[connection signal="timeout" from="MenuTimer" to="MusicPlayer" method="_on_MenuTimer_timeout"]
-[connection signal="tree_entered" from="MenuTimer" to="MenuTimer" method="_on_MenuTimer_tree_entered"]
+[connection signal="timeout" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer" method="_on_MenuTimer_timeout"]
+[connection signal="tree_entered" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer/MenuTimer" method="_on_MenuTimer_tree_entered"]

@@ -1,4 +1,4 @@
-extends AudioStreamPlayer
+extends GlobalAudioPlayer
 
 
 export var starts: PoolRealArray

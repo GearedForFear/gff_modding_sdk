@@ -48,9 +48,9 @@ func _enter_tree():
 				viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
 				viewport.render_target_clear_mode = \
 						Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
-			delete($CameraBase)
+			DeletionManager.add_to_stack($CameraBase)
 		else:
-			delete(get_node("../StuckTimer"))
+			DeletionManager.add_to_stack(get_node("../StuckTimer"))
 		
 		if is_in_group("heist_target"):
 			get_parent().rotation = -track.get_node("TargetStartSpawn").rotation
@@ -63,11 +63,11 @@ func _enter_tree():
 			gameplay_manager.pursuers.append(self)
 			
 			if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-				delete($ExplosionCPUParticles)
-				delete($DeathCPUParticles)
+				DeletionManager.add_to_stack($ExplosionCPUParticles)
+				DeletionManager.add_to_stack($DeathCPUParticles)
 			else:
-				delete($ExplosionParticles)
-				delete($DeathParticles)
+				DeletionManager.add_to_stack($ExplosionParticles)
+				DeletionManager.add_to_stack($DeathParticles)
 				$ExplosionCPUParticles.name = "ExplosionParticles"
 				$DeathCPUParticles.name = "DeathParticles"
 		
@@ -358,10 +358,6 @@ func pause_looping_audio():
 	for n in gameplay_manager.pursuers:
 		for audio in n.get_node("LoopingAudio").get_children():
 			audio.stream_paused = true
-
-
-func delete(node: Node):
-	get_node("/root/RootControl/DeletionManager").to_be_deleted.append(node)
 
 
 func get_vehicle_name() -> String: #overridden in vehicle-specific scripts

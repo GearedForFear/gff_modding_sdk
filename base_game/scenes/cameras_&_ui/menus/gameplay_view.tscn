@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/gameplay_view.gd" type="Script" id=1]
+
+[node name="Current" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 117.0
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+visible = false
+margin_right = 640.0
+margin_bottom = 117.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+margin_top = 121.0
+margin_right = 640.0
+margin_bottom = 238.0
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer2"]
+visible = false
+margin_right = 640.0
+margin_bottom = 117.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+margin_top = 242.0
+margin_right = 640.0
+margin_bottom = 360.0
+size_flags_vertical = 3

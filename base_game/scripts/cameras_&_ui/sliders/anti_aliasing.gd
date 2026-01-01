@@ -1,16 +1,14 @@
-extends HSlider
+extends SettingsSlider
 
 
 const LABEL_PATH = "../AntiAliasingLabel"
 
 
 func _enter_tree():
-	var root_control: Control = get_node("/root/RootControl")
-	value = root_control.config.get_value("graphics", "msaa", 0)
-	root_control.get_node("SettingsManager").msaa = value
+	value = SettingsManager.get_this().msaa
 
 
-func _draw():
+func update_label():
 	var label: Label = get_node(LABEL_PATH)
 	label.text = tr("AA") + ": "
 	match value:
@@ -27,20 +25,12 @@ func _draw():
 
 
 func _on_AntiAliasingSlider_focus_entered():
-	get_node("../..").ensure_control_visible(get_node(LABEL_PATH))
+	ensure_label_visible(LABEL_PATH)
 
 
 func _on_AntiAliasingSlider_value_changed(value):
-	var root_control: Control = get_node("/root/RootControl")
-	var settings_manager: Node = root_control.get_node("SettingsManager")
-	var config: ConfigFile = root_control.config
-	settings_manager.msaa = value
-	settings_manager.apply_settings()
+	SettingsManager.get_this().msaa = value
+	var config: ConfigFile = SettingsManager.get_config()
 	config.set_value("graphics", "msaa", value)
 	config.save("user://config.cfg")
-	root_control.get_node("SliderChangeAudio").play()
-	_draw()
-
-
-func _on_AntiAliasingSlider_draw():
-	get_node("../../../Info").visible = Resolution.vram_hungry()
+	update_setting()

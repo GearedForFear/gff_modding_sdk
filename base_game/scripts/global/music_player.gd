@@ -16,7 +16,8 @@ var next_finish: int
 
 
 static func get_this() -> MusicPlayer:
-	return Global.root_control.get_node("MusicPlayer") as MusicPlayer
+	return Global.root_control.get_node("GlobalAudio/MusicPlayer") \
+			as MusicPlayer
 
 
 func start(start_state: MusicState, round_timer: Timer):

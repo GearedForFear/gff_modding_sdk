@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
-[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=2]
+[ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=2]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/missilodon.material" type="Material" id=7]
-[ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=16]
 [ext_resource path="res://resources/materials/vehicles/missilodon/stock.material" type="Material" id=17]
 [ext_resource path="res://resources/meshes/vehicles/missilodon_teeth.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
@@ -44,9 +43,7 @@ damping_compression = 0.88
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 3
-mirror = true
+script = ExtResource( 2 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, 0.642758, 1.7332 )
@@ -63,8 +60,7 @@ transform = Transform( -1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 7 )
-script = ExtResource( 16 )
-required_setting = 3
+script = ExtResource( 2 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17043, 0.642735, -1.85549 )
@@ -79,9 +75,7 @@ damping_compression = 0.88
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 27 )
-script = ExtResource( 16 )
-required_setting = 3
-mirror = true
+script = ExtResource( 2 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17, 0.642758, -1.85549 )
@@ -97,8 +91,7 @@ transform = Transform( -1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0 )
 portal_mode = 3
 mesh = ExtResource( 24 )
 material/0 = ExtResource( 27 )
-script = ExtResource( 16 )
-required_setting = 3
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 6 )
@@ -109,7 +102,6 @@ portal_mode = 3
 mesh = ExtResource( 28 )
 material/0 = ExtResource( 17 )
 script = ExtResource( 2 )
-required_setting = 1
 
 [node name="Teeth" type="MeshInstance" parent="."]
 portal_mode = 3
@@ -118,4 +110,3 @@ mesh = ExtResource( 19 )
 skeleton = NodePath("../BodyMesh")
 material/0 = ExtResource( 29 )
 script = ExtResource( 2 )
-required_setting = 4
