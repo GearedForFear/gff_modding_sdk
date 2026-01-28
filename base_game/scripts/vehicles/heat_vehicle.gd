@@ -18,6 +18,20 @@ func _physics_process(_delta):
 		delay_overheat = false
 
 
+func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
+		-> int:
+	if alive:
+		change_heat(burn)
+	.damage(amount, 0, burn, shooter)
+	return 0
+
+
+func reward(amount: int):
+	if alive:
+		change_heat(-amount)
+	.reward(amount)
+
+
 func change_heat(var amount: float):
 	heat += amount
 	delay_overheat = true
@@ -47,6 +61,11 @@ func overheat():
 	apply_central_impulse(transform.basis.y * impulse)
 	damage(damage, 0, 0.0, null)
 	heat = 20.0
+
+
+func _on_RespawnTimer_timeout():
+	remove_heat()
+	._on_RespawnTimer_timeout()
 
 
 func _on_AnimationPlayerHeat_animation_finished(_anim_name):

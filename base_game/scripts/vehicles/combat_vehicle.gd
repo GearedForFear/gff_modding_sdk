@@ -2,26 +2,19 @@ class_name CombatVehicle
 extends VehicleBody
 
 
-enum BoostTypes {NITRO, ROCKET, NONE, BURST, OVERCHARGE}
-
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
 
 export var base_health: float = 100.0
 export var base_engine_force: float = 40.0
-export(BoostTypes) var base_boost_type: int = BoostTypes.NITRO
-export var nitro_force: float = 400.0
-export var rocket_force: float = 15.0
-export var burst_force: float = 400.0
-export var overcharge_force: float = 400.0
 export var master_body: bool = true
 export var scene_resource: String = "res://scenes/vehicles/.tscn"
+export var body_values: Resource
 
 var steer_target: float = 0.0
 var alive: bool = false
 var max_drift_left: float = 20.0
 var max_drift_right: float = -20.0
-var burst_duration: int = 0
 var acid_duration: int = 0
 var acid_cause: CombatVehicle
 var scoreboard_record: ScoreboardRecord
@@ -33,7 +26,7 @@ var gameplay_manager: Node
 var pools: Node
 
 onready var health: float = base_health
-onready var boost_type: int = base_boost_type
+onready var boost: Boost = body_values.boost
 onready var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
 
 
@@ -65,13 +58,23 @@ func _enter_tree():
 			if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 				DeletionManager.add_to_stack($ExplosionCPUParticles)
 				DeletionManager.add_to_stack($DeathCPUParticles)
+				DeletionManager.add_to_stack($DriftCPUParticles)
+				DeletionManager.add_to_stack($AcidCPUParticles)
 			else:
 				DeletionManager.add_to_stack($ExplosionParticles)
 				DeletionManager.add_to_stack($DeathParticles)
+				DeletionManager.add_to_stack($DriftParticles)
+				DeletionManager.add_to_stack($AcidParticles)
 				$ExplosionCPUParticles.name = "ExplosionParticles"
 				$DeathCPUParticles.name = "DeathParticles"
+				$DriftCPUParticles.name = "DriftParticles"
+				$AcidCPUParticles.name = "AcidParticles"
 		
 		reset_physics_interpolation()
+
+
+func _ready():
+	boost.prepare(self)
 
 
 func _physics_process(_delta):
@@ -81,7 +84,7 @@ func _physics_process(_delta):
 		get_tree().paused = true
 	
 	if alive:
-		var acceleration_factor: float = 0.0
+		var acceleration_factor: float
 		
 		if controls == null and target != null:
 			var direction: Vector3 = global_translation.direction_to(\
@@ -98,117 +101,7 @@ func _physics_process(_delta):
 					- Input.get_action_strength(controls.turn_right_strength)
 			brake = 0.0
 			
-			if Input.is_action_pressed(controls.boost):
-				match boost_type:
-					BoostTypes.NITRO:
-						acceleration_factor = nitro_force
-						if $WheelBackLeft.is_in_contact() or \
-								$WheelBackRight.is_in_contact():
-							apply_impulse(-transform.basis.y * weight / 200, \
-									transform.basis.z * 2)
-						$LoopingAudio/NitroAudio.stream_paused = false
-						if gles3:
-							for n in $NitroParticles.get_children():
-								n.emitting = true
-						else:
-							for n in $NitroCPUParticles.get_children():
-								n.emitting = true
-					BoostTypes.ROCKET:
-						if Input.is_action_pressed(controls.reverse):
-							apply_central_impulse(transform.basis.z \
-									* -rocket_force)
-							$LoopingAudio/RocketAudio.stream_paused = true
-							$LoopingAudio/ReverseRocketAudio.stream_paused = false
-							if gles3:
-								for n in $ReverseRocketParticles.get_children():
-									n.emitting = true
-								for n in $RocketParticles.get_children():
-									n.emitting = false
-							else:
-								for n in $ReverseRocketCPUParticles.get_children():
-									n.emitting = true
-								for n in $RocketCPUParticles.get_children():
-									n.emitting = false
-						else:
-							apply_central_impulse(transform.basis.z \
-									* rocket_force)
-							$LoopingAudio/RocketAudio.stream_paused = false
-							$LoopingAudio/ReverseRocketAudio.stream_paused = true
-							if gles3:
-								for n in $RocketParticles.get_children():
-									n.emitting = true
-								for n in $ReverseRocketParticles.get_children():
-									n.emitting = false
-							else:
-								for n in $RocketCPUParticles.get_children():
-									n.emitting = true
-								for n in $ReverseRocketCPUParticles.get_children():
-									n.emitting = false
-						acceleration_factor = base_engine_force
-					BoostTypes.OVERCHARGE:
-						change_heat(0.5)
-						acceleration_factor = overcharge_force
-						$LoopingAudio/NitroAudio.stream_paused = false
-						if gles3:
-							for n in $OverchargeParticles.get_children():
-								n.emitting = true
-						else:
-							for n in $OverchargeCPUParticles.get_children():
-								n.emitting = true
-			else:
-				match boost_type:
-					BoostTypes.NITRO:
-						$LoopingAudio/NitroAudio.stream_paused = true
-						if gles3:
-							for n in $NitroParticles.get_children():
-								n.emitting = false
-						else:
-							for n in $NitroCPUParticles.get_children():
-								n.emitting = false
-					BoostTypes.ROCKET:
-						$LoopingAudio/RocketAudio.stream_paused = true
-						$LoopingAudio/ReverseRocketAudio.stream_paused = true
-						if gles3:
-							for n in $RocketParticles.get_children():
-								n.emitting = false
-							for n in $ReverseRocketParticles.get_children():
-								n.emitting = false
-						else:
-							for n in $RocketCPUParticles.get_children():
-								n.emitting = false
-							for n in $ReverseRocketCPUParticles.get_children():
-								n.emitting = false
-					BoostTypes.OVERCHARGE:
-						$LoopingAudio/NitroAudio.stream_paused = true
-						if gles3:
-							for n in $OverchargeParticles.get_children():
-								n.emitting = false
-						else:
-							for n in $OverchargeCPUParticles.get_children():
-								n.emitting = false
-			
-			if Input.is_action_just_pressed(controls.boost) \
-					and boost_type == BoostTypes.BURST:
-				var lv: int = burst()
-				burst_duration = 6 * lv
-				$LoopingAudio/BurstAudio.unit_size = lv * 0.5
-				$LoopingAudio/BurstAudio.play()
-			if burst_duration > 0:
-				burst_duration -= 1
-				acceleration_factor = burst_force * 1000
-				if gles3:
-					for n in $BurstParticles.get_children():
-						n.emitting = true
-				else:
-					for n in $BurstCPUParticles.get_children():
-						n.emitting = true
-			elif boost_type == BoostTypes.BURST:
-				if gles3:
-					for n in $BurstParticles.get_children():
-						n.emitting = false
-				else:
-					for n in $BurstCPUParticles.get_children():
-						n.emitting = false
+			acceleration_factor = try_boost()
 			
 			if Input.is_action_pressed(controls.reverse):
 				if acceleration_factor != 0.0:
@@ -235,20 +128,12 @@ func _physics_process(_delta):
 				max_drift_left = clamp(max_drift_left - impulse, 0, 20)
 				max_drift_right = clamp(max_drift_right - impulse, -20, 0)
 				$LoopingAudio/DriftAudio.stream_paused = false
-				if gles3:
-					for n in $DriftParticles.get_children():
-						n.emitting = true
-				else:
-					for n in $DriftCPUParticles.get_children():
-						n.emitting = true
+				for n in $DriftParticles.get_children():
+					n.emitting = true
 			else:
 				$LoopingAudio/DriftAudio.stream_paused = true
-				if gles3:
-					for n in $DriftParticles.get_children():
-						n.emitting = false
-				else:
-					for n in $DriftCPUParticles.get_children():
-						n.emitting = false
+				for n in $DriftParticles.get_children():
+					n.emitting = false
 			
 			if Input.is_action_just_pressed(controls.respawn):
 				get_viewport().stop()
@@ -271,19 +156,11 @@ func _physics_process(_delta):
 		if acid_duration > 0:
 			damage(0.1, 0, 0.0, acid_cause)
 			acid_duration -= 1
-			if gles3:
-				for n in $AcidParticles.get_children():
-					n.emitting = true
-			else:
-				for n in $AcidCPUParticles.get_children():
-					n.emitting = true
+			for n in $AcidParticles.get_children():
+				n.emitting = true
 		else:
-			if gles3:
-				for n in $AcidParticles.get_children():
-					n.emitting = false
-			else:
-				for n in $AcidCPUParticles.get_children():
-					n.emitting = false
+			for n in $AcidParticles.get_children():
+				n.emitting = false
 	else:
 		engine_force = 0.0
 	
@@ -301,7 +178,6 @@ func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 		-> int:
 	if alive:
 		health -= amount
-		change_heat(burn)
 		if health <= 0:
 			if shooter == null:
 				health = 0
@@ -335,23 +211,18 @@ func reward(amount: int):
 	scoreboard_record.reward(amount)
 	if alive:
 		health = clamp(health + amount, 0.0, base_health)
-		change_heat(-amount)
 		acid_duration = 0
 		acid_cause = null
 		if controls == null:
 			get_node("../StuckTimer").start()
 
 
-func burst() -> int: #overridden in level_vehicle.gd
-	return 0
-
-
-func change_heat(var _amount: float): #overridden in heat_vehicle.gd
-	pass
-
-
-func remove_heat(): #overridden in heat_vehicle.gd
-	pass
+func try_boost() -> float:
+	if Input.is_action_pressed(controls.boost):
+		return boost.use(self)
+	else:
+		boost.set_effects(self, false)
+		return 0.0
 
 
 func pause_looping_audio():
@@ -425,7 +296,6 @@ func random_skin(var body_path: String, var wheels_path: String) -> String:
 func _on_RespawnTimer_timeout():
 	alive = true
 	health = base_health
-	remove_heat()
 	if controls == null:
 		get_node("../StuckTimer").start()
 	$DeathParticles.emitting = false

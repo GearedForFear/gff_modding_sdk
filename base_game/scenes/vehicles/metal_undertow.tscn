@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/vehicles/metal_undertow.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/metal_undertow.material" type="Material" id=28]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=29]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=30]
+[ext_resource path="res://resources/custom/vehicle_values/metal_undertow/body.tres" type="Resource" id=31]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -55,10 +56,13 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 106.0
 base_engine_force = 185.76
+base_boost_type = null
 nitro_force = 3096.0
 rocket_force = 0.0
 burst_force = 0.0
+overcharge_force = null
 scene_resource = "res://scenes/vehicles/metal_undertow.tscn"
+body_values = ExtResource( 31 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799597, 0.130678, 1.7008 )

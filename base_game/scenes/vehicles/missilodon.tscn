@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scripts/vehicles/missilodon.gd" type="Script" id=1]
 [ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://resources/custom/vehicle_values/missilodon/missile.tres" type="Resource" id=32]
 [ext_resource path="res://scenes/particles/missile_launch_smoke.tscn" type="PackedScene" id=33]
 [ext_resource path="res://scenes/particles/missile_launch_smoke_cpu.tscn" type="PackedScene" id=34]
+[ext_resource path="res://resources/custom/vehicle_values/missilodon/body.tres" type="Resource" id=35]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -65,6 +66,7 @@ rocket_force = 236.52
 burst_force = 0.0
 overcharge_force = 0.0
 scene_resource = "res://scenes/vehicles/missilodon.tscn"
+body_values = ExtResource( 35 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17004, 0.642758, 1.7332 )

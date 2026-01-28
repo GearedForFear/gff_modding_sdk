@@ -189,9 +189,7 @@ func split(var b: bool):
 	$WheelBackLeft2.visible = not b
 	$WheelBackRight2.visible = not b
 	$RocketParticles.visible = not b
-	$RocketCPUParticles.visible = not b
 	$ReverseRocketParticles.visible = not b
-	$ReverseRocketCPUParticles.visible = not b
 	front_half.visible = b
 	back_half.visible = b
 	get_viewport().stop()

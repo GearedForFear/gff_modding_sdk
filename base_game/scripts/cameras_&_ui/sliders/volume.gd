@@ -9,13 +9,13 @@ export(GlobalEnums.AudioBuses) var audio_bus = 1
 
 func _enter_tree():
 	value = SettingsManager.get_config().get_value(
-			"audio", Utils.audio_bus_to_string(audio_bus), 50)
+			"audio", Audio.bus_to_string(audio_bus), 50)
 
 
 func update():
 	GlobalAudio.play("SliderChangeAudio")
 	var config: ConfigFile = SettingsManager.get_config()
-	config.set_value("audio", Utils.audio_bus_to_string(audio_bus), value)
+	config.set_value("audio", Audio.bus_to_string(audio_bus), value)
 	config.save("user://config.cfg")
 	
 	match audio_bus:

@@ -41,7 +41,7 @@ func start():
 	OS.window_fullscreen = config.get_value("graphics", "fullscreen", true)
 	for n in [1, 2]:
 		var volume: float = config.get_value(
-				"audio", Utils.audio_bus_to_string(n), 50)
+				"audio", Audio.bus_to_string(n), 50)
 		AudioServer.set_bus_volume_db(n, linear2db(volume / 100))
 	var language: String = config.get_value("ui", "language", "")
 	if language == "":

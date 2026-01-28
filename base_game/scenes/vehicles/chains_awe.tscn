@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://resources/animations/vehicles/chains_awe/death.anim" type="Animation" id=38]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/chains_awe.material" type="Material" id=39]
 [ext_resource path="res://resources/animations/vehicles/chains_awe/RESET.anim" type="Animation" id=40]
+[ext_resource path="res://resources/custom/vehicle_values/chains_awe/body.tres" type="Resource" id=41]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -393,10 +394,8 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 116.0
 base_engine_force = 264.0
-nitro_force = 3080.0
-rocket_force = 0.0
-burst_force = 0.0
 scene_resource = "res://scenes/vehicles/chains_awe.tscn"
+body_values = ExtResource( 41 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.925, 0.197, 2.411 )

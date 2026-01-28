@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/vehicles/fungibber.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/fungibber.material" type="Material" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resources/custom/vehicle_values/fungibber/body.tres" type="Resource" id=13]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/fungibber.tres" type="ArrayMesh" id=19]
 
@@ -41,10 +42,8 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 0.0
 base_engine_force = 384.0
-nitro_force = 3200.0
-rocket_force = 0.0
-burst_force = 0.0
 scene_resource = "res://scenes/vehicles/fungibber.tscn"
+body_values = ExtResource( 13 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13288, 0.142987, 2.78646 )

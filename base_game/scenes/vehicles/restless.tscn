@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -43,6 +43,9 @@
 [ext_resource path="res://resources/animations/vehicles/restless/death.anim" type="Animation" id=41]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/restless.material" type="Material" id=42]
 [ext_resource path="res://resources/animations/vehicles/restless/RESET.anim" type="Animation" id=43]
+[ext_resource path="res://resources/custom/vehicle_values/restless/body.tres" type="Resource" id=44]
+[ext_resource path="res://scripts/gadgets/boost_switch.gd" type="Script" id=45]
+[ext_resource path="res://resources/custom/vehicle_values/restless/second_boost.tres" type="Resource" id=46]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -260,11 +263,8 @@ mass = 183.673
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_engine_force = 165.6
-base_boost_type = 2
-nitro_force = 4320.0
-rocket_force = 113.4
-burst_force = 0.0
 scene_resource = "res://scenes/vehicles/restless.tscn"
+body_values = ExtResource( 44 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.101966, 1.5867 )
@@ -562,13 +562,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668589, 0 )
 
 [node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 38 )]
 
-[node name="OpenAudio" type="AudioStreamPlayer3D" parent="Body"]
+[node name="BoostSwitch" type="Spatial" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526351, -1.38123 )
+script = ExtResource( 45 )
+second_boost = ExtResource( 46 )
+
+[node name="OpenAudio" type="AudioStreamPlayer3D" parent="Body/BoostSwitch"]
 stream = ExtResource( 33 )
 bus = "Effects"
 
-[node name="CloseAudio" type="AudioStreamPlayer3D" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526351, -1.38123 )
+[node name="CloseAudio" type="AudioStreamPlayer3D" parent="Body/BoostSwitch"]
 stream = ExtResource( 32 )
 bus = "Effects"
 

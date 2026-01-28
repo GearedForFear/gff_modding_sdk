@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/well_raised.material" type="Material" id=2]
 [ext_resource path="res://resources/materials/vehicles/well_raised/stock.material" type="Material" id=3]
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=4]
 [ext_resource path="res://scenes/merge_groups/wr_guns.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/custom/vehicle_values/well_raised/body.tres" type="Resource" id=6]
 [ext_resource path="res://resources/meshes/vehicles/well_raised.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 
@@ -22,10 +23,7 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 94.0
 base_engine_force = 274.4
-nitro_force = 0.0
-rocket_force = 0.0
-burst_force = 3449.6
-overcharge_force = 0.0
+body_values = ExtResource( 6 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, 1.44936 )

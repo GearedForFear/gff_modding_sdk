@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/vehicles/suicide_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://scripts/weapon_compontents/gun.gd" type="Script" id=28]
 [ext_resource path="res://resources/custom/vehicle_values/suicide_door/missile_static_target.tres" type="Resource" id=29]
 [ext_resource path="res://resources/custom/vehicle_values/suicide_door/missile_dynamic_target.tres" type="Resource" id=30]
+[ext_resource path="res://resources/custom/vehicle_values/suicide_door/body.tres" type="Resource" id=31]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -55,10 +56,13 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 124.0
 base_engine_force = 262.08
+base_boost_type = null
 nitro_force = 4737.6
 rocket_force = 0.0
 burst_force = 0.0
+overcharge_force = null
 scene_resource = "res://scenes/vehicles/suicide_door.tscn"
+body_values = ExtResource( 31 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87661, 0.161023, 1.97808 )

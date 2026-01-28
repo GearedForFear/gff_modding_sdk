@@ -27,8 +27,6 @@ var next_out: int = cartridge_out.NONE
 
 
 func _ready():
-	boost_type = BoostTypes.NITRO
-	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		DeletionManager.add_to_stack($ShotgunFlash/CPUParticles)
 		DeletionManager.add_to_stack($SniperFlash/CPUParticles)
@@ -37,6 +35,8 @@ func _ready():
 		DeletionManager.add_to_stack($ShotgunFlash/Particles)
 		DeletionManager.add_to_stack($SniperFlash/Particles)
 		DeletionManager.add_to_stack($MachineGunFlash/Particles)
+	
+	$BoostSwitch.second_boost.prepare(self)
 
 
 func _physics_process(_delta):
@@ -120,33 +120,7 @@ func _physics_process(_delta):
 					and Input.is_action_pressed(controls.weapon_right):
 				shoot_lmg()
 			if Input.is_action_just_pressed(controls.weapon_back):
-				if boost_type == BoostTypes.NITRO:
-					boost_type = BoostTypes.ROCKET
-					get_node("../AnimationPlayer").play("nitro_rocket")
-					$OpenAudio.play()
-					$LoopingAudio/NitroAudio.stream_paused = true
-					if gles3:
-						for n in $NitroParticles.get_children():
-							n.emitting = false
-					else:
-						for n in $NitroCPUParticles.get_children():
-							n.emitting = false
-				else:
-					boost_type = BoostTypes.NITRO
-					get_node("../AnimationPlayer").play("rocket_nitro")
-					$CloseAudio.play()
-					$LoopingAudio/RocketAudio.stream_paused = true
-					$LoopingAudio/ReverseRocketAudio.stream_paused = true
-					if gles3:
-						for n in $RocketParticles.get_children():
-							n.emitting = false
-						for n in $ReverseRocketParticles.get_children():
-							n.emitting = false
-					else:
-						for n in $RocketCPUParticles.get_children():
-							n.emitting = false
-						for n in $ReverseRocketCPUParticles.get_children():
-							n.emitting = false
+				$BoostSwitch.use(self)
 
 
 

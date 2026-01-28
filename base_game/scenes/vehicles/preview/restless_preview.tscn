@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/restless.material" type="Material" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://resources/materials/vehicles/restless_door/stock.material" type="Material" id=4]
 [ext_resource path="res://resources/meshes/vehicles/restless.tres" type="ArrayMesh" id=5]
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=6]
+[ext_resource path="res://resources/custom/vehicle_values/restless/second_boost.tres" type="Resource" id=7]
+[ext_resource path="res://resources/custom/vehicle_values/restless/body.tres" type="Resource" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/restless_door.tres" type="ArrayMesh" id=16]
 [ext_resource path="res://resources/materials/weapon_components/sniper_rifle.material" type="Material" id=20]
@@ -26,10 +28,8 @@ mass = 183.673
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_engine_force = 165.6
-nitro_force = 4320.0
-rocket_force = 113.4
-burst_force = 0.0
-overcharge_force = 0.0
+body_values = ExtResource( 8 )
+second_boost = ExtResource( 7 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.101966, 1.5867 )

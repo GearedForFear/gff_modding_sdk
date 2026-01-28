@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=2]
+[ext_resource path="res://resources/custom/vehicle_values/missilodon/body.tres" type="Resource" id=3]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/missilodon.material" type="Material" id=7]
 [ext_resource path="res://resources/materials/vehicles/missilodon/stock.material" type="Material" id=17]
 [ext_resource path="res://resources/meshes/vehicles/missilodon_teeth.tres" type="ArrayMesh" id=19]
@@ -24,10 +25,7 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 124.0
 base_engine_force = 907.2
-nitro_force = 0.0
-rocket_force = 236.52
-burst_force = 0.0
-overcharge_force = 0.0
+body_values = ExtResource( 3 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17004, 0.642758, 1.7332 )

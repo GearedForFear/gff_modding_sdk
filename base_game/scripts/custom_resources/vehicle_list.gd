@@ -21,12 +21,7 @@ const VEHICLES: Dictionary = {
 
 
 func get_scene(key: String, category: int) -> Resource:
-	var unique_section_in_path: String
-	if key == "":
-		unique_section_in_path = Utils.random_dictionary_value(VEHICLES)
-	else:
-		unique_section_in_path = VEHICLES.get(key)
-	
+	var unique_section_in_path: String = VEHICLES.get(key)
 	var path: String
 	match category:
 		CategoryNames.GAMEPLAY:
@@ -34,10 +29,6 @@ func get_scene(key: String, category: int) -> Resource:
 		CategoryNames.PREVIEW:
 			path = preview_path(unique_section_in_path)
 	return ResourceLoader.load(path, "PackedScene")
-
-
-func get_scene_random(category: int) -> Resource:
-	return get_scene("", category)
 
 
 func playable_path(unique_section: String) -> String:

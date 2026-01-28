@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/cameras_&_ui/follow_camera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=27]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=28]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=29]
+[ext_resource path="res://resources/custom/vehicle_values/eternal_bond/body.tres" type="Resource" id=30]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -57,11 +58,8 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 5 )
 base_health = 150.0
 base_engine_force = 281.6
-base_boost_type = 1
-nitro_force = 0.0
-rocket_force = 147.2
-burst_force = 0.0
 scene_resource = "res://scenes/vehicles/eternal_bond.tscn"
+body_values = ExtResource( 30 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.160011, 4.222 )

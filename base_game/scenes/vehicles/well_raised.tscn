@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/vehicles/well_raised.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=28]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=29]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=30]
+[ext_resource path="res://resources/custom/vehicle_values/well_raised/body.tres" type="Resource" id=31]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -55,11 +56,8 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 base_health = 94.0
 base_engine_force = 274.4
-base_boost_type = 3
-nitro_force = 0.0
-rocket_force = 0.0
-burst_force = 3449.6
 scene_resource = "res://scenes/vehicles/well_raised.tscn"
+body_values = ExtResource( 31 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, 1.44936 )
