@@ -24,7 +24,7 @@ func use(vehicle: VehicleBody) -> float:
 		vehicle.apply_central_impulse(vehicle.transform.basis.z * force)
 		set_effects_forwards(vehicle, true)
 		set_effects_reverse(vehicle, false)
-	return vehicle.base_engine_force
+	return vehicle.body_values.base_engine_force
 
 
 func set_effects(vehicle: VehicleBody, enable: bool):

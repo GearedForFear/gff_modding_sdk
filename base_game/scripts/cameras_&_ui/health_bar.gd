@@ -6,7 +6,7 @@ export var update_value: bool = true
 
 func _ready():
 	if update_value:
-		max_value = get_node("../../../../../..").base_health
+		max_value = get_node("../../../../../..").body_values.base_health
 
 
 func _physics_process(_delta):

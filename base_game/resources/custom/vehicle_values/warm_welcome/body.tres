@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/warm_welcome/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Warm Welcome"
 script = ExtResource( 1 )
+base_health = 98.0
+base_engine_force = 261.12
+weight = 1920.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/warm_welcome.tscn"

@@ -100,10 +100,6 @@ func pull(var b: bool):
 	$LoopingAudio/MagnetAudio.stream_paused = not b
 
 
-func get_vehicle_name() -> String:
-	return "Metal Undertow"
-
-
 func _on_ShotTimerAny_timeout():
 	can_shoot_any = true
 

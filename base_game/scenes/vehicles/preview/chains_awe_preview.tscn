@@ -20,11 +20,8 @@ points = PoolVector3Array( 0.96, 0.875, 3.31, -0.96, 0.875, 3.31, 0.865, 1.716, 
 
 [node name="Body" type="VehicleBody" groups=["combat_vehicle"]]
 collision_mask = 3
-mass = 224.49
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 116.0
-base_engine_force = 264.0
 body_values = ExtResource( 6 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]

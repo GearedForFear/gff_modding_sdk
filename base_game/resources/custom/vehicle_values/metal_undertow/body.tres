@@ -4,5 +4,10 @@
 [ext_resource path="res://scripts/custom_resources/vehicle_body_values.gd" type="Script" id=2]
 
 [resource]
+resource_name = "Metal Undertow"
 script = ExtResource( 2 )
+base_health = 106.0
+base_engine_force = 185.76
+weight = 1720.0
 boost = ExtResource( 1 )
+main_scene = "res://scenes/vehicles/metal_undertow.tscn"

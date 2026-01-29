@@ -239,10 +239,6 @@ func instantiate_cartridge(var gun: RayCast, var link: bool):
 				+ new_case.transform.basis.y * 0.004)
 
 
-func get_vehicle_name() -> String:
-	return "Well Raised"
-
-
 func _on_GunTriggerTimer_timeout():
 	can_trigger = true
 

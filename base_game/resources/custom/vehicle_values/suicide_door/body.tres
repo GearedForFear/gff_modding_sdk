@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/suicide_door/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Suicide Door"
 script = ExtResource( 1 )
+base_health = 124.0
+base_engine_force = 262.08
+weight = 2520.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/suicide_door.tscn"

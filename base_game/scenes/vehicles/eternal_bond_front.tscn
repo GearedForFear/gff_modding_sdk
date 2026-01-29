@@ -52,13 +52,9 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.183, 0 )
 collision_layer = 0
 collision_mask = 0
-mass = 163.265
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 75.0
-base_engine_force = 140.8
 master_body = false
-scene_resource = "res://scenes/vehicles/eternal_bond.tscn"
 body_values = ExtResource( 30 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]

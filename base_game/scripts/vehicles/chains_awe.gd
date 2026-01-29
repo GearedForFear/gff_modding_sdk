@@ -193,10 +193,6 @@ func shoot_chainsaw():
 	new_chainsaw.get_node("MeshInstance").material_override = chainsaw_skin
 
 
-func get_vehicle_name() -> String:
-	return "Chain's Awe"
-
-
 func _on_SniperTimer_timeout():
 	can_shoot_sniper = true
 

@@ -1,35 +1,35 @@
 extends Spatial
 
 
-const CA_PREVIEW: PackedScene \
+"""
+const CA_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/chains_awe_preview.tscn")
-const SD_PREVIEW: PackedScene \
+const SD_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/suicide_door_preview.tscn")
-const GM_PREVIEW: PackedScene \
+const GM_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/grave_mistake_preview.tscn")
-const MU_PREVIEW: PackedScene \
+const MU_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/metal_undertow_preview.tscn")
-const FU_PREVIEW: PackedScene \
+const FU_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/fungibber_preview.tscn")
-const WW_PREVIEW: PackedScene \
+const WW_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/warm_welcome_preview.tscn")
-const TU_PREVIEW: PackedScene \
+const TU_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/turbulence_preview.tscn")
-const EB_PREVIEW: PackedScene \
+const EB_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/eternal_bond_preview.tscn")
-const MI_PREVIEW: PackedScene \
+const MI_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/missilodon_preview.tscn")
-const RE_PREVIEW: PackedScene \
+const RE_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/restless_preview.tscn")
-const WR_PREVIEW: PackedScene \
+const WR_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/well_raised_preview.tscn")
-const NM_PREVIEW: PackedScene \
+const NM_PREVIEW: PackedScene 
 		= preload("res://scenes/vehicles/preview/no_match_preview.tscn")
 
 onready var container = get_node("../..")
 onready var unavailable = container.get_node("../Unavailable")
 
-"""
 func _enter_tree():
 	add_child(CA_PREVIEW.instance())
 	yield(get_tree(), "idle_frame")

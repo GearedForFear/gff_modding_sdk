@@ -5,10 +5,7 @@ extends VehicleBody
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
 
-export var base_health: float = 100.0
-export var base_engine_force: float = 40.0
 export var master_body: bool = true
-export var scene_resource: String = "res://scenes/vehicles/.tscn"
 export var body_values: Resource
 
 var steer_target: float = 0.0
@@ -25,12 +22,13 @@ var track: Spatial
 var gameplay_manager: Node
 var pools: Node
 
-onready var health: float = base_health
+onready var health: float = body_values.base_health
 onready var boost: Boost = body_values.boost
 onready var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
 
 
 func _enter_tree():
+	weight = body_values.weight
 	gameplay_manager = track.get_node("GameplayManager")
 	pools = track.get_node("Pools")
 	target = gameplay_manager.get_node("NonPlayerPath/Waypoint0")
@@ -95,7 +93,7 @@ func _physics_process(_delta):
 				steer_target = clamp(steer_target * 1000, -1, 1)
 			else:
 				steer_target = clamp(steer_target, -1, 1)
-			acceleration_factor = base_engine_force
+			acceleration_factor = body_values.base_engine_force
 		else:
 			steer_target = Input.get_action_strength(controls.turn_left_strength) \
 					- Input.get_action_strength(controls.turn_right_strength)
@@ -109,11 +107,11 @@ func _physics_process(_delta):
 				elif transform.basis.xform_inv(linear_velocity).x < -1:
 					brake = Input.get_action_strength(controls.reverse)
 				else:
-					acceleration_factor = -base_engine_force \
+					acceleration_factor = -body_values.base_engine_force \
 							* Input.get_action_strength(\
 							controls.reverse)
 			elif acceleration_factor == 0.0:
-				acceleration_factor = base_engine_force \
+				acceleration_factor = body_values.base_engine_force \
 						* Input.get_action_strength(\
 						controls.accelerate_strength)
 			
@@ -210,7 +208,7 @@ func kill(penalty_divisor: int, shooter: VehicleBody) -> int:
 func reward(amount: int):
 	scoreboard_record.reward(amount)
 	if alive:
-		health = clamp(health + amount, 0.0, base_health)
+		health = clamp(health + amount, 0.0, body_values.base_health)
 		acid_duration = 0
 		acid_cause = null
 		if controls == null:
@@ -295,7 +293,7 @@ func random_skin(var body_path: String, var wheels_path: String) -> String:
 
 func _on_RespawnTimer_timeout():
 	alive = true
-	health = base_health
+	health = body_values.base_health
 	if controls == null:
 		get_node("../StuckTimer").start()
 	$DeathParticles.emitting = false

@@ -17,11 +17,8 @@ points = PoolVector3Array( 1.076, 1.004, 2.751, -1.076, 1.004, 2.751, 1.035, 2.0
 [node name="Body" type="VehicleBody" groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181792, 0 )
 collision_mask = 3
-mass = 338.776
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 122.0
-base_engine_force = 903.04
 body_values = ExtResource( 5 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]

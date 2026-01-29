@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/no_match/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "No Match"
 script = ExtResource( 1 )
+base_health = 86.0
+base_engine_force = 655.04
+weight = 1840.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/no_match.tscn"

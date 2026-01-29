@@ -122,10 +122,6 @@ func instantiate_cartridge(var exit: Position3D, var link: bool):
 				+ new_case.transform.basis.y * 0.004)
 
 
-func get_vehicle_name() -> String:
-	return "Grave Mistake"
-
-
 func _on_FrontTimer_timeout():
 	front_can_shoot = true
 

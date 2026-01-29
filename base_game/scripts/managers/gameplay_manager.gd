@@ -47,13 +47,13 @@ func _process(_delta):
 				scoreboard_head.append(scoreboard_record, 1)
 				n.scoreboard_record = scoreboard_record
 			score_ui.append(n.get_node("ScoreLabel"))
-			if n.get_vehicle_name() == "Eternal Bond":
+			if n.body_values.resource_name == "Eternal Bond":
 				n.front_half.get_node("Body").scoreboard_record = scoreboard_record
 				n.back_half.get_node("Body").scoreboard_record = scoreboard_record
 			
 			if n.controls == null:
 				n.get_node("../StuckTimer").start()
-				scoreboard_record.name = n.get_vehicle_name()
+				scoreboard_record.name = n.body_values.resource_name
 			else:
 				match n.get_node("../../../..").name:
 					"SpawnPoint1":

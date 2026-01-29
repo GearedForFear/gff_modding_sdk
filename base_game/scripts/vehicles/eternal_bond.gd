@@ -40,9 +40,9 @@ func _ready():
 	add_child(front_half)
 	add_child(back_half)
 	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
-			.max_value = base_health / 2
+			.max_value = body_values.base_health / 2
 	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
-			.max_value = base_health / 2
+			.max_value = body_values.base_health / 2
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		DeletionManager.add_to_stack($MuzzleFlashMG/CPULeft)
@@ -327,10 +327,6 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0
-
-
-func get_vehicle_name() -> String:
-	return "Eternal Bond"
 
 
 func _on_MachineGunTimer_timeout():

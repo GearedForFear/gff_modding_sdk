@@ -51,17 +51,8 @@ __meta__ = {
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181792, 0 )
 collision_mask = 3
-mass = 175.51
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 106.0
-base_engine_force = 185.76
-base_boost_type = null
-nitro_force = 3096.0
-rocket_force = 0.0
-burst_force = 0.0
-overcharge_force = null
-scene_resource = "res://scenes/vehicles/metal_undertow.tscn"
 body_values = ExtResource( 31 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]

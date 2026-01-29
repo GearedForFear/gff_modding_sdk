@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/well_raised/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Well Raised"
 script = ExtResource( 1 )
+base_health = 94.0
+base_engine_force = 274.4
+weight = 1960.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/well_raised.tscn"

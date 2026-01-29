@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/grave_mistake/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Grave Mistake"
 script = ExtResource( 1 )
+base_health = 122.0
+base_engine_force = 903.04
+weight = 3320.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/grave_mistake.tscn"

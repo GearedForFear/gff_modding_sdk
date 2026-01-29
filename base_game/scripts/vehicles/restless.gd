@@ -182,10 +182,6 @@ func shoot_lmg():
 	flash.emitting = true
 
 
-func get_vehicle_name() -> String:
-	return "Restless"
-
-
 func _on_ShotgunTimer_timeout():
 	can_shoot_shotgun = true
 

@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/eternal_bond/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Eternal Bond"
 script = ExtResource( 1 )
+base_health = 150.0
+base_engine_force = 281.6
+weight = 3200.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/eternal_bond.tscn"

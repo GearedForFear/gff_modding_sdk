@@ -58,10 +58,6 @@ func _physics_process(_delta):
 				* Vector3(1, 0, 1)).length() - 20, 0, 10) * 3)
 
 
-func get_vehicle_name() -> String:
-	return "Turbulence"
-
-
 func _on_MiddleTimer_timeout():
 	can_shoot_middle = true
 

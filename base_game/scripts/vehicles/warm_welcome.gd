@@ -188,9 +188,5 @@ func deal_flame_damage(var a: Area):
 				new_money.speed_divisor = 2.0
 
 
-func get_vehicle_name() -> String:
-	return "Warm Welcome"
-
-
 func _on_GunTimer_timeout():
 	can_shoot = true

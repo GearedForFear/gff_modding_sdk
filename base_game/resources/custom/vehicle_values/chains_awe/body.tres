@@ -4,5 +4,10 @@
 [ext_resource path="res://resources/custom/vehicle_values/chains_awe/boost.tres" type="Resource" id=2]
 
 [resource]
+resource_name = "Chain's Awe"
 script = ExtResource( 1 )
+base_health = 116.0
+base_engine_force = 264.0
+weight = 2200.0
 boost = ExtResource( 2 )
+main_scene = "res://scenes/vehicles/chains_awe.tscn"

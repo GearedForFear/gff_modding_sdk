@@ -47,15 +47,15 @@ func overheat():
 	var damage: float
 	var impulse: float
 	if heat < 50.0:
-		damage = base_health / 20
+		damage = body_values.base_health / 20
 		impulse = weight / 4
 		get_node("../AnimationPlayerHeat").play("overheat_light")
 	elif heat < 75.0:
-		damage = base_health / 5
+		damage = body_values.base_health / 5
 		impulse = weight / 2
 		get_node("../AnimationPlayerHeat").play("overheat_medium")
 	else:
-		damage = base_health / 2
+		damage = body_values.base_health / 2
 		impulse = weight
 		get_node("../AnimationPlayerHeat").play("overheat_heavy")
 	apply_central_impulse(transform.basis.y * impulse)

@@ -5,4 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
+base_health = 75.0
+base_engine_force = 140.8
+weight = 1600.0
 boost = ExtResource( 2 )
+main_scene = ""

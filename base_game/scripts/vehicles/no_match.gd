@@ -225,10 +225,6 @@ func deal_flame_damage(var a: Area):
 				new_money.speed_divisor = 2.0
 
 
-func get_vehicle_name() -> String:
-	return "No Match"
-
-
 func _on_GunTimerLeft_timeout():
 	can_shoot_left = true
 

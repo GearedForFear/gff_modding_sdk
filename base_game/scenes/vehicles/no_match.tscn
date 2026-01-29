@@ -185,17 +185,8 @@ __meta__ = {
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185571, 0 )
 collision_mask = 3
-mass = 187.755
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 86.0
-base_engine_force = 655.04
-base_boost_type = 4
-nitro_force = 0.0
-rocket_force = 0.0
-burst_force = 0.0
-overcharge_force = 7360.0
-scene_resource = "res://scenes/vehicles/no_match.tscn"
 body_values = ExtResource( 37 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]

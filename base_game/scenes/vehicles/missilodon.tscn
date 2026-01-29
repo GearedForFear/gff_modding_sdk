@@ -55,17 +55,8 @@ __meta__ = {
 [node name="Body" type="VehicleBody" parent="." groups=["combat_vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181792, 0 )
 collision_mask = 3
-mass = 330.612
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
-base_health = 124.0
-base_engine_force = 907.2
-base_boost_type = 1
-nitro_force = 0.0
-rocket_force = 236.52
-burst_force = 0.0
-overcharge_force = 0.0
-scene_resource = "res://scenes/vehicles/missilodon.tscn"
 body_values = ExtResource( 35 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]

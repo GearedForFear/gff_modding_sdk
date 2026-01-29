@@ -53,5 +53,5 @@ func _on_RespawnTimer_timeout():
 	var parent_body: AmmoVehicle = get_node("../..")
 	parent_body.split(false)
 	parent_body.alive = true
-	parent_body.health = base_health * 2
+	parent_body.health = body_values.base_health * 2
 	gameplay_manager.respawn(parent_body)

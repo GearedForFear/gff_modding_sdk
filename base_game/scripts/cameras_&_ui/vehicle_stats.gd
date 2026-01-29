@@ -2,14 +2,15 @@ extends Label
 
 
 func update_text(vehicle: VehicleBody):
-	text = stat_to_string(vehicle.base_health / 2)
-	text += "\n" + stat_to_string(vehicle.base_engine_force * 250 / vehicle.weight)
-	text += "\n" + stat_to_string(vehicle.weight / 40)
+	text = stat_to_string(vehicle.body_values.base_health / 2)
+	text += "\n" + stat_to_string(vehicle.body_values.base_engine_force * 250
+			/ vehicle.body_values.weight)
+	text += "\n" + stat_to_string(vehicle.body_values.weight / 40)
 	
 	var boosts: Dictionary = {"Nitro": "--", "Rocket": "--", "Burst": "--",
 			"Overcharge": "--"}
-	add_boost(vehicle.body_values.boost, vehicle.weight, boosts)
-	add_boost(vehicle.second_boost, vehicle.weight, boosts)
+	add_boost(vehicle.body_values.boost, vehicle.body_values.weight, boosts)
+	add_boost(vehicle.second_boost, vehicle.body_values.weight, boosts)
 	text += "\n" + boosts.Nitro
 	text += "\n" + boosts.Rocket
 	text += "\n" + boosts.Burst
