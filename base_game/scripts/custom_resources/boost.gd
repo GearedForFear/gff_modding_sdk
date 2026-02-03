@@ -5,13 +5,13 @@ extends Resource
 export(float, 0.0, 16_000_000.0) var force = 8000.0
 
 
-func prepare(vehicle: VehicleBody):
+func prepare(_vehicle: VehicleBody):
 	pass
 
 
-func use(vehicle: VehicleBody) -> float:
+func use(_vehicle: VehicleBody) -> float:
 	return 0.0
 
 
-func set_effects(vehicle: VehicleBody, enable: bool):
+func set_effects(_vehicle: VehicleBody, _enable: bool):
 	pass

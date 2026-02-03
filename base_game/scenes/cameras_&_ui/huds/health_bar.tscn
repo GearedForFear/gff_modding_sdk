@@ -1,0 +1,47 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/acid_bar.gd" type="Script" id=1]
+[ext_resource path="res://scripts/cameras_&_ui/health_bar.gd" type="Script" id=2]
+[ext_resource path="res://resources/images/gradient_textures_2d/health_foreground.tres" type="Texture" id=3]
+[ext_resource path="res://resources/images/gradient_textures_2d/acid_background.tres" type="Texture" id=4]
+[ext_resource path="res://resources/images/gradient_textures_2d/health_background.tres" type="Texture" id=5]
+[ext_resource path="res://resources/images/gradient_textures_2d/acid_foreground.tres" type="Texture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 1, 256 )
+
+[sub_resource type="StyleBoxTexture" id=16]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 1, 256 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 1, 256 )
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 1, 256 )
+
+[node name="HealthBar" type="ProgressBar"]
+modulate = Color( 1, 1, 1, 0.501961 )
+anchor_left = 0.26
+anchor_top = 0.55
+anchor_right = 0.95
+anchor_bottom = 0.8
+custom_styles/fg = SubResource( 15 )
+custom_styles/bg = SubResource( 16 )
+max_value = 200.0
+value = 200.0
+percent_visible = false
+script = ExtResource( 2 )
+
+[node name="AcidBar" type="ProgressBar" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/fg = SubResource( 17 )
+custom_styles/bg = SubResource( 18 )
+max_value = 200.0
+percent_visible = false
+script = ExtResource( 1 )

@@ -20,10 +20,10 @@ static func get_this() -> MusicPlayer:
 			as MusicPlayer
 
 
-func start(start_state: MusicState, round_timer: Timer):
+func start(start_state: MusicState, new_round_timer: Timer):
 	current_state = start_state
 	play_next(false)
-	self.round_timer = round_timer
+	self.round_timer = new_round_timer
 	bridge_was_played = false
 
 

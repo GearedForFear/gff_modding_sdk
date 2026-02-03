@@ -30,13 +30,13 @@ func _physics_process(_delta):
 		stop()
 
 
-func start(global_transform: Transform, damage: float, reward: int, \
-		burn: float, shooter: CombatVehicle):
-	self.global_transform = global_transform
-	self.damage = damage
-	self.reward = reward
-	self.burn = burn
-	self.shooter = shooter
+func start(new_global_transform: Transform, new_damage: float, new_reward: int, \
+		new_burn: float, new_shooter: CombatVehicle):
+	global_transform = new_global_transform
+	damage = new_damage
+	reward = new_reward
+	burn = new_burn
+	shooter = new_shooter
 	collision_layer = 8
 	collision_mask = 3
 	set_physics_process(true)

@@ -36,7 +36,6 @@ custom_fonts/font = SubResource( 8 )
 text = "Geared for Fear"
 script = ExtResource( 5 )
 base_font_size = 40.0
-menu = true
 
 [node name="BackgroundShader" type="ColorRect" parent="."]
 material = SubResource( 11 )
@@ -70,7 +69,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 base_font_size = 11.0
-menu = true
 
 [node name="Wait" type="Label" parent="BlackBar/VBoxContainer"]
 visible = false
@@ -87,4 +85,3 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 base_font_size = 11.0
-menu = true

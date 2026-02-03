@@ -128,7 +128,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 		if ricochet:
 			get_node("../AnimationPlayerRight").play("rotation")
 			get_node("../AnimationPlayerRight").seek(0.0, false)
-			change_heat(bullet_heat_cost_ricochet)
+			apply_heat(bullet_heat_cost_ricochet)
 			can_shoot_right = false
 			get_node("../GunTimerRight").start()
 			$LoopingAudio/GunRotationAudioRight.stream_paused = false
@@ -145,7 +145,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 		else:
 			get_node("../AnimationPlayerLeft").play("rotation")
 			get_node("../AnimationPlayerLeft").seek(0.0, false)
-			change_heat(bullet_heat_cost_normal)
+			apply_heat(bullet_heat_cost_normal)
 			can_shoot_left = false
 			get_node("../GunTimerLeft").start()
 			$LoopingAudio/GunRotationAudioLeft.stream_paused = false
@@ -169,7 +169,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 func flame_left(var b: bool):
 	if b:
 		apply_central_impulse(transform.basis.x * -flamethrower_push)
-		change_heat(flamethrower_heat_cost)
+		apply_heat(flamethrower_heat_cost)
 		deal_flame_damage($FlameDamageFrontLeft)
 		deal_flame_damage($FlameDamageBackLeft)
 		$LoopingAudio/FlameAudioLeft.stream_paused = false
@@ -193,7 +193,7 @@ func flame_left(var b: bool):
 func flame_right(var b: bool):
 	if b:
 		apply_central_impulse(transform.basis.x * flamethrower_push)
-		change_heat(flamethrower_heat_cost)
+		apply_heat(flamethrower_heat_cost)
 		deal_flame_damage($FlameDamageFrontRight)
 		deal_flame_damage($FlameDamageBackRight)
 		$LoopingAudio/FlameAudioRight.stream_paused = false

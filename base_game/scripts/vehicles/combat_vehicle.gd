@@ -2,8 +2,12 @@ class_name CombatVehicle
 extends VehicleBody
 
 
+signal health_changed(new)
+signal acid_changed(new, health, base_health)
+
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
+const ACID_DAMAGE_PER_TICK: float = 0.1
 
 export var master_body: bool = true
 export var body_values: Resource
@@ -152,8 +156,10 @@ func _physics_process(_delta):
 			engine_force = acceleration_factor
 		
 		if acid_duration > 0:
-			damage(0.1, 0, 0.0, acid_cause)
+			damage(ACID_DAMAGE_PER_TICK, 0, 0.0, acid_cause)
 			acid_duration -= 1
+			emit_signal("acid_changed", acid_duration * ACID_DAMAGE_PER_TICK,
+					health, body_values.base_health)
 			for n in $AcidParticles.get_children():
 				n.emitting = true
 		else:
@@ -172,15 +178,15 @@ func _physics_process(_delta):
 			clamp(linear_velocity.length() / 20, 1, 3)
 
 
-func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
+func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 		-> int:
 	if alive:
 		health -= amount
+		emit_signal("health_changed", health)
 		if health <= 0:
-			if shooter == null:
-				health = 0
-			else:
+			if shooter != null:
 				return kill(5, shooter)
+			health = 0
 		if controls == null:
 			get_node("../StuckTimer").start()
 	return 0
@@ -195,6 +201,7 @@ func kill(penalty_divisor: int, shooter: VehicleBody) -> int:
 		scoreboard_record.lose(payout)
 	acid_duration = 0
 	acid_cause = null
+	emit_signal("acid_changed", 0.0, 0.0, 0.0)
 	if shooter.controls == null:
 		$DeathAudio.play()
 	else:
@@ -209,8 +216,11 @@ func reward(amount: int):
 	scoreboard_record.reward(amount)
 	if alive:
 		health = clamp(health + amount, 0.0, body_values.base_health)
+		emit_signal("health_changed", health)
 		acid_duration = 0
 		acid_cause = null
+		emit_signal("acid_changed", acid_duration * ACID_DAMAGE_PER_TICK,
+					health, body_values.base_health)
 		if controls == null:
 			get_node("../StuckTimer").start()
 
@@ -294,6 +304,7 @@ func random_skin(var body_path: String, var wheels_path: String) -> String:
 func _on_RespawnTimer_timeout():
 	alive = true
 	health = body_values.base_health
+	emit_signal("health_changed", health)
 	if controls == null:
 		get_node("../StuckTimer").start()
 	$DeathParticles.emitting = false

@@ -19,12 +19,12 @@ func _physics_process(_delta):
 		speed_divisor *= 0.99
 
 
-func start(global_transform: Transform, shooter: CombatVehicle, \
-		spawner: CombatVehicle, reward: int):
-	self.global_transform = global_transform
-	self.shooter = shooter
-	self.spawner = spawner
-	self.reward = reward
+func start(new_global_transform: Transform, new_shooter: CombatVehicle, \
+		new_spawner: CombatVehicle, new_reward: int):
+	global_transform = new_global_transform
+	shooter = new_shooter
+	spawner = new_spawner
+	reward = new_reward
 	collision_layer = 0
 	collision_mask = 1
 	set_physics_process(true)

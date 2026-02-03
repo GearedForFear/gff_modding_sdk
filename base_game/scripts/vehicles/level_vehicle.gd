@@ -2,6 +2,8 @@ class_name LevelVehicle
 extends CombatVehicle
 
 
+signal xp_changed(new, level)
+
 export var level_cap: bool = true
 
 var level: int = 1
@@ -15,6 +17,7 @@ func _physics_process(_delta):
 	if level_cap:
 		level = clamp(level, 1, 5)
 		xp = clamp(xp, 0.0, 100.0)
+	emit_signal("xp_changed", xp, level)
 
 
 func try_boost() -> float:

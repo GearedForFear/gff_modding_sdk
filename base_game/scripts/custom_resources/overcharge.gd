@@ -11,7 +11,7 @@ func prepare(vehicle: VehicleBody):
 
 
 func use(vehicle: VehicleBody) -> float:
-	vehicle.change_heat(0.5)
+	vehicle.apply_heat(0.5)
 	set_effects(vehicle, true)
 	return force
 

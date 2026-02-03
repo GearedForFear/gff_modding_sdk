@@ -2,6 +2,8 @@ class_name HeatVehicle
 extends CombatVehicle
 
 
+signal heat_changed(new)
+
 var heat: float = 0.0
 var already_overheating := false
 var delay_overheat := false
@@ -12,6 +14,7 @@ func _physics_process(_delta):
 	if heat != 0.0:
 		var reduction: float = 0.04 + linear_velocity.length() / 200
 		heat = max(heat - reduction, 0.0)
+		emit_signal("heat_changed", heat)
 		if not already_overheating and not block_overheat and (heat >= 100.0
 				or (heat >= 25.0 and not delay_overheat)):
 			overheat()
@@ -21,19 +24,19 @@ func _physics_process(_delta):
 func damage(amount: float, _reward: int, burn: float, shooter: VehicleBody) \
 		-> int:
 	if alive:
-		change_heat(burn)
-	.damage(amount, 0, burn, shooter)
-	return 0
+		apply_heat(burn)
+	return .damage(amount, 0, burn, shooter)
 
 
 func reward(amount: int):
 	if alive:
-		change_heat(-amount)
+		apply_heat(-amount)
 	.reward(amount)
 
 
-func change_heat(var amount: float):
+func apply_heat(var amount: float):
 	heat += amount
+	emit_signal("heat_changed", heat)
 	delay_overheat = true
 	block_overheat = already_overheating
 

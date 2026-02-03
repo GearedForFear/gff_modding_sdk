@@ -39,10 +39,12 @@ func _ready():
 	front_half.get_child(0).other_half = body
 	add_child(front_half)
 	add_child(back_half)
-	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
-			.max_value = body_values.base_health / 2
-	$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
-			.max_value = body_values.base_health / 2
+	
+	if controls == null:
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarTop\
+				.connect_to_vehicle(front_half.get_child(0))
+		$CameraBase/Camera/AspectRatioContainer/Control/Resources/HealthBarBottom\
+				.connect_to_vehicle(back_half.get_child(0))
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		DeletionManager.add_to_stack($MuzzleFlashMG/CPULeft)
@@ -200,7 +202,11 @@ func split(var b: bool):
 		body.angular_velocity = angular_velocity
 		body.engine_force = engine_force
 		body.health = health / 2
+		body.emit_signal("health_changed", body.health)
 		body.acid_duration = acid_duration / 2
+		body.emit_signal("acid_changed", body.acid_duration
+				* ACID_DAMAGE_PER_TICK, body.health,
+				body.body_values.base_health)
 		body.acid_cause = acid_cause
 		body.ammo = ammo
 		body.collision_layer = 1
@@ -237,7 +243,11 @@ func split(var b: bool):
 		body.angular_velocity = angular_velocity
 		body.engine_force = engine_force
 		body.health = health / 2
+		body.emit_signal("health_changed", body.health)
 		body.acid_duration = acid_duration / 2
+		body.emit_signal("acid_changed", body.acid_duration
+				* ACID_DAMAGE_PER_TICK, body.health,
+				body.body_values.base_health)
 		body.acid_cause = acid_cause
 		body.collision_layer = 1
 		body.collision_mask = 3
@@ -295,6 +305,8 @@ func split(var b: bool):
 		body.alive = false
 		body.replacement = self
 		acid_duration += body.acid_duration
+		emit_signal("acid_changed", acid_duration * ACID_DAMAGE_PER_TICK,
+				health, body_values.base_health)
 		if acid_cause == null:
 			acid_cause = body.acid_cause
 		body.acid_duration = 0
@@ -308,6 +320,7 @@ func split(var b: bool):
 		
 		health = clamp(front_half.get_child(0).health, 0, 1000) \
 				+ clamp(body.health, 0, 1000) 
+		emit_signal("health_changed", health)
 		ammo = body.ammo
 		collision_layer = 1
 		collision_mask = 3
@@ -316,17 +329,10 @@ func split(var b: bool):
 
 func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 		-> int:
-	if alive and shooter != front_half.get_child(0) \
-			and shooter != back_half.get_child(0):
-		health -= amount
-		if health <= 0:
-			if shooter == null:
-				health = 0
-			else:
-				return kill(5, shooter)
-		if controls == null:
-			get_node("../StuckTimer").start()
-	return 0
+	if shooter == front_half.get_child(0) or shooter == back_half.get_child(0):
+		return 0
+	
+	return .damage(amount, 0, 0.0, shooter)
 
 
 func _on_MachineGunTimer_timeout():

@@ -10,13 +10,15 @@
 [ext_resource path="res://resources/meshes/cameras_&_ui/heart.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=9]
 [ext_resource path="res://scripts/cameras_&_ui/level_hud.gd" type="Script" id=10]
-[ext_resource path="res://scripts/cameras_&_ui/health_bar.gd" type="Script" id=11]
+[ext_resource path="res://scenes/cameras_&_ui/huds/health_bar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scripts/cameras_&_ui/level_bar.gd" type="Script" id=12]
 [ext_resource path="res://scripts/cameras_&_ui/round_timer.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/pause_box.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/rear_viewport.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/pause_background.gd" type="Script" id=16]
 [ext_resource path="res://scripts/cameras_&_ui/scoreboard.gd" type="Script" id=17]
+[ext_resource path="res://resources/images/gradient_textures_2d/level_background.tres" type="Texture" id=18]
+[ext_resource path="res://resources/images/gradient_textures_2d/level_foreground.tres" type="Texture" id=19]
 
 [sub_resource type="ShaderMaterial" id=25]
 shader = ExtResource( 3 )
@@ -77,33 +79,13 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 7 )
 
-[sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0, 0.537255, 0.827451, 1 )
-border_width_top = 3
-border_width_bottom = 3
-border_color = Color( 0.290196, 0.639216, 0.831373, 1 )
-border_blend = true
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 1, 256 )
 
-[sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0, 0.1105, 0.17, 1 )
-border_width_top = 3
-border_width_bottom = 3
-border_color = Color( 0, 0.537255, 0.827451, 1 )
-border_blend = true
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 1, 0, 0, 1 )
-border_width_top = 3
-border_width_bottom = 3
-border_color = Color( 1, 0.141176, 0.141176, 1 )
-border_blend = true
-
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.168627, 0, 0, 1 )
-border_width_top = 3
-border_width_bottom = 3
-border_color = Color( 1, 0, 0, 1 )
-border_blend = true
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 1, 256 )
 
 [sub_resource type="DynamicFont" id=22]
 size = 9
@@ -365,20 +347,12 @@ anchor_left = 0.26
 anchor_top = 0.2
 anchor_right = 0.95
 anchor_bottom = 0.45
-custom_styles/fg = SubResource( 15 )
-custom_styles/bg = SubResource( 16 )
+custom_styles/fg = SubResource( 26 )
+custom_styles/bg = SubResource( 27 )
 percent_visible = false
 script = ExtResource( 12 )
 
-[node name="HealthBar" type="ProgressBar" parent="Camera/AspectRatioContainer/Control/Resources"]
-anchor_left = 0.26
-anchor_top = 0.55
-anchor_right = 0.95
-anchor_bottom = 0.8
-custom_styles/fg = SubResource( 13 )
-custom_styles/bg = SubResource( 14 )
-percent_visible = false
-script = ExtResource( 11 )
+[node name="HealthBar" parent="Camera/AspectRatioContainer/Control/Resources" instance=ExtResource( 11 )]
 
 [node name="Scores" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
 self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
