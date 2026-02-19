@@ -26,6 +26,8 @@ static func go_to(name: String) -> Control:
 static func escape() -> bool:
 	var this: MenuManager = get_this()
 	var previous: HierarchyNode = this.hierarchy_position
+	if previous.lock_escape:
+		return false
 	var new: HierarchyNode = previous
 	while new.name.begins_with("Next"):
 		new = new.get_parent()
@@ -65,7 +67,7 @@ static func next_menu(controls: Array):
 
 static func try_paths(paths: Array) -> Control:
 	for n in paths:
-		var return_value: Control= Global.root_control.get_node_or_null(n)
+		var return_value: Control = Global.root_control.get_node_or_null(n)
 		if return_value != null:
 			return return_value
 	return null

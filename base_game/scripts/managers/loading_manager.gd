@@ -94,7 +94,6 @@ func prepare() -> Array:
 			"res://scenes/cameras_&_ui/menus/menu_hierarchy.tscn",
 			"PackedScene").instance()
 	menu_hierarchy.propagate_call("instantiate_scene")
-	menu_hierarchy.propagate_call("instantiate_scene")
 	
 	var previous_menu: Control = root_control.get_node("Current")
 	root_control.remove_child(previous_menu)

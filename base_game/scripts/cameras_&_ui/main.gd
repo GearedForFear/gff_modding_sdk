@@ -66,7 +66,7 @@ func play(vehicles: Array, controls: Array):
 			viewport = ""
 		spawn_vehicle(bots[n], "StartSpawns/SpawnPoint" + String(12 - n)
 				+ viewport + "/SpawnPosition", null)
-	#MenuManager.go_to("GameplayView").set_views(spawns)
+	MenuManager.go_to("GameplayView").set_views(spawns)
 	#$BackgroundShader.hide()
 	#add_child(track)
 	"""

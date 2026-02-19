@@ -17,26 +17,32 @@ scene_path = "res://scenes/cameras_&_ui/menus/controller_select.tscn"
 [node name="Next1" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_1.tscn"
+hack = true
 
 [node name="Next2" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_2.tscn"
+hack = true
 
 [node name="Next3" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_3.tscn"
+hack = true
 
 [node name="Next4" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_4.tscn"
+hack = true
 
 [node name="Next5" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_5.tscn"
+hack = true
 
 [node name="Next6" type="Node" parent="Main/Arcade"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_6.tscn"
+hack = true
 
 [node name="PlayerAmount" type="Node" parent="Main"]
 script = ExtResource( 1 )
@@ -44,7 +50,6 @@ scene_path = "res://scenes/cameras_&_ui/menus/player_amount.tscn"
 
 [node name="SingleTrack" type="Node" parent="Main"]
 script = ExtResource( 1 )
-scene_path = "res://scenes/cameras_&_ui/menus/controller_select.tscn"
 
 [node name="Next1" type="Node" parent="Main/SingleTrack"]
 script = ExtResource( 1 )
@@ -77,6 +82,7 @@ scene_path = "res://scenes/cameras_&_ui/menus/credits.tscn"
 [node name="Customization" type="Node" parent="Main"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_any.tscn"
+hack = true
 
 [node name="Options" type="Node" parent="Main"]
 script = ExtResource( 1 )
@@ -108,4 +114,5 @@ scene_path = "res://scenes/cameras_&_ui/menus/advanced.tscn"
 
 [node name="GameplayView" type="Node" parent="."]
 script = ExtResource( 1 )
-scene_path = "res://scenes/cameras_&_ui/menus/gameplay_view.tscn"
+scene_path = "res://scenes/cameras_&_ui/gameplay_view.tscn"
+lock_escape = true
