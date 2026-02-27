@@ -1,8 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://resources/materials/cameras_&_ui/heart.material" type="Material" id=1]
-[ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://shaders/cameras_&_ui/hud_background.tres" type="Shader" id=3]
+[ext_resource path="res://resources/theme/big_label_white.theme" type="Theme" id=2]
+[ext_resource path="res://resources/materials/cameras_&_ui/hud_background.material" type="Material" id=3]
 [ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=4]
 [ext_resource path="res://scripts/cameras_&_ui/follow_camera.gd" type="Script" id=5]
 [ext_resource path="res://scripts/cameras_&_ui/navigation_arrow.gd" type="Script" id=6]
@@ -12,6 +12,7 @@
 [ext_resource path="res://resources/meshes/cameras_&_ui/hud_bullet.tres" type="ArrayMesh" id=10]
 [ext_resource path="res://resources/materials/cameras_&_ui/hud_bullet.material" type="Material" id=11]
 [ext_resource path="res://scripts/cameras_&_ui/ammo_bar.gd" type="Script" id=12]
+[ext_resource path="res://resources/theme/pixels_orange.theme" type="Theme" id=13]
 [ext_resource path="res://scripts/cameras_&_ui/round_timer.gd" type="Script" id=14]
 [ext_resource path="res://scripts/cameras_&_ui/pause_box.gd" type="Script" id=15]
 [ext_resource path="res://scripts/cameras_&_ui/rear_viewport.gd" type="Script" id=16]
@@ -20,18 +21,6 @@
 [ext_resource path="res://scenes/cameras_&_ui/cameras_&_huds/health_bar.tscn" type="PackedScene" id=19]
 [ext_resource path="res://resources/images/gradient_textures_2d/ammo_foreground.tres" type="Texture" id=20]
 [ext_resource path="res://resources/images/gradient_textures_2d/ammo_background.tres" type="Texture" id=21]
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=11]
-resource_local_to_scene = true
-size = 9
-font_data = ExtResource( 7 )
-
-[sub_resource type="DynamicFont" id=10]
-size = 40
-font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=12]
 size = 9
@@ -217,8 +206,7 @@ script = ExtResource( 5 )
 
 [node name="PauseBackground" type="ColorRect" parent="Camera"]
 visible = false
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 17 )
+material = ExtResource( 3 )
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 17 )
@@ -235,8 +223,7 @@ margin_right = 640.0
 margin_bottom = 359.978
 
 [node name="TimerDisplay" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 17 )
+material = ExtResource( 3 )
 anchor_left = 0.011
 anchor_top = 0.02
 anchor_right = 0.113
@@ -248,8 +235,7 @@ script = ExtResource( 14 )
 anchor_right = 1.0
 anchor_bottom = 0.2
 margin_bottom = 12.958
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 11 )
+theme = ExtResource( 13 )
 text = "Stage ?"
 align = 1
 valign = 1
@@ -259,8 +245,7 @@ script = ExtResource( 4 )
 anchor_top = 0.2
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
-custom_fonts/font = SubResource( 10 )
+theme = ExtResource( 2 )
 text = "100"
 align = 1
 valign = 1
@@ -291,8 +276,7 @@ fov = 75.0
 far = 200.0
 
 [node name="Arrow" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 17 )
+material = ExtResource( 3 )
 anchor_left = 0.887
 anchor_top = 0.02
 anchor_right = 0.989
@@ -346,8 +330,7 @@ __meta__ = {
 }
 
 [node name="Resources" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 17 )
+material = ExtResource( 3 )
 anchor_left = 0.011
 anchor_top = 0.8
 anchor_right = 0.3
@@ -434,8 +417,7 @@ anchor_top = 0.7
 connect_on_ready = false
 
 [node name="Scores" type="ColorRect" parent="Camera/AspectRatioContainer/Control"]
-self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
-material = SubResource( 17 )
+material = ExtResource( 3 )
 anchor_left = 0.7
 anchor_top = 0.8
 anchor_right = 0.989
