@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/vehicles/warm_welcome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -26,7 +26,7 @@
 [ext_resource path="res://resources/sounds/weapon_components/fire_large_flames_magic_loop_01.wav" type="AudioStream" id=24]
 [ext_resource path="res://resources/sounds/vehicles/engine_generator_loop_01.wav" type="AudioStream" id=25]
 [ext_resource path="res://scripts/vehicles/wheel_mesh.gd" type="Script" id=26]
-[ext_resource path="res://resources/sounds/vehicles/metal_med_impact_03.wav" type="AudioStream" id=27]
+[ext_resource path="res://scenes/gadgets/jump.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=28]
 [ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=29]
 [ext_resource path="res://resources/fonts/PixeloidMono.ttf" type="DynamicFontData" id=30]
@@ -38,6 +38,7 @@
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=36]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=37]
 [ext_resource path="res://resources/custom/vehicle_values/warm_welcome/body.tres" type="Resource" id=38]
+[ext_resource path="res://resources/custom/vehicle_values/warm_welcome/jump.tres" type="Resource" id=39]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -394,10 +395,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773806, 0 )
 
 [node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 32 )]
 
-[node name="JumpAudio" type="AudioStreamPlayer3D" parent="Body"]
-stream = ExtResource( 27 )
-unit_size = 2.0
-bus = "Effects"
+[node name="Jump" parent="Body" instance=ExtResource( 27 )]
+force_resource = ExtResource( 39 )
 
 [node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
 stream = ExtResource( 22 )

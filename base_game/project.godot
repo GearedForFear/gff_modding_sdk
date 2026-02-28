@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "ProjectileValues",
 "class": "AmmoProjectileValues",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/ammo_projectile_values.gd"
+"path": "res://scripts/custom_resources/gameplay_values/ammo_projectile_values.gd"
 }, {
 "base": "CombatVehicle",
 "class": "AmmoVehicle",
@@ -37,12 +37,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Boost",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/boost.gd"
+"path": "res://scripts/custom_resources/gameplay_values/boost.gd"
 }, {
 "base": "Boost",
 "class": "Burst",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/burst.gd"
+"path": "res://scripts/custom_resources/gameplay_values/burst.gd"
 }, {
 "base": "VehicleBody",
 "class": "CombatVehicle",
@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "ExtrapolationManager",
 "language": "GDScript",
 "path": "res://scripts/managers/extrapolation_manager.gd"
+}, {
+"base": "Resource",
+"class": "GadgetForce",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/gameplay_values/gadget_force.gd"
 }, {
 "base": "Node",
 "class": "GameplayManager",
@@ -157,12 +162,12 @@ _global_script_classes=[ {
 "base": "Boost",
 "class": "Nitro",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/nitro.gd"
+"path": "res://scripts/custom_resources/gameplay_values/nitro.gd"
 }, {
 "base": "Boost",
 "class": "Overcharge",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/overcharge.gd"
+"path": "res://scripts/custom_resources/gameplay_values/overcharge.gd"
 }, {
 "base": "ViewportContainer",
 "class": "PlayerContainer",
@@ -187,7 +192,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ProjectileValues",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/projectile_values.gd"
+"path": "res://scripts/custom_resources/gameplay_values/projectile_values.gd"
 }, {
 "base": "SettingsSlider",
 "class": "Reflections",
@@ -202,7 +207,7 @@ _global_script_classes=[ {
 "base": "Boost",
 "class": "Rocket",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/rocket.gd"
+"path": "res://scripts/custom_resources/gameplay_values/rocket.gd"
 }, {
 "base": "Reference",
 "class": "ScoreboardRecord",
@@ -257,7 +262,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "VehicleBodyValues",
 "language": "GDScript",
-"path": "res://scripts/custom_resources/vehicle_body_values.gd"
+"path": "res://scripts/custom_resources/gameplay_values/vehicle_body_values.gd"
 }, {
 "base": "Object",
 "class": "VehicleData",
@@ -286,6 +291,7 @@ _global_script_class_icons={
 "DeletionManager": "",
 "DynamicShadowBody": "",
 "ExtrapolationManager": "",
+"GadgetForce": "",
 "GameplayManager": "",
 "GlobalAudio": "",
 "GlobalAudioPlayer": "",

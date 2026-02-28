@@ -14,8 +14,6 @@ export var flamethrower_burn: float = 1.0
 export var flamethrower_push: int = 250
 export var flamethrower_ammo_cost: float = 0.12
 
-export var jump_force: int = 300
-
 var can_shoot: bool = true
 var next_out: int = cartridge_out.NONE
 
@@ -75,7 +73,7 @@ func _physics_process(_delta):
 				shoot(false)
 			
 			if Input.is_action_pressed(controls.weapon_back):
-				jump()
+				$Jump.use(self)
 			
 			if ammo >= flamethrower_ammo_cost \
 					and Input.is_action_pressed(controls.weapon_left):
@@ -119,14 +117,6 @@ func shoot(var b: bool):
 			n.emitting = true
 	else:
 		$LoopingAudio/GunRotationAudio.stream_paused = true
-
-
-func jump():
-	if $WheelFrontLeft.is_in_contact() or $WheelFrontRight.is_in_contact() or \
-			$WheelBackLeft.is_in_contact() or $WheelBackRight.is_in_contact():
-		apply_central_impulse(transform.basis.y * jump_force)
-		if not $JumpAudio.playing or $JumpAudio.get_playback_position() > 0.3:
-			$JumpAudio.play()
 
 
 func flame_left(var b: bool):

@@ -29,16 +29,16 @@ func add_boost(boost: Boost, weight: float, add_to_this: Dictionary):
 	var key: String
 	var value: float
 	match boost.get_script().resource_path:
-		"res://scripts/custom_resources/nitro.gd":
+		"res://scripts/custom_resources/gameplay_values/nitro.gd":
 			key = "Nitro"
 			value = boost.force * 25 / weight
-		"res://scripts/custom_resources/rocket.gd":
+		"res://scripts/custom_resources/gameplay_values/rocket.gd":
 			key = "Rocket"
 			value = boost.force * 1000 / weight
-		"res://scripts/custom_resources/burst.gd":
+		"res://scripts/custom_resources/gameplay_values/burst.gd":
 			key = "Burst"
 			value = boost.force / 40 / weight
-		"res://scripts/custom_resources/overcharge.gd":
+		"res://scripts/custom_resources/gameplay_values/overcharge.gd":
 			key = "Overcharge"
 			value = boost.force * 25 / weight
 		_:
