@@ -79,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/audio/global_audio.gd"
 }, {
-"base": "Reference",
+"base": "AudioStreamPlayer",
 "class": "GlobalAudioPlayer",
 "language": "GDScript",
 "path": "res://scripts/audio/global_audio_player.gd"

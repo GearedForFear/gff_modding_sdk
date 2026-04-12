@@ -1,7 +1,7 @@
 extends Control
 
 
-const aspect_ratios := PoolRealArray([
+const ASPECT_RATIOS := PoolRealArray([
 		# 2 players:
 		-1.0, -1.0, -1.0, -1.0, 2.0,
 		# 3 players:
@@ -13,6 +13,7 @@ const aspect_ratios := PoolRealArray([
 		# 6 players:
 		6.0, 6.0, 6.0, 1.5, 0.66
 ])
+const DEFAULT_ASPECT_RATIO: float = 16.0 / 9.0
 
 
 func set_views(cameras: Array):
@@ -38,13 +39,25 @@ func update_containers():
 	
 	var columns: int = container_amount
 	while columns > 1:
-		if aspect_ratio >= aspect_ratios[6 - columns + array_offset]:
+		if aspect_ratio >= ASPECT_RATIOS[6 - columns + array_offset]:
 			break
 		columns -= 1
 	var rows: int = container_amount / columns
 	if rows * columns != container_amount:
 		rows += 1
 	var row_size: float = 1.0 / rows
+	
+	var new_size = Vector2(640, 360)
+	var window_size: Vector2 = OS.window_size
+	var window_aspect_ratio: float = window_size.x / window_size.y
+	if (window_aspect_ratio > DEFAULT_ASPECT_RATIO):
+		new_size.x *= window_aspect_ratio / DEFAULT_ASPECT_RATIO
+	else:
+		new_size.y *= DEFAULT_ASPECT_RATIO / window_aspect_ratio
+	
+	var window_scale: Vector2 = window_size / Vector2(640, 360)
+	var screen_scale: float = min(window_scale.x, window_scale.y)
+	rect_size = new_size * screen_scale
 	
 	for r in rows:
 		if container_amount < (r + 1) * columns:
@@ -56,18 +69,8 @@ func update_containers():
 			container.anchor_right = column_size * (c + 1)
 			container.anchor_top = row_size * r
 			container.anchor_bottom = row_size * (r + 1)
-			#container.stretch_shrink = SettingsManager.get_this().resolution
-			#container.get_node("Viewport").set_size_override(true, container.rect_size)
-			#container.rect_size = rect_size
-			#container.rect_scale = Vector2.ONE
-			#container.set_margins_preset(Control.PRESET_WIDE)
-			#var re = Rect2(Vector2.ZERO, rect_size)
-			#v.set_attach_to_screen_rect(re)
-			#VisualServer.viewport_set_active(v.get_viewport_rid(), true)
-			#container.margin_right = rect_size.x
-			#container.margin_bottom = rect_size.y
-			#container.get_node("Viewport").size = container.rect_size
-			#container.rect_min_size = rect_size
+			container.rect_scale = Vector2(1 / screen_scale, 1 / screen_scale)
+			container.stretch_shrink = SettingsManager.get_this().resolution
 
 
 func _on_Current_item_rect_changed():
