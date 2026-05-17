@@ -2,21 +2,19 @@ class_name DeletionManager
 extends Node
 
 
-const TO_DELETE := Array()
+signal start(remaining_deletions)
+
+const GARBAGE := Array()
 const RIGID_BODIES := Array()
 
-var delete: bool = true
-
-onready var max_rigid_bodies: int \
-		= get_node("/root/RootControl/SettingsManager").max_rigid_bodies
+var max_rigid_bodies: int
 
 
 func _process(_delta):
-	if delete:
-		for _n in range(min(5, TO_DELETE.size())):
-			var next_deletion: Node = TO_DELETE.pop_back()
-			if(is_instance_valid(next_deletion)):
-				next_deletion.queue_free()
+	for _n in range(min(5, GARBAGE.size())):
+		var next_deletion: Node = GARBAGE.pop_back()
+		if(is_instance_valid(next_deletion)):
+			next_deletion.queue_free()
 
 
 func _physics_process(_delta):
@@ -31,7 +29,7 @@ func _physics_process(_delta):
 					delete_body.set_process(false)
 					delete_body.set_physics_process(false)
 					delete_body.hide()
-					TO_DELETE.append(delete_body)
+					GARBAGE.append(delete_body)
 					delete_body.get_parent().remove_child(delete_body)
 
 
@@ -39,9 +37,31 @@ static func get_this() -> DeletionManager:
 	return Global.root_control.get_node("DeletionManager") as DeletionManager
 
 
-static func add_to_stack(to_delete: Node):
-	get_this().TO_DELETE.append(to_delete)
+static func enable(enable: bool):
+	if enable:
+		get_this().try_start()
+	else:
+		get_this().set_process(false)
 
 
-static func add_array_to_stack(to_delete: Array):
-	get_this().TO_DELETE.append_array(to_delete)
+func try_start():
+	if GARBAGE.size() == 0:
+		return
+	set_process(true)
+	emit_signal("start", Math.round_up(GARBAGE.size() / 5.0))
+
+
+static func add_to_garbage(garbage: Node):
+	GARBAGE.append(garbage)
+
+
+static func add_array_to_garbage(garbage: Array):
+	GARBAGE.append_array(garbage)
+
+
+static func add_to_rigid_bodies(body: RigidBody):
+	RIGID_BODIES.append(body)
+
+
+static func add_array_to_rigid_bodies(bodies: Array):
+	RIGID_BODIES.append_array(bodies)

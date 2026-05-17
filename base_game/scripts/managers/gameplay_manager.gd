@@ -14,15 +14,13 @@ onready var waypoints: Array = $NonPlayerPath.get_children()
 
 
 func _ready():
-	DeletionManager.get_this().delete = true
 	Global.gameplay_manager = self
 	MusicPlayer.get_this().is_on_vehicle_select = true
-	get_node("/root/FrontContainer/Loading").show()
 
 
 func _process(_delta):
-	if DeletionManager.get_this().TO_DELETE.empty():
-		get_node("/root/FrontContainer/Loading").hide()
+	if DeletionManager.get_this().GARBAGE.empty() and \
+			not Precompiler.get_this().is_processing():
 		var track_data: TrackData = get_parent().data
 		$Timer.start()
 		heist_target.alive = true
@@ -77,7 +75,6 @@ func _process(_delta):
 			scoreboard_head.append(ScoreboardRecord.new(13), 1)
 		
 		heist_target.scoreboard_record = scoreboard_head
-		get_node("/root/RootControl/DeletionManager").delete = false
 		update_scores()
 		set_process(false)
 		
@@ -136,7 +133,7 @@ func _on_Timer_timeout():
 	var pursuer_data: Array = Array()
 	for n in pursuers:
 		var data = VehicleData.new()
-		data.scene_resource = n.scene_resource
+		data.scene_resource = n.body_values.main_scene
 		data.controls = n.controls
 		if n.controls == null:
 			data.spawn = 6

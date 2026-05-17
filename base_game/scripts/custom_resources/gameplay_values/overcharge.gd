@@ -4,9 +4,10 @@ extends Boost
 
 func prepare(vehicle: VehicleBody):
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack(vehicle.get_node("OverchargeCPUParticles"))
+		DeletionManager.add_to_garbage(
+				vehicle.get_node("OverchargeCPUParticles"))
 	else:
-		DeletionManager.add_to_stack(vehicle.get_node("OverchargeParticles"))
+		DeletionManager.add_to_garbage(vehicle.get_node("OverchargeParticles"))
 		vehicle.get_node("OverchargeCPUParticles").name = "OverchargeParticles"
 
 

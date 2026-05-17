@@ -1,14 +1,13 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/managers/menu_manager.gd" type="Script" id=2]
-[ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scenes/particles/loading_bullets.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/theme/pixels_white.theme" type="Theme" id=3]
+[ext_resource path="res://scripts/cameras_&_ui/loading_info.gd" type="Script" id=4]
 [ext_resource path="res://scripts/cameras_&_ui/front_container.gd" type="Script" id=5]
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
 [ext_resource path="res://scripts/audio/global_audio_player.gd" type="Script" id=9]
-[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=10]
 [ext_resource path="res://scripts/audio/music_player.gd" type="Script" id=20]
 [ext_resource path="res://resources/music/theme_1/G4F T.1_Sweep before intro NO LOOP.wav" type="AudioStream" id=21]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_on_off_12.wav" type="AudioStream" id=23]
@@ -42,96 +41,22 @@
 [ext_resource path="res://scripts/cameras_&_ui/menu_timer.gd" type="Script" id=55]
 [ext_resource path="res://scripts/cameras_&_ui/next_stream_timer.gd" type="Script" id=56]
 [ext_resource path="res://scenes/particles/overcharge_flame.tscn" type="PackedScene" id=57]
-[ext_resource path="res://scripts/cameras_&_ui/loading_animation.gd" type="Script" id=58]
 [ext_resource path="res://scenes/particles/overcharge_flame_cpu.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/particles/heart_flame.tscn" type="PackedScene" id=60]
 [ext_resource path="res://scenes/particles/heart_flame_cpu.tscn" type="PackedScene" id=61]
-[ext_resource path="res://scripts/managers/loading_manager.gd" type="Script" id=62]
 [ext_resource path="res://scripts/managers/extrapolation_manager.gd" type="Script" id=63]
 [ext_resource path="res://scripts/managers/material_manager.gd" type="Script" id=65]
 [ext_resource path="res://scripts/managers/resource_manager.gd" type="Script" id=66]
 [ext_resource path="res://scripts/managers/deletion_manager.gd" type="Script" id=68]
 [ext_resource path="res://resources/sounds/global_impacts/CSDS HIT CLEAN The Empire.wav" type="AudioStream" id=69]
 [ext_resource path="res://resources/sounds/global_impacts/CSDS HIT AGGRESSIVE Gun Fun.wav" type="AudioStream" id=70]
-[ext_resource path="res://resources/theme/main.theme" type="Theme" id=71]
 [ext_resource path="res://scripts/audio/global_sound_effect.gd" type="Script" id=72]
-[ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=73]
 [ext_resource path="res://scripts/audio/global_audio.gd" type="Script" id=76]
 [ext_resource path="res://resources/sounds/cameras_&_ui/switch_button_push_small_05.wav" type="AudioStream" id=90]
-[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=91]
 [ext_resource path="res://scripts/managers/menu_input_manager.gd" type="Script" id=107]
 
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 1 )
-
-[sub_resource type="World" id=24]
-environment = ExtResource( 73 )
-
-[sub_resource type="DynamicFont" id=21]
-size = 25
-outline_size = 2
-font_data = ExtResource( 3 )
-
-[sub_resource type="Theme" id=22]
-default_font = SubResource( 21 )
-Label/colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-
-[sub_resource type="Animation" id=18]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:anchor_left")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:anchor_right")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-
-[sub_resource type="Animation" id=19]
-resource_name = "loading"
-length = 2.0
-loop = true
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:anchor_left")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 1.5, 2 ),
-"transitions": PoolRealArray( 0.5, 0.5, 1, 2 ),
-"update": 0,
-"values": [ 0.0, 1.0, 0.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:anchor_right")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 2 ),
-"transitions": PoolRealArray( 0.5, 1, 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0, 1.0, 0.0 ]
-}
 
 [sub_resource type="QuadMesh" id=15]
 
@@ -167,70 +92,13 @@ __meta__ = {
 }
 
 [node name="BackgroundShader" type="ColorRect" parent="."]
-visible = false
 material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 
-[node name="Current" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="LoadingScreenContainer" type="ViewportContainer" parent="Current"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 0.0224915
-margin_bottom = 0.0224915
-stretch = true
-script = ExtResource( 10 )
-
-[node name="Viewport" type="Viewport" parent="Current/LoadingScreenContainer"]
-size = Vector2( 640, 360 )
-own_world = true
-world = SubResource( 24 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-script = ExtResource( 91 )
-
-[node name="Spatial" type="Spatial" parent="Current/LoadingScreenContainer/Viewport"]
-physics_interpolation_mode = 2
-
-[node name="Camera" type="Camera" parent="Current/LoadingScreenContainer/Viewport/Spatial"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0 )
-fov = 50.0
-
-[node name="Particles" parent="Current/LoadingScreenContainer/Viewport/Spatial" instance=ExtResource( 4 )]
-
-[node name="Loading" type="AspectRatioContainer" parent="Current"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-ratio = 1.778
-
-[node name="Control" type="Control" parent="Current/Loading"]
-margin_top = 0.0224915
-margin_right = 640.0
-margin_bottom = 359.978
-
-[node name="ColorRect" type="ColorRect" parent="Current/Loading/Control"]
-anchor_left = 0.42
-anchor_top = 0.46
-anchor_right = 0.58
-anchor_bottom = 0.54
-color = Color( 0, 0, 0, 1 )
-
-[node name="Label" type="Label" parent="Current/Loading/Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 71 )
-text = "LOADING"
-align = 1
-valign = 1
-
 [node name="FrontContainer" type="AspectRatioContainer" parent="."]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -243,28 +111,27 @@ margin_right = 640.0
 margin_bottom = 359.978
 
 [node name="Label" type="Label" parent="FrontContainer/Loading"]
-anchor_right = 0.192
-anchor_bottom = 0.12
-margin_left = 5.0
-margin_top = 13.7514
-margin_right = -5.0
-margin_bottom = 3.75142
-theme = SubResource( 22 )
-text = "LOADING"
-align = 1
+anchor_left = 0.02
+anchor_top = 0.036
+anchor_right = 0.02
+anchor_bottom = 0.036
+theme = ExtResource( 3 )
+text = "Preparing shaders
+Freeing up memory
+
+Remaining time: 10s"
 valign = 1
+script = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="FrontContainer/Loading/Label"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
 color = Color( 0, 0, 0, 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FrontContainer/Loading"]
-root_node = NodePath("../Label")
-anims/RESET = SubResource( 18 )
-anims/loading = SubResource( 19 )
-script = ExtResource( 58 )
 
 [node name="SettingsManager" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -383,10 +250,6 @@ environment = SubResource( 14 )
 pause_mode = 2
 script = ExtResource( 68 )
 
-[node name="LoadingManager" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 62 )
-
 [node name="ExtrapolationManager" type="Node" parent="."]
 script = ExtResource( 63 )
 
@@ -445,9 +308,7 @@ one_shot = true
 autostart = true
 script = ExtResource( 55 )
 
-[connection signal="visibility_changed" from="FrontContainer/Loading/Label" to="FrontContainer/Loading/AnimationPlayer" method="_on_Loading_visibility_changed"]
 [connection signal="visibility_changed" from="MaterialManager/Precompiler" to="MaterialManager/Precompiler" method="_on_Precompiler_visibility_changed"]
-[connection signal="resources_loaded" from="LoadingManager" to="GlobalAudio/MusicPlayer" method="_on_LoadingManager_resources_loaded"]
 [connection signal="timeout" from="GlobalAudio/KillImpact/Timer" to="GlobalAudio/KillImpact" method="_on_Timer_timeout"]
 [connection signal="timeout" from="GlobalAudio/SniperImpact/Timer" to="GlobalAudio/SniperImpact" method="_on_Timer_timeout"]
 [connection signal="timeout" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer" method="_on_MenuTimer_timeout"]

@@ -32,21 +32,17 @@ func _ready():
 	if controls != null:
 		random_skin("res://resources/materials/vehicles/well_raised/", "")
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack($MGLeft/MuzzleFlash/CPUParticles)
-		DeletionManager.add_to_stack($MGMiddle/MuzzleFlash/CPUParticles)
-		DeletionManager.add_to_stack($MGRight/MuzzleFlash/CPUParticles)
-		DeletionManager.add_to_stack($ShotgunFlashLeft/CPUParticles)
-		DeletionManager.add_to_stack($ShotgunFlashLeft/CPUParticles2)
-		DeletionManager.add_to_stack($ShotgunFlashRight/CPUParticles)
-		DeletionManager.add_to_stack($ShotgunFlashRight/CPUParticles2)
+		DeletionManager.add_array_to_garbage([$MGLeft/MuzzleFlash/CPUParticles,
+				$MGMiddle/MuzzleFlash/CPUParticles,
+				$MGRight/MuzzleFlash/CPUParticles,
+				$ShotgunFlashLeft/CPUParticles, $ShotgunFlashLeft/CPUParticles2,
+				$ShotgunFlashRight/CPUParticles,
+				$ShotgunFlashRight/CPUParticles2])
 	else:
-		DeletionManager.add_to_stack($MGLeft/MuzzleFlash/Particles)
-		DeletionManager.add_to_stack($MGMiddle/MuzzleFlash/Particles)
-		DeletionManager.add_to_stack($MGRight/MuzzleFlash/Particles)
-		DeletionManager.add_to_stack($ShotgunFlashLeft/Particles)
-		DeletionManager.add_to_stack($ShotgunFlashLeft/Particles2)
-		DeletionManager.add_to_stack($ShotgunFlashRight/Particles)
-		DeletionManager.add_to_stack($ShotgunFlashRight/Particles2)
+		DeletionManager.add_array_to_garbage([$MGLeft/MuzzleFlash/Particles,
+				$MGMiddle/MuzzleFlash/Particles, $MGRight/MuzzleFlash/Particles,
+				$ShotgunFlashLeft/Particles, $ShotgunFlashLeft/Particles2,
+				$ShotgunFlashRight/Particles, $ShotgunFlashRight/Particles2])
 
 
 func _physics_process(_delta):

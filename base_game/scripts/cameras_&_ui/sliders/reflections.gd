@@ -67,6 +67,9 @@ func _on_ReflectionsSlider_focus_entered():
 
 func _on_ReflectionsSlider_value_changed(value):
 	var converted_value: int = convert_to_true_value(value)
+	var old_value: int = SettingsManager.get_this().reflections
+	if converted_value == 0 or old_value == 0:
+		MaterialManager.compile_shaders()
 	SettingsManager.get_this().reflections = converted_value
 	var config: ConfigFile = SettingsManager.get_config()
 	config.set_value("graphics", "reflections", converted_value)

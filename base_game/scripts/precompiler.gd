@@ -2,9 +2,10 @@ class_name Precompiler
 extends ViewportContainer
 
 
+signal start(materials_size)
+
 var materials: Array
 var position_in_array: int = 0
-var can_finish: bool = false
 
 onready var mesh: MeshInstance = $Viewport/Camera/MeshInstance
 
@@ -21,18 +22,14 @@ func _ready():
 
 
 func _process(_delta):
-	if materials.size() > 1:
-		mesh.material_override = materials[position_in_array]
-		position_in_array += 1
-		if position_in_array == materials.size():
-			if can_finish:
-				hide()
-				var loading: Control = get_node_or_null(\
-						"/root/FrontContainer/Loading")
-				loading.hide()
-				set_process(false)
-			else:
-				position_in_array = 0
+	mesh.material_override = materials[position_in_array]
+	position_in_array += 1
+	if position_in_array == materials.size():
+		hide()
+		var loading: Control = get_node_or_null(\
+				"/root/FrontContainer/Loading")
+		loading.hide()
+		set_process(false)
 
 
 static func get_this() -> Precompiler:
@@ -47,6 +44,7 @@ func start():
 	set_process(true)
 	emit_particles()
 	position_in_array = 0
+	emit_signal("start", materials.size())
 
 
 func add_materials():

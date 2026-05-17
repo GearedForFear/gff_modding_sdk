@@ -4,9 +4,9 @@ extends Boost
 
 func prepare(vehicle: VehicleBody):
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack(vehicle.get_node("NitroCPUParticles"))
+		DeletionManager.add_to_garbage(vehicle.get_node("NitroCPUParticles"))
 	else:
-		DeletionManager.add_to_stack(vehicle.get_node("NitroParticles"))
+		DeletionManager.add_to_garbage(vehicle.get_node("NitroParticles"))
 		vehicle.get_node("NitroCPUParticles").name = "NitroParticles"
 
 

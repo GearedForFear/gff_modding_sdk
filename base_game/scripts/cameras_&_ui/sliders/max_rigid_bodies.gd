@@ -23,6 +23,7 @@ func _on_MaximumRigidBodiesSlider_focus_entered():
 func _on_MaximumRigidBodiesSlider_value_changed(value):
 	var converted_value: int = VALUES[value]
 	SettingsManager.get_this().max_rigid_bodies = converted_value
+	DeletionManager.get_this().max_rigid_bodies = converted_value
 	var config: ConfigFile = SettingsManager.get_config()
 	config.set_value("graphics", "max_rigid_bodies", converted_value)
 	config.save("user://config.cfg")

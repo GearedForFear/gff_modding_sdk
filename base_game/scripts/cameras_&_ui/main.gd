@@ -2,9 +2,8 @@ extends Control
 
 
 var track: Spatial
-var next_tracks: PoolStringArray
+var next_tracks := []
 var player_amount: int = 1
-var menu_orphans: Array
 
 
 func _init():
@@ -24,51 +23,18 @@ func _ready():
 				mod_scene.modify()
 			next_mod = directory.get_next()
 	VisualServer.set_default_clear_color(Color.black)
-	
-	var thread := Thread.new()
-#	if thread.start($LoadingManager, "prepare") != OK:
-#		push_error("Loading thread did not start!")
-	$LoadingManager.prepare()
-#	while thread.is_alive():
-#		yield(get_tree(), "idle_frame")
-#	DeletionManager.add_array_to_stack(thread.wait_to_finish())
-
-
-func spawn_track(path: String):
-	if is_instance_valid(track):
-		track.queue_free()
-	track = ResourceLoader.load(path).instance()
-	var spawns := Array()
-	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
-	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
-	spawns.append(track.get_node("StartSpawns/SpawnPoint9/SpawnPosition"))
-	spawns.append(track.get_node("StartSpawns/SpawnPoint10/SpawnPosition"))
-	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
-	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
-	instantiate_vehicles(spawns, 6)
-	#instantiate_target_vehicle()
+	LoadingManager.prepare()
 
 
 func play(vehicles: Array, controls: Array):
 	#$MaterialManager.set_movement(true)
-	spawn_vehicle("fungibber", "TargetStartSpawn", null)
-	add_child(track)
-	var spawns := Array()
+	var vehicle_data_array := Array()
 	for n in player_amount:
-		spawns.append(spawn_vehicle(vehicles[n], "StartSpawns/SpawnPoint"
-				+ String(n + 1) + "/Viewport/SpawnPosition", controls[n]))
-	var bots := ["chains_awe", "suicide_door", "grave_mistake",
-			"metal_undertow", "warm_welcome", "turbulence", "eternal_bond",
-			"missilodon", "restless", "well_raised", "no_match"]
-	for n in 12 - player_amount:
-		var viewport: String = "/Viewport"
-		if n < 6:
-			viewport = ""
-		spawn_vehicle(bots[n], "StartSpawns/SpawnPoint" + String(12 - n)
-				+ viewport + "/SpawnPosition", null)
-	MenuManager.go_to("GameplayView").set_views(spawns)
+		var new_data := VehicleData.instantiate_simple(VehicleData.new(),
+				vehicles[n], controls[n])
+		vehicle_data_array.append(new_data)
+	spawn_world(vehicle_data_array)
 	#$BackgroundShader.hide()
-	#add_child(track)
 	"""
 	get_tree().physics_interpolation = settings_manager.transform_interpolation
 			and rr != 29 and rr != 30 and rr != 59 and rr != 60
@@ -313,24 +279,19 @@ func play(vehicles: Array, controls: Array):
 	
 	active(false)
 	instantiate_vehicles(spawns, 1)
+"""
 
-
-func play_next(vehicle_data: Array):
-	track.queue_free()
-	yield(get_tree(), "idle_frame")
-	
+func play_next(vehicle_data_array: Array):
 	if next_tracks.empty():
 		active(true)
 		$AspectRatioContainer/ArcadeEnd.update_text(
-				vehicle_data[0].scoreboard_record.find_first())
-		for n in 12:
-			vehicle_data[n].free()
-		$DeletionManager.delete = true
+				vehicle_data_array[0].scoreboard_record.find_first())
+		DeletionManager.enable(true)
 		$AspectRatioContainer/MainMenu.hide()
 		return
-	track = ResourceLoader.load(next_tracks[0], "PackedScene").instance()
-	next_tracks.remove(0)
+	spawn_world(vehicle_data_array)
 	
+	"""
 	var viewpoint_container: PlayerContainer
 	
 	var spawns: Array = Array()
@@ -483,28 +444,69 @@ func play_next(vehicle_data: Array):
 """
 
 
+func spawn_world(vehicle_data_array: Array):
+	DeletionManager.enable(true)
+	if is_instance_valid(track):
+		track.queue_free()
+		yield(get_tree(), "idle_frame")
+	var upcoming_track: String = "res://scenes/world/tracks/" \
+			+ next_tracks.pop_front() + ".tscn"
+	track = ResourceLoader.load(upcoming_track, "PackedScene").instance()
+	spawn_vehicle(VehicleData.complete_resource_name("fungibber"),
+			"TargetStartSpawn", null)
+	add_child(track)
+	next_tracks.remove(0)
+	
+	var spawns := Array()
+	for n in player_amount:
+		spawns.append(spawn_vehicle(vehicle_data_array[n].scene_resource,
+				"StartSpawns/SpawnPoint" + String(n + 1)
+				+ "/Viewport/SpawnPosition", vehicle_data_array[n].controls))
+	var bots := ["chains_awe", "suicide_door", "grave_mistake",
+			"metal_undertow", "warm_welcome", "turbulence", "eternal_bond",
+			"missilodon", "restless", "well_raised", "no_match"]
+	for n in 12 - player_amount:
+		var viewport: String = "/Viewport"
+		if n < 6:
+			viewport = ""
+		spawn_vehicle(VehicleData.complete_resource_name(bots[n]),
+				"StartSpawns/SpawnPoint" + String(12 - n) + viewport
+				+ "/SpawnPosition", null)
+	MenuManager.go_to("GameplayView").set_views(spawns)
+	"""
+	if is_instance_valid(track):
+		track.queue_free()
+	track = ResourceLoader.load(path).instance()
+	var spawns := Array()
+	spawns.append(track.get_node("StartSpawns/SpawnPoint7/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint8/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint9/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint10/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint11/SpawnPosition"))
+	spawns.append(track.get_node("StartSpawns/SpawnPoint12/SpawnPosition"))
+	instantiate_vehicles(spawns, 6)
+	#instantiate_target_vehicle()
+	"""
+
+
 func active(var b: bool):
 	if b:
 		if $MusicPlayer.is_on_vehicle_select == false:
 			$MusicPlayer.start($MusicPlayer.MENU_MUSIC, null)
 		else:
 			$MusicPlayer.is_on_vehicle_select = false
-		for n in menu_orphans:
-			add_child(n)
-		menu_orphans.clear()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		var menu: Control = $AspectRatioContainer/MainMenu
 		menu.show()
 		menu.get_node("Arcade").grab_focus()
 	else:
 		for n in [$AspectRatioContainer, $ResolutionMenu, $FOVMenu, $MenuTimer]:
-			menu_orphans.append(n)
 			remove_child(n)
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	visible = b
 	set_process(b)
 
-
+"""
 func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 	var vehicle: Spatial
 	var next_vehicle: int = first_vehicle
@@ -517,12 +519,12 @@ func instantiate_vehicles(var spawns: Array, var first_vehicle: int):
 		next_vehicle = (next_vehicle + 1) % 11
 		vehicle.get_node("Body").track = track
 		n.add_child(vehicle)
+"""
 
-
-func spawn_vehicle(vehicle_name: String, spawn_name: String,
+func spawn_vehicle(scene_resource: String, spawn_name: String,
 		controls: PlayerControls) -> PlayerContainer:
-	var vehicle: Spatial = ResourceLoader.load("res://scenes/vehicles/"
-			+ vehicle_name + ".tscn", "PackedScene").instance()
+	var vehicle: Spatial = ResourceLoader.load(scene_resource, "PackedScene")\
+			.instance()
 	var body: VehicleBody = vehicle.get_node("Body")
 	body.track = track
 	body.controls = controls

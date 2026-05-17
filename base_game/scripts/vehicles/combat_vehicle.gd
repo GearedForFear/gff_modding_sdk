@@ -32,8 +32,13 @@ onready var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
 
 
 func _enter_tree():
+	# Ensure this function only runs the first time for each instance
+	if target != null:
+		return
+	
 	weight = body_values.weight
 	gameplay_manager = track.get_node("GameplayManager")
+	assert(!gameplay_manager.pursuers.has(self))
 	pools = track.get_node("Pools")
 	target = gameplay_manager.get_node("NonPlayerPath/Waypoint0")
 	if master_body:
@@ -43,9 +48,9 @@ func _enter_tree():
 				viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
 				viewport.render_target_clear_mode = \
 						Viewport.CLEAR_MODE_ONLY_NEXT_FRAME
-			DeletionManager.add_to_stack($CameraBase)
+			DeletionManager.add_to_garbage($CameraBase)
 		else:
-			DeletionManager.add_to_stack(get_node("../StuckTimer"))
+			DeletionManager.add_to_garbage(get_node("../StuckTimer"))
 		
 		if is_in_group("heist_target"):
 			get_parent().rotation = -track.get_node("TargetStartSpawn").rotation
@@ -58,15 +63,15 @@ func _enter_tree():
 			gameplay_manager.pursuers.append(self)
 			
 			if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-				DeletionManager.add_to_stack($ExplosionCPUParticles)
-				DeletionManager.add_to_stack($DeathCPUParticles)
-				DeletionManager.add_to_stack($DriftCPUParticles)
-				DeletionManager.add_to_stack($AcidCPUParticles)
+				DeletionManager.add_to_garbage($ExplosionCPUParticles)
+				DeletionManager.add_to_garbage($DeathCPUParticles)
+				DeletionManager.add_to_garbage($DriftCPUParticles)
+				DeletionManager.add_to_garbage($AcidCPUParticles)
 			else:
-				DeletionManager.add_to_stack($ExplosionParticles)
-				DeletionManager.add_to_stack($DeathParticles)
-				DeletionManager.add_to_stack($DriftParticles)
-				DeletionManager.add_to_stack($AcidParticles)
+				DeletionManager.add_to_garbage($ExplosionParticles)
+				DeletionManager.add_to_garbage($DeathParticles)
+				DeletionManager.add_to_garbage($DriftParticles)
+				DeletionManager.add_to_garbage($AcidParticles)
 				$ExplosionCPUParticles.name = "ExplosionParticles"
 				$DeathCPUParticles.name = "DeathParticles"
 				$DriftCPUParticles.name = "DriftParticles"

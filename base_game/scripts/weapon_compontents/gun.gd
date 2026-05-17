@@ -17,7 +17,7 @@ func _enter_tree():
 		for set in particles_root.get_children():
 			for particles in set.get_children():
 				if particles.name.ends_with("CPU") == gles3:
-					DeletionManager.add_to_stack(particles)
+					DeletionManager.add_to_garbage(particles)
 
 
 func try_shoot(shooter: CombatVehicle, pools: Node) -> bool:

@@ -7,10 +7,10 @@ var movement_type: int
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack($CPUParticles)
+		DeletionManager.add_to_garbage($CPUParticles)
 		remove_child($CPUParticles)
 	else:
-		DeletionManager.add_to_stack($Particles)
+		DeletionManager.add_to_garbage($Particles)
 		remove_child($Particles)
 		$CPUParticles.name = "Particles"
 

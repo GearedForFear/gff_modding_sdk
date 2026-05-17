@@ -19,7 +19,7 @@ func start(global_transform: Transform):
 	set_process(true)
 	show()
 	reset_physics_interpolation()
-	DeletionManager.RIGID_BODIES.append(self)
+	DeletionManager.add_to_rigid_bodies(self)
 
 
 func stop():

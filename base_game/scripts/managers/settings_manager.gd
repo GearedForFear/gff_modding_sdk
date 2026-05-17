@@ -59,6 +59,7 @@ func start():
 	shadow_resolution = config.get_value("graphics", "shadow_resolution", 8192)
 	rear_view_shadows = config.get_value("graphics", "rear_view_shadows", 0)
 	max_rigid_bodies = config.get_value("graphics", "max_rigid_bodies", 100)
+	DeletionManager.get_this().max_rigid_bodies = max_rigid_bodies
 	OS.vsync_enabled = config.get_value("graphics", "vsync", true)
 	mirror_frame_rate = config.get_value("graphics", "mirror_frame_rate", false)
 

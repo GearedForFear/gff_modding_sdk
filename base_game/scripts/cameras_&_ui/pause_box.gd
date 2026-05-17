@@ -70,7 +70,7 @@ func open(b: bool):
 	get_node("../../../PauseBackground").visible = b
 	get_node("../RearMirror").visible = not b
 	get_node("/root/RootControl/MaterialManager").set_movement(not b)
-	get_node("/root/RootControl/DeletionManager").delete = b
+	DeletionManager.enable(b)
 	if b:
 		current_option = 0
 		just_opened = true

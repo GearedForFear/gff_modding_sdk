@@ -2,7 +2,7 @@ class_name SettingsSlider
 extends HSlider
 
 
-enum ActionOnChange {NONE, COMPILE, UPDATE_MATERIALS_AND_COMPILE}
+enum ActionOnChange {NONE, AUTO_COMPILE, UPDATE_MATERIALS_AND_COMPILE}
 
 export(ActionOnChange) var on_change
 
@@ -12,10 +12,10 @@ func update_setting():
 	SettingsManager.apply_settings()
 	update_label()
 	match on_change:
-		ActionOnChange.COMPILE:
+		ActionOnChange.AUTO_COMPILE:
 			MaterialManager.compile_shaders()
 		ActionOnChange.UPDATE_MATERIALS_AND_COMPILE:
-			MaterialManager.compile_shaders()
+			MaterialManager.get_this().update_settings()
 
 
 func update_label():

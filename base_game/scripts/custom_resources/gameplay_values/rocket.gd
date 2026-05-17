@@ -4,12 +4,13 @@ extends Boost
 
 func prepare(vehicle: VehicleBody):
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack(vehicle.get_node("RocketCPUParticles"))
-		DeletionManager.add_to_stack(vehicle.get_node(
-				"ReverseRocketCPUParticles"))
+		DeletionManager.add_array_to_garbage(\
+				[vehicle.get_node("RocketCPUParticles"),
+				vehicle.get_node("ReverseRocketCPUParticles")])
 	else:
-		DeletionManager.add_to_stack(vehicle.get_node("RocketParticles"))
-		DeletionManager.add_to_stack(vehicle.get_node("ReverseRocketParticles"))
+		DeletionManager.add_array_to_garbage(\
+				[vehicle.get_node("RocketParticles"),
+				vehicle.get_node("ReverseRocketParticles")])
 		vehicle.get_node("RocketCPUParticles").name = "RocketParticles"
 		vehicle.get_node("ReverseRocketCPUParticles").name \
 				= "ReverseRocketParticles"

@@ -27,11 +27,11 @@ func _ready():
 	get_node("../AnimationPlayerHeat").play("RESET")
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack($MuzzleFlashLeftCPU)
-		DeletionManager.add_to_stack($MuzzleFlashRightCPU)
+		DeletionManager.add_array_to_garbage([$MuzzleFlashLeftCPU,
+				$MuzzleFlashRightCPU])
 	else:
-		DeletionManager.add_to_stack($MuzzleFlashLeft)
-		DeletionManager.add_to_stack($MuzzleFlashRight)
+		DeletionManager.add_array_to_garbage([$MuzzleFlashLeft,
+				$MuzzleFlashRight])
 		$MuzzleFlashLeftCPU.name = "MuzzleFlashLeft"
 		$MuzzleFlashRightCPU.name = "MuzzleFlashRight"
 

@@ -28,13 +28,11 @@ var next_out: int = cartridge_out.NONE
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_to_stack($ShotgunFlash/CPUParticles)
-		DeletionManager.add_to_stack($SniperFlash/CPUParticles)
-		DeletionManager.add_to_stack($MachineGunFlash/CPUParticles)
+		DeletionManager.add_array_to_garbage([$ShotgunFlash/CPUParticles,
+				$SniperFlash/CPUParticles, $MachineGunFlash/CPUParticles])
 	else:
-		DeletionManager.add_to_stack($ShotgunFlash/Particles)
-		DeletionManager.add_to_stack($SniperFlash/Particles)
-		DeletionManager.add_to_stack($MachineGunFlash/Particles)
+		DeletionManager.add_array_to_garbage([$ShotgunFlash/Particles,
+				$SniperFlash/Particles, $MachineGunFlash/Particles])
 	
 	$BoostSwitch.second_boost.prepare(self)
 
