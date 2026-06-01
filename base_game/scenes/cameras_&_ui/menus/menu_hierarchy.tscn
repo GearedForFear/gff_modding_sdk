@@ -84,6 +84,10 @@ script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/vehicle_select/vehicle_select_any.tscn"
 hack = true
 
+[node name="CustomizationSlots" type="Node" parent="Main/Customization"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/customization_slots.tscn"
+
 [node name="Options" type="Node" parent="Main"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/options.tscn"

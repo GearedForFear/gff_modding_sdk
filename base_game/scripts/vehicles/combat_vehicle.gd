@@ -1,5 +1,5 @@
 class_name CombatVehicle
-extends VehicleBody
+extends CustomizableVehicle
 
 
 signal health_changed(new)
@@ -10,7 +10,6 @@ const STEER_LIMIT: float = 0.4
 const ACID_DAMAGE_PER_TICK: float = 0.1
 
 export var master_body: bool = true
-export var body_values: Resource
 
 var steer_target: float = 0.0
 var alive: bool = false

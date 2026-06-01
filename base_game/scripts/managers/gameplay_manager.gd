@@ -133,7 +133,7 @@ func _on_Timer_timeout():
 	var pursuer_data: Array = Array()
 	for n in pursuers:
 		var data = VehicleData.new()
-		data.scene_resource = n.body_values.main_scene
+		data.scene_resource = n.body_values.get_main_scene_path()
 		data.controls = n.controls
 		if n.controls == null:
 			data.spawn = 6

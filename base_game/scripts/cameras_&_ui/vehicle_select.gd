@@ -13,6 +13,8 @@ func _enter_tree():
 		controls.append("")
 
 
-func select():
+func select(number: int, vehicle_name: String, player_controls: PlayerControls):
+	selected_vehicle[number - 1] = vehicle_name
+	controls[number - 1] = player_controls
 	if not selected_vehicle.has(""):
 		Global.root_control.play(selected_vehicle, controls)

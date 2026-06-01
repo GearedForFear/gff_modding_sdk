@@ -44,10 +44,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/custom_resources/gameplay_values/burst.gd"
 }, {
-"base": "VehicleBody",
+"base": "CustomizableVehicle",
 "class": "CombatVehicle",
 "language": "GDScript",
 "path": "res://scripts/vehicles/combat_vehicle.gd"
+}, {
+"base": "VehicleBody",
+"class": "CustomizableVehicle",
+"language": "GDScript",
+"path": "res://scripts/vehicles/customizable_vehicle.gd"
 }, {
 "base": "Node",
 "class": "DeletionManager",
@@ -239,6 +244,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/world/shadow_setter.gd"
 }, {
+"base": "Resource",
+"class": "SkinCollection",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/skin_collection.gd"
+}, {
+"base": "Reference",
+"class": "SkinCollectionFactory",
+"language": "GDScript",
+"path": "res://scripts/skin_collection_factory.gd"
+}, {
+"base": "Resource",
+"class": "SkinComponent",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/skin_component.gd"
+}, {
 "base": "Button",
 "class": "StandardButton",
 "language": "GDScript",
@@ -279,6 +299,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/custom_resources/vehicle_list.gd"
 }, {
+"base": "Resource",
+"class": "VehicleSkin",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/vehicle_skin.gd"
+}, {
 "base": "StandardButton",
 "class": "WindowMode",
 "language": "GDScript",
@@ -293,6 +318,7 @@ _global_script_class_icons={
 "Boost": "",
 "Burst": "",
 "CombatVehicle": "",
+"CustomizableVehicle": "",
 "DeletionManager": "",
 "DynamicShadowBody": "",
 "ExtrapolationManager": "",
@@ -331,6 +357,9 @@ _global_script_class_icons={
 "SettingsManager": "",
 "SettingsSlider": "",
 "ShadowSetter": "",
+"SkinCollection": "",
+"SkinCollectionFactory": "",
+"SkinComponent": "",
 "StandardButton": "",
 "StraightProjectile": "",
 "SubViewport": "",
@@ -339,6 +368,7 @@ _global_script_class_icons={
 "VehicleBodyValues": "",
 "VehicleData": "",
 "VehicleList": "",
+"VehicleSkin": "",
 "WindowMode": ""
 }
 

@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://resources/environments/the_calm.tres" type="Environment" id=1]
+[ext_resource path="res://scripts/cameras_&_ui/sub_viewport.gd" type="Script" id=3]
+[ext_resource path="res://scripts/cameras_&_ui/customization_slots.gd" type="Script" id=4]
+[ext_resource path="res://scripts/cameras_&_ui/menu_viewport_container.gd" type="Script" id=5]
+[ext_resource path="res://resources/animations/ui/rotate_garage.anim" type="Animation" id=6]
+[ext_resource path="res://resources/animations/ui/RESET.anim" type="Animation" id=7]
+
+[sub_resource type="World" id=2]
+environment = ExtResource( 1 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 20, 1, 20 )
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.7778
+script = ExtResource( 4 )
+
+[node name="SlotsView" type="ViewportContainer" parent="."]
+margin_top = 0.00224304
+margin_right = 640.0
+margin_bottom = 359.998
+stretch = true
+script = ExtResource( 5 )
+
+[node name="Viewport" type="Viewport" parent="SlotsView"]
+size = Vector2( 640, 359 )
+world = SubResource( 2 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+shadow_atlas_size = 4096
+script = ExtResource( 3 )
+
+[node name="Spatial" type="Spatial" parent="SlotsView/Viewport"]
+physics_interpolation_mode = 2
+
+[node name="StaticBody" type="StaticBody" parent="SlotsView/Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="SlotsView/Viewport/Spatial/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="CodePivot" type="Spatial" parent="SlotsView/Viewport/Spatial"]
+
+[node name="AnimatedPivot" type="Spatial" parent="SlotsView/Viewport/Spatial/CodePivot"]
+
+[node name="Camera" type="Camera" parent="SlotsView/Viewport/Spatial/CodePivot/AnimatedPivot"]
+transform = Transform( 0.936495, 0.112833, -0.332033, 0, 0.946824, 0.321753, 0.350681, -0.30132, 0.886695, -2.0637, 4.02786, 22.7904 )
+fov = 55.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="SlotsView/Viewport/Spatial/CodePivot/AnimatedPivot"]
+transform = Transform( 0.939693, -0.17101, 0.296198, 0, 0.866025, 0.5, -0.34202, -0.469846, 0.813798, 0, 0, 0 )
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotsView/Viewport/Spatial/CodePivot"]
+anims/RESET = ExtResource( 7 )
+anims/rotate_garage = ExtResource( 6 )
+
+[node name="Previews" type="Spatial" parent="SlotsView/Viewport/Spatial"]
+
+[node name="Spatial" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial"]
+
+[node name="Spatial2" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866026, 7.5, 0, 12.9904 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial2"]
+
+[node name="Spatial3" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 12.9904, 0, 7.5 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial3"]
+
+[node name="Spatial4" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 2.38419e-07, 0, 1, 0, 1, 0, -1, 0, 2.38419e-07, 15, 0, 3.8147e-06 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial4"]
+
+[node name="Spatial5" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, -0.5, 12.9904, 0, -7.5 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial5"]
+
+[node name="Spatial6" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 7.5, 0, -12.9904 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial6"]
+
+[node name="Spatial7" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, 9.53674e-07, 0, -15 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial7"]
+
+[node name="Spatial8" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, -7.5, 0, -12.9904 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial8"]
+
+[node name="Spatial9" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -12.9904, 0, -7.5 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial9"]
+
+[node name="Spatial10" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( -1.78814e-07, 0, -1, 0, 1, 0, 1, 0, -1.78814e-07, -15, 0, -2.86102e-06 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial10"]
+
+[node name="Spatial11" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 0.5, 0, -0.866026, 0, 1, 0, 0.866026, 0, 0.5, -12.9904, 0, 7.5 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial11"]
+
+[node name="Spatial12" type="Spatial" parent="SlotsView/Viewport/Spatial/Previews"]
+transform = Transform( 0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -7.5, 0, 12.9904 )
+
+[node name="Dummy" type="Node" parent="SlotsView/Viewport/Spatial/Previews/Spatial12"]

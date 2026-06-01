@@ -10,4 +10,4 @@ base_health = 150.0
 base_engine_force = 281.6
 weight = 3200.0
 boost = ExtResource( 2 )
-main_scene = "res://scenes/vehicles/eternal_bond.tscn"
+vehicle_file_name = "eternal_bond"

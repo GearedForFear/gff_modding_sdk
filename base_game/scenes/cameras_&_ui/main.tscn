@@ -119,7 +119,7 @@ theme = ExtResource( 3 )
 text = "Preparing shaders
 Freeing up memory
 
-Remaining time: 10s"
+Progress: 0%"
 valign = 1
 script = ExtResource( 4 )
 

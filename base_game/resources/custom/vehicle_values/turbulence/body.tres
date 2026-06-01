@@ -10,4 +10,4 @@ base_health = 92.0
 base_engine_force = 456.0
 weight = 1520.0
 boost = ExtResource( 2 )
-main_scene = "res://scenes/vehicles/turbulence.tscn"
+vehicle_file_name = "turbulence"

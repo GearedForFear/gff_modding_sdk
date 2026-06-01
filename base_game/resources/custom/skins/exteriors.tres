@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/custom_resources/array_resource.gd" type="Script" id=1]
+[ext_resource path="res://resources/custom/skins/exteriors/uniform_true_flat.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+array = [ ExtResource( 2 ) ]

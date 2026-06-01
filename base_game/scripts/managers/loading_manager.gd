@@ -8,6 +8,7 @@ static func prepare():
 	Precompiler.get_this().add_materials()
 	ResourceManager.get_this().load_resources()
 	MaterialManager.get_this().update_settings()
+	SkinComponent.start()
 	AudioServer.set_bus_volume_db(0, linear2db(1.0))
 	
 	var menu_hierarchy: Node = ResourceLoader.load(

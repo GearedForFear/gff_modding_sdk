@@ -54,6 +54,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 31 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("BodyMesh/WheelFrontLeft"), NodePath("BodyMesh/WheelFrontRight"), NodePath("BodyMesh/WheelBackLeft"), NodePath("BodyMesh/WheelBackRight") ], [  ], [  ] ]
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799597, 0.130678, 1.7008 )

@@ -16,6 +16,7 @@ var right: String = "ui_right"
 var accept: String = "ui_accept"
 
 onready var vehicle_name: String = get_parent().vehicle_name
+onready var can_accept: bool = not get_parent().locked
 
 
 func _process(_delta):
@@ -27,7 +28,7 @@ func _process(_delta):
 		move_horizontal(-1)
 	if Input.is_action_just_pressed(right):
 		move_horizontal(1)
-	if Input.is_action_just_pressed(accept):
+	if can_accept and Input.is_action_just_pressed(accept):
 		select()
 
 
@@ -70,13 +71,12 @@ func move_horizontal(direction: int):
 
 func select():
 	var menu_root: AspectRatioContainer = get_node("../../../../../..")
-	menu_root.selected_vehicle[number - 1] = vehicle_name
-	menu_root.controls[number - 1] = player_controls
-	menu_root.select()
+	menu_root.select(number, vehicle_name, player_controls)
 
 
 func update_focus(select_slot: SelectSlot):
 	vehicle_name = select_slot.vehicle_name
+	can_accept = not select_slot.locked
 	var path: String = "res://scenes/vehicles/preview/" + vehicle_name \
 			+ "_preview.tscn"
 	var preview_vehicle: VehicleBody = \

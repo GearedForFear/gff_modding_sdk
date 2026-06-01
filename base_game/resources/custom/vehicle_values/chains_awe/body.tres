@@ -10,4 +10,4 @@ base_health = 116.0
 base_engine_force = 264.0
 weight = 2200.0
 boost = ExtResource( 2 )
-main_scene = "res://scenes/vehicles/chains_awe.tscn"
+vehicle_file_name = "chains_awe"

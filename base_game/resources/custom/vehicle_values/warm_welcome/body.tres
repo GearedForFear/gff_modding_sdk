@@ -10,4 +10,4 @@ base_health = 98.0
 base_engine_force = 261.12
 weight = 1920.0
 boost = ExtResource( 2 )
-main_scene = "res://scenes/vehicles/warm_welcome.tscn"
+vehicle_file_name = "warm_welcome"

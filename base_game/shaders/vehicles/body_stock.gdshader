@@ -3,6 +3,8 @@ shader_type spatial;
 render_mode specular_disabled;
 uniform sampler2D texture_albedo : hint_albedo;
 uniform vec4 paint_color : hint_color;
+uniform sampler2D main_texture : hint_albedo;
+uniform vec4 primary_color : hint_color;
 uniform float brightness : hint_range(0.05f, 1) = 1.0f;
 
 
@@ -26,10 +28,11 @@ vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 
 
 void fragment() {
-	vec2 tex_size = 1.0f / vec2(textureSize(texture_albedo, 0)); // size of one pixel of the texture
+	vec2 tex_size = 1.0f / vec2(textureSize(main_texture, 0)); // size of one pixel of the texture
 	
-	vec4 albedo_tex = texture_point_smooth(texture_albedo, UV, tex_size);
+	vec4 v = texture_point_smooth(main_texture, UV, tex_size);
+	vec3 details_color = v.rgb;
+	float paint_mask = v.a;
 	
-	ALBEDO.rgb = mix(paint_color.rgb, albedo_tex.rgb, albedo_tex.a)
-			* brightness;
+	ALBEDO.rgb = mix(primary_color.rgb, details_color, paint_mask) * brightness;
 }

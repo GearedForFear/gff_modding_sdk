@@ -15,7 +15,7 @@ var saws: Array
 
 func _ready():
 	if controls != null:
-		random_skin("res://resources/materials/vehicles/metal_undertow/", "")
+		set_skin(0)
 
 
 func _physics_process(_delta):

@@ -10,4 +10,4 @@ base_health = 106.0
 base_engine_force = 185.76
 weight = 1720.0
 boost = ExtResource( 1 )
-main_scene = "res://scenes/vehicles/metal_undertow.tscn"
+vehicle_file_name = "metal_undertow"

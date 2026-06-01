@@ -10,4 +10,4 @@ base_health = 94.0
 base_engine_force = 274.4
 weight = 1960.0
 boost = ExtResource( 2 )
-main_scene = "res://scenes/vehicles/well_raised.tscn"
+vehicle_file_name = "well_raised"

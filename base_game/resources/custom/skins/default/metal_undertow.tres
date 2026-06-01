@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/custom_resources/vehicle_skin.gd" type="Script" id=1]
+[ext_resource path="res://resources/custom/skins/wheels/metal_undertow.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+exterior = 0
+wheels = ExtResource( 2 )
+primary_color = Color( 0, 1, 0.529412, 1 )
+secondary_color = Color( 0.117647, 0.764706, 0.0941176, 1 )
+vehicle_name = "metal_undertow"
+monster_truck = false

@@ -10,4 +10,4 @@ base_health = 124.0
 base_engine_force = 907.2
 weight = 3240.0
 boost = ExtResource( 1 )
-main_scene = "res://scenes/vehicles/missilodon.tscn"
+vehicle_file_name = "missilodon"
