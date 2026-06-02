@@ -1,5 +1,4 @@
 class_name MonsterTruckSteering
-extends Object
 
 
 static func use(wheels: Array, steer_left: bool, steer_right: bool):

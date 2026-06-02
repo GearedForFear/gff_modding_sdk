@@ -31,8 +31,8 @@ onready var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
 
 
 func _enter_tree():
-	# Ensure this function only runs the first time for each instance
 	if target != null:
+		# Ensure this function only runs the first time for each instance
 		return
 	
 	weight = body_values.weight

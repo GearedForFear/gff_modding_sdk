@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/gameplay_manager.gd"
 }, {
+"base": "AnimationPlayer",
+"class": "Glide",
+"language": "GDScript",
+"path": "res://scripts/gadgets/glide.gd"
+}, {
 "base": "Node",
 "class": "GlobalAudio",
 "language": "GDScript",
@@ -139,12 +144,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cameras_&_ui/menu_viewport_container.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "MissileRemote",
 "language": "GDScript",
 "path": "res://scripts/gadgets/missile_remote.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "MonsterTruckSteering",
 "language": "GDScript",
 "path": "res://scripts/gadgets/monster_truck_steering.gd"
@@ -324,6 +329,7 @@ _global_script_class_icons={
 "ExtrapolationManager": "",
 "GadgetForce": "",
 "GameplayManager": "",
+"Glide": "",
 "GlobalAudio": "",
 "GlobalAudioPlayer": "",
 "GlobalEnums": "",

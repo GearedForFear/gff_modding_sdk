@@ -1,5 +1,4 @@
 class_name MissileRemote
-extends Object
 
 
 static func down(missiles: Array):

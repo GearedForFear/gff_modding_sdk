@@ -9,7 +9,6 @@ export var ammo_cost: float = 12.0
 var can_shoot_middle: bool = true
 var can_shoot_left: bool = true
 var can_shoot_right: bool = true
-var glide: bool = false
 
 
 func _physics_process(_delta):
@@ -45,17 +44,7 @@ func _physics_process(_delta):
 				$ShotAudioRight.play()
 			
 			if Input.is_action_just_pressed(controls.weapon_back):
-				if glide:
-					get_node("../AnimationPlayer").play("out_in")
-					$WingsOutAudio.play()
-				else:
-					get_node("../AnimationPlayer").play("in_out")
-					$WingsInAudio.play()
-				glide = !glide
-	
-	if glide:
-		apply_central_impulse(transform.basis.y * clamp((linear_velocity \
-				* Vector3(1, 0, 1)).length() - 20, 0, 10) * 3)
+				$Glide.toggle()
 
 
 func _on_MiddleTimer_timeout():
