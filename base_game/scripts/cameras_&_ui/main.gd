@@ -490,6 +490,9 @@ func spawn_world(vehicle_data_array: Array):
 
 
 func active(var b: bool):
+	OS.set_restart_on_exit(true)
+	get_tree().quit()
+	return
 	if b:
 		if $MusicPlayer.is_on_vehicle_select == false:
 			$MusicPlayer.start($MusicPlayer.MENU_MUSIC, null)

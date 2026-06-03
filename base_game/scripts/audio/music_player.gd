@@ -21,6 +21,7 @@ static func get_this() -> MusicPlayer:
 
 
 func start(start_state: MusicState, new_round_timer: Timer):
+	return
 	current_state = start_state
 	play_next(false)
 	self.round_timer = new_round_timer

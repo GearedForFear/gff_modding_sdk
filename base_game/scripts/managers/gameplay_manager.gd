@@ -130,6 +130,9 @@ func compare_scores(a: CombatVehicle, b: CombatVehicle) -> bool:
 
 
 func _on_Timer_timeout():
+	OS.set_restart_on_exit(true)
+	get_tree().quit()
+	return
 	var pursuer_data: Array = Array()
 	for n in pursuers:
 		var data = VehicleData.new()
