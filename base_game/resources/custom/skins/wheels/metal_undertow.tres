@@ -10,4 +10,7 @@ category = 1
 paint_colors = 0
 texture_0 = ExtResource( 2 )
 texture_1 = ExtResource( 2 )
+mask_name = ""
 mesh = ExtResource( 3 )
+gloss = 0.0
+color_override = Color( 0, 0, 0, 1 )

@@ -16,7 +16,7 @@
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=16]
-[ext_resource path="res://resources/materials/vehicles/well_raised/stock.material" type="Material" id=17]
+[ext_resource path="res://resources/materials/vehicles/exteriors/well_raised.material" type="Material" id=17]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/particles/acid.tscn" type="PackedScene" id=20]
@@ -54,6 +54,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 31 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("BodyMesh/WheelFrontLeft"), NodePath("BodyMesh/WheelFrontRight"), NodePath("BodyMesh/WheelBackLeft"), NodePath("BodyMesh/WheelBackRight") ], [  ], [  ] ]
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859111, 0.18458, 1.44936 )

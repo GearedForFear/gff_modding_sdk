@@ -16,7 +16,7 @@
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/materials/weapon_components/nm_gun.material" type="Material" id=16]
-[ext_resource path="res://resources/materials/vehicles/no_match/stock.material" type="Material" id=17]
+[ext_resource path="res://resources/materials/vehicles/exteriors/no_match.material" type="Material" id=17]
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=19]
 [ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=20]
@@ -117,7 +117,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=23]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -126,14 +126,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=24]
 resource_name = "overheat_heavy"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -142,14 +142,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 1.5 ),
 "transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
 "update": 0,
-"values": [ 0.0, 2.0, 0.0 ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 4, 1.88, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=22]
 resource_name = "overheat_light"
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -158,13 +158,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
 "update": 0,
-"values": [ 0.0, 2.0, 0.0 ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 0.470588, 0, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=25]
 resource_name = "overheat_medium"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission_energy")
+tracks/0/path = NodePath("Body/BodyMesh:material/0:shader_param/emission")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -173,7 +173,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 1 ),
 "transitions": PoolRealArray( 1, 0.517633, 1.7411 ),
 "update": 0,
-"values": [ 0.0, 2.0, 0.0 ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 2, 0.94, 0, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [node name="RootSpatial" type="Spatial"]
@@ -188,6 +188,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 37 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("BodyMesh/WheelFrontLeft"), NodePath("BodyMesh/WheelFrontRight"), NodePath("BodyMesh/WheelBackLeft"), NodePath("BodyMesh/WheelBackRight") ], [  ], [  ] ]
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89401, 0.16, 1.47 )

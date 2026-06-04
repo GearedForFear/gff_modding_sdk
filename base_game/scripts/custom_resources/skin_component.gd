@@ -10,10 +10,13 @@ const MONSTER_WHEELS_LIST := Array()
 
 export(Categories) var category
 export(int, 0, 2) var paint_colors
-export var texture_0: StreamTexture
+export var texture_0: Texture
 export var texture_1: StreamTexture
+export var mask_name: String
 export var mesh: ArrayMesh
 export var shader: Shader
+export(float, 0.0, 1.0) var gloss = 0.0
+export var color_override := Color.black
 
 
 static func start():
@@ -43,3 +46,7 @@ static func get_list(component_category: int) -> Array:
 static func get_component(component_category: int, position_in_list: int) \
 		-> SkinComponent:
 	return get_list(component_category)[position_in_list]
+
+
+func has_color_override() -> bool:
+	return color_override != Color.black

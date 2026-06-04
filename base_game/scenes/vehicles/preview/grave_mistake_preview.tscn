@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
-[ext_resource path="res://resources/materials/vehicles/grave_mistake/stock.material" type="Material" id=2]
+[ext_resource path="res://resources/materials/vehicles/exteriors/grave_mistake.material" type="Material" id=2]
 [ext_resource path="res://resources/materials/vehicles/wheels_gm/front/stock.material" type="Material" id=3]
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=4]
 [ext_resource path="res://resources/custom/vehicle_values/grave_mistake/body.tres" type="Resource" id=5]
@@ -20,6 +20,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 5 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("WheelFrontLeft/Mesh"), NodePath("WheelFrontRight/Mesh"), NodePath("WheelBackLeft/Mesh"), NodePath("WheelBackRight/Mesh") ], [  ], [  ] ]
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17004, 0.642758, 1.81038 )

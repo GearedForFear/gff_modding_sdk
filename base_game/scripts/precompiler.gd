@@ -90,8 +90,8 @@ func add_materials():
 	for folder in body_folders:
 		for skin_name in body_skins:
 			materials.append(ResourceLoader.load(\
-					"res://resources/materials/vehicles/"
-					+ folder + skin_name, "Material"))
+					"res://resources/materials/vehicles/exteriors/"
+					+ skin_name, "Material"))
 	for folder in wheel_folders:
 		for skin_name in wheel_skins:
 			materials.append(ResourceLoader.load(\

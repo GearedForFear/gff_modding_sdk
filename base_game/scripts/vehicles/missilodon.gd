@@ -13,15 +13,16 @@ var missiles: Array
 
 func _ready():
 	if controls != null:
-		var skin: String = random_skin(
-				"res://resources/materials/vehicles/missilodon/", "")
-		match skin:
-			"pearl.material":
-				$Teeth.set_surface_material(0, PEARL_TEETH)
-			"glow.material":
-				$Teeth.set_surface_material(0, GLOW_TEETH)
-			"gold.material":
-				$Teeth.set_surface_material(0, GOLD_TEETH)
+		set_skin(0)
+#		var skin: String = random_skin(
+#				"res://resources/materials/vehicles/missilodon/", "")
+#		match skin:
+#			"pearl.material":
+#				$Teeth.set_surface_material(0, PEARL_TEETH)
+#			"glow.material":
+#				$Teeth.set_surface_material(0, GLOW_TEETH)
+#			"gold.material":
+#				$Teeth.set_surface_material(0, GOLD_TEETH)
 
 
 func _physics_process(_delta):

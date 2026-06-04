@@ -17,9 +17,7 @@ var next_out_back: int = cartridge_out.NONE
 
 func _ready():
 	if controls != null:
-		random_skin("res://resources/materials/vehicles/grave_mistake/",
-				"res://resources/materials/vehicles/wheels_gm/")
-	
+		set_skin(0)
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		DeletionManager.add_to_garbage(
 					$ShotPositionFront/MuzzleFlash/CPUParticles)

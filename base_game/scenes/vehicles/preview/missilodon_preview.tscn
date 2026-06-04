@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=2]
 [ext_resource path="res://resources/custom/vehicle_values/missilodon/body.tres" type="Resource" id=3]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/missilodon.material" type="Material" id=7]
-[ext_resource path="res://resources/materials/vehicles/missilodon/stock.material" type="Material" id=17]
+[ext_resource path="res://resources/materials/vehicles/exteriors/missilodon.material" type="Material" id=17]
 [ext_resource path="res://resources/meshes/vehicles/missilodon_teeth.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/missilodon.material" type="Material" id=27]
@@ -23,6 +23,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 3 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("WheelFrontLeft/WheelFrontLeft"), NodePath("WheelFrontRight/WheelFrontRight"), NodePath("WheelBackLeft/WheelBackLeft"), NodePath("WheelBackRight/WheelBackRight") ], [  ], [ NodePath("Teeth") ] ]
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17004, 0.642758, 1.7332 )

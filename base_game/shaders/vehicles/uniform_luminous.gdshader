@@ -1,11 +1,11 @@
 // Contains code by CptPotato and Calinou (MIT license)
 shader_type spatial;
-render_mode specular_disabled;
-uniform sampler2D texture_albedo : hint_albedo;
-uniform vec4 paint_color : hint_color;
 uniform sampler2D main_texture : hint_albedo;
 uniform vec4 primary_color : hint_color;
-uniform float brightness : hint_range(0.05f, 1) = 1.0f;
+uniform vec4 secondary_color : hint_color;
+uniform float brightness : hint_range(0.05, 1) = 1.0f;
+uniform float gloss : hint_range(0, 1) = 0.0f;
+uniform vec4 emission : hint_color = vec4(0);
 
 
 vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
@@ -34,5 +34,7 @@ void fragment() {
 	vec3 details_color = v.rgb;
 	float paint_mask = v.a;
 	
-	ALBEDO.rgb = mix(primary_color.rgb, details_color, paint_mask) * brightness;
+	ALBEDO.rgb = mix(secondary_color.rgb, details_color, paint_mask)
+			* brightness;
+	EMISSION = emission.rgb + primary_color.rgb * (1.0 - paint_mask);
 }

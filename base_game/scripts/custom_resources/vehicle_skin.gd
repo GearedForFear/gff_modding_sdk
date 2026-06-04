@@ -70,8 +70,19 @@ func generate_materials():
 			"res://resources/images/vehicles/" + vehicle_name + "/" \
 			+ vehicle_name + ".png", "StreamTexture")
 	body_material.set_shader_param("main_texture", main_texture)
-	body_material.set_shader_param("primary_color", primary_color)
+	body_material.set_shader_param("skin_texture_0", exterior.texture_0)
+	if exterior.has_color_override():
+		body_material.set_shader_param("primary_color", exterior.color_override)
+	else:
+		body_material.set_shader_param("primary_color", primary_color)
 	body_material.set_shader_param("secondary_color", secondary_color)
+	body_material.set_shader_param("gloss", exterior.gloss)
+	if exterior.mask_name != "":
+		var mask: StreamTexture = ResourceLoader.load(
+				"res://resources/images/vehicles/" + vehicle_name + "/"
+				+ vehicle_name + "_" + exterior.mask_name + ".png",
+				"StreamTexture")
+		body_material.set_shader_param("mask", mask)
 	
 	wheel_material = ShaderMaterial.new()
 	wheel_material.set_shader_param("texture_sharp", wheels.texture_0)
