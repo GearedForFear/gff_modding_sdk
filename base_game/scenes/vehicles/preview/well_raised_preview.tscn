@@ -36,8 +36,8 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontLeft"]
 portal_mode = 3
-material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
+material/0 = ExtResource( 2 )
 script = ExtResource( 4 )
 
 [node name="WheelFrontRight" type="VehicleWheel" parent="."]
@@ -53,8 +53,8 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelFrontRight"]
 portal_mode = 3
-material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
+material/0 = ExtResource( 2 )
 script = ExtResource( 4 )
 
 [node name="WheelBackLeft" type="VehicleWheel" parent="."]
@@ -69,8 +69,8 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackLeft"]
 portal_mode = 3
-material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
+material/0 = ExtResource( 2 )
 script = ExtResource( 4 )
 
 [node name="WheelBackRight" type="VehicleWheel" parent="."]
@@ -85,8 +85,8 @@ damping_compression = 0.88
 
 [node name="Mesh" type="MeshInstance" parent="WheelBackRight"]
 portal_mode = 3
-material_override = ExtResource( 2 )
 mesh = ExtResource( 15 )
+material/0 = ExtResource( 2 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -95,8 +95,8 @@ shape = SubResource( 6 )
 
 [node name="BodyMesh" type="MeshInstance" parent="."]
 portal_mode = 3
-material_override = ExtResource( 3 )
 mesh = ExtResource( 11 )
+material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="MergeGroup" parent="." instance=ExtResource( 5 )]
