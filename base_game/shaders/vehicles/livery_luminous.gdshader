@@ -5,7 +5,6 @@ uniform sampler2D mask : hint_albedo;
 uniform vec4 primary_color : hint_color;
 uniform vec4 secondary_color : hint_color;
 uniform float brightness : hint_range(0.05, 1) = 1.0f;
-uniform float gloss : hint_range(0, 1) = 0.0f;
 uniform vec4 emission : hint_color = vec4(0);
 
 
@@ -31,12 +30,13 @@ vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 void fragment() {
 	vec2 tex_size = 1.0f / vec2(textureSize(main_texture, 0)); // size of one pixel of the texture
 	
-	vec4 v = texture_point_smooth(main_texture, UV, tex_size);
-	vec3 details_color = v.rgb;
-	float paint_mask = v.a;
+	vec4 tex_point = texture_point_smooth(main_texture, UV, tex_size);
+	vec3 details_color = tex_point.rgb;
+	float paint_mask = tex_point.a;
 	float livery_mask = texture_point_smooth(mask, UV, tex_size).r;
 	
 	ALBEDO.rgb = mix(secondary_color.rgb, details_color, paint_mask)
 			* brightness;
-	EMISSION = emission.rgb + primary_color.rgb * livery_mask * (1.0 - paint_mask);
+	EMISSION = emission.rgb + primary_color.rgb * livery_mask
+			* (1.0 - paint_mask) * brightness;
 }

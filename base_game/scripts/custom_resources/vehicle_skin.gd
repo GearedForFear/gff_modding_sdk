@@ -36,6 +36,7 @@ func set_hex(new_value: String):
 	exterior = SkinComponent.get_component(
 			SkinComponent.Categories.VEHICLE_BODY, exterior_id)
 	
+	
 	var wheels_hex: String = "0x" + new_value.substr(2, 2)
 	var wheel_id: int = wheels_hex.hex_to_int()
 	var category: int

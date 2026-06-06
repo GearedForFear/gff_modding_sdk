@@ -31,9 +31,9 @@ vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 void fragment() {
 	vec2 tex_size = 1.0f / vec2(textureSize(main_texture, 0)); // size of one pixel of the texture
 	
-	vec4 v = texture_point_smooth(main_texture, UV, tex_size);
-	vec3 details_color = v.rgb;
-	float paint_mask = v.a;
+	vec4 tex_point = texture_point_smooth(main_texture, UV, tex_size);
+	vec3 details_color = tex_point.rgb;
+	float paint_mask = tex_point.a;
 	float gloss_final = gloss * (1.0 - paint_mask) * brightness;
 	
 	ALBEDO.rgb = mix(primary_color.rgb, details_color, paint_mask) * brightness;

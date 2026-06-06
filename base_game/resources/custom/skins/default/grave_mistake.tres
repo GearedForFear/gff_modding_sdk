@@ -11,4 +11,4 @@ wheels = ExtResource( 2 )
 primary_color = Color( 0.721569, 1, 0, 1 )
 secondary_color = Color( 0.211765, 0.717647, 0.0901961, 1 )
 vehicle_name = "grave_mistake"
-monster_truck = false
+monster_truck = true
