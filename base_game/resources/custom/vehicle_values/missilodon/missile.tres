@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource( 1 )
 damage = 55.0
-reward = 20
 burn = 10.0
+reward = 20
+cooldown = 15
 projectile_type = 3
 movement_type = 4
 ammo_cost = 15.0

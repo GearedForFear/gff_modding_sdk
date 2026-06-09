@@ -43,4 +43,4 @@ func try_make_available():
 func make_available():
 	$Particles.emitting = false
 	$AudioStreamPlayer3D.stop()
-	get_node("../..").missiles_available.append(self)
+	Pools.MISSILES_AVAILABLE.append(self)

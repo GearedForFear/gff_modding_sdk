@@ -25,4 +25,4 @@ func start(global_transform: Transform, damage: float, reward: int, \
 func make_available():
 	$Particles.emitting = false
 	$AudioStreamPlayer3D.stop()
-	get_node("../..").missiles_available.append(self)
+	Pools.MISSILES_AVAILABLE.append(self)

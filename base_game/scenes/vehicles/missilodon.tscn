@@ -174,12 +174,6 @@ height = 3.2
 transform = Transform( -1, 1.51808e-08, 8.60946e-08, 0, 0.984808, -0.173648, -8.74228e-08, -0.173648, -0.984808, 0, 2.52846, 0.801688 )
 script = ExtResource( 31 )
 projectile_values = ExtResource( 32 )
-cooldown_timer = NodePath("Timer")
-
-[node name="Timer" type="Timer" parent="Body/Launcher"]
-process_mode = 0
-wait_time = 0.25
-one_shot = true
 
 [node name="Target" type="Position3D" parent="Body/Launcher"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50 )

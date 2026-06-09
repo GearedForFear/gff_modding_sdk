@@ -19,7 +19,7 @@ func _physics_process(_delta):
 	
 	if alive:
 		if Input.is_action_pressed(controls.weapon_back):
-			if $Launcher.try_shoot(self, pools):
+			if $Launcher.try_shoot(self):
 				other_half.ammo = ammo
 
 

@@ -1,10 +1,10 @@
+class_name Pools
 extends Node
 
 
 const Bullet: PackedScene \
 		= preload("res://scenes/weapon_components/bullet.tscn")
-const Missile: PackedScene \
-		= preload("res://scenes/weapon_components/missile.tscn")
+var missile: PackedScene
 const Grenade: PackedScene \
 		= preload("res://scenes/weapon_components/grenade.tscn")
 const Buzzsaw: PackedScene \
@@ -20,10 +20,8 @@ const CartridgeCase: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_case.tscn")
 const CartridgeLink: PackedScene \
 		= preload("res://scenes/weapon_components/cartridge_link.tscn")
-const homing_missile_script: GDScript \
-		= preload("res://scripts/weapon_compontents/homing_missile.gd")
-const straight_missile_script: GDScript \
-		= preload("res://scripts/weapon_compontents/straight_missile.gd")
+var homing_missile_script: GDScript
+var straight_missile_script: GDScript
 
 onready var money_available: Array = $Money.get_children()
 onready var explosions_available: Array = $Explosions.get_children()
@@ -31,13 +29,23 @@ onready var sparks_available: Array = $Sparks.get_children()
 onready var cartridge_cases_available: Array = $CartridgeCases.get_children()
 onready var cartridge_links_available: Array = $CartridgeLinks.get_children()
 onready var bullets_available: Array = $Bullets.get_children()
-onready var missiles_available: Array = $Missiles.get_children()
+const MISSILES_AVAILABLE := Array()
 onready var grenades_available: Array = $Grenades.get_children()
 onready var buzzsaws_available: Array = $Buzzsaws.get_children()
 onready var chainsaws_available: Array = $Chainsaws.get_children()
 
 
 func _ready():
+	Global.pools = self
+	
+	missile = load("res://scenes/weapon_components/missile.tscn")
+	homing_missile_script = load(
+			"res://scripts/weapon_compontents/homing_missile.gd")
+	straight_missile_script = load(
+			"res://scripts/weapon_compontents/straight_missile.gd")
+	
+	MISSILES_AVAILABLE.append_array($Missiles.get_children())
+	
 	for n in cartridge_cases_available:
 		n.pool = cartridge_cases_available
 	for n in cartridge_links_available:
@@ -88,26 +96,27 @@ func get_ricochet_bullet() -> StraightProjectile:
 	return return_value
 
 
-func get_homing_missile() -> Projectile:
-	var return_value: Projectile
-	if missiles_available.empty():
-		return_value = Missile.instance()
-		$Missiles.add_child(return_value)
-	else:
-		return_value = missiles_available.pop_back()
-	return_value.set_script(homing_missile_script)
+static func get_homing_missile() -> Projectile:
+	var this: Pools = Global.pools
+	var return_value: Projectile = this.get_missile()
+	return_value.set_script(this.homing_missile_script)
 	return return_value
 
 
-func get_straight_missile() -> Projectile:
-	var return_value: Projectile
-	if missiles_available.empty():
-		return_value = Missile.instance()
-		$Missiles.add_child(return_value)
-	else:
-		return_value = missiles_available.pop_back()
-	return_value.set_script(straight_missile_script)
+static func get_straight_missile() -> Projectile:
+	var this: Pools = Global.pools
+	var return_value: Projectile = this.get_missile()
+	return_value.set_script(this.straight_missile_script)
 	return return_value
+
+
+func get_missile() -> Projectile:
+	if MISSILES_AVAILABLE.empty():
+		var return_value: Projectile
+		return_value = missile.instance()
+		get_node("Missiles").add_child(return_value)
+		return return_value
+	return MISSILES_AVAILABLE.pop_back()
 
 
 func get_grenade() -> ArcProjectile:

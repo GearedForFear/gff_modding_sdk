@@ -30,7 +30,7 @@ func _physics_process(_delta):
 		return
 	
 	if Input.is_action_pressed(controls.weapon_front):
-		$Launcher.try_shoot(self, pools)
+		$Launcher.try_shoot(self)
 	
 	if Input.is_action_pressed(controls.weapon_back):
 		MissileRemote.down(missiles)

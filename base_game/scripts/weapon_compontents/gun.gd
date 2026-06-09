@@ -3,14 +3,13 @@ extends Spatial
 
 
 export var projectile_values: Resource
-export var cooldown_timer: NodePath
 
-var on_cooldown := false
+var cooldown: int = 0
 var particles_set: int = 0
 
 
 func _enter_tree():
-	get_node(cooldown_timer).connect("timeout", self, "_on_Timer_timeout")
+	set_physics_process(false)
 	var particles_root: Spatial = get_node_or_null("ParticlesRoot")
 	if particles_root != null:
 		var gles3: bool = OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3
@@ -20,16 +19,22 @@ func _enter_tree():
 					DeletionManager.add_to_garbage(particles)
 
 
-func try_shoot(shooter: CombatVehicle, pools: Node) -> bool:
-	if on_cooldown or projectile_values.RESOURCE_TYPE == \
+func _physics_process(_delta):
+	cooldown -= 1
+	if cooldown == 0:
+		set_physics_process(false)
+
+
+func try_shoot(shooter: CombatVehicle) -> bool:
+	if cooldown != 0 or projectile_values.RESOURCE_TYPE == \
 			ProjectileValues.ResouceTypes.AMMO \
 			and shooter.ammo <= projectile_values.ammo_cost:
 		return false
-	shoot(shooter, pools)
+	shoot(shooter)
 	return true
 
 
-func shoot(shooter: CombatVehicle, pools: Node):
+func shoot(shooter: CombatVehicle):
 	match projectile_values.RESOURCE_TYPE:
 		ProjectileValues.ResouceTypes.AMMO:
 			shooter.ammo -= projectile_values.ammo_cost
@@ -39,18 +44,18 @@ func shoot(shooter: CombatVehicle, pools: Node):
 		ProjectileValues.ProjectileTypes.MISSILE:
 			match projectile_values.movement_type:
 				ProjectileValues.MovementTypes.STRAIGHT:
-					new_projectile = pools.get_straight_missile()
+					new_projectile = Pools.get_straight_missile()
 				ProjectileValues.MovementTypes.STATIC_TARGET:
-					new_projectile = pools.get_homing_missile()
+					new_projectile = Pools.get_homing_missile()
 					new_projectile.movement_type\
 							= ProjectileValues.MovementTypes.STATIC_TARGET
 					new_projectile.target = $Target.global_translation
 				ProjectileValues.MovementTypes.DYNAMIC_TARGET:
-					new_projectile = pools.get_homing_missile()
+					new_projectile = Pools.get_homing_missile()
 					new_projectile.movement_type\
 							= ProjectileValues.MovementTypes.DYNAMIC_TARGET
 				ProjectileValues.MovementTypes.REMOTE:
-					new_projectile = pools.get_homing_missile()
+					new_projectile = Pools.get_homing_missile()
 					new_projectile.movement_type\
 							= ProjectileValues.MovementTypes.REMOTE
 					new_projectile.target = $Target.global_translation
@@ -58,7 +63,8 @@ func shoot(shooter: CombatVehicle, pools: Node):
 	
 	new_projectile.start(global_transform, projectile_values.damage,
 			projectile_values.reward, projectile_values.burn, shooter)
-	start_cooldown()
+	cooldown = projectile_values.cooldown
+	set_physics_process(true)
 	
 	var particles_root: Spatial = get_node_or_null("ParticlesRoot")
 	if particles_root != null:
@@ -67,12 +73,3 @@ func shoot(shooter: CombatVehicle, pools: Node):
 			n.restart()
 			n.emitting = true
 		particles_set = (particles_set + 1) % particles_root.get_child_count()
-
-
-func start_cooldown():
-	on_cooldown = true
-	get_node(cooldown_timer).start()
-
-
-func _on_Timer_timeout():
-	on_cooldown = false
