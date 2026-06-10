@@ -2,7 +2,7 @@ class_name SkinComponent
 extends Resource
 
 
-enum Categories {VEHICLE_BODY, WHEEL, MONSTER_WHEEL}
+enum Categories {VEHICLE_BODY, WHEEL, MONSTER_WHEEL, OTHER}
 
 const EXTERIORS := Array()
 const WHEELS_LIST := Array()
@@ -17,6 +17,7 @@ export var mesh: ArrayMesh
 export var shader: Shader
 export(float, 0.0, 1.0) var gloss = 0.0
 export var color_override := Color.black
+export var teeth: Resource
 
 
 static func start():

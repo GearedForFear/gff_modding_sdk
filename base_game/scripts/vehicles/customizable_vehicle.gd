@@ -6,6 +6,7 @@ enum MeshCategories {MAIN, WHEELS, SIMPLE, SIMPLE_NO_CULL}
 
 export var body_values: Resource
 export var meshes := [[], [], [], []]
+export var skins_implemented := false
 
 
 func set_skin(skin_number: int):
@@ -18,3 +19,5 @@ func set_skin(skin_number: int):
 		var wheel_mesh: MeshInstance = get_node(n)
 		wheel_mesh.mesh = skin.wheels.mesh
 		wheel_mesh.set_surface_material(0, skin.wheel_material.duplicate())
+	for n in meshes[MeshCategories.SIMPLE_NO_CULL]:
+		get_node(n).set_surface_material(0, skin.simple_no_cull_material)

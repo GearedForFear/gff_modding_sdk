@@ -29,8 +29,6 @@ var next_out_sides: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls != null:
-		set_skin(0)
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		DeletionManager.add_array_to_garbage([$MGLeft/MuzzleFlash/CPUParticles,
 				$MGMiddle/MuzzleFlash/CPUParticles,

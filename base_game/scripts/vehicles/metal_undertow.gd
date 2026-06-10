@@ -13,11 +13,6 @@ var can_shoot_right: bool = true
 var saws: Array
 
 
-func _ready():
-	if controls != null:
-		set_skin(0)
-
-
 func _physics_process(_delta):
 	var use_magnet: bool = false
 	if alive:

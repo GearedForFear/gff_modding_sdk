@@ -12,3 +12,4 @@ primary_color = Color( 0, 0.6, 1, 1 )
 secondary_color = Color( 0, 0.109804, 1, 1 )
 vehicle_name = "missilodon"
 monster_truck = true
+has_teeth = true

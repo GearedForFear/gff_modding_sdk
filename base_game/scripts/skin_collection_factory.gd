@@ -14,12 +14,14 @@ static func load_collection(vehicle_name: String) -> SkinCollection:
 				"res://resources/custom/skins/default/" + vehicle_name
 				+ ".tres")
 		var monster_truck: bool = default.monster_truck
+		var has_teeth: bool = default.has_teeth
 		while true:
 			var ascii: PoolByteArray = file.get_buffer(16)
 			var hex := ascii.get_string_from_ascii()
 			var new_skin := VehicleSkin.new()
 			new_skin.vehicle_name = vehicle_name
 			new_skin.monster_truck = monster_truck
+			new_skin.has_teeth = has_teeth
 			new_skin.set_hex(hex)
 			return_value.skins.append(new_skin)
 			if (file.get_8() == ASCII_END_OF_TRANSMISSION):

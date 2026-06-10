@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://scripts/custom_resources/skin_component.gd" type="Script" id=1]
-[ext_resource path="res://shaders/vehicles/uniform_pearlescent_custom.gdshader" type="Shader" id=2]
+[ext_resource path="res://shaders/vehicles/exteriors/uniform_pearlescent_custom.gdshader" type="Shader" id=2]
+[ext_resource path="res://resources/custom/skins/simple/white_no_cull_matte.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -11,3 +12,4 @@ mask_name = ""
 shader = ExtResource( 2 )
 gloss = 0.0
 color_override = Color( 0, 0, 0, 1 )
+teeth = ExtResource( 3 )

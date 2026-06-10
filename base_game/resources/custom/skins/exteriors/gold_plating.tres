@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://scripts/custom_resources/skin_component.gd" type="Script" id=1]
-[ext_resource path="res://shaders/vehicles/uniform_pearlescent_gradient.gdshader" type="Shader" id=2]
+[ext_resource path="res://shaders/vehicles/exteriors/uniform_pearlescent_gradient.gdshader" type="Shader" id=2]
 [ext_resource path="res://resources/images/gradient_textures/gold.tres" type="Texture" id=3]
+[ext_resource path="res://resources/custom/skins/simple/pearlescent_no_cull_gloss.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -13,3 +14,4 @@ mask_name = ""
 shader = ExtResource( 2 )
 gloss = 1.0
 color_override = Color( 0.913725, 0.576471, 0, 1 )
+teeth = ExtResource( 4 )

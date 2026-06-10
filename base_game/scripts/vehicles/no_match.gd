@@ -22,8 +22,6 @@ var next_out_right: int = cartridge_out.NONE
 
 
 func _ready():
-	if controls != null:
-		set_skin(0)
 	get_node("../AnimationPlayerHeat").play("RESET")
 	
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:

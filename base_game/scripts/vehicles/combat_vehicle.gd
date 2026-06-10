@@ -50,6 +50,8 @@ func _enter_tree():
 			DeletionManager.add_to_garbage($CameraBase)
 		else:
 			DeletionManager.add_to_garbage(get_node("../StuckTimer"))
+			if skins_implemented:
+				set_skin(0)
 		
 		if is_in_group("heist_target"):
 			get_parent().rotation = -track.get_node("TargetStartSpawn").rotation

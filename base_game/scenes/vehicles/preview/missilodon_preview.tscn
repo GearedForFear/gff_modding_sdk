@@ -3,13 +3,13 @@
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
 [ext_resource path="res://scripts/vehicles/preview_mesh.gd" type="Script" id=2]
 [ext_resource path="res://resources/custom/vehicle_values/missilodon/body.tres" type="Resource" id=3]
+[ext_resource path="res://resources/materials/vehicles/simple_part/white_no_cull.material" type="Material" id=4]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/missilodon.material" type="Material" id=7]
 [ext_resource path="res://resources/materials/vehicles/exteriors/missilodon.material" type="Material" id=17]
 [ext_resource path="res://resources/meshes/vehicles/missilodon_teeth.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/back/missilodon.material" type="Material" id=27]
 [ext_resource path="res://resources/meshes/vehicles/missilodon.tres" type="ArrayMesh" id=28]
-[ext_resource path="res://resources/materials/vehicles/simple_part_cull_disabled/stock.material" type="Material" id=29]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -24,6 +24,7 @@ physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 3 )
 meshes = [ [ NodePath("BodyMesh") ], [ NodePath("WheelFrontLeft/WheelFrontLeft"), NodePath("WheelFrontRight/WheelFrontRight"), NodePath("WheelBackLeft/WheelBackLeft"), NodePath("WheelBackRight/WheelBackRight") ], [  ], [ NodePath("Teeth") ] ]
+skins_implemented = true
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17004, 0.642758, 1.7332 )
@@ -104,5 +105,5 @@ portal_mode = 3
 cast_shadow = 2
 mesh = ExtResource( 19 )
 skeleton = NodePath("../BodyMesh")
-material/0 = ExtResource( 29 )
+material/0 = ExtResource( 4 )
 script = ExtResource( 2 )

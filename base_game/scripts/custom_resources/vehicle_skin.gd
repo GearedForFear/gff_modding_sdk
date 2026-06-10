@@ -8,9 +8,12 @@ export var primary_color := Color()
 export var secondary_color := Color()
 export var vehicle_name: String
 export var monster_truck := false
+export var has_teeth := false
 
 var body_material: ShaderMaterial
 var wheel_material: ShaderMaterial
+var simple_material: ShaderMaterial
+var simple_no_cull_material: ShaderMaterial
 
 
 func get_bytes() -> PoolByteArray:
@@ -58,13 +61,14 @@ func copy(from: VehicleSkin):
 	primary_color = from.primary_color
 	secondary_color = from.secondary_color
 	vehicle_name = from.vehicle_name
+	monster_truck = from.monster_truck
+	has_teeth = from.has_teeth
 	
 	generate_materials()
 
 
 func generate_materials():
 	body_material = ShaderMaterial.new()
-	
 	var shader: Shader = exterior.shader
 	body_material.shader = shader
 	var main_texture: StreamTexture = ResourceLoader.load(
@@ -88,7 +92,6 @@ func generate_materials():
 	wheel_material = ShaderMaterial.new()
 	wheel_material.set_shader_param("texture_sharp", wheels.texture_0)
 	wheel_material.set_shader_param("texture_blurry", wheels.texture_1)
-	
 	var path_start := "res://shaders/vehicles/"
 	var path_middle: String
 	var path_end := ".gdshader"
@@ -98,3 +101,19 @@ func generate_materials():
 		path_middle = "wheel_paint"
 	shader = ResourceLoader.load(path_start + path_middle + path_end, "Shader")
 	wheel_material.shader = shader
+	
+	simple_no_cull_material = ShaderMaterial.new()
+	if has_teeth:
+		var teeth: SkinComponent = exterior.teeth
+		simple_no_cull_material.shader = teeth.shader
+		if teeth.color_override == Color.black:
+			simple_no_cull_material.set_shader_param("skin_texture_0",
+					exterior.texture_0)
+			simple_no_cull_material.set_shader_param("primary_color",
+					exterior.color_override)
+		else:
+			simple_no_cull_material.set_shader_param("primary_color",
+					teeth.color_override)
+			simple_no_cull_material.set_shader_param("secondary_color",
+					teeth.color_override)
+		simple_no_cull_material.set_shader_param("gloss", teeth.gloss)
