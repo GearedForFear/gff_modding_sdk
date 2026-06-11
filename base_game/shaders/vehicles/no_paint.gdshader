@@ -3,6 +3,7 @@ shader_type spatial;
 render_mode specular_disabled;
 uniform sampler2D texture_albedo : hint_albedo;
 uniform float brightness : hint_range(0.05f, 1) = 1.0f;
+uniform vec4 emission : hint_color;
 
 
 vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
@@ -29,4 +30,5 @@ void fragment() {
 	
 	ALBEDO.rgb = texture_point_smooth(texture_albedo, UV, tex_size).rgb
 			* brightness;
+	EMISSION = emission.rgb;
 }

@@ -5,6 +5,8 @@ extends CustomizableVehicle
 signal health_changed(new)
 signal acid_changed(new, health, base_health)
 
+enum ShieldModes {OFF, ABSORB, DEFLECT}
+
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
 const ACID_DAMAGE_PER_TICK: float = 0.1
@@ -24,6 +26,7 @@ var replacement: CombatVehicle
 var track: Spatial
 var gameplay_manager: Node
 var pools: Node
+var shield_mode: int = ShieldModes.OFF
 
 onready var health: float = body_values.base_health
 onready var boost: Boost = body_values.boost
@@ -162,7 +165,7 @@ func _physics_process(_delta):
 			engine_force = acceleration_factor
 		
 		if acid_duration > 0:
-			damage(ACID_DAMAGE_PER_TICK, 0, 0.0, acid_cause)
+			reduce_health(ACID_DAMAGE_PER_TICK, acid_cause)
 			acid_duration -= 1
 			emit_signal("acid_changed", acid_duration * ACID_DAMAGE_PER_TICK,
 					health, body_values.base_health)
@@ -186,20 +189,29 @@ func _physics_process(_delta):
 
 func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 		-> int:
+	if shield_mode == ShieldModes.ABSORB:
+		heal(amount)
+		return 0
 	if alive:
-		health -= amount
-		emit_signal("health_changed", health)
-		if health <= 0:
-			if shooter != null:
-				return kill(5, shooter)
-			health = 0
-		if controls == null:
-			get_node("../StuckTimer").start()
+		return reduce_health(amount, shooter)
+	return 0
+
+
+func reduce_health(amount: float, shooter: VehicleBody) -> int:
+	health -= amount
+	emit_signal("health_changed", health)
+	if health <= 0:
+		if shooter != null:
+			return kill(5, shooter)
+		health = 0
+	if controls == null:
+		get_node("../StuckTimer").start()
 	return 0
 
 
 func kill(penalty_divisor: int, shooter: VehicleBody) -> int:
 	alive = false
+	shield_mode = ShieldModes.OFF
 	get_node("../RespawnTimer").start()
 	apply_central_impulse(transform.basis.y * 900)
 	var payout: int = scoreboard_record.score / penalty_divisor
@@ -220,8 +232,12 @@ func kill(penalty_divisor: int, shooter: VehicleBody) -> int:
 
 func reward(amount: int):
 	scoreboard_record.reward(amount)
+	heal(amount)
+
+
+func heal(amount: float):
 	if alive:
-		health = clamp(health + amount, 0.0, body_values.base_health)
+		health = min(health + amount, body_values.base_health)
 		emit_signal("health_changed", health)
 		acid_duration = 0
 		acid_cause = null

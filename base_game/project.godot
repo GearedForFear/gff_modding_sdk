@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AmmoCost",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/gameplay_values/ammo_cost.gd"
+}, {
 "base": "ProjectileValues",
 "class": "AmmoProjectileValues",
 "language": "GDScript",
@@ -232,7 +237,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ScoreboardRecord",
 "language": "GDScript",
-"path": "res://scripts/custom_objects/scoreboard_record.gd"
+"path": "res://scripts/custom_refs/scoreboard_record.gd"
 }, {
 "base": "MenuViewportContainer",
 "class": "SelectSlot",
@@ -302,7 +307,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "VehicleData",
 "language": "GDScript",
-"path": "res://scripts/custom_objects/vehicle_data.gd"
+"path": "res://scripts/custom_refs/vehicle_data.gd"
 }, {
 "base": "Resource",
 "class": "VehicleList",
@@ -320,6 +325,7 @@ _global_script_classes=[ {
 "path": "res://scripts/cameras_&_ui/buttons/window_modes.gd"
 } ]
 _global_script_class_icons={
+"AmmoCost": "",
 "AmmoProjectileValues": "",
 "AmmoVehicle": "",
 "ArcProjectile": "",

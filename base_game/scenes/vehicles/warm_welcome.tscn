@@ -396,7 +396,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773806, 0 )
 [node name="CPUParticles" parent="Body/AcidCPUParticles" instance=ExtResource( 32 )]
 
 [node name="Jump" parent="Body" instance=ExtResource( 27 )]
-force_resource = ExtResource( 39 )
+gadget_resource = ExtResource( 39 )
 
 [node name="DeathAudio" type="AudioStreamPlayer3D" parent="Body"]
 stream = ExtResource( 22 )

@@ -1,7 +1,6 @@
 // Contains code by CptPotato and Calinou (MIT license)
 shader_type spatial;
 uniform sampler2D main_texture : hint_albedo;
-uniform sampler2D gradient_texture : hint_albedo;
 uniform sampler2D skin_texture_0 : hint_albedo;
 uniform vec4 primary_color : hint_color;
 uniform float brightness : hint_range(0.05, 1) = 1.0f;

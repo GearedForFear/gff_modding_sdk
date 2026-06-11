@@ -19,5 +19,9 @@ func damage(_amount: float, reward: int, _burn: float, _shooter: VehicleBody) \
 	return reward
 
 
+func reduce_health(_amount: float, _shooter: VehicleBody) -> int:
+	return 0
+
+
 func _on_GunTimer_timeout():
 	can_shoot = true

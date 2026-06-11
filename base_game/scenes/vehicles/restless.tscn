@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -46,6 +46,13 @@
 [ext_resource path="res://resources/custom/vehicle_values/restless/body.tres" type="Resource" id=44]
 [ext_resource path="res://scripts/gadgets/boost_switch.gd" type="Script" id=45]
 [ext_resource path="res://resources/custom/vehicle_values/restless/second_boost.tres" type="Resource" id=46]
+[ext_resource path="res://scenes/gadgets/jump.tscn" type="PackedScene" id=47]
+[ext_resource path="res://resources/custom/vehicle_values/restless/jump.tres" type="Resource" id=48]
+[ext_resource path="res://scripts/gadgets/spoiler.gd" type="Script" id=49]
+[ext_resource path="res://resources/custom/vehicle_values/restless/spoiler.tres" type="Resource" id=50]
+[ext_resource path="res://scripts/gadgets/shield.gd" type="Script" id=51]
+[ext_resource path="res://resources/custom/vehicle_values/restless/absorb_shield.tres" type="Resource" id=52]
+[ext_resource path="res://resources/custom/vehicle_values/restless/deflect_shield.tres" type="Resource" id=53]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -398,6 +405,10 @@ material/0 = ExtResource( 25 )
 script = ExtResource( 34 )
 required_setting = 3
 
+[node name="Spoiler" type="MeshInstance" parent="Body"]
+script = ExtResource( 49 )
+gadget_resource = ExtResource( 50 )
+
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 portal_mode = 3
@@ -408,32 +419,8 @@ fixed_size = true
 font = SubResource( 19 )
 script = ExtResource( 37 )
 
-[node name="ShotPositionShotgunUp" type="RayCast" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.377985, 2.48896 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
-
-[node name="ShotPositionShotgunDown" type="RayCast" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 0.377985, 2.48896 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
-
-[node name="ShotPositionShotgunLeft" type="RayCast" parent="Body"]
-transform = Transform( 0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, 0, 0.377985, 2.48896 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
-
 [node name="ShotPositionShotgunMiddle" type="RayCast" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377985, 2.48896 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
-
-[node name="ShotPositionShotgunRight" type="RayCast" parent="Body"]
-transform = Transform( 0.996195, 0, -0.0871557, 0, 1, 0, 0.0871557, 0, 0.996195, 0, 0.377985, 2.48896 )
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
@@ -577,6 +564,9 @@ stream = ExtResource( 28 )
 unit_size = 4.0
 bus = "Effects"
 
+[node name="Jump" parent="Body" instance=ExtResource( 47 )]
+gadget_resource = ExtResource( 48 )
+
 [node name="LoopingAudio" type="Spatial" parent="Body"]
 
 [node name="EngineAudio" type="AudioStreamPlayer3D" parent="Body/LoopingAudio"]
@@ -617,6 +607,12 @@ autoplay = true
 stream_paused = true
 bus = "Effects"
 
+[node name="Shield" type="Node" parent="Body"]
+script = ExtResource( 51 )
+absorb_resource = ExtResource( 52 )
+deflect_resource = ExtResource( 53 )
+meshes = [ NodePath("../BodyMesh"), NodePath("../BodyMesh/WheelFrontLeft"), NodePath("../BodyMesh/WheelFrontRight"), NodePath("../BodyMesh/WheelBackLeft"), NodePath("../BodyMesh/WheelBackRight"), NodePath("../SniperMesh"), NodePath("../MachineGunMesh"), NodePath("../RocketMeshLeft"), NodePath("../RocketMeshRight"), NodePath("../DoorMesh"), NodePath("../Spoiler") ]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
 anims/RESET = SubResource( 7 )
@@ -630,11 +626,6 @@ anims/death = ExtResource( 41 )
 [node name="RespawnTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 3.0
-one_shot = true
-
-[node name="ShotgunTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.8
 one_shot = true
 
 [node name="SniperTimer" type="Timer" parent="."]
@@ -652,7 +643,6 @@ process_mode = 0
 wait_time = 30.0
 
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
-[connection signal="timeout" from="ShotgunTimer" to="Body" method="_on_ShotgunTimer_timeout"]
 [connection signal="timeout" from="SniperTimer" to="Body" method="_on_SniperTimer_timeout"]
 [connection signal="timeout" from="MachineGunTimer" to="Body" method="_on_MachineGunTimer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

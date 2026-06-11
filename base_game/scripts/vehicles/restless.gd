@@ -3,12 +3,6 @@ extends AmmoVehicle
 
 enum cartridge_out {NONE, LINK, CASE}
 
-export var shotgun_damage: float = 6.0
-export var shotgun_reward: int = 1
-export var shotgun_burn: float = 0.6
-export var shotgun_ammo_cost: float = 6.0
-export var shotgun_blast: float = 500.0
-
 export var sniper_damage: float = 40.0
 export var sniper_reward: int = 18
 export var sniper_burn: float = 4.0
@@ -19,7 +13,6 @@ export var lmg_reward: int = 1
 export var lmg_burn: float = 0.4
 export var lmg_ammo_cost: float = 4.0
 
-var can_shoot_shotgun: bool = true
 var can_shoot_sniper: bool = true
 var can_shoot_lmg: bool = true
 var sniper_case_out: bool = false
@@ -28,11 +21,11 @@ var next_out: int = cartridge_out.NONE
 
 func _ready():
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		DeletionManager.add_array_to_garbage([$ShotgunFlash/CPUParticles,
-				$SniperFlash/CPUParticles, $MachineGunFlash/CPUParticles])
+		DeletionManager.add_array_to_garbage([$SniperFlash/CPUParticles,
+				$MachineGunFlash/CPUParticles])
 	else:
-		DeletionManager.add_array_to_garbage([$ShotgunFlash/Particles,
-				$SniperFlash/Particles, $MachineGunFlash/Particles])
+		DeletionManager.add_array_to_garbage([$SniperFlash/Particles,
+				$MachineGunFlash/Particles])
 	
 	$BoostSwitch.second_boost.prepare(self)
 
@@ -63,36 +56,8 @@ func _physics_process(_delta):
 	
 	if alive:
 		if controls == null:
-			var collider_up: PhysicsBody \
-					= $ShotPositionShotgunMiddle.get_collider()
-			var collider_down: PhysicsBody \
-					= $ShotPositionShotgunMiddle.get_collider()
-			var collider_left: PhysicsBody \
-					= $ShotPositionShotgunMiddle.get_collider()
 			var collider_middle: PhysicsBody \
-					= $ShotPositionShotgunMiddle.get_collider()
-			var collider_right: PhysicsBody \
-					= $ShotPositionShotgunMiddle.get_collider()
-			if can_shoot_shotgun and ammo >= shotgun_ammo_cost and \
-					((collider_up != null \
-					and collider_up.is_in_group("combat_vehicle") \
-					and collider_up.scoreboard_record.score >= 100) \
-					or (collider_down != null \
-					and collider_down.is_in_group("combat_vehicle") \
-					and collider_down.scoreboard_record.score >= 100) \
-					or (collider_left != null \
-					and collider_left.is_in_group("combat_vehicle") \
-					and collider_left.scoreboard_record.score >= 100) \
-					or (collider_middle != null \
-					and collider_middle.is_in_group("combat_vehicle") \
-					and collider_middle.scoreboard_record.score >= 100) \
-					or (collider_right != null \
-					and collider_right.is_in_group("combat_vehicle") \
-					and collider_right.scoreboard_record.score >= 100)):
-				shoot_shotgun()
-				get_node("../StuckTimer").start()
-			
-			collider_middle = $ShotPositionSniper.get_collider()
+					= $ShotPositionSniper.get_collider()
 			if can_shoot_sniper and ammo >= sniper_ammo_cost and \
 					collider_middle != null \
 					and collider_middle.is_in_group("combat_vehicle") \
@@ -108,45 +73,37 @@ func _physics_process(_delta):
 				shoot_lmg()
 				get_node("../StuckTimer").start()
 		else:
-			if can_shoot_shotgun and ammo >= shotgun_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_front):
-				shoot_shotgun()
-			if can_shoot_sniper and ammo >= sniper_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_left):
-				shoot_sniper()
-			if can_shoot_lmg and ammo >= lmg_ammo_cost \
-					and Input.is_action_pressed(controls.weapon_right):
-				shoot_lmg()
+			var boost_switch: Spatial = $BoostSwitch
 			if Input.is_action_just_pressed(controls.weapon_back):
-				$BoostSwitch.use(self)
-
-
-
-func shoot_shotgun():
-	ammo -= shotgun_ammo_cost
-	can_shoot_shotgun = false
-	get_node("../ShotgunTimer").start()
-	
-	apply_central_impulse(transform.basis.z * -shotgun_blast)
-	
-	pools.get_bullet().start($ShotPositionShotgunUp.global_transform, \
-			shotgun_damage, shotgun_reward, shotgun_burn, self)
-	
-	pools.get_bullet().start($ShotPositionShotgunDown.global_transform, \
-			shotgun_damage, shotgun_reward, shotgun_burn, self)
-	
-	pools.get_bullet().start($ShotPositionShotgunLeft.global_transform, \
-			shotgun_damage, shotgun_reward, shotgun_burn, self)
-	
-	var new_bullet: Area = pools.get_bullet()
-	new_bullet.start($ShotPositionShotgunMiddle.global_transform, shotgun_damage, \
-			shotgun_reward, shotgun_burn, self)
-	new_bullet.play_audio_shotgun()
-	
-	pools.get_bullet().start($ShotPositionShotgunRight.global_transform, \
-			shotgun_damage, shotgun_reward, shotgun_burn, self)
-	
-	$ShotgunFlash.get_child(0).emitting = true
+				boost_switch.use(self)
+			
+			var enable_spoiler := false
+			if boost == boost_switch.second_boost:
+				if can_shoot_lmg and ammo >= lmg_ammo_cost \
+						and Input.is_action_pressed(controls.weapon_front):
+					shoot_lmg()
+				
+				if Input.is_action_pressed(controls.weapon_left):
+					$Shield.absorb(self)
+				else:
+					$Shield.disable(self)
+				
+				if Input.is_action_pressed(controls.weapon_right):
+					$Jump.use(self)
+			else:
+				if can_shoot_sniper and ammo >= sniper_ammo_cost \
+						and Input.is_action_pressed(controls.weapon_front):
+					shoot_sniper()
+				
+				if Input.is_action_pressed(controls.weapon_left):
+					$Shield.deflect(self)
+				else:
+					$Shield.disable(self)
+				
+				if Input.is_action_pressed(controls.weapon_right):
+					enable_spoiler = true
+			
+			$Spoiler.use(self, enable_spoiler)
 
 
 func shoot_sniper():
@@ -178,10 +135,6 @@ func shoot_lmg():
 	var flash: GeometryInstance = $MachineGunFlash.get_child(0)
 	flash.restart()
 	flash.emitting = true
-
-
-func _on_ShotgunTimer_timeout():
-	can_shoot_shotgun = true
 
 
 func _on_SniperTimer_timeout():
