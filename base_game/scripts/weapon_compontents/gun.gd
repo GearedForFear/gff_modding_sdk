@@ -34,37 +34,43 @@ func try_shoot(shooter: CombatVehicle) -> bool:
 	return true
 
 
-func shoot(shooter: CombatVehicle):
+func shoot(shooter: CombatVehicle) -> Projectile:
 	match projectile_values.RESOURCE_TYPE:
 		ProjectileValues.ResouceTypes.AMMO:
 			shooter.ammo -= projectile_values.ammo_cost
 	
-	var new_projectile: Projectile
+	var return_value: Projectile
 	match projectile_values.projectile_type:
+		ProjectileValues.ProjectileTypes.CHAINSAW:
+			return_value = Pools.get_chainsaw()
 		ProjectileValues.ProjectileTypes.MISSILE:
 			match projectile_values.movement_type:
 				ProjectileValues.MovementTypes.STRAIGHT:
-					new_projectile = Pools.get_straight_missile()
+					return_value = Pools.get_straight_missile()
 				ProjectileValues.MovementTypes.STATIC_TARGET:
-					new_projectile = Pools.get_homing_missile()
-					new_projectile.movement_type\
+					return_value = Pools.get_homing_missile()
+					return_value.movement_type\
 							= ProjectileValues.MovementTypes.STATIC_TARGET
-					new_projectile.target = $Target.global_translation
+					return_value.target = $Target.global_translation
 				ProjectileValues.MovementTypes.DYNAMIC_TARGET:
-					new_projectile = Pools.get_homing_missile()
-					new_projectile.movement_type\
+					return_value = Pools.get_homing_missile()
+					return_value.movement_type\
 							= ProjectileValues.MovementTypes.DYNAMIC_TARGET
 				ProjectileValues.MovementTypes.REMOTE:
-					new_projectile = Pools.get_homing_missile()
-					new_projectile.movement_type\
+					return_value = Pools.get_homing_missile()
+					return_value.movement_type\
 							= ProjectileValues.MovementTypes.REMOTE
-					new_projectile.target = $Target.global_translation
-					shooter.missiles.append(new_projectile)
+					return_value.target = $Target.global_translation
+					shooter.missiles.append(return_value)
+		ProjectileValues.ProjectileTypes.GRENADE:
+			return_value = Pools.get_grenade()
+		ProjectileValues.ProjectileTypes.BUZZSAW:
+			return_value = Pools.get_buzzsaw()
+			shooter.saws.append(return_value)
 	
-	new_projectile.start(global_transform, projectile_values.damage,
+	return_value.start(global_transform, projectile_values.damage,
 			projectile_values.reward, projectile_values.burn, shooter)
-	cooldown = projectile_values.cooldown
-	set_physics_process(true)
+	start_cooldown()
 	
 	var particles_root: Spatial = get_node_or_null("ParticlesRoot")
 	if particles_root != null:
@@ -73,3 +79,10 @@ func shoot(shooter: CombatVehicle):
 			n.restart()
 			n.emitting = true
 		particles_set = (particles_set + 1) % particles_root.get_child_count()
+	
+	return return_value
+
+
+func start_cooldown():
+	cooldown = projectile_values.cooldown - 1
+	set_physics_process(true)

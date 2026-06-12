@@ -1,6 +1,16 @@
 extends StraightProjectile
 
 
+const MAX_PULL_DISTANCE: float = 50.0
+
+
+func _physics_process(_delta):
+	if global_translation.distance_to(shooter.global_translation) \
+			> MAX_PULL_DISTANCE:
+		hide_line()
+		shooter.saws.erase(self)
+
+
 func collide(var body: PhysicsBody):
 	if body.is_in_group("combat_vehicle"):
 		impact_audio_playing = true
@@ -11,7 +21,7 @@ func collide(var body: PhysicsBody):
 
 
 func make_available():
-	get_node("../..").buzzsaws_available.append(self)
+	get_node("../..").BUZZSAWS_AVAILABLE.append(self)
 
 
 func try_make_available():

@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/vehicles/combat_vehicle.gd"
 }, {
+"base": "Resource",
+"class": "Cooldown",
+"language": "GDScript",
+"path": "res://scripts/custom_resources/gameplay_values/cooldown.gd"
+}, {
 "base": "VehicleBody",
 "class": "CustomizableVehicle",
 "language": "GDScript",
@@ -334,6 +339,7 @@ _global_script_class_icons={
 "Boost": "",
 "Burst": "",
 "CombatVehicle": "",
+"Cooldown": "",
 "CustomizableVehicle": "",
 "DeletionManager": "",
 "DynamicShadowBody": "",

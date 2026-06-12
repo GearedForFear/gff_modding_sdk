@@ -1,59 +1,18 @@
 extends AmmoVehicle
 
 
-export var damage: float = 44.0
-export var reward: int = 16
-export var burn: float = 10.0
-export var ammo_cost: float = 12.0
-
-var can_shoot_middle: bool = true
-var can_shoot_left: bool = true
-var can_shoot_right: bool = true
-
-
 func _physics_process(_delta):
-	if alive:
-		if controls == null:
-			pass
-		else:
-			if can_shoot_middle and ammo >= ammo_cost \
-					and Input.is_action_pressed(controls.weapon_front):
-				ammo -= ammo_cost
-				can_shoot_middle = false
-				get_node("../MiddleTimer").start()
-				pools.get_grenade().start($ShotPositionMiddle.global_transform, \
-						damage, reward, burn, self)
-				$ShotAudioMiddle.play()
-			
-			if can_shoot_left and ammo >= ammo_cost \
-					and Input.is_action_pressed(controls.weapon_left):
-				ammo -= ammo_cost
-				can_shoot_left = false
-				get_node("../LeftTimer").start()
-				pools.get_grenade().start($ShotPositionLeft.global_transform, \
-						damage, reward, burn, self)
-				$ShotAudioLeft.play()
-			
-			if can_shoot_right and ammo >= ammo_cost \
-					and Input.is_action_pressed(controls.weapon_right):
-				ammo -= ammo_cost
-				can_shoot_right = false
-				get_node("../RightTimer").start()
-				pools.get_grenade().start($ShotPositionRight.global_transform, \
-						damage, reward, burn, self)
-				$ShotAudioRight.play()
-			
-			if Input.is_action_just_pressed(controls.weapon_back):
-				$Glide.toggle()
-
-
-func _on_MiddleTimer_timeout():
-	can_shoot_middle = true
-
-
-func _on_LeftTimer_timeout():
-	can_shoot_left = true
-
-
-func _on_RightTimer_timeout():
-	can_shoot_right = true
+	if not alive or controls == null:
+		return
+	
+	if Input.is_action_pressed(controls.weapon_front):
+		$LauncherFront.try_shoot(self)
+	
+	if Input.is_action_pressed(controls.weapon_left):
+		$LauncherLeft.try_shoot(self)
+	
+	if Input.is_action_pressed(controls.weapon_right):
+		$LauncherRight.try_shoot(self)
+	
+	if Input.is_action_just_pressed(controls.weapon_back):
+		$Glide.toggle()

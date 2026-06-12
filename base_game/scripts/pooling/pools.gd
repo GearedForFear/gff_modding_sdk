@@ -2,96 +2,114 @@ class_name Pools
 extends Node
 
 
-const Bullet: PackedScene \
-		= preload("res://scenes/weapon_components/bullet.tscn")
+const BULLETS_AVAILABLE := Array()
+const MONEY_AVAILABLE := Array()
+const EXPLOSIONS_AVAILABLE := Array()
+const SPARKS_AVAILABLE := Array()
+const MISSILES_AVAILABLE := Array()
+const GRENADES_AVAILABLE := Array()
+const BUZZSAWS_AVAILABLE := Array()
+const CHAINSAWS_AVAILABLE := Array()
+const CARTRIDGE_CASES_AVAILABLE := Array()
+const CARTRIDGE_LINKS_AVAILABLE := Array()
+
+var bullet: PackedScene
+var chainsaw: PackedScene
 var missile: PackedScene
-const Grenade: PackedScene \
-		= preload("res://scenes/weapon_components/grenade.tscn")
-const Buzzsaw: PackedScene \
-		= preload("res://scenes/weapon_components/buzzsaw.tscn")
-const Chainsaw: PackedScene \
-		= preload("res://scenes/weapon_components/chainsaw.tscn")
-const Explosion: PackedScene \
-		= preload("res://scenes/destruction/explosion.tscn")
-const Money: PackedScene = preload("res://scenes/collectibles/money.tscn")
-const Sparks: PackedScene = preload("res://scenes/particles/sparks.tscn")
-const SparksCPU: PackedScene = preload("res://scenes/particles/sparks_cpu.tscn")
-const CartridgeCase: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_case.tscn")
-const CartridgeLink: PackedScene \
-		= preload("res://scenes/weapon_components/cartridge_link.tscn")
+var grenade: PackedScene
+var buzzsaw: PackedScene
+var explosion: PackedScene
+var money: PackedScene
+var sparks: PackedScene
+var cartridge_case: PackedScene
+var cartridge_link: PackedScene
 var homing_missile_script: GDScript
 var straight_missile_script: GDScript
-
-onready var money_available: Array = $Money.get_children()
-onready var explosions_available: Array = $Explosions.get_children()
-onready var sparks_available: Array = $Sparks.get_children()
-onready var cartridge_cases_available: Array = $CartridgeCases.get_children()
-onready var cartridge_links_available: Array = $CartridgeLinks.get_children()
-onready var bullets_available: Array = $Bullets.get_children()
-const MISSILES_AVAILABLE := Array()
-onready var grenades_available: Array = $Grenades.get_children()
-onready var buzzsaws_available: Array = $Buzzsaws.get_children()
-onready var chainsaws_available: Array = $Chainsaws.get_children()
 
 
 func _ready():
 	Global.pools = self
+	for n in [BULLETS_AVAILABLE, MONEY_AVAILABLE, EXPLOSIONS_AVAILABLE,
+			SPARKS_AVAILABLE, CHAINSAWS_AVAILABLE, MISSILES_AVAILABLE,
+			GRENADES_AVAILABLE, BUZZSAWS_AVAILABLE, CARTRIDGE_CASES_AVAILABLE,
+			CARTRIDGE_LINKS_AVAILABLE]:
+		n.clear()
 	
+	bullet = load("res://scenes/weapon_components/bullet.tscn")
+	money = load("res://scenes/collectibles/money.tscn")
+	explosion = load("res://scenes/destruction/explosion.tscn")
+	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
+		sparks = load("res://scenes/particles/sparks.tscn")
+		SPARKS_AVAILABLE.append_array($Sparks.get_children())
+	else:
+		sparks = load("res://scenes/particles/sparks.tscn")
+	chainsaw = load("res://scenes/weapon_components/chainsaw.tscn")
 	missile = load("res://scenes/weapon_components/missile.tscn")
+	grenade = load("res://scenes/weapon_components/grenade.tscn")
+	buzzsaw = load("res://scenes/weapon_components/buzzsaw.tscn")
+	cartridge_case = load("res://scenes/weapon_components/cartridge_case.tscn")
+	cartridge_link = load("res://scenes/weapon_components/cartridge_link.tscn")
 	homing_missile_script = load(
 			"res://scripts/weapon_compontents/homing_missile.gd")
 	straight_missile_script = load(
 			"res://scripts/weapon_compontents/straight_missile.gd")
 	
+	BULLETS_AVAILABLE.append_array($Bullets.get_children())
+	MONEY_AVAILABLE.append_array($Money.get_children())
+	EXPLOSIONS_AVAILABLE.append_array($Explosions.get_children())
+	CHAINSAWS_AVAILABLE.append_array($Chainsaws.get_children())
 	MISSILES_AVAILABLE.append_array($Missiles.get_children())
+	GRENADES_AVAILABLE.append_array($Grenades.get_children())
+	BUZZSAWS_AVAILABLE.append_array($Buzzsaws.get_children())
+	CARTRIDGE_CASES_AVAILABLE.append_array($CartridgeCases.get_children())
+	CARTRIDGE_LINKS_AVAILABLE.append_array($CartridgeLinks.get_children())
 	
-	for n in cartridge_cases_available:
-		n.pool = cartridge_cases_available
-	for n in cartridge_links_available:
-		n.pool = cartridge_links_available
+	for n in CARTRIDGE_CASES_AVAILABLE:
+		n.pool = CARTRIDGE_CASES_AVAILABLE
+	for n in CARTRIDGE_LINKS_AVAILABLE:
+		n.pool = CARTRIDGE_LINKS_AVAILABLE
 
 
 func get_bullet() -> StraightProjectile:
 	var return_value: StraightProjectile
-	if bullets_available.empty():
-		return_value = Bullet.instance()
+	if BULLETS_AVAILABLE.empty():
+		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
-		return_value = bullets_available.pop_back()
+		return_value = BULLETS_AVAILABLE.pop_back()
 	return_value.set_type(false, Projectile.ImpactTypes.NORMAL)
 	return return_value
 
 
 func get_sniper_bullet() -> StraightProjectile:
 	var return_value: StraightProjectile
-	if bullets_available.empty():
-		return_value = Bullet.instance()
+	if BULLETS_AVAILABLE.empty():
+		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
-		return_value = bullets_available.pop_back()
+		return_value = BULLETS_AVAILABLE.pop_back()
 	return_value.set_type(true, Projectile.ImpactTypes.NORMAL)
 	return return_value
 
 
 func get_acid_bullet() -> StraightProjectile:
 	var return_value: StraightProjectile
-	if bullets_available.empty():
-		return_value = Bullet.instance()
+	if BULLETS_AVAILABLE.empty():
+		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
-		return_value = bullets_available.pop_back()
+		return_value = BULLETS_AVAILABLE.pop_back()
 	return_value.set_type(false, Projectile.ImpactTypes.ACID)
 	return return_value
 
 
 func get_ricochet_bullet() -> StraightProjectile:
 	var return_value: StraightProjectile
-	if bullets_available.empty():
-		return_value = Bullet.instance()
+	if BULLETS_AVAILABLE.empty():
+		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
-		return_value = bullets_available.pop_back()
+		return_value = BULLETS_AVAILABLE.pop_back()
 	return_value.set_type(false, Projectile.ImpactTypes.RICOCHET)
 	return return_value
 
@@ -119,71 +137,70 @@ func get_missile() -> Projectile:
 	return MISSILES_AVAILABLE.pop_back()
 
 
-func get_grenade() -> ArcProjectile:
-	if not grenades_available.empty():
-		return grenades_available.pop_back()
-	var new: ArcProjectile = Grenade.instance()
-	$Grenades.add_child(new)
+static func get_grenade() -> ArcProjectile:
+	var this: Pools = Global.pools
+	if not GRENADES_AVAILABLE.empty():
+		return GRENADES_AVAILABLE.pop_back()
+	var new: ArcProjectile = this.grenade.instance()
+	this.get_node("Grenades").add_child(new)
 	return new
 
 
-func get_buzzsaw() -> StraightProjectile:
-	if not buzzsaws_available.empty():
-		return buzzsaws_available.pop_back()
-	var new: StraightProjectile = Buzzsaw.instance()
-	$Buzzsaws.add_child(new)
+static func get_buzzsaw() -> StraightProjectile:
+	var this: Pools = Global.pools
+	if not BUZZSAWS_AVAILABLE.empty():
+		return BUZZSAWS_AVAILABLE.pop_back()
+	var new: StraightProjectile = this.buzzsaw.instance()
+	this.get_node("Buzzsaws").add_child(new)
 	return new
 
 
-func get_chainsaw() -> ArcProjectile:
-	if not chainsaws_available.empty():
-		return chainsaws_available.pop_back()
-	var new: ArcProjectile = Chainsaw.instance()
-	$Chainsaws.add_child(new)
-	return new
-
-
-func get_explosion() -> Area:
-	if not explosions_available.empty():
-		return explosions_available.pop_back()
-	var new: Area = Explosion.instance()
-	$Explosions.add_child(new)
+static func get_chainsaw() -> ArcProjectile:
+	var this: Pools = Global.pools
+	if not CHAINSAWS_AVAILABLE.empty():
+		return CHAINSAWS_AVAILABLE.pop_back()
+	var new: ArcProjectile = this.chainsaw.instance()
+	this.get_node("Chainsaws").add_child(new)
 	return new
 
 
 func get_money() -> Area:
-	if not money_available.empty():
-		return money_available.pop_back()
-	var new: Area = Money.instance()
+	if not MONEY_AVAILABLE.empty():
+		return MONEY_AVAILABLE.pop_back()
+	var new: Area = money.instance()
 	$Money.add_child(new)
 	return new
 
 
+func get_explosion() -> Area:
+	if not EXPLOSIONS_AVAILABLE.empty():
+		return EXPLOSIONS_AVAILABLE.pop_back()
+	var new: Area = explosion.instance()
+	$Explosions.add_child(new)
+	return new
+
+
 func get_sparks() -> GeometryInstance:
-	if not sparks_available.empty():
-		return sparks_available.pop_back()
-	var new: GeometryInstance
-	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
-		new = Sparks.instance()
-	else:
-		new = SparksCPU.instance()
+	if not SPARKS_AVAILABLE.empty():
+		return SPARKS_AVAILABLE.pop_back()
+	var new: GeometryInstance = sparks.instance()
 	$Sparks.add_child(new)
 	return new
 
 
 func get_cartridge_case() -> DynamicShadowBody:
-	if not cartridge_cases_available.empty():
-		return cartridge_cases_available.pop_back()
-	var new: DynamicShadowBody = CartridgeCase.instance()
-	new.pool = cartridge_cases_available
+	if not CARTRIDGE_CASES_AVAILABLE.empty():
+		return CARTRIDGE_CASES_AVAILABLE.pop_back()
+	var new: DynamicShadowBody = cartridge_case.instance()
+	new.pool = CARTRIDGE_CASES_AVAILABLE
 	$CartridgeCases.add_child(new)
 	return new
 
 
 func get_cartridge_link() -> DynamicShadowBody:
-	if not cartridge_links_available.empty():
-		return cartridge_links_available.pop_back()
-	var new: DynamicShadowBody = CartridgeLink.instance()
-	new.pool = cartridge_links_available
+	if not CARTRIDGE_LINKS_AVAILABLE.empty():
+		return CARTRIDGE_LINKS_AVAILABLE.pop_back()
+	var new: DynamicShadowBody = cartridge_link.instance()
+	new.pool = CARTRIDGE_LINKS_AVAILABLE
 	$CartridgeLinks.add_child(new)
 	return new

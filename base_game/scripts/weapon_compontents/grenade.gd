@@ -2,4 +2,4 @@ extends ArcProjectile
 
 
 func make_available():
-	get_node("../..").grenades_available.append(self)
+	get_node("../..").GRENADES_AVAILABLE.append(self)

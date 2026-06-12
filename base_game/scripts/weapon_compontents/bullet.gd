@@ -8,6 +8,19 @@ const ACID_MATERIAL: ShaderMaterial = \
 const RICOCHET_MATERIAL: ShaderMaterial = \
 		preload("res://resources/materials/weapon_components/ricochet_bullet.material")
 
+const SHOT_LMG: AudioStreamSample = \
+		preload("res://resources/sounds/weapon_components/gun_machinegun_auto_heavy_shot_00_last_with_tail_01.wav")
+const SHOT_SHOTGUN: AudioStreamSample = \
+		preload("res://resources/sounds/weapon_components/gun_shotgun_sawed_off_shot_04.wav")
+const SHOT_SNIPER: AudioStreamSample = \
+		preload("res://resources/sounds/weapon_components/gun_rifle_sniper_shot_03.wav")
+const IMPACT_LIGHT: AudioStreamSample = \
+		preload("res://resources/sounds/destruction/bullet_impact_metal_light_07.wav")
+const IMPACT_MEDIUM: AudioStreamSample = \
+		preload("res://resources/sounds/destruction/bullet_impact_metal_heavy_01.wav")
+const IMPACT_HEAVY: AudioStreamSample = \
+		preload("res://resources/sounds/destruction/bullet_impact_metal_heavy_02.wav")
+
 var spawn_time: int = 0
 
 
@@ -43,66 +56,61 @@ func collide(var body: PhysicsBody):
 func impact_audio(var body: PhysicsBody):
 	if body.is_in_group("combat_vehicle"):
 		impact_audio_playing = true
+		var impact_audio: AudioStreamPlayer3D = $ImpactAudio
 		if body.alive == false:
-			$ImpactAudioLight.play()
+			impact_audio.stream = IMPACT_LIGHT
 		elif damage < 20:
-			$ImpactAudioMedium.play()
+			impact_audio.stream = IMPACT_MEDIUM
 		else:
-			$ImpactAudioHeavy.play()
+			impact_audio.stream = IMPACT_HEAVY
 			if shooter.controls != null:
 				GlobalAudio.play("SniperImpact")
+		impact_audio.play()
 
 
 func make_available():
-	get_node("../..").bullets_available.append(self)
+	get_node("../..").BULLETS_AVAILABLE.append(self)
+
+
+func try_deflect(body: PhysicsBody) -> bool:
+	$CollisionShape/MeshInstance.material_override = RICOCHET_MATERIAL
+	.try_deflect(body)
+	return true
 
 
 func play_audio_lmg():
-	$ShotAudioLMG.play()
-	$ShotAudioLMG.set_as_toplevel(true)
-	$ShotAudioLMG.global_transform = global_transform
-	shot_audio_playing = true
+	var shot_audio: AudioStreamPlayer3D = $ShotAudio
+	shot_audio.stream = SHOT_LMG
+	shot_audio.unit_size = 1.0
+	play_shot_audio(shot_audio)
 
 
 func play_audio_shotgun():
-	$ShotAudioShotgun.play()
-	$ShotAudioShotgun.set_as_toplevel(true)
-	$ShotAudioShotgun.global_transform = global_transform
-	shot_audio_playing = true
+	var shot_audio: AudioStreamPlayer3D = $ShotAudio
+	shot_audio.stream = SHOT_SHOTGUN
+	shot_audio.unit_size = 1.0
+	play_shot_audio(shot_audio)
 
 
 func play_audio_sniper():
-	$ShotAudioSniper.play()
-	$ShotAudioSniper.set_as_toplevel(true)
-	$ShotAudioSniper.global_transform = global_transform
+	var shot_audio: AudioStreamPlayer3D = $ShotAudio
+	shot_audio.stream = SHOT_SNIPER
+	shot_audio.unit_size = 1.4
+	play_shot_audio(shot_audio)
+
+
+func play_shot_audio(shot_audio: AudioStreamPlayer3D):
+	shot_audio.play()
+	shot_audio.set_as_toplevel(true)
+	shot_audio.global_transform = global_transform
 	shot_audio_playing = true
 
 
-func _on_ShotAudioLMG_finished():
+func _on_ShotAudio_finished():
 	shot_audio_playing = false
 	try_make_available()
 
 
-func _on_ShotAudioShotgun_finished():
-	shot_audio_playing = false
-	try_make_available()
-
-
-func _on_ShotAudioSniper_finished():
-	shot_audio_playing = false
-	try_make_available()
-
-
-func _on_ImpactAudioLight_finished():
-	impact_audio_playing = false
-	try_make_available()
-
-
-func _on_ImpactAudioMedium_finished():
-	impact_audio_playing = false
-	try_make_available()
-
-
-func _on_ImpactAudioHeavy_finished():
+func _on_ImpactAudio_finished():
 	impact_audio_playing = false
 	try_make_available()

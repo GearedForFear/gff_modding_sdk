@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scripts/vehicles/turbulence.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=2]
@@ -39,6 +39,8 @@
 [ext_resource path="res://resources/animations/gadgets/glide/RESET.anim" type="Animation" id=37]
 [ext_resource path="res://resources/animations/gadgets/glide/in_out.anim" type="Animation" id=38]
 [ext_resource path="res://scripts/gadgets/glide.gd" type="Script" id=39]
+[ext_resource path="res://scripts/weapon_compontents/gun.gd" type="Script" id=40]
+[ext_resource path="res://resources/custom/vehicle_values/turbulence/grenade.tres" type="Resource" id=41]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -205,14 +207,20 @@ fixed_size = true
 font = SubResource( 19 )
 script = ExtResource( 27 )
 
-[node name="ShotPositionMiddle" type="Position3D" parent="Body"]
+[node name="LauncherFront" type="Position3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 0.959849, 0.280516, 0, -0.280516, 0.959849, 2.38419e-07, 1.15068, -0.650591 )
+script = ExtResource( 40 )
+projectile_values = ExtResource( 41 )
 
-[node name="ShotPositionLeft" type="Position3D" parent="Body"]
+[node name="LauncherLeft" type="Position3D" parent="Body"]
 transform = Transform( 0.949595, -0.0879358, 0.300892, 0, 0.959849, 0.280516, -0.313479, -0.266377, 0.911468, 0.830571, 1.00299, -0.754119 )
+script = ExtResource( 40 )
+projectile_values = ExtResource( 41 )
 
-[node name="ShotPositionRight" type="Position3D" parent="Body"]
+[node name="LauncherRight" type="Position3D" parent="Body"]
 transform = Transform( 0.949595, 0.0879358, -0.300892, 0, 0.959849, 0.280516, 0.313479, -0.266377, 0.911468, -0.831, 1.003, -0.754 )
+script = ExtResource( 40 )
+projectile_values = ExtResource( 41 )
 
 [node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )
@@ -387,27 +395,9 @@ process_mode = 0
 wait_time = 3.0
 one_shot = true
 
-[node name="MiddleTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.23
-one_shot = true
-
-[node name="LeftTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.23
-one_shot = true
-
-[node name="RightTimer" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.23
-one_shot = true
-
 [node name="StuckTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 30.0
 
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
-[connection signal="timeout" from="MiddleTimer" to="Body" method="_on_MiddleTimer_timeout"]
-[connection signal="timeout" from="LeftTimer" to="Body" method="_on_LeftTimer_timeout"]
-[connection signal="timeout" from="RightTimer" to="Body" method="_on_RightTimer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

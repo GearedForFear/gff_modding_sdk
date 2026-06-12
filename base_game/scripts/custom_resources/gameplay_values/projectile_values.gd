@@ -3,7 +3,8 @@ extends Resource
 
 
 enum ResouceTypes {AMMO, LEVEL, HEAT}
-enum ProjectileTypes {BULLET, SNIPER_BULLET, CHAINSAW, MISSILE, GRENADE}
+enum ProjectileTypes {BULLET, SNIPER_BULLET, CHAINSAW, MISSILE, GRENADE,
+		BUZZSAW}
 enum MovementTypes {STRAIGHT, ARC, STATIC_TARGET, DYNAMIC_TARGET, REMOTE}
 
 export(float, 0.1, 100) var damage = 2.0

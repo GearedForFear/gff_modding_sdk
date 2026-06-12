@@ -47,6 +47,6 @@ func _on_Area_body_entered(body):
 
 
 func _on_AudioStreamPlayer3D_finished():
-	get_node("../..").money_available.append(self)
+	get_node("../..").MONEY_AVAILABLE.append(self)
 	collision_layer = 0
 	collision_mask = 0

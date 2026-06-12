@@ -9,4 +9,4 @@ func start(global_transform: Transform):
 
 
 func _on_Particles_finished():
-	get_node("../..").sparks_available.append(self)
+	get_node("../..").SPARKS_AVAILABLE.append(self)

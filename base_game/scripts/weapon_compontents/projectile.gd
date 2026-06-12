@@ -61,7 +61,7 @@ func stop():
 	try_make_available()
 
 
-func collide(var _body: PhysicsBody):
+func collide(_body: PhysicsBody):
 	pass
 
 
@@ -75,7 +75,11 @@ func try_make_available():
 		make_available()
 
 
-func _on_Area_body_entered(body):
+func try_deflect(_body: PhysicsBody) -> bool:
+	return false
+
+
+func _on_Area_body_entered(body: PhysicsBody):
 	if body != shooter:
 		var pools: Node = get_node("../..")
 		if explosive:
@@ -83,6 +87,10 @@ func _on_Area_body_entered(body):
 					shooter)
 		else:
 			if body.is_in_group("combat_vehicle"):
+				if body.shield_mode == CombatVehicle.ShieldModes.DEFLECT \
+						and try_deflect(body):
+					return
+				
 				if acid_duration > 0 and body.alive:
 					body.acid_duration += acid_duration
 					body.acid_cause = shooter

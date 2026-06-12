@@ -261,66 +261,18 @@ func pause_looping_audio():
 			audio.stream_paused = true
 
 
+func is_good_target(ray_cast: RayCast):
+	var collider: PhysicsBody = ray_cast.get_collider()
+	return collider != null and collider.is_in_group("combat_vehicle") and \
+			collider.scoreboard_record.score >= 100
+
+
+func reset_stuck_timer():
+	get_node("../StuckTimer").start()
+
+
 func get_vehicle_name() -> String: #overridden in vehicle-specific scripts
 	return ""
-
-
-func random_skin(var body_path: String, var wheels_path: String) -> String:
-	var r: int = randi() % 200
-	if r < 26:
-		return "stock.material"
-	var path_ending: String
-	if (r < 52):
-		path_ending = "demon"
-	elif (r < 78):
-		path_ending = "greed"
-	elif (r < 104):
-		path_ending = "skydive"
-	elif (r < 130):
-		path_ending = "galaxy"
-	elif (r < 144):
-		path_ending = "flame"
-	elif (r < 158):
-		path_ending = "y2k"
-	elif (r < 172):
-		path_ending = "sunset"
-	elif (r < 186):
-		path_ending = "intense"
-	elif (r < 194):
-		path_ending = "pearl"
-	elif (r < 199):
-		path_ending = "glow"
-	else:
-		path_ending = "gold"
-	path_ending += ".material"
-	
-	var body: MeshInstance = $BodyMesh
-	if body_path != "":
-		body.set_surface_material(0, ResourceLoader.load(
-				body_path + path_ending, "ShaderMaterial"))
-	if wheels_path != "":
-		var material: ShaderMaterial
-		if path_ending == "flame.material":
-			var yellow: Color = Color("ffd600")
-			body.get_node("WheelFrontLeft").get_active_material(0)\
-					.set_shader_param("paint_color", yellow)
-			material = ResourceLoader.load(wheels_path +
-					"back/stock.material", "ShaderMaterial")
-			body.get_node("WheelBackLeft").set_surface_material(0, material)
-			body.get_node("WheelBackRight").set_surface_material(0, material)
-			var red: Color = Color("ff1800")
-			body.get_node("WheelBackLeft").get_active_material(0)\
-					.set_shader_param("paint_color", red)
-		else:
-			material = ResourceLoader.load(wheels_path + "front/" + path_ending,
-					"ShaderMaterial")
-			body.get_node("WheelFrontLeft").set_surface_material(0, material)
-			body.get_node("WheelFrontRight").set_surface_material(0, material)
-			material = ResourceLoader.load(wheels_path + "back/" + path_ending,
-					"ShaderMaterial")
-			body.get_node("WheelBackLeft").set_surface_material(0, material)
-			body.get_node("WheelBackRight").set_surface_material(0, material)
-	return path_ending
 
 
 func _on_RespawnTimer_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scripts/vehicles/metal_undertow.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -31,6 +31,9 @@
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=29]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=30]
 [ext_resource path="res://resources/custom/vehicle_values/metal_undertow/body.tres" type="Resource" id=31]
+[ext_resource path="res://scripts/weapon_compontents/gun.gd" type="Script" id=32]
+[ext_resource path="res://resources/custom/vehicle_values/metal_undertow/buzzsaw.tres" type="Resource" id=33]
+[ext_resource path="res://resources/custom/vehicle_values/metal_undertow/shared_cooldown.tres" type="Resource" id=34]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -56,6 +59,7 @@ script = ExtResource( 1 )
 body_values = ExtResource( 31 )
 meshes = [ [ NodePath("BodyMesh") ], [ NodePath("BodyMesh/WheelFrontLeft"), NodePath("BodyMesh/WheelFrontRight"), NodePath("BodyMesh/WheelBackLeft"), NodePath("BodyMesh/WheelBackRight") ], [  ], [  ] ]
 skins_implemented = true
+cooldown_resource = ExtResource( 34 )
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799597, 0.130678, 1.7008 )
@@ -160,23 +164,29 @@ fixed_size = true
 font = SubResource( 19 )
 script = ExtResource( 22 )
 
-[node name="ShotPositionLeft" type="RayCast" parent="Body"]
-transform = Transform( 0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, 0, 0.448154, 2.40134 )
-enabled = true
-cast_to = Vector3( 0, 0, 70 )
-collision_mask = 3
-
-[node name="ShotPositionMiddle" type="RayCast" parent="Body"]
+[node name="LauncherFront" type="RayCast" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.448154, 2.40134 )
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
+script = ExtResource( 32 )
+projectile_values = ExtResource( 33 )
 
-[node name="ShotPositionRight" type="RayCast" parent="Body"]
+[node name="LauncherLeft" type="RayCast" parent="Body"]
+transform = Transform( 0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, 0, 0.448154, 2.40134 )
+enabled = true
+cast_to = Vector3( 0, 0, 70 )
+collision_mask = 3
+script = ExtResource( 32 )
+projectile_values = ExtResource( 33 )
+
+[node name="LauncherRight" type="RayCast" parent="Body"]
 transform = Transform( 0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, 0, 0.448154, 2.40134 )
 enabled = true
 cast_to = Vector3( 0, 0, 70 )
 collision_mask = 3
+script = ExtResource( 32 )
+projectile_values = ExtResource( 33 )
 
 [node name="PullParticles" parent="Body" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.448, 0 )
@@ -282,33 +292,9 @@ process_mode = 0
 wait_time = 3.0
 one_shot = true
 
-[node name="ShotTimerAny" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.2
-one_shot = true
-
-[node name="ShotTimerFront" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.4
-one_shot = true
-
-[node name="ShotTimerLeft" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.4
-one_shot = true
-
-[node name="ShotTimerRight" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.4
-one_shot = true
-
 [node name="StuckTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 30.0
 
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
-[connection signal="timeout" from="ShotTimerAny" to="Body" method="_on_ShotTimerAny_timeout"]
-[connection signal="timeout" from="ShotTimerFront" to="Body" method="_on_ShotTimerFront_timeout"]
-[connection signal="timeout" from="ShotTimerLeft" to="Body" method="_on_ShotTimerLeft_timeout"]
-[connection signal="timeout" from="ShotTimerRight" to="Body" method="_on_ShotTimerRight_timeout"]
 [connection signal="timeout" from="StuckTimer" to="Body" method="_on_StuckTimer_timeout"]

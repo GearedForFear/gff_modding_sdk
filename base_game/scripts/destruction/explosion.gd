@@ -54,4 +54,4 @@ func _on_Area_area_entered(area):
 
 func _on_AudioStreamPlayer3D_finished():
 	set_process(false)
-	get_node("../..").explosions_available.append(self)
+	get_node("../..").EXPLOSIONS_AVAILABLE.append(self)
