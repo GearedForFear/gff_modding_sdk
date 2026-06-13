@@ -1,0 +1,381 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://resources/materials/world/decorations/crate_0.material" type="Material" id=1]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_10.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_13.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_4.mesh" type="ArrayMesh" id=4]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_8.mesh" type="ArrayMesh" id=5]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_3.mesh" type="ArrayMesh" id=6]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_0.mesh" type="ArrayMesh" id=7]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_5.mesh" type="ArrayMesh" id=8]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_1.mesh" type="ArrayMesh" id=9]
+[ext_resource path="res://resources/sounds/destruction/kick_hard_impact_03.wav" type="AudioStream" id=10]
+[ext_resource path="res://scripts/world/shadow_setter.gd" type="Script" id=11]
+[ext_resource path="res://scripts/world/dynamic_shadow_body.gd" type="Script" id=12]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_2.mesh" type="ArrayMesh" id=13]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_6.mesh" type="ArrayMesh" id=14]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_7.mesh" type="ArrayMesh" id=15]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_9.mesh" type="ArrayMesh" id=16]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_11.mesh" type="ArrayMesh" id=17]
+[ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_12.mesh" type="ArrayMesh" id=18]
+
+[sub_resource type="ConvexPolygonShape" id=1]
+points = PoolVector3Array( 0.75, 0.0809384, 1, 0.75, -0.0809385, 1, 0.75, 0.0809384, -1, -0.75, 0.0809384, 1, -0.75, -0.0809385, 1, 0.75, -0.0809385, -1, -0.75, 0.0809384, -1, -0.75, -0.0809385, -1 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( 0.0953697, -0.0366121, -0.0652744, -0.185662, -0.0366121, 0.0356199, -0.173969, -0.0182841, 0.0356199, 0.0953697, 0.0182137, -0.0527022, 0.0953697, -0.0366121, 0.0356199, -0.141973, 0.0307335, 0.0356199, 0.0953697, 0.0259866, -0.0508751, 0.0953697, 0.0053907, 0.0356199, -0.0708281, 0.0231979, 0.0356199, 0.0953697, 0.0245692, -0.0448803 )
+
+[sub_resource type="ConvexPolygonShape" id=3]
+points = PoolVector3Array( -0.283683, -0.216811, 0.46043, -0.283683, -0.320725, -0.242779, -0.0573234, -0.320725, -0.242779, 0.380435, -0.216811, 0.326453, 0.38466, -0.129183, 0.319682, -0.211924, -0.129183, 0.439964, -0.211924, 0.547891, 0.393556, -0.283683, 0.559523, 0.407174, -0.283683, -0.320725, -0.316729, 0.353421, -0.216811, -0.101498, 0.367759, -0.216811, -0.0309717, 0.411327, -0.216811, 0.1854, 0.423934, -0.216811, 0.248547, -0.283683, -0.215347, -0.309653, 0.414029, -0.129183, 0.26711, -0.211924, 0.454662, -0.0329498, 0.408626, -0.129183, 0.23995, 0.400452, -0.129183, 0.199019, 0.362564, -0.129183, 0.0106441, 0.339984, -0.129183, -0.0999004, -0.283683, 0.4538, -0.0760112, -0.211924, -0.129183, -0.280363, -0.211924, 0.00816184, -0.271005, -0.283683, 0.232618, -0.278765, -0.211924, 0.291382, -0.251528, -0.211924, 0.429761, -0.146309, -0.283683, 0.443633, -0.122344, -0.211924, 0.375736, -0.216379, -0.283683, 0.363501, -0.226346 )
+
+[sub_resource type="ConvexPolygonShape" id=4]
+points = PoolVector3Array( 0.165447, 0.21918, 0.502282, -0.521378, 0.21918, 0.502282, 0.165447, -0.289025, 0.502282, 0.165447, 0.21918, -0.525851, -0.38006, -0.376417, 0.502282, -0.508066, 0.21918, 0.406533, 0.0936448, -0.274974, 0.406533, 0.165447, -0.121061, -0.126662, 0.165447, -0.0259731, -0.36492, 0.133983, 0.21918, -0.528482, -0.373068, -0.349715, 0.406533, 0.0936448, 0.21918, -0.531721, 0.0936448, -0.074479, -0.261277, 0.165447, -0.0432883, -0.321601, 0.0936448, -0.141408, -0.093363, 0.0936448, -0.0323278, -0.366641, 0.0936448, 0.194053, -0.515325 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+points = PoolVector3Array( 0.456596, 0.160841, -0.16889, 0.428829, 0.148501, -0.0732342, 0.452994, 0.0518921, -0.16889, -0.212435, 0.0543504, -0.16889, -0.140725, 0.0595618, -0.0732342, -0.140725, 0.0519904, 0.0407259, -0.140725, 0.0355694, 0.284996, 0.426995, 0.0941739, -0.0732342, -0.140725, -0.0452084, 0.252696, -0.212435, -0.341426, -0.16889, -0.212435, 0.0505647, -0.112021, -0.212435, 0.0244582, 0.276599, -0.212435, -0.104059, 0.225239 )
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( 0.793757, 0.324558, -0.432162, 0.709428, 0.220939, -0.432162, 0.790086, 0.321264, -0.527825, -0.247866, 0.324558, -0.527825, -0.176181, 0.324558, 0.644521, -0.176181, -0.079535, 0.590884, -0.176181, -0.12163, 0.547928, -0.176181, -0.127827, 0.541427, 0.414429, -0.140389, -0.432162, 0.462253, -0.0802608, -0.527825, -0.247866, 0.324558, 0.65822, -0.247866, 0.273418, -0.527825, -0.247866, -0.0663034, 0.606209, -0.247866, -0.116327, 0.555126, -0.176181, -0.145581, 0.460739, 0.372825, -0.123529, -0.432162, -0.176181, -0.236583, 0.0442999, -0.176181, -0.245795, 0.000995755, 0.448589, -0.0736171, -0.527825, -0.176181, 0.150035, -0.432162, -0.176181, -0.224301, -0.0233846, -0.247866, -0.223296, 0.0146952, -0.247866, -0.123584, 0.522038, -0.247866, -0.228376, 0.0425584, -0.247866, -0.232228, 0.0246795 )
+
+[sub_resource type="ConvexPolygonShape" id=7]
+points = PoolVector3Array( -0.264879, 0.429806, -0.194209, -0.264879, -0.12542, -0.194209, -0.264879, -0.0628701, 0.344266, -0.193131, -0.0598398, 0.301884, 0.124185, 0.148277, -0.0985525, -0.164126, 0.37955, -0.194209, -0.264879, -0.129193, -0.137287, 0.372598, -0.0227333, -0.194209, -0.193131, -0.120217, -0.0985525, -0.264879, -0.0771067, 0.353869, -0.193131, -0.0882558, 0.332785, 0.394455, 0.0131154, -0.0985525, 0.443999, 0.0754933, -0.194209, -0.264879, -0.154293, 0.252687, -0.193131, -0.127649, 0.0142177, -0.193131, -0.143601, 0.261218, 0.385296, -0.020675, -0.194209, 0.319931, -0.0375416, -0.0985525, -0.193131, -0.0946594, 0.325275, 0.377039, -0.0282221, -0.0985525, 0.404794, -0.0174732, -0.194209 )
+
+[sub_resource type="ConvexPolygonShape" id=8]
+points = PoolVector3Array( -0.385391, -0.339313, 0.0195631, -0.385391, -0.23535, -0.409502, 0.262693, -0.23535, -0.540646, 0.27844, -0.23535, -0.543689, 0.316101, -0.339313, 0.0195631, -0.385391, -0.339313, 0.209801, -0.385391, 0.541735, -0.462706, -0.313696, 0.530083, -0.476449, -0.313696, -0.147773, -0.430018, 0.258049, -0.147773, -0.545653, 0.282721, -0.147773, -0.550463, 0.280109, -0.23535, -0.522487, 0.317625, -0.312549, 0.0195631, 0.333807, -0.286148, 0.209801, 0.330687, -0.339313, 0.209801, -0.385391, -0.23535, 0.452359, -0.313696, 0.536273, -0.470068, -0.385391, 0.590622, -0.411956, -0.313696, 0.577422, -0.427368, 0.35594, 0.183417, 0.356651, 0.285334, -0.147773, -0.517186, 0.353835, -0.130021, 0.356651, 0.321979, -0.23535, 0.0195631, 0.350715, -0.23535, 0.392284, 0.346506, -0.23535, 0.452359, -0.385391, 0.338269, 0.452359, -0.385391, 0.589165, -0.406557, -0.313696, 0.57378, -0.414214, 0.341862, 0.187058, 0.356651, 0.344329, 0.158382, 0.452359, 0.34774, -0.0546429, 0.452359, -0.313696, 0.352471, 0.343497 )
+
+[sub_resource type="ConvexPolygonShape" id=9]
+points = PoolVector3Array( -0.346851, -0.00319052, -0.552036, -0.346851, -0.00706306, -0.538874, -0.418566, 0.0083465, -0.531218, -0.418566, 0.00996009, -0.536638, -0.346851, 0.352359, -0.505497, 0.540386, -0.168662, 0.231033, 0.41986, -0.295488, 0.231033, 0.323176, -0.396982, 0.231033, 0.308815, -0.393593, 0.231033, -0.418566, -0.24216, 0.326777, 0.311161, -0.422153, 0.326777, -0.346851, -0.231914, 0.231033, -0.418566, 0.400928, -0.485454, -0.346851, 0.400928, -0.499045, 0.538133, -0.1589, 0.231033, 0.533252, -0.195205, 0.326777, 0.491763, -0.239013, 0.326777, 0.316136, -0.423283, 0.326777, -0.418566, 0.400928, 0.326777, 0.405311, 0.400928, 0.231033, 0.391888, 0.400928, 0.326777 )
+
+[sub_resource type="ConvexPolygonShape" id=10]
+points = PoolVector3Array( -0.371636, -0.151649, 0.534841, 0.39058, 0.725001, -0.0332084, 0.318755, 0.704687, 7.92742e-06, -0.335683, -0.0639738, 0.492899, -0.368777, -0.0522908, 0.501228, -0.36943, -0.0639738, 0.501228, -0.388551, -0.202802, 0.354382, -0.391248, -0.255534, 0.354382, 0.106465, -0.252481, 0.354382, 0.146667, -0.187225, 0.354382, 0.39058, -0.192066, 0.265739, 0.39058, 0.802361, -0.226458, 0.318755, 0.771312, -0.16647, 0.318755, 0.813308, -0.271573, -0.439867, -0.0639738, -0.407016, -0.414699, -0.0639738, -0.0807029, -0.428263, -0.151649, -0.192151, -0.404812, -0.229115, 0.164206, -0.406119, -0.255534, 0.164206, 0.126403, -0.255534, 0.346549, 0.39058, -0.255534, 0.251659, 0.39058, 0.819728, -0.269887, -0.40996, -0.0639738, -0.459865, -0.399991, -0.151649, -0.478109, -0.444197, -0.151649, -0.399977, 0.39058, -0.255534, 0.164206, 0.39058, 0.114851, -0.418221, 0.318755, 0.151689, -0.410883, -0.0968365, -0.151649, -0.476622, -0.0640697, -0.151649, -0.472359, 0.39058, -0.151649, -0.413065, 0.39058, 0.065066, -0.428235, 0.318755, 0.0343322, -0.435474 )
+
+[sub_resource type="ConvexPolygonShape" id=11]
+points = PoolVector3Array( 0.442553, 0.540583, 0.637951, 0.442553, 0.558063, 0.626543, 0.370736, 0.534239, 0.636068, 0.370736, 0.501221, 0.629312, -0.337675, -0.344683, 0.448449, 0.149379, -0.344683, 0.450886, 0.442553, -0.213389, 0.479793, 0.370736, 0.57632, 0.608601, 0.442553, 0.786599, 0.475916, 0.370736, 0.786599, 0.470157, -0.357962, -0.344683, 0.447895, -0.335878, -0.432343, 0.430064, -0.04647, -0.432343, 0.431503, 0.360378, -0.432343, -0.0608029, 0.442553, -0.432343, -0.160261, 0.442553, 0.786599, -0.493523, -0.0136003, 0.786599, -0.397941, -0.274504, 0.466649, -0.397941, -0.396053, 0.317357, -0.397941, -0.414457, 0.274369, -0.397941, -0.38638, -0.344683, 0.307679, -0.389633, -0.432343, 0.223948, -0.347861, -0.432343, 0.429731, -0.374226, -0.536187, -0.0608029, 0.109148, -0.536187, -0.0608029, 0.266306, -0.536187, -0.25108, 0.442553, -0.463289, -0.25108, -0.0146275, 0.786599, -0.493523, 0.442553, -0.432343, -0.493523, -0.345807, 0.379896, -0.493523, -0.0768574, 0.710204, -0.493523, -0.38638, 0.284857, -0.493523, -0.389804, 0.176999, -0.493523, -0.415997, 0.225684, -0.397941, -0.431919, -0.344683, 0.0811851, -0.418651, -0.432343, 0.0796345, -0.33485, -0.536187, -0.25108, -0.389633, -0.432343, -0.0608029, -0.332882, -0.344683, -0.397941, -0.300012, -0.432343, -0.493523, -0.415997, 0.215973, -0.397941 )
+
+[sub_resource type="ConvexPolygonShape" id=12]
+points = PoolVector3Array( 0.329693, 0.434214, -0.172158, 0.31381, -0.125011, 0.306029, 0.338706, 0.374609, -0.172158, 0.358948, 0.371743, -0.267818, 0.355845, 0.392101, -0.267818, 0.323192, 0.372845, -0.267818, 0.234395, 0.377843, -0.172158, -0.237739, 0.293618, 0.15358, 0.155497, -0.212691, 0.248453, 0.327108, -0.212691, 0.304512, -0.237739, 0.288326, 0.153355, -0.237739, 0.233352, 0.14976, -0.309471, 0.209686, 0.124764, -0.237739, 0.0975324, 0.140717, 0.371285, -0.316613, 0.16487, 0.445234, -0.212691, -0.267818, -0.309471, -0.00264159, -0.267818, -0.237739, 0.163825, -0.0624553, -0.309471, 0.0302843, -0.213219, -0.309471, 0.232176, 0.126224, -0.0773567, -0.316613, 0.16487, -0.237739, -0.125011, 0.125438, -0.309471, -0.316613, 0.0887019, -0.309471, 0.154124, 0.121057, 0.410512, -0.316613, -0.0253261, -0.309471, -0.212691, -0.267818, -0.309471, -0.316613, -0.0253261 )
+
+[sub_resource type="ConvexPolygonShape" id=13]
+points = PoolVector3Array( -0.414051, -0.22647, 0.176289, -0.409627, -0.22647, 0.116635, 0.352034, -0.286585, -0.0662581, 0.352034, -0.22647, 0.176289, -0.413901, -0.178452, 0.176289, -0.402503, -0.22647, 0.113995, 0.115219, -0.261201, -0.0662581, 0.186684, -0.268899, -0.0662581, -0.406477, -0.119253, 0.080547, -0.389455, -0.138772, 0.080547, -0.373932, -0.138772, 0.0747779, 0.352034, -0.267433, -0.146289, 0.352034, 0.482995, 0.176289, -0.411802, 0.166751, 0.176289, -0.404828, 0.193326, 0.080547, -0.405953, 0.00409219, 0.080547, 0.352034, -0.265967, -0.152365, 0.280195, -0.138772, -0.16734, 0.280195, 0.629159, -0.417621, 0.352034, 0.649594, -0.450701, 0.280195, 0.496924, 0.080547, -0.193959, 0.395297, 0.176289, -0.235353, 0.351952, 0.176289, -0.308092, 0.294861, 0.080547, 0.352034, -0.198704, -0.174337, -0.186835, 0.421781, 0.080547 )
+
+[sub_resource type="ConvexPolygonShape" id=14]
+points = PoolVector3Array( 0.154329, -0.0284363, 0.292926, 0.154329, 0.187172, 0.277969, 0.082516, 0.153046, 0.271038, -0.114888, 0.0592395, 0.251922, -0.299368, -0.0284363, 0.234047, -0.17373, -0.132377, -0.262311, 0.154329, -0.132377, -0.262311, 0.154329, -0.0284363, -0.355628, 0.082516, 0.153484, 0.262429, -0.133871, 0.0592395, 0.249441, -0.329286, -0.0284363, 0.230107, -0.303013, -0.0284363, 0.197785, 0.082516, 0.0592395, -0.0127822, 0.0771666, -0.0284363, -0.262311, 0.154329, -0.0615924, -0.452448, -0.0165173, -0.132377, -0.452448, 0.154329, -0.132377, -0.452448 )
+
+[node name="RootSpatial" type="Spatial"]
+
+[node name="Bodies" type="Spatial" parent="."]
+
+[node name="RigidBody" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40476, 0 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody"]
+portal_mode = 3
+mesh = ExtResource( 7 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody"]
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody2" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.654603, 0.0376465, 0.721852 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody2"]
+portal_mode = 3
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody2"]
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody2"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody3" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466317, 0.321759, -0.324557 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody3"]
+portal_mode = 3
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody3"]
+shape = SubResource( 3 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody3"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody4" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584553, 1.10464, 0.497718 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody4"]
+portal_mode = 3
+mesh = ExtResource( 6 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody4"]
+shape = SubResource( 4 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody4"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody5" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537565, 0.659744, -0.83111 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody5"]
+portal_mode = 3
+mesh = ExtResource( 4 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody5"]
+shape = SubResource( 5 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody5"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody6" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.502134, 0.999262, -0.472175 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody6"]
+portal_mode = 3
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody6"]
+shape = SubResource( 6 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody6"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody7" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485121, 0.841103, -0.805791 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody7"]
+portal_mode = 3
+mesh = ExtResource( 14 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody7"]
+shape = SubResource( 7 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody7"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody8" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.364609, 0.340348, 0.547642 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody8"]
+portal_mode = 3
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody8"]
+shape = SubResource( 8 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody8"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody9" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.331434, 0.922892, 0.673223 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody9"]
+portal_mode = 3
+mesh = ExtResource( 5 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody9"]
+shape = SubResource( 9 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody9"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody10" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35942, 0.256568, 0.402999 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody10"]
+portal_mode = 3
+mesh = ExtResource( 16 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody10"]
+shape = SubResource( 10 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody10"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody11" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.307447, 0.537221, -0.506477 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody11"]
+portal_mode = 3
+mesh = ExtResource( 2 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody11"]
+shape = SubResource( 11 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody11"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody12" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.440529, 0.317648, -0.732182 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody12"]
+portal_mode = 3
+mesh = ExtResource( 17 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody12"]
+shape = SubResource( 12 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody12"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody13" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.397966, 0.331404, 0.823711 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody13"]
+portal_mode = 3
+mesh = ExtResource( 18 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody13"]
+shape = SubResource( 13 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody13"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="RigidBody14" type="RigidBody" parent="Bodies"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.595671, 0.133412, -0.305024 )
+collision_layer = 4
+collision_mask = 18
+mass = 0.00204082
+script = ExtResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody14"]
+portal_mode = 3
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody14"]
+shape = SubResource( 14 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody14"]
+aabb = AABB( -10, -10, -10, 20, 20, 20 )
+max_distance = 150.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 10 )
+unit_size = 0.5
+autoplay = true
+bus = "Effects"
+
+[connection signal="camera_entered" from="Bodies/RigidBody/VisibilityNotifier" to="Bodies/RigidBody" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody/VisibilityNotifier" to="Bodies/RigidBody" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody2/VisibilityNotifier" to="Bodies/RigidBody2" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody2/VisibilityNotifier" to="Bodies/RigidBody2" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody3/VisibilityNotifier" to="Bodies/RigidBody3" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody3/VisibilityNotifier" to="Bodies/RigidBody3" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody4/VisibilityNotifier" to="Bodies/RigidBody4" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody4/VisibilityNotifier" to="Bodies/RigidBody4" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody5/VisibilityNotifier" to="Bodies/RigidBody5" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody5/VisibilityNotifier" to="Bodies/RigidBody5" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody6/VisibilityNotifier" to="Bodies/RigidBody6" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody6/VisibilityNotifier" to="Bodies/RigidBody6" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody7/VisibilityNotifier" to="Bodies/RigidBody7" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody7/VisibilityNotifier" to="Bodies/RigidBody7" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody8/VisibilityNotifier" to="Bodies/RigidBody8" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody8/VisibilityNotifier" to="Bodies/RigidBody8" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody9/VisibilityNotifier" to="Bodies/RigidBody9" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody9/VisibilityNotifier" to="Bodies/RigidBody9" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody11/VisibilityNotifier" to="Bodies/RigidBody11" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody11/VisibilityNotifier" to="Bodies/RigidBody11" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody12/VisibilityNotifier" to="Bodies/RigidBody12" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody12/VisibilityNotifier" to="Bodies/RigidBody12" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody13/VisibilityNotifier" to="Bodies/RigidBody13" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody13/VisibilityNotifier" to="Bodies/RigidBody13" method="_on_VisibilityNotifier_camera_exited"]
+[connection signal="camera_entered" from="Bodies/RigidBody14/VisibilityNotifier" to="Bodies/RigidBody14" method="_on_VisibilityNotifier_camera_entered"]
+[connection signal="camera_exited" from="Bodies/RigidBody14/VisibilityNotifier" to="Bodies/RigidBody14" method="_on_VisibilityNotifier_camera_exited"]
