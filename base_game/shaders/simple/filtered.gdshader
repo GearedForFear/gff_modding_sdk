@@ -1,11 +1,9 @@
 // Contains code by CptPotato and Calinou (MIT license)
 shader_type spatial;
 uniform sampler2D main_texture : hint_albedo;
-uniform sampler2D mask : hint_albedo;
-uniform vec4 primary_color : hint_color;
-uniform vec4 secondary_color : hint_color;
-uniform float brightness : hint_range(0.05, 1) = 1.0f;
-uniform vec4 emission : hint_color;
+uniform float metallic : hint_range(0, 1) = 0.0f;
+uniform float specular : hint_range(0, 1) = 0.5f;
+uniform float roughness : hint_range(0, 1) = 1.0f;
 
 
 vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
@@ -30,13 +28,8 @@ vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 void fragment() {
 	vec2 tex_size = 1.0f / vec2(textureSize(main_texture, 0)); // size of one pixel of the texture
 	
-	vec4 tex_point = texture_point_smooth(main_texture, UV, tex_size);
-	vec3 details_color = tex_point.rgb;
-	float paint_mask = tex_point.a;
-	float livery_mask = texture_point_smooth(mask, UV, tex_size).r;
-	
-	ALBEDO = mix(secondary_color.rgb, details_color, paint_mask)
-			* brightness;
-	EMISSION = emission.rgb + primary_color.rgb * livery_mask
-			* (1.0 - paint_mask) * brightness;
+	ALBEDO = texture_point_smooth(main_texture, UV, tex_size).rgb;
+	METALLIC = metallic;
+	SPECULAR = specular;
+	ROUGHNESS = roughness;
 }

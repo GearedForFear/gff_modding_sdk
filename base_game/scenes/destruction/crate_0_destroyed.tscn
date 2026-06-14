@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://resources/materials/world/decorations/crate_0.material" type="Material" id=1]
+[ext_resource path="res://resources/materials/world/gameplay_objects/crate_0.material" type="Material" id=1]
 [ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_10.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_13.mesh" type="ArrayMesh" id=3]
 [ext_resource path="res://resources/meshes/world/gameplay_objects/crate/part_4.mesh" type="ArrayMesh" id=4]
@@ -68,7 +68,7 @@ points = PoolVector3Array( 0.154329, -0.0284363, 0.292926, 0.154329, 0.187172, 0
 [node name="RigidBody" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40476, 0 )
 collision_layer = 4
-collision_mask = 18
+collision_mask = 22
 mass = 0.00204082
 script = ExtResource( 12 )
 

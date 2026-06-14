@@ -37,7 +37,7 @@ func try_shoot(shooter: CombatVehicle) -> bool:
 func shoot(shooter: CombatVehicle) -> Projectile:
 	match projectile_values.RESOURCE_TYPE:
 		ProjectileValues.ResouceTypes.AMMO:
-			shooter.ammo -= projectile_values.ammo_cost
+			shooter.change_ammo(-projectile_values.ammo_cost)
 	
 	var return_value: Projectile
 	match projectile_values.projectile_type:

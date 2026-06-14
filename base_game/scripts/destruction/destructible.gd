@@ -1,3 +1,4 @@
+class_name Destructible
 extends Area
 
 
@@ -28,13 +29,13 @@ func _exit_tree():
 	DeletionManager.add_to_garbage(parts)
 
 
-func destroy(var position: Vector3, var force: float):
+func destroy(body: PhysicsBody):
 	if not destroyed:
 		add_child(parts)
 		var children: Array = parts.get_node("Bodies").get_children()
 		for n in children:
-			n.apply_central_impulse((n.global_transform.origin - position)\
-					.normalized() * force * force_factor)
+			n.apply_central_impulse((n.global_transform.origin - body.global_transform.origin)\
+					.normalized() * body.linear_velocity.length() * force_factor)
 		DeletionManager.add_array_to_rigid_bodies(children)
 		collision_layer = 0
 		var mesh: MeshInstance = $MeshInstance
@@ -45,9 +46,9 @@ func destroy(var position: Vector3, var force: float):
 		remove_child(mesh)
 
 
-func _on_Area_body_entered(body):
+func _on_Area_body_entered(body: PhysicsBody):
 	if body.is_in_group("combat_vehicle"):
-		destroy(body.global_transform.origin, body.linear_velocity.length())
+		destroy(body)
 
 
 func _on_VisibilityNotifier_camera_entered(_camera):

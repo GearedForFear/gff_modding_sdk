@@ -38,7 +38,7 @@ void fragment() {
 	float gloss_final = gloss * (1.0 - paint_mask) * brightness;
 	vec3 paint_color = mix(secondary_color.rgb, primary_color.rgb, livery_mask);
 	
-	ALBEDO.rgb = mix(paint_color.rgb, details_color, paint_mask) * brightness;
+	ALBEDO = mix(paint_color.rgb, details_color, paint_mask) * brightness;
 	METALLIC = gloss_final / 4.0;
 	SPECULAR = (1.0 + gloss_final) / 2.0;
 	ROUGHNESS = 1.0 - gloss_final;

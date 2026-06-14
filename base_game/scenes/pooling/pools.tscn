@@ -493,6 +493,8 @@ script = ExtResource( 1 )
 
 [node name="Area100" parent="Money" instance=ExtResource( 3 )]
 
+[node name="Ammo" type="Node" parent="."]
+
 [node name="Sparks" type="Node" parent="."]
 script = ExtResource( 2 )
 

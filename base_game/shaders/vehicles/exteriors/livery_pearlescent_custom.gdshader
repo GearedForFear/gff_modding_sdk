@@ -37,7 +37,7 @@ void fragment() {
 	vec3 details_color = tex_point.rgb;
 	paint_mask = tex_point.a;
 	
-	ALBEDO.rgb = mix(secondary_color.rgb, details_color, paint_mask) * brightness;
+	ALBEDO = mix(secondary_color.rgb, details_color, paint_mask) * brightness;
 	EMISSION = emission.rgb;
 	
 	livery_mask = texture_point_smooth(mask, UV, tex_size).r;

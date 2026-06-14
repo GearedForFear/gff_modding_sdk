@@ -34,7 +34,7 @@ void fragment() {
 	float paint_mask = tex_point.a;
 	float gloss_final = gloss * (1.0 - paint_mask) * brightness;
 	
-	ALBEDO.rgb = mix(primary_color.rgb, details_color, paint_mask) * brightness;
+	ALBEDO = mix(primary_color.rgb, details_color, paint_mask) * brightness;
 	METALLIC = gloss_final / 4.0;
 	SPECULAR = (1.0 + gloss_final) / 2.0;
 	ROUGHNESS = 1.0 - gloss_final;

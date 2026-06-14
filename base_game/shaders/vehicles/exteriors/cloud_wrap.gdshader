@@ -49,7 +49,7 @@ void fragment() {
 	
 	vec3 paint_color = mix(primary_color.rgb, secondary_color.rgb,
 			texture(skin_texture_0, uv).r);
-	ALBEDO.rgb = mix(paint_color.rgb, details_color, paint_mask)
+	ALBEDO = mix(paint_color.rgb, details_color, paint_mask)
 			* brightness;
 	EMISSION = emission.rgb;
 }

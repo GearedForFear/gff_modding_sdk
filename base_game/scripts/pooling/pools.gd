@@ -2,10 +2,11 @@ class_name Pools
 extends Node
 
 
-const BULLETS_AVAILABLE := Array()
 const MONEY_AVAILABLE := Array()
+const AMMO_AVAILABLE := Array()
 const EXPLOSIONS_AVAILABLE := Array()
 const SPARKS_AVAILABLE := Array()
+const BULLETS_AVAILABLE := Array()
 const MISSILES_AVAILABLE := Array()
 const GRENADES_AVAILABLE := Array()
 const BUZZSAWS_AVAILABLE := Array()
@@ -13,13 +14,14 @@ const CHAINSAWS_AVAILABLE := Array()
 const CARTRIDGE_CASES_AVAILABLE := Array()
 const CARTRIDGE_LINKS_AVAILABLE := Array()
 
+var money: PackedScene
+var ammo: PackedScene
+var explosion: PackedScene
 var bullet: PackedScene
-var chainsaw: PackedScene
 var missile: PackedScene
 var grenade: PackedScene
 var buzzsaw: PackedScene
-var explosion: PackedScene
-var money: PackedScene
+var chainsaw: PackedScene
 var sparks: PackedScene
 var cartridge_case: PackedScene
 var cartridge_link: PackedScene
@@ -35,18 +37,19 @@ func _ready():
 			CARTRIDGE_LINKS_AVAILABLE]:
 		n.clear()
 	
-	bullet = load("res://scenes/weapon_components/bullet.tscn")
 	money = load("res://scenes/collectibles/money.tscn")
+	ammo = load("res://scenes/collectibles/ammo.tscn")
 	explosion = load("res://scenes/destruction/explosion.tscn")
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		sparks = load("res://scenes/particles/sparks.tscn")
 		SPARKS_AVAILABLE.append_array($Sparks.get_children())
 	else:
 		sparks = load("res://scenes/particles/sparks.tscn")
-	chainsaw = load("res://scenes/weapon_components/chainsaw.tscn")
+	bullet = load("res://scenes/weapon_components/bullet.tscn")
 	missile = load("res://scenes/weapon_components/missile.tscn")
 	grenade = load("res://scenes/weapon_components/grenade.tscn")
 	buzzsaw = load("res://scenes/weapon_components/buzzsaw.tscn")
+	chainsaw = load("res://scenes/weapon_components/chainsaw.tscn")
 	cartridge_case = load("res://scenes/weapon_components/cartridge_case.tscn")
 	cartridge_link = load("res://scenes/weapon_components/cartridge_link.tscn")
 	homing_missile_script = load(
@@ -54,13 +57,13 @@ func _ready():
 	straight_missile_script = load(
 			"res://scripts/weapon_compontents/straight_missile.gd")
 	
-	BULLETS_AVAILABLE.append_array($Bullets.get_children())
 	MONEY_AVAILABLE.append_array($Money.get_children())
 	EXPLOSIONS_AVAILABLE.append_array($Explosions.get_children())
-	CHAINSAWS_AVAILABLE.append_array($Chainsaws.get_children())
+	BULLETS_AVAILABLE.append_array($Bullets.get_children())
 	MISSILES_AVAILABLE.append_array($Missiles.get_children())
 	GRENADES_AVAILABLE.append_array($Grenades.get_children())
 	BUZZSAWS_AVAILABLE.append_array($Buzzsaws.get_children())
+	CHAINSAWS_AVAILABLE.append_array($Chainsaws.get_children())
 	CARTRIDGE_CASES_AVAILABLE.append_array($CartridgeCases.get_children())
 	CARTRIDGE_LINKS_AVAILABLE.append_array($CartridgeLinks.get_children())
 	
@@ -164,11 +167,21 @@ static func get_chainsaw() -> ArcProjectile:
 	return new
 
 
-func get_money() -> Area:
+static func get_money() -> Pickup:
 	if not MONEY_AVAILABLE.empty():
 		return MONEY_AVAILABLE.pop_back()
-	var new: Area = money.instance()
-	$Money.add_child(new)
+	var this: Pools = Global.pools
+	var new: Pickup = this.money.instance()
+	this.get_node("Money").add_child(new)
+	return new
+
+
+static func get_ammo() -> Pickup:
+	if not AMMO_AVAILABLE.empty():
+		return AMMO_AVAILABLE.pop_back()
+	var this: Pools = Global.pools
+	var new: Pickup = this.ammo.instance()
+	this.get_node("Ammo").add_child(new)
 	return new
 
 

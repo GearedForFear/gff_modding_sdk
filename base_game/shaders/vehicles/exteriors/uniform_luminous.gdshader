@@ -33,7 +33,7 @@ void fragment() {
 	vec3 details_color = tex_point.rgb;
 	float paint_mask = tex_point.a;
 	
-	ALBEDO.rgb = mix(secondary_color.rgb, details_color, paint_mask)
+	ALBEDO = mix(secondary_color.rgb, details_color, paint_mask)
 			* brightness;
 	EMISSION = emission.rgb + primary_color.rgb * (1.0 - paint_mask)
 			* brightness;
