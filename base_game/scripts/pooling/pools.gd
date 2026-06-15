@@ -201,19 +201,19 @@ func get_sparks() -> GeometryInstance:
 	return new
 
 
-func get_cartridge_case() -> DynamicShadowBody:
+func get_cartridge_case() -> RigidBody:
 	if not CARTRIDGE_CASES_AVAILABLE.empty():
 		return CARTRIDGE_CASES_AVAILABLE.pop_back()
-	var new: DynamicShadowBody = cartridge_case.instance()
+	var new: RigidBody = cartridge_case.instance()
 	new.pool = CARTRIDGE_CASES_AVAILABLE
 	$CartridgeCases.add_child(new)
 	return new
 
 
-func get_cartridge_link() -> DynamicShadowBody:
+func get_cartridge_link() -> RigidBody:
 	if not CARTRIDGE_LINKS_AVAILABLE.empty():
 		return CARTRIDGE_LINKS_AVAILABLE.pop_back()
-	var new: DynamicShadowBody = cartridge_link.instance()
+	var new: RigidBody = cartridge_link.instance()
 	new.pool = CARTRIDGE_LINKS_AVAILABLE
 	$CartridgeLinks.add_child(new)
 	return new

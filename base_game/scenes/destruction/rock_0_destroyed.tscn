@@ -14,7 +14,7 @@
 [ext_resource path="res://resources/materials/world/decorations/rock_usa.material" type="Material" id=12]
 [ext_resource path="res://resources/sounds/destruction/rock_impact_small_hit_03.wav" type="AudioStream" id=13]
 [ext_resource path="res://resources/meshes/world/decorations/rock_0/part_10.tres" type="ArrayMesh" id=14]
-[ext_resource path="res://scripts/world/dynamic_shadow_body.gd" type="Script" id=15]
+[ext_resource path="res://scripts/world/pool_body.gd" type="Script" id=15]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 0.293083, -0.0835147, -0.694449, 0.475056, -0.0569095, -0.611821, 0.351469, -0.520885, -0.663367, 0.288193, -0.520885, -0.692146, -0.804386, 0.314561, -0.359205, 0.528255, 0.231962, -0.164659, 0.655103, -0.284667, -0.527403, -0.803348, 0.338717, -0.32288, 0.400222, -0.520885, -0.640728, -0.523721, -0.520885, -0.44324, -0.61367, -0.481479, -0.415868, -0.714437, -0.166336, -0.385682, 0.694965, -0.520885, -0.272612, 0.709339, -0.303591, -0.442089, 0.350876, 0.526066, 0.235689, 0.282858, 0.270367, 0.598561, 0.685185, -0.520885, -0.285019, -0.528907, -0.425151, 0.443282, -0.557507, 0.329923, 0.557631, -0.713399, 0.585287, 0.0708174, -0.756077, 0.468625, -0.115926, -0.33419, -0.520885, 0.287491, 0.316349, 0.0563015, 0.612247, 0.435046, -0.37695, 0.476793, 0.503805, -0.520885, 0.338015, -0.23209, 0.616345, 0.232747, 0.283007, 0.592746, 0.320363, 0.302715, 0.550779, 0.375619, 0.266113, 0.376231, 0.591782, -0.520312, 0.329923, 0.561724, 0.398592, -0.322404, 0.562363, -0.574549, 0.368216, 0.507363 )
@@ -40,7 +40,7 @@ points = PoolVector3Array( 0.394469, -0.416492, -0.612577, 0.61056, -0.0550385, 
 [sub_resource type="ConvexPolygonShape" id=8]
 points = PoolVector3Array( -0.0638915, 0.224129, -0.328099, 0.155001, 0.176858, -0.317965, -0.129846, -0.154294, -0.243839, -0.236523, 0.260929, -0.115279, 0.382406, 0.126148, 0.39397, 0.519547, 0.0124112, -0.281988, 0.591144, -0.149572, -0.246011, 0.62807, -0.263412, -0.220386, -0.3472, -0.0882894, 0.0251538, -0.416642, -0.0210017, 0.109341, -0.419822, 0.081136, 0.112671, -0.404333, 0.0597333, 0.156538, 0.416564, -0.152549, 0.411415, 0.625403, -0.227125, -0.228566, -0.337763, -0.0306509, 0.34214, -0.325967, -0.047383, 0.374498, -0.395615, -0.0634992, 0.164935 )
 
-[sub_resource type="ConvexPolygonShape" id=9]
+[sub_resource type="ConvexPolygonShape" id=12]
 points = PoolVector3Array( 0.135562, 0.0285058, -0.571931, 0.164181, 0.256026, -0.53201, 0.179436, -0.127811, -0.499127, -0.507667, 0.19183, -0.286538, -0.581169, 0.599574, -0.246617, 0.046176, 0.375454, -0.459569, 0.466885, 0.14072, -0.0504085, 0.279665, -0.45312, -0.33289, -0.258293, -0.45312, 0.0105045, -0.300023, -0.0980318, 0.641598, -0.389914, 0.381431, 0.667686, 0.706804, -0.0150816, 0.333028, 0.00419331, 0.390086, -0.439912, 0.701761, -0.45312, 0.335334, -0.109399, -0.45312, 0.584082, -0.199038, -0.413758, 0.611505, -0.226774, -0.326995, 0.619878 )
 
 [sub_resource type="ConvexPolygonShape" id=10]
@@ -69,10 +69,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody"]
 shape = SubResource( 1 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody2" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.462494, 0.988339, 1.08518 )
 collision_layer = 0
@@ -88,10 +84,6 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody2"]
 shape = SubResource( 2 )
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody2"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
 
 [node name="RigidBody3" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.471746, 1.02789, -0.00445203 )
@@ -109,10 +101,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody3"]
 shape = SubResource( 3 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody3"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody4" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.134035, 0.980774, -0.678241 )
 collision_layer = 0
@@ -128,10 +116,6 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody4"]
 shape = SubResource( 4 )
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody4"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
 
 [node name="RigidBody5" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.765326, 0.0609412, -0.175976 )
@@ -149,10 +133,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody5"]
 shape = SubResource( 5 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody5"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody6" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.716902, 0.628632, -0.12299 )
 collision_layer = 4
@@ -168,10 +148,6 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody6"]
 shape = SubResource( 6 )
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody6"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
 
 [node name="RigidBody7" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44533, 0.523322, 0.766356 )
@@ -189,10 +165,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody7"]
 shape = SubResource( 7 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody7"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody8" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305136, 1.13646, 0.809509 )
 collision_layer = 0
@@ -209,10 +181,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody8"]
 shape = SubResource( 8 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody8"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody9" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80997, 0.453121, -0.430279 )
 collision_layer = 0
@@ -227,11 +195,7 @@ material/0 = ExtResource( 12 )
 script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody9"]
-shape = SubResource( 9 )
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody9"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
+shape = SubResource( 12 )
 
 [node name="RigidBody10" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.176359, 0.306995, -0.595392 )
@@ -249,10 +213,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody10"]
 shape = SubResource( 10 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody10"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody11" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04012, 0.142694, 0.119696 )
 collision_layer = 0
@@ -269,34 +229,7 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody11"]
 shape = SubResource( 11 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody11"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 13 )
 autoplay = true
 bus = "Effects"
-
-[connection signal="camera_entered" from="Bodies/RigidBody/VisibilityNotifier" to="Bodies/RigidBody" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody/VisibilityNotifier" to="Bodies/RigidBody" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody2/VisibilityNotifier" to="Bodies/RigidBody2" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody2/VisibilityNotifier" to="Bodies/RigidBody2" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody3/VisibilityNotifier" to="Bodies/RigidBody3" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody3/VisibilityNotifier" to="Bodies/RigidBody3" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody4/VisibilityNotifier" to="Bodies/RigidBody4" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody4/VisibilityNotifier" to="Bodies/RigidBody4" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody5/VisibilityNotifier" to="Bodies/RigidBody5" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody5/VisibilityNotifier" to="Bodies/RigidBody5" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody6/VisibilityNotifier" to="Bodies/RigidBody6" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody6/VisibilityNotifier" to="Bodies/RigidBody6" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody7/VisibilityNotifier" to="Bodies/RigidBody7" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody7/VisibilityNotifier" to="Bodies/RigidBody7" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody8/VisibilityNotifier" to="Bodies/RigidBody8" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody8/VisibilityNotifier" to="Bodies/RigidBody8" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody9/VisibilityNotifier" to="Bodies/RigidBody9" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody9/VisibilityNotifier" to="Bodies/RigidBody9" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_exited"]
-[connection signal="camera_entered" from="Bodies/RigidBody11/VisibilityNotifier" to="Bodies/RigidBody11" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody11/VisibilityNotifier" to="Bodies/RigidBody11" method="_on_VisibilityNotifier_camera_exited"]

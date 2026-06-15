@@ -1,4 +1,4 @@
-extends DynamicShadowBody
+extends RigidBody
 
 
 var pool: Array
@@ -16,7 +16,6 @@ func start(global_transform: Transform):
 	collision_layer = 4
 	collision_mask = 18
 	set_physics_process(true)
-	set_process(true)
 	show()
 	reset_physics_interpolation()
 	DeletionManager.add_to_rigid_bodies(self)
@@ -26,6 +25,5 @@ func stop():
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	set_process(false)
 	hide()
 	pool.append(self)

@@ -74,11 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/destruction/destructible.gd"
 }, {
-"base": "RigidBody",
-"class": "DynamicShadowBody",
-"language": "GDScript",
-"path": "res://scripts/world/dynamic_shadow_body.gd"
-}, {
 "base": "Node",
 "class": "ExtrapolationManager",
 "language": "GDScript",
@@ -353,7 +348,6 @@ _global_script_class_icons={
 "CustomizableVehicle": "",
 "DeletionManager": "",
 "Destructible": "",
-"DynamicShadowBody": "",
 "ExtrapolationManager": "",
 "GadgetForce": "",
 "GameplayManager": "",

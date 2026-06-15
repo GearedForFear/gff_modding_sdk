@@ -221,13 +221,13 @@ func shoot_shotgun(var gun: Spatial):
 
 func instantiate_cartridge(var gun: RayCast, var link: bool):
 	if link:
-		var new_link: DynamicShadowBody = pools.get_cartridge_link()
+		var new_link: RigidBody = pools.get_cartridge_link()
 		new_link.start(gun.get_node("CartridgeExit").global_transform)
 		new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 - 10)\
 				/ 10000, (new_link.transform.basis.x * -1 \
 				+ new_link.transform.basis.y) * 0.004)
 	else:
-		var new_case: DynamicShadowBody = pools.get_cartridge_case()
+		var new_case: RigidBody = pools.get_cartridge_case()
 		new_case.start(gun.get_node("CartridgeExit").global_transform)
 		new_case.apply_central_impulse(new_case.transform.basis.x * -0.006 \
 				+ new_case.transform.basis.y * 0.004)

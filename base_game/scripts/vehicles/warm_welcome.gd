@@ -30,7 +30,7 @@ func _ready():
 func _physics_process(_delta):
 	match next_out:
 		cartridge_out.LINK:
-			var new_link: DynamicShadowBody = pools.get_cartridge_link()
+			var new_link: RigidBody = pools.get_cartridge_link()
 			new_link.start($CartridgeExitLeft.global_transform)
 			new_link.apply_impulse(new_link.transform.basis.y * (randi() % 20 \
 					- 10) / 10000, (new_link.transform.basis.x \
@@ -43,7 +43,7 @@ func _physics_process(_delta):
 			
 			next_out = cartridge_out.CASE
 		cartridge_out.CASE:
-			var new_case: DynamicShadowBody = pools.get_cartridge_case()
+			var new_case: RigidBody = pools.get_cartridge_case()
 			new_case.start($CartridgeExitLeft.global_transform)
 			new_case.apply_central_impulse(new_case.transform.basis.x / 100)
 			new_case = pools.get_cartridge_case()
