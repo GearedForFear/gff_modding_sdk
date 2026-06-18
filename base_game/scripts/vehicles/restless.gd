@@ -113,7 +113,7 @@ func shoot_sniper():
 	
 	var new_bullet: Area = pools.get_sniper_bullet()
 	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
-			sniper_reward, sniper_burn, self)
+			sniper_reward, sniper_burn, self, null)
 	new_bullet.play_audio_sniper()
 	
 	sniper_case_out = true
@@ -129,7 +129,7 @@ func shoot_lmg():
 	
 	var new_bullet: Area = pools.get_bullet()
 	new_bullet.start($ShotPositionMachineGun.global_transform, lmg_damage, \
-			lmg_reward, lmg_burn, self)
+			lmg_reward, lmg_burn, self, null)
 	new_bullet.play_audio_lmg()
 	
 	var flash: GeometryInstance = $MachineGunFlash.get_child(0)

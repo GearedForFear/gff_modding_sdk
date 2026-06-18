@@ -14,12 +14,13 @@ func _ready():
 
 
 func start(global_transform: Transform, damage: float, reward: int, \
-		burn: float, shooter: CombatVehicle):
+		burn: float, shooter: CombatVehicle,
+		new_projectile_values: ProjectileValues):
 	speed = -0.5
 	explosive = true
 	$Particles.emitting = true
 	$AudioStreamPlayer3D.play()
-	.start(global_transform, damage, reward, burn, shooter)
+	.start(global_transform, damage, reward, burn, shooter, new_projectile_values)
 
 
 func make_available():

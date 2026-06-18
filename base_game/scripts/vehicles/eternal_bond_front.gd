@@ -99,12 +99,12 @@ func shoot_front():
 	
 	var new_bullet: Area = pools.get_bullet()
 	new_bullet.start($ShotPositionLeft.global_transform, bullet_damage, \
-			bullet_reward, bullet_burn, self)
+			bullet_reward, bullet_burn, self, null)
 	new_bullet.play_audio_lmg()
 	
 	new_bullet = pools.get_bullet()
 	new_bullet.start($ShotPositionRight.global_transform, bullet_damage, \
-			bullet_reward, bullet_burn, self)
+			bullet_reward, bullet_burn, self, null)
 	new_bullet.play_audio_lmg()
 	
 	for n in $MuzzleFlashMG.get_children():
@@ -124,7 +124,7 @@ func shoot_left():
 	for n in shot_positions:
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
-				shotgun_reward, shotgun_burn, self)
+				shotgun_reward, shotgun_burn, self, null)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	
@@ -145,7 +145,7 @@ func shoot_right():
 	for n in shot_positions:
 		var new_bullet: Area = pools.get_bullet()
 		new_bullet.start(n.global_transform, shotgun_damage, \
-				shotgun_reward, shotgun_burn, self)
+				shotgun_reward, shotgun_burn, self, null)
 		if n.name == "ShotPositionMiddle":
 			new_bullet.play_audio_shotgun()
 	

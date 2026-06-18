@@ -1,10 +1,6 @@
 extends Destructible
 
 
-func destroy(body: PhysicsBody):
-	Pools.get_ammo().start(global_transform, body, null, 0)
-	.destroy(body)
-
-
-func _on_Area_area_entered(area: Area):
-	destroy(area.shooter)
+func destroy(shooter: CombatVehicle, collision_object_translation_global: Vector3, force: float):
+	Pools.get_ammo().start(global_transform, shooter, null, 0)
+	.destroy(null, collision_object_translation_global, force)

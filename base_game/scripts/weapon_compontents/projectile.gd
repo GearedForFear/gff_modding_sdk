@@ -12,6 +12,7 @@ var reward: int
 var burn: float
 var acid_duration: int = 0
 var shooter: CombatVehicle
+var projectile_values: ProjectileValues
 
 var bounce: bool = false
 var timer_finished: bool = false
@@ -31,14 +32,16 @@ func _physics_process(_delta):
 
 
 func start(new_global_transform: Transform, new_damage: float, new_reward: int, \
-		new_burn: float, new_shooter: CombatVehicle):
+		new_burn: float, new_shooter: CombatVehicle,
+		new_projectile_values: ProjectileValues):
 	global_transform = new_global_transform
 	damage = new_damage
 	reward = new_reward
 	burn = new_burn
 	shooter = new_shooter
-	collision_layer = 8
-	collision_mask = 3
+	projectile_values = new_projectile_values
+#	collision_layer = 8
+#	collision_mask = 19
 	set_physics_process(true)
 	set_process(true)
 	show()
@@ -52,8 +55,8 @@ func start(new_global_transform: Transform, new_damage: float, new_reward: int, 
 func stop():
 	set_physics_process(false)
 	hide()
-	collision_layer = 0
-	collision_mask = 0
+#	collision_layer = 0
+#	collision_mask = 0
 	var lifetime: Timer = get_node_or_null("Lifetime")
 	if lifetime != null:
 		lifetime.stop()
@@ -83,8 +86,8 @@ func _on_Area_body_entered(body: PhysicsBody):
 	if body != shooter:
 		var pools: Node = get_node("../..")
 		if explosive:
-			pools.get_explosion().start(global_transform, damage, reward, burn,
-					shooter)
+			pools.get_explosion().start(global_transform, shooter,
+					projectile_values)
 		else:
 			if body.is_in_group("combat_vehicle"):
 				if body.shield_mode == CombatVehicle.ShieldModes.DEFLECT \
@@ -120,6 +123,6 @@ func _on_Lifetime_timeout():
 	timer_finished = true
 	set_physics_process(false)
 	hide()
-	collision_layer = 0
-	collision_mask = 0
+#	collision_layer = 0
+#	collision_mask = 0
 	try_make_available()

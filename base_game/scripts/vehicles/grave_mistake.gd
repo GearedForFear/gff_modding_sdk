@@ -96,7 +96,7 @@ func shoot(var gun: RayCast):
 	var new_bullet: Area
 	new_bullet = pools.get_bullet()
 	new_bullet.start(gun.global_transform, bullet_damage, bullet_reward,
-			bullet_burn, self)
+			bullet_burn, self, null)
 	new_bullet.play_audio_lmg()
 	
 	var flash: GeometryInstance = gun.get_child(0).get_child(0)

@@ -69,7 +69,7 @@ points = PoolVector3Array( 0.154329, -0.0284363, 0.292926, 0.154329, 0.187172, 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40476, 0 )
 collision_layer = 4
 collision_mask = 22
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody"]
@@ -85,7 +85,7 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.654603, 0.0376465, 0.721852 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody2"]
@@ -101,7 +101,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466317, 0.321759, -0.324557 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody3"]
@@ -117,7 +117,7 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584553, 1.10464, 0.497718 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody4"]
@@ -133,7 +133,7 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537565, 0.659744, -0.83111 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody5"]
@@ -149,7 +149,7 @@ shape = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.502134, 0.999262, -0.472175 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody6"]
@@ -165,7 +165,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485121, 0.841103, -0.805791 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody7"]
@@ -181,7 +181,7 @@ shape = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.364609, 0.340348, 0.547642 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody8"]
@@ -197,7 +197,7 @@ shape = SubResource( 8 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.331434, 0.922892, 0.673223 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody9"]
@@ -213,7 +213,7 @@ shape = SubResource( 9 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35942, 0.256568, 0.402999 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody10"]
@@ -233,7 +233,7 @@ max_distance = 150.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.307447, 0.537221, -0.506477 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody11"]
@@ -249,7 +249,7 @@ shape = SubResource( 11 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.440529, 0.317648, -0.732182 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody12"]
@@ -265,7 +265,7 @@ shape = SubResource( 12 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.397966, 0.331404, 0.823711 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody13"]
@@ -281,7 +281,7 @@ shape = SubResource( 13 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.595671, 0.133412, -0.305024 )
 collision_layer = 4
 collision_mask = 18
-mass = 0.00204082
+mass = 0.0153061
 script = ExtResource( 12 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bodies/RigidBody14"]

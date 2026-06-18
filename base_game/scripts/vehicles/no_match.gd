@@ -134,7 +134,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 			
 			var new_bullet: Area = pools.get_ricochet_bullet()
 			new_bullet.start($ShotPositionRight.global_transform, bullet_damage,\
-					bullet_reward, bullet_burn, self)
+					bullet_reward, bullet_burn, self, null)
 			new_bullet.play_audio_lmg()
 			
 			var flash: GeometryInstance = $MuzzleFlashRight
@@ -151,7 +151,7 @@ func shoot(var trigger: bool, var ricochet: bool):
 			
 			var new_bullet: Area = pools.get_bullet()
 			new_bullet.start($ShotPositionLeft.global_transform, bullet_damage, \
-					bullet_reward, bullet_burn, self)
+					bullet_reward, bullet_burn, self, null)
 			new_bullet.play_audio_lmg()
 			
 			var flash: GeometryInstance = $MuzzleFlashLeft

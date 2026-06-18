@@ -69,7 +69,8 @@ func shoot(shooter: CombatVehicle) -> Projectile:
 			shooter.saws.append(return_value)
 	
 	return_value.start(global_transform, projectile_values.damage,
-			projectile_values.reward, projectile_values.burn, shooter)
+			projectile_values.reward, projectile_values.burn, shooter,
+			projectile_values)
 	start_cooldown()
 	
 	var particles_root: Spatial = get_node_or_null("ParticlesRoot")

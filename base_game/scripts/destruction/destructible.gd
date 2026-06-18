@@ -5,7 +5,8 @@ extends Area
 export var parts_path: String \
 		= "res://scenes/destruction/rock_0_destroyed.tscn"
 export var global_culling: bool = false
-export var force_factor: float = 0.1
+export var force_factor: float = 0.1 # This is applied twice in case of
+									 # collision with a vehicle
 export var can_have_shadow: bool = true
 
 var destroyed: bool = false
@@ -29,13 +30,12 @@ func _exit_tree():
 	DeletionManager.add_to_garbage(parts)
 
 
-func destroy(body: PhysicsBody):
+func destroy(_shooter: CombatVehicle, collision_object_translation_global: Vector3, force: float):
 	if not destroyed:
 		add_child(parts)
 		var children: Array = parts.get_node("Bodies").get_children()
 		for n in children:
-			n.apply_central_impulse((n.global_transform.origin - body.global_transform.origin)\
-					.normalized() * body.linear_velocity.length() * force_factor)
+			n.apply_central_impulse((n.global_transform.origin - collision_object_translation_global).normalized() * force * force_factor)
 		DeletionManager.add_array_to_rigid_bodies(children)
 		collision_layer = 0
 		var mesh: MeshInstance = $MeshInstance
@@ -47,23 +47,4 @@ func destroy(body: PhysicsBody):
 
 
 func _on_Area_body_entered(body: PhysicsBody):
-	if body.is_in_group("combat_vehicle"):
-		destroy(body)
-
-
-func _on_VisibilityNotifier_camera_entered(_camera):
-	camera_count += 1
-	if camera_count != 0:
-		collision_layer = 4
-		collision_mask = 1
-		if shadow:
-			$MeshInstance.cast_shadow \
-					= GeometryInstance.SHADOW_CASTING_SETTING_ON
-
-
-func _on_VisibilityNotifier_camera_exited(_camera):
-	camera_count -= 1
-	if camera_count == 0:
-		collision_layer = 0
-		collision_mask = 0
-		$MeshInstance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
+	destroy(body, body.global_transform.origin, body.linear_velocity.length() * force_factor)

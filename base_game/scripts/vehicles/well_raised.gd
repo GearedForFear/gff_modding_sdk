@@ -173,12 +173,12 @@ func shoot_front(var gun: RayCast):
 	if level == 5:
 		new_bullet = pools.get_acid_bullet()
 		new_bullet.start(gun.global_transform, acid_bullet_damage,
-				bullet_reward, bullet_burn, self)
+				bullet_reward, bullet_burn, self, null)
 		new_bullet.acid_duration = acid_bullet_duration
 	else:
 		new_bullet = pools.get_bullet()
 		new_bullet.start(gun.global_transform, bullet_damage, bullet_reward,
-				bullet_burn, self)
+				bullet_burn, self, null)
 	new_bullet.play_audio_lmg()
 	
 	var flash: GeometryInstance = gun.get_child(0).get_child(0)

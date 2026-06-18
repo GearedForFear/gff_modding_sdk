@@ -8,11 +8,12 @@
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 0.406775, 0.424811, 0.10827, 0.258097, -0.000163794, 0.0674692, 0.299268, 0.260986, -0.29926, 0.178223, 0.681577, -0.18556, 0.0621949, 0.680228, 0.251433, 0.111568, 0.258895, 0.40785, -0.178303, -0.00744793, 0.185481, -0.0622745, -0.00616646, -0.251513, -0.111648, 0.415167, -0.40785, -0.258176, 0.674226, -0.0675491, -0.299348, 0.413076, 0.29918, -0.406775, 0.24925, -0.10835 )
 
-[node name="Area" type="Area" groups=["destructible"]]
-collision_layer = 4
+[node name="Area" type="Area"]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource( 1 )
 parts_path = "res://scenes/destruction/cactus_1_destroyed.tscn"
-force_factor = 0.003
+force_factor = 0.06
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 3 )

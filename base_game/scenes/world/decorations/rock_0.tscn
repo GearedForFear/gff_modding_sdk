@@ -11,9 +11,11 @@ data = PoolVector3Array( -0.9241, 0.0958, 1.042, -1.5156, 1.7424, -0.6094, -0.95
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 0.0901667, 0.28739, -1.34147, 1.4519, 0.151456, -0.75454, 0.0689622, 7.15256e-07, -1.14583, -1.31775, 0.644878, -0.716789, -1.51556, 1.74242, -0.609656, -0.0292174, 1.42228, -1.04048, 0.969716, 1.02846, -0.188013, 0.687377, 1.26247, 1.20343, 0.806761, 0.28739, 1.2644, 1.11089, 7.15256e-07, -0.288514, -1.06824, 7.15256e-07, -0.419879, -0.924162, 0.0956834, 1.04197, -0.953209, 0.863192, 1.15803, 0.617374, 7.15256e-07, 0.967233, -0.729546, 7.15256e-07, 0.886118 )
 
-[node name="Area" type="Area" groups=["destructible"]]
-collision_layer = 4
+[node name="Area" type="Area"]
+collision_layer = 64
+collision_mask = 0
 script = ExtResource( 1 )
+force_factor = 0.4
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 2 )

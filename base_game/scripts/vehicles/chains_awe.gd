@@ -65,7 +65,7 @@ func shoot_sniper():
 	
 	var new_bullet: StraightProjectile = pools.get_sniper_bullet()
 	new_bullet.start($ShotPositionSniper.global_transform, sniper_damage, \
-			sniper_reward, sniper_burn, self)
+			sniper_reward, sniper_burn, self, null)
 	new_bullet.play_audio_sniper()
 	
 	$MuzzleFlash.get_child(0).emitting = true

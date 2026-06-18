@@ -2,9 +2,10 @@ extends ArcProjectile
 
 
 func start(global_transform: Transform, damage: float, reward: int, \
-		burn: float, shooter: CombatVehicle):
+		burn: float, shooter: CombatVehicle,
+		new_projectile_values: ProjectileValues):
 	$AudioStreamPlayer3D.play()
-	.start(global_transform, damage, reward, burn, shooter)
+	.start(global_transform, damage, reward, burn, shooter, new_projectile_values)
 
 
 func collide(var body: PhysicsBody):
