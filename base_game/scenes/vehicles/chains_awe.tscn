@@ -8,10 +8,10 @@
 [ext_resource path="res://scenes/particles/death_smoke.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/chains_awe.material" type="Material" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://resources/materials/vehicles/chains_awe/stock.material" type="Material" id=9]
+[ext_resource path="res://resources/materials/vehicles/exteriors/chains_awe.material" type="Material" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/meshes/vehicles/chains_awe.tres" type="ArrayMesh" id=11]
-[ext_resource path="res://resources/materials/weapon_components/chainsaw/stock.material" type="Material" id=12]
+[ext_resource path="res://resources/materials/weapon_components/chainsaw.material" type="Material" id=12]
 [ext_resource path="res://resources/meshes/weapon_components/chainsaw.tres" type="ArrayMesh" id=13]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
@@ -394,6 +394,8 @@ collision_mask = 115
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 41 )
+meshes = [ [ NodePath("BodyMesh") ], [  ], [ NodePath("ChainsawFrontLeft"), NodePath("ChainsawFrontRight"), NodePath("ChainsawBackLeft"), NodePath("ChainsawBackRight") ], [  ], [  ] ]
+skins_implemented = true
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.925, 0.197, 2.411 )

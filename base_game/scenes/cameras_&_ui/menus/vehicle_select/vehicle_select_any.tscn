@@ -131,7 +131,6 @@ margin_left = 212.0
 margin_top = 0.0
 margin_right = 279.0
 margin_bottom = 67.0
-locked = true
 
 [node name="Control2" type="Control" parent="Control/ColorRect/VBoxContainer/HBoxContainer2"]
 margin_left = 283.0
@@ -159,7 +158,6 @@ margin_left = 70.0
 margin_top = 0.0
 margin_right = 137.0
 margin_bottom = 67.0
-locked = true
 
 [node name="Focus" parent="Control/ColorRect/VBoxContainer/HBoxContainer3/SelectSlot2" instance=ExtResource( 21 )]
 preview_location = NodePath("../../../../../ColorRect2/RotatingVehicleView/Viewport/Spatial/VehicleParent")
@@ -190,7 +188,6 @@ margin_left = 283.0
 margin_top = 0.0
 margin_right = 350.0
 margin_bottom = 67.0
-locked = true
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Control/ColorRect/VBoxContainer"]
 margin_top = 212.0

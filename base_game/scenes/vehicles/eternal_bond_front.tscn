@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/sounds/vehicles/sci-fi_vehicle_spaceship_jet_engine_loop3.wav" type="AudioStream" id=5]
-[ext_resource path="res://resources/materials/vehicles/eternal_bond/stock.material" type="Material" id=6]
+[ext_resource path="res://resources/materials/vehicles/exteriors/eternal_bond.material" type="Material" id=6]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/eternal_bond.material" type="Material" id=7]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=8]
 [ext_resource path="res://resources/meshes/vehicles/wheel_1.tres" type="ArrayMesh" id=9]
@@ -55,6 +55,7 @@ collision_mask = 0
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 30 )
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("BodyMesh/WheelFrontLeft"), NodePath("BodyMesh/WheelFrontRight"), NodePath("BodyMesh/WheelBackLeft"), NodePath("BodyMesh/WheelBackRight") ], [  ], [  ], [  ] ]
 master_body = false
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]

@@ -26,7 +26,3 @@ required_setting = 4
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 0.065, 0 )
 shape = SubResource( 3 )
-
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 120.0

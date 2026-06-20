@@ -209,12 +209,12 @@ func shoot_shotgun(var gun: Spatial):
 		if level == 5:
 			new_bullet = pools.get_acid_bullet()
 			new_bullet.start(n.global_transform, shotgun_acid_damage, \
-					shotgun_reward, shotgun_burn, self)
+					shotgun_reward, shotgun_burn, self, null)
 			new_bullet.acid_duration = shotgun_acid_duration
 		else:
 			new_bullet = pools.get_bullet()
 			new_bullet.start(n.global_transform, shotgun_damage, \
-					shotgun_reward, shotgun_burn, self)
+					shotgun_reward, shotgun_burn, self, null)
 		if n.name == "ShotPositionLeft":
 			new_bullet.play_audio_shotgun()
 

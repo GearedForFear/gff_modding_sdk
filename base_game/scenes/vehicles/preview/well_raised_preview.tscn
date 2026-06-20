@@ -21,7 +21,7 @@ collision_mask = 3
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 6 )
-meshes = [ [ NodePath("BodyMesh") ], [ NodePath("WheelFrontLeft/Mesh"), NodePath("WheelFrontRight/Mesh"), NodePath("WheelBackLeft/Mesh"), NodePath("WheelBackRight/Mesh") ], [  ], [  ] ]
+meshes = [ [ NodePath("BodyMesh") ], [ NodePath("WheelFrontLeft/Mesh"), NodePath("WheelFrontRight/Mesh"), NodePath("WheelBackLeft/Mesh"), NodePath("WheelBackRight/Mesh") ], [  ], [  ], [  ] ]
 skins_implemented = true
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="."]

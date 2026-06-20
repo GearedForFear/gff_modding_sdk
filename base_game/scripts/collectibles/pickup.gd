@@ -34,7 +34,7 @@ func start(new_global_transform: Transform, new_shooter: CombatVehicle, \
 	speed_divisor = 20.0
 
 
-func collect(body: PhysicsBody):
+func collect(_body: PhysicsBody):
 	pass
 
 

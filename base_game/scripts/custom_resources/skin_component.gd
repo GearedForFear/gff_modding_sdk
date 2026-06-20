@@ -15,6 +15,8 @@ export var texture_1: StreamTexture
 export var mask_name: String
 export var mesh: ArrayMesh
 export var shader: Shader
+export var shader_no_cull: Shader
+export var shader_simple: Shader
 export(float, 0.0, 1.0) var gloss = 0.0
 export var color_override := Color.black
 export var teeth: Resource

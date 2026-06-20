@@ -2,6 +2,9 @@ class_name VehicleSkin
 extends Resource
 
 
+const SHADER_PATH_START := "res://shaders/vehicles/"
+const SHADER_PATH_END := ".gdshader"
+
 export var exterior: Resource
 export var wheels: Resource
 export var primary_color := Color()
@@ -12,6 +15,7 @@ export var has_teeth := false
 
 var body_material: ShaderMaterial
 var wheel_material: ShaderMaterial
+var no_cull_material: ShaderMaterial
 var simple_material: ShaderMaterial
 var simple_no_cull_material: ShaderMaterial
 
@@ -68,18 +72,17 @@ func copy(from: VehicleSkin):
 
 
 func generate_materials():
+	if exterior.has_color_override():
+		primary_color = exterior.color_override
+	
 	body_material = ShaderMaterial.new()
-	var shader: Shader = exterior.shader
-	body_material.shader = shader
+	body_material.shader = exterior.shader
 	var main_texture: StreamTexture = ResourceLoader.load(
 			"res://resources/images/vehicles/" + vehicle_name + "/" \
 			+ vehicle_name + ".png", "StreamTexture")
 	body_material.set_shader_param("main_texture", main_texture)
 	body_material.set_shader_param("skin_texture_0", exterior.texture_0)
-	if exterior.has_color_override():
-		body_material.set_shader_param("primary_color", exterior.color_override)
-	else:
-		body_material.set_shader_param("primary_color", primary_color)
+	body_material.set_shader_param("primary_color", primary_color)
 	body_material.set_shader_param("secondary_color", secondary_color)
 	body_material.set_shader_param("gloss", exterior.gloss)
 	if exterior.mask_name != "":
@@ -90,17 +93,30 @@ func generate_materials():
 		body_material.set_shader_param("mask", mask)
 	
 	wheel_material = ShaderMaterial.new()
-	wheel_material.set_shader_param("texture_sharp", wheels.texture_0)
-	wheel_material.set_shader_param("texture_blurry", wheels.texture_1)
-	var path_start := "res://shaders/vehicles/"
 	var path_middle: String
-	var path_end := ".gdshader"
 	if wheels.paint_colors == 0:
 		path_middle = "wheel"
 	else:
 		path_middle = "wheel_paint"
-	shader = ResourceLoader.load(path_start + path_middle + path_end, "Shader")
+	var shader: Shader = ResourceLoader.load(SHADER_PATH_START + path_middle
+			+ SHADER_PATH_END, "Shader")
 	wheel_material.shader = shader
+	wheel_material.set_shader_param("texture_sharp", wheels.texture_0)
+	wheel_material.set_shader_param("texture_blurry", wheels.texture_1)
+	
+	no_cull_material = ShaderMaterial.new()
+	no_cull_material.shader = exterior.shader_no_cull
+	no_cull_material.set_shader_param("skin_texture_0", exterior.texture_0)
+	no_cull_material.set_shader_param("primary_color", primary_color)
+	no_cull_material.set_shader_param("secondary_color", secondary_color)
+	no_cull_material.set_shader_param("gloss", exterior.gloss)
+	
+	simple_material = ShaderMaterial.new()
+	simple_material.shader = exterior.shader_simple
+	simple_material.set_shader_param("skin_texture_0", exterior.texture_0)
+	simple_material.set_shader_param("primary_color", primary_color)
+	simple_material.set_shader_param("secondary_color", secondary_color)
+	simple_material.set_shader_param("gloss", exterior.gloss)
 	
 	simple_no_cull_material = ShaderMaterial.new()
 	if has_teeth:

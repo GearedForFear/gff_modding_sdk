@@ -20,7 +20,6 @@ func _ready():
 	var mesh: MeshInstance = $MeshInstance
 	if global_culling:
 		mesh.portal_mode = CullInstance.PORTAL_MODE_GLOBAL
-		mesh.get_node("VisibilityNotifier").portal_mode = CullInstance.PORTAL_MODE_GLOBAL
 	if not can_have_shadow:
 		mesh.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 	shadow = mesh.cast_shadow == GeometryInstance.SHADOW_CASTING_SETTING_ON

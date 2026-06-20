@@ -7,6 +7,8 @@ uniform vec4 secondary_color : hint_color;
 uniform float brightness : hint_range(0.05, 1) = 1.0f;
 uniform vec4 emission : hint_color;
 
+varying vec2 tex_size; // size of one pixel of the texture
+
 
 vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 	vec2 ddx = dFdx(uv);
@@ -27,9 +29,12 @@ vec4 texture_point_smooth(sampler2D smp, vec2 uv, vec2 pixel_size) {
 }
 
 
+void vertex() {
+	tex_size = 1.0f / vec2(textureSize(main_texture, 0));
+}
+
+
 void fragment() {
-	vec2 tex_size = 1.0f / vec2(textureSize(main_texture, 0)); // size of one pixel of the texture
-	
 	vec4 tex_point = texture_point_smooth(main_texture, UV, tex_size);
 	vec3 details_color = tex_point.rgb;
 	float paint_mask = tex_point.a;
