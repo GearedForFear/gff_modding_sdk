@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://scripts/custom_resources/skin_component.gd" type="Script" id=1]
+[ext_resource path="res://resources/images/gradient_textures/halloween.tres" type="Texture" id=2]
+[ext_resource path="res://shaders/vehicles/exteriors/livery_pearlescent_gradient.gdshader" type="Shader" id=3]
+[ext_resource path="res://resources/custom/skins/simple/white_no_cull_matte.tres" type="Resource" id=4]
+[ext_resource path="res://shaders/vehicles/simple/standard.gdshader" type="Shader" id=5]
+[ext_resource path="res://shaders/vehicles/exteriors/no_cull_standard.gdshader" type="Shader" id=6]
+
+[resource]
+script = ExtResource( 1 )
+category = 0
+paint_colors = 0
+texture_0 = ExtResource( 2 )
+mask_name = "flame"
+shader = ExtResource( 3 )
+shader_no_cull = ExtResource( 6 )
+shader_simple = ExtResource( 5 )
+gloss = 0.0
+color_override = Color( 0.388235, 0.776471, 0, 1 )
+teeth = ExtResource( 4 )
