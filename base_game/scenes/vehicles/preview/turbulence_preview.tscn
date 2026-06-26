@@ -94,6 +94,6 @@ shape = SubResource( 6 )
 
 [node name="BodyMesh" type="MeshInstance" parent="."]
 portal_mode = 3
-material_override = ExtResource( 3 )
 mesh = ExtResource( 19 )
+material/0 = ExtResource( 3 )
 script = ExtResource( 4 )

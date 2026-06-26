@@ -33,5 +33,6 @@ func disable(vehicle: CombatVehicle):
 
 
 func set_color(vehicle: CombatVehicle, color: Color):
-	vehicle.get_node("BodyMesh").get_surface_material(0).set_shader_param(
-			"emission", color)
+	for mesh_category in vehicle.meshes:
+		for mesh in mesh_category:
+			vehicle.get_node(mesh).get_surface_material(0).set_shader_param("emission", color)

@@ -1,18 +1,18 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/cameras_&_ui/cameras_&_huds/follow_camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/particles/rocket_flame.tscn" type="PackedScene" id=4]
-[ext_resource path="res://resources/meshes/vehicles/restless.tres" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/materials/vehicles/restless/stock.material" type="Material" id=6]
+[ext_resource path="res://resources/meshes/vehicles/restless.mesh" type="ArrayMesh" id=5]
+[ext_resource path="res://resources/materials/vehicles/exteriors/restless.material" type="Material" id=6]
 [ext_resource path="res://scenes/particles/rocket_flame_cpu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/particles/drift_smoke_cpu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/particles/drift_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=11]
 [ext_resource path="res://resources/materials/vehicles/wheels_standard/front/restless.material" type="Material" id=12]
-[ext_resource path="res://resources/materials/vehicles/restless_rocket/stock.material" type="Material" id=13]
+[ext_resource path="res://resources/materials/vehicles/restless_parts/rocket.material" type="Material" id=13]
 [ext_resource path="res://scenes/particles/death_explosion.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/meshes/vehicles/wheel_0.tres" type="ArrayMesh" id=15]
 [ext_resource path="res://resources/meshes/vehicles/restless_door.tres" type="ArrayMesh" id=16]
@@ -24,7 +24,7 @@
 [ext_resource path="res://resources/materials/weapon_components/light_machine_gun.material" type="Material" id=22]
 [ext_resource path="res://resources/meshes/weapon_components/light_machine_gun.tres" type="ArrayMesh" id=23]
 [ext_resource path="res://resources/meshes/vehicles/restless_rocket.tres" type="ArrayMesh" id=24]
-[ext_resource path="res://resources/materials/vehicles/restless_door/stock.material" type="Material" id=25]
+[ext_resource path="res://resources/materials/vehicles/restless_parts/door.material" type="Material" id=25]
 [ext_resource path="res://resources/sounds/vehicles/sci-fi_vehicle_spaceship_jet_engine_loop3.wav" type="AudioStream" id=26]
 [ext_resource path="res://resources/sounds/vehicles/gas_leak_01_loop.wav" type="AudioStream" id=27]
 [ext_resource path="res://resources/sounds/destruction/explosion_large_06.wav" type="AudioStream" id=28]
@@ -53,6 +53,11 @@
 [ext_resource path="res://scripts/gadgets/shield.gd" type="Script" id=51]
 [ext_resource path="res://resources/custom/vehicle_values/restless/absorb_shield.tres" type="Resource" id=52]
 [ext_resource path="res://resources/custom/vehicle_values/restless/deflect_shield.tres" type="Resource" id=53]
+[ext_resource path="res://resources/meshes/vehicles/restless_spoiler.mesh" type="ArrayMesh" id=54]
+[ext_resource path="res://resources/materials/vehicles/simple_part/purple.material" type="Material" id=55]
+[ext_resource path="res://resources/animations/vehicles/restless/spoiler/in_out.anim" type="Animation" id=56]
+[ext_resource path="res://resources/animations/vehicles/restless/spoiler/RESET.anim" type="Animation" id=57]
+[ext_resource path="res://resources/animations/vehicles/restless/spoiler/out_in.anim" type="Animation" id=58]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -269,6 +274,8 @@ collision_mask = 115
 physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 body_values = ExtResource( 44 )
+meshes = [ [ NodePath("BodyMesh"), NodePath("RocketMeshLeft"), NodePath("RocketMeshRight"), NodePath("DoorMesh") ], [  ], [  ], [ NodePath("Spoiler") ], [  ] ]
+skins_implemented = true
 
 [node name="WheelFrontLeft" type="VehicleWheel" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886013, 0.101966, 1.5867 )
@@ -406,8 +413,16 @@ script = ExtResource( 34 )
 required_setting = 3
 
 [node name="Spoiler" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.986108, -2.17408 )
+mesh = ExtResource( 54 )
+material/0 = ExtResource( 55 )
 script = ExtResource( 49 )
 gadget_resource = ExtResource( 50 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body/Spoiler"]
+anims/RESET = ExtResource( 57 )
+anims/in_out = ExtResource( 56 )
+anims/out_in = ExtResource( 58 )
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
@@ -642,6 +657,7 @@ one_shot = true
 process_mode = 0
 wait_time = 30.0
 
+[connection signal="animation_finished" from="Body/Spoiler/AnimationPlayer" to="Body/Spoiler" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="RespawnTimer" to="Body" method="_on_RespawnTimer_timeout"]
 [connection signal="timeout" from="SniperTimer" to="Body" method="_on_SniperTimer_timeout"]
 [connection signal="timeout" from="MachineGunTimer" to="Body" method="_on_MachineGunTimer_timeout"]
