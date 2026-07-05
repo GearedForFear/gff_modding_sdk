@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/vehicles/warm_welcome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -39,6 +39,8 @@
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=37]
 [ext_resource path="res://resources/custom/vehicle_values/warm_welcome/body.tres" type="Resource" id=38]
 [ext_resource path="res://resources/custom/vehicle_values/warm_welcome/jump.tres" type="Resource" id=39]
+[ext_resource path="res://scenes/particles/heat_haze.tscn" type="PackedScene" id=40]
+[ext_resource path="res://scripts/particles/heat_haze.gd" type="Script" id=41]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -385,6 +387,22 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0.229, 0.545, 2.344 )
 [node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.229, 0.545, 2.344 )
 
+[node name="HazeParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 0.52789, -2.69937 )
+script = ExtResource( 41 )
+
+[node name="Particles" parent="Body/HazeParticles" instance=ExtResource( 40 )]
+
+[node name="ReverseHazeParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545, 2.344 )
+script = ExtResource( 41 )
+
+[node name="Left" parent="Body/ReverseHazeParticles" instance=ExtResource( 40 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.229, 0, 0 )
+
+[node name="Right" parent="Body/ReverseHazeParticles" instance=ExtResource( 40 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.229, 0, 0 )
+
 [node name="AcidParticles" type="Spatial" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773806, 0 )
 
@@ -457,6 +475,14 @@ unit_size = 0.7
 autoplay = true
 stream_paused = true
 bus = "Effects"
+
+[node name="HazeTimer" type="Timer" parent="Body"]
+wait_time = 3.0
+one_shot = true
+
+[node name="ReverseHazeTimer" type="Timer" parent="Body"]
+wait_time = 3.0
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

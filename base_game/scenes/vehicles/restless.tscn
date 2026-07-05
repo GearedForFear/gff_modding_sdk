@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://scripts/vehicles/restless.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -58,6 +58,8 @@
 [ext_resource path="res://resources/animations/vehicles/restless/spoiler/in_out.anim" type="Animation" id=56]
 [ext_resource path="res://resources/animations/vehicles/restless/spoiler/RESET.anim" type="Animation" id=57]
 [ext_resource path="res://resources/animations/vehicles/restless/spoiler/out_in.anim" type="Animation" id=58]
+[ext_resource path="res://scenes/particles/heat_haze.tscn" type="PackedScene" id=59]
+[ext_resource path="res://scripts/particles/heat_haze.gd" type="Script" id=60]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -551,6 +553,22 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 1.038, 0.293, -0.27 )
 [node name="Right" parent="Body/ReverseRocketCPUParticles" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -1.038, 0.293, -0.27 )
 
+[node name="HazeParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38419e-07, 0.638471, -2.53344 )
+script = ExtResource( 60 )
+
+[node name="Particles" parent="Body/HazeParticles" instance=ExtResource( 59 )]
+
+[node name="ReverseHazeParticles" type="Spatial" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.293, -0.27 )
+script = ExtResource( 60 )
+
+[node name="Left" parent="Body/ReverseHazeParticles" instance=ExtResource( 59 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.038, 0, 0 )
+
+[node name="Right" parent="Body/ReverseHazeParticles" instance=ExtResource( 59 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.038, 0, 0 )
+
 [node name="AcidParticles" type="Spatial" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.668589, 0 )
 
@@ -627,6 +645,14 @@ script = ExtResource( 51 )
 absorb_resource = ExtResource( 52 )
 deflect_resource = ExtResource( 53 )
 meshes = [ NodePath("../BodyMesh"), NodePath("../BodyMesh/WheelFrontLeft"), NodePath("../BodyMesh/WheelFrontRight"), NodePath("../BodyMesh/WheelBackLeft"), NodePath("../BodyMesh/WheelBackRight"), NodePath("../SniperMesh"), NodePath("../MachineGunMesh"), NodePath("../RocketMeshLeft"), NodePath("../RocketMeshRight"), NodePath("../DoorMesh"), NodePath("../Spoiler") ]
+
+[node name="HazeTimer" type="Timer" parent="Body"]
+wait_time = 3.0
+one_shot = true
+
+[node name="ReverseHazeTimer" type="Timer" parent="Body"]
+wait_time = 3.0
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

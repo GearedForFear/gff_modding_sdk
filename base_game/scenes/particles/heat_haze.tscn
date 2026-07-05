@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/materials/particles/heat_haze.material" type="Material" id=1]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 13.8011, 0, 0, Vector2( 0.103571, 0.830682 ), 1.53688, 1.53688, 0, 0, Vector2( 0.503571, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -4.26955, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 0.1
+gravity = Vector3( 0, 1, 0 )
+scale_curve = SubResource( 4 )
+
+[sub_resource type="SphereMesh" id=1]
+material = ExtResource( 1 )
+radius = 0.2
+height = 0.4
+radial_segments = 5
+rings = 3
+
+[node name="Particles" type="Particles"]
+sorting_offset = -1.0
+emitting = false
+amount = 32
+lifetime = 1.5
+visibility_aabb = AABB( -50, -50, -50, 100, 100, 100 )
+local_coords = false
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 1 )

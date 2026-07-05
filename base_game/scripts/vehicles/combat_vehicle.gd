@@ -252,6 +252,8 @@ func try_boost() -> float:
 		return boost.use(self)
 	else:
 		boost.set_effects(self, false)
+		if Input.is_action_just_released(controls.boost):
+			boost.try_haze(self)
 		return 0.0
 
 

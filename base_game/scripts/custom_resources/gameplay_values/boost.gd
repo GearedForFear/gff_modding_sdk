@@ -15,3 +15,7 @@ func use(_vehicle: VehicleBody) -> float:
 
 func set_effects(_vehicle: VehicleBody, _enable: bool):
 	pass
+
+
+func try_haze(_vehicle: VehicleBody):
+	pass

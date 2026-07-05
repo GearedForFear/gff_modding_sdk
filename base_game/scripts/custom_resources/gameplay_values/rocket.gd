@@ -21,10 +21,12 @@ func use(vehicle: VehicleBody) -> float:
 		vehicle.apply_central_impulse(vehicle.transform.basis.z * -force)
 		set_effects_forwards(vehicle, false)
 		set_effects_reverse(vehicle, true)
+		set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), false)
 	else:
 		vehicle.apply_central_impulse(vehicle.transform.basis.z * force)
 		set_effects_forwards(vehicle, true)
 		set_effects_reverse(vehicle, false)
+		set_haze_emitting(vehicle.get_node("HazeParticles"), false)
 	return vehicle.body_values.base_engine_force
 
 
@@ -43,4 +45,18 @@ func set_effects_reverse(vehicle: VehicleBody, enable: bool):
 	vehicle.get_node("LoopingAudio/ReverseRocketAudio").stream_paused = \
 			not enable
 	for n in vehicle.get_node("ReverseRocketParticles").get_children():
+		n.emitting = enable
+
+
+func try_haze(vehicle: VehicleBody):
+	if Input.is_action_pressed(vehicle.controls.reverse):
+		set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), true)
+		vehicle.get_node("ReverseHazeTimer").start()
+	else:
+		set_haze_emitting(vehicle.get_node("HazeParticles"), true)
+		vehicle.get_node("HazeTimer").start()
+
+
+func set_haze_emitting(haze: Spatial, enable: bool):
+	for n in haze.get_children():
 		n.emitting = enable
