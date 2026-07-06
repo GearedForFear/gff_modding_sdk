@@ -40,8 +40,7 @@ func start(new_global_transform: Transform, new_damage: float, new_reward: int, 
 	burn = new_burn
 	shooter = new_shooter
 	projectile_values = new_projectile_values
-#	collision_layer = 8
-#	collision_mask = 19
+	$CollisionShape.disabled = false
 	set_physics_process(true)
 	set_process(true)
 	show()
@@ -55,8 +54,7 @@ func start(new_global_transform: Transform, new_damage: float, new_reward: int, 
 func stop():
 	set_physics_process(false)
 	hide()
-#	collision_layer = 0
-#	collision_mask = 0
+	$CollisionShape.disabled = true
 	var lifetime: Timer = get_node_or_null("Lifetime")
 	if lifetime != null:
 		lifetime.stop()
@@ -123,6 +121,5 @@ func _on_Lifetime_timeout():
 	timer_finished = true
 	set_physics_process(false)
 	hide()
-#	collision_layer = 0
-#	collision_mask = 0
+	$CollisionShape.disabled = true
 	try_make_available()

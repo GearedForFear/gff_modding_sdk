@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/vehicles/preview_vehicle.gd" type="Script" id=1]
-[ext_resource path="res://resources/materials/vehicles/wheels_standard/front/restless.material" type="Material" id=2]
+[ext_resource path="res://resources/materials/vehicles/wheels_default/restless.material" type="Material" id=2]
 [ext_resource path="res://resources/materials/vehicles/exteriors/restless.material" type="Material" id=3]
 [ext_resource path="res://resources/materials/vehicles/restless_parts/door.material" type="Material" id=4]
 [ext_resource path="res://resources/meshes/vehicles/restless.mesh" type="ArrayMesh" id=5]

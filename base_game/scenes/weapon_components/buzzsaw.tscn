@@ -22,7 +22,7 @@ extents = Vector3( 0.125, 0.01, 0.35 )
 [node name="Area" type="Area" groups=["Bullet"]]
 visible = false
 collision_layer = 8
-collision_mask = 3
+collision_mask = 51
 script = ExtResource( 2 )
 speed = 0.7
 

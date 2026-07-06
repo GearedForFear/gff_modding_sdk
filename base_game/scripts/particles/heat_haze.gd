@@ -12,7 +12,6 @@ func _ready():
 	else:
 		timer = get_node("../HazeTimer")
 	timer.connect("timeout", self, "_on_Timer_timeout")
-	print(timer)
 
 
 func _on_Timer_timeout():

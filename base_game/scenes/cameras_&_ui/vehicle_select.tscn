@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/fonts/metal-mania.regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://resources/fonts/Robtronika-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=4]
-[ext_resource path="res://scripts/cameras_&_ui/resizing_control_font.gd" type="Script" id=5]
+[ext_resource path="res://scripts/cameras_&_ui/hud_label.gd" type="Script" id=5]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_07.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/cameras_&_ui/typing_keystroke_single_hard_06.wav" type="AudioStream" id=7]
 [ext_resource path="res://scripts/cameras_&_ui/vehicle_preview.gd" type="Script" id=8]
@@ -124,7 +124,6 @@ custom_colors/font_color = Color( 0.992157, 0.337255, 0.00784314, 1 )
 custom_fonts/font = SubResource( 8 )
 text = "Chain's Awe"
 script = ExtResource( 5 )
-base_font_size = 40.0
 
 [node name="Unavailable" type="Label" parent="."]
 visible = false
@@ -140,7 +139,6 @@ text = "UNAVAILABLE_IN_MODE"
 align = 1
 autowrap = true
 script = ExtResource( 5 )
-base_font_size = 40.0
 
 [node name="StatNames" type="Label" parent="."]
 anchor_left = 0.07
@@ -192,7 +190,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 36.0
 
 [node name="ChainsAwe" type="Label" parent="BlackBar/Nitro"]
 margin_top = 143.0
@@ -205,7 +202,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="SuicideDoor" type="Label" parent="BlackBar/Nitro"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -219,7 +215,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="GraveMistake" type="Label" parent="BlackBar/Nitro"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -233,7 +228,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="MetalUndertow" type="Label" parent="BlackBar/Nitro"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -247,7 +241,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Fungibber" type="Label" parent="BlackBar/Nitro"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -261,7 +254,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Rocket" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -284,7 +276,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 36.0
 
 [node name="WarmWelcome" type="Label" parent="BlackBar/Rocket"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -298,7 +289,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Turbulence" type="Label" parent="BlackBar/Rocket"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -312,7 +302,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="EternalBond" type="Label" parent="BlackBar/Rocket"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -326,7 +315,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Missilodon" type="Label" parent="BlackBar/Rocket"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -340,7 +328,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Switch" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -363,7 +350,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 36.0
 
 [node name="Restless" type="Label" parent="BlackBar/Switch"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -377,7 +363,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Burst" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -400,7 +385,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 36.0
 
 [node name="WellRaised" type="Label" parent="BlackBar/Burst"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -414,7 +398,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="Overcharge" type="VBoxContainer" parent="BlackBar"]
 visible = false
@@ -437,7 +420,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 36.0
 
 [node name="NoMatch" type="Label" parent="BlackBar/Overcharge"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -451,7 +433,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="CrashCrop" type="Label" parent="BlackBar/Overcharge"]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -465,7 +446,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-base_font_size = 11.0
 
 [node name="PageNumber" type="Label" parent="."]
 modulate = Color( 0.992157, 0.337255, 0.00784314, 1 )
@@ -478,7 +458,6 @@ text = "Page 1/5"
 align = 1
 valign = 1
 script = ExtResource( 5 )
-base_font_size = 11.0
 
 [node name="LeftRightAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )

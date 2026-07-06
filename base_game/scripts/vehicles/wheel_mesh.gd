@@ -19,4 +19,4 @@ func update_transform(body_transform: Transform, wheel_scale: float):
 
 func update_blur(factor: float):
 	var blur: float = ease(abs(gameplay_wheel.get_rpm()) * factor, 3)
-	get_active_material(0).set_shader_param("blur", blur)
+	get_active_material(0).set_shader_param("blur_strength", blur)

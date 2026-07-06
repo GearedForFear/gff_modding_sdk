@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/vehicles/grave_mistake.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -24,10 +24,9 @@
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=22]
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=23]
 [ext_resource path="res://resources/meshes/vehicles/wheel_monster.tres" type="ArrayMesh" id=24]
-[ext_resource path="res://resources/materials/vehicles/wheels_gm/front/stock.material" type="Material" id=25]
+[ext_resource path="res://resources/materials/vehicles/wheels_default/grave_mistake.material" type="Material" id=25]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=26]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=27]
-[ext_resource path="res://resources/materials/vehicles/wheels_gm/back/stock.material" type="Material" id=28]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=29]
 [ext_resource path="res://resources/custom/vehicle_values/grave_mistake/body.tres" type="Resource" id=30]
 
@@ -133,7 +132,7 @@ transform = Transform( 1, 0, 8.74228e-08, 0, -1, 0, -8.74228e-08, 0, 1, 1.17043,
 portal_mode = 3
 mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelBackLeft")
-material/0 = ExtResource( 28 )
+material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
 mirror = true
@@ -143,7 +142,7 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.17, 
 portal_mode = 3
 mesh = ExtResource( 24 )
 skeleton = NodePath("../../WheelBackRight")
-material/0 = ExtResource( 28 )
+material/0 = ExtResource( 25 )
 script = ExtResource( 16 )
 required_setting = 3
 

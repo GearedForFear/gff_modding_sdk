@@ -23,8 +23,8 @@ const ColorNoSpecularNoCull: Shader = \
 		preload("res://shaders/simple/color_no_specular_no_cull.gdshader")
 const TextureNoSpecular: Shader = \
 		preload("res://shaders/simple/texture_no_specular.gdshader")
-const MoneyShader: Shader = \
-		preload("res://shaders/collectibles/money.gdshader")
+const PickupShader: Shader = \
+		preload("res://shaders/collectibles/pickup.gdshader")
 const Tornado: Shader = \
 		preload("res://shaders/world/gameplay_objects/tornado.gdshader")
 const TornadoNoFade: Shader = \
@@ -113,7 +113,7 @@ static func compile_shaders():
 
 
 func enable_textures():
-	MONEY.shader = MoneyShader
+	MONEY.shader = PickupShader
 	
 	var usa_image: StreamTexture = ResourceLoader.load(\
 			"res://resources/images/world/usa.png", \

@@ -16,8 +16,6 @@ const INPUTS_6: Resource \
 const INPUTS := [INPUTS_1, INPUTS_2, INPUTS_3, INPUTS_4, INPUTS_5, INPUTS_6]
 const ALREADY_USED := [false, false, false, false, false, false]
 const SELECTED_CONTROLS := Array()
-const VEHICLE_SELECT: PackedScene \
-		= preload("res://scenes/cameras_&_ui/vehicle_select.tscn")
 
 
 func _enter_tree():

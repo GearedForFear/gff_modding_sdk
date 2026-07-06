@@ -5,7 +5,6 @@ uniform sampler2D texture_albedo_sharp : hint_albedo;
 uniform sampler2D texture_albedo_blurry : hint_albedo;
 uniform sampler2D texture_sharp : hint_albedo;
 uniform sampler2D texture_blurry : hint_albedo;
-uniform float blur : hint_range(0, 1) = 0.0f;
 uniform float blur_strength : hint_range(0, 1) = 0.0f;
 uniform float brightness : hint_range(0.05f, 1) = 1.0f;
 
