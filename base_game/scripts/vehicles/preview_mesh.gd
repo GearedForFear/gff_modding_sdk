@@ -2,7 +2,7 @@ extends MeshInstance
 
 
 const BLACK_MATERIAL: ShaderMaterial = \
-		preload("res://resources/materials/simple/unshaded_black.tres")
+		preload("res://resources/materials/simple/unshaded_no_cull_black.tres")
 
 
 func hide_texture():

@@ -3,18 +3,12 @@
 [ext_resource path="res://resources/materials/weapon_components/bullet.material" type="Material" id=1]
 [ext_resource path="res://scripts/weapon_compontents/bullet.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/destruction/bullet_impact_metal_light_07.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/meshes/weapon_components/bullet.mesh" type="ArrayMesh" id=4]
 [ext_resource path="res://resources/sounds/weapon_components/gun_machinegun_auto_heavy_shot_00_last_with_tail_01.wav" type="AudioStream" id=5]
 
 [sub_resource type="CylinderShape" id=2]
 height = 1.0
 radius = 0.03
-
-[sub_resource type="CylinderMesh" id=1]
-top_radius = 0.03
-bottom_radius = 0.03
-height = 1.0
-radial_segments = 8
-rings = 1
 
 [node name="Area" type="Area" groups=["Bullet"]]
 visible = false
@@ -31,7 +25,7 @@ shape = SubResource( 2 )
 [node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
 portal_mode = 3
 cast_shadow = 0
-mesh = SubResource( 1 )
+mesh = ExtResource( 4 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 1 )
 
