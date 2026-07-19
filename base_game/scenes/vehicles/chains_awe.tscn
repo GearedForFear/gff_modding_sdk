@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://scripts/vehicles/chains_awe.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -38,6 +38,7 @@
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=36]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=37]
 [ext_resource path="res://resources/animations/vehicles/chains_awe/death.anim" type="Animation" id=38]
+[ext_resource path="res://scenes/gadgets/shield.tscn" type="PackedScene" id=39]
 [ext_resource path="res://resources/animations/vehicles/chains_awe/RESET.anim" type="Animation" id=40]
 [ext_resource path="res://resources/custom/vehicle_values/chains_awe/body.tres" type="Resource" id=41]
 [ext_resource path="res://scripts/weapon_compontents/fancy_gun.gd" type="Script" id=42]
@@ -580,6 +581,9 @@ monitorable = false
 [node name="CollisionShape" type="CollisionShape" parent="Body/SawAreaRight"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171537, 0 )
 shape = SubResource( 24 )
+
+[node name="Shield" parent="Body" instance=ExtResource( 39 )]
+transform = Transform( 2.373, 0, 0, 0, 1.662, 0, 0, 0, 4.445, 0, 0.709548, 0.143164 )
 
 [node name="MuzzleFlash" type="Spatial" parent="Body"]
 

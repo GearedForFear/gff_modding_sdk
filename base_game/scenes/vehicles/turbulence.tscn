@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scripts/vehicles/turbulence.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/death_smoke_cpu.tscn" type="PackedScene" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=30]
 [ext_resource path="res://resources/materials/vehicles/simple_part/white.material" type="Material" id=31]
 [ext_resource path="res://resources/animations/vehicles/turbulence/death.anim" type="Animation" id=32]
+[ext_resource path="res://scenes/gadgets/shield.tscn" type="PackedScene" id=33]
 [ext_resource path="res://resources/animations/vehicles/turbulence/RESET.anim" type="Animation" id=34]
 [ext_resource path="res://resources/custom/vehicle_values/turbulence/body.tres" type="Resource" id=35]
 [ext_resource path="res://resources/animations/vehicles/turbulence/glide/out_in.anim" type="Animation" id=36]
@@ -224,6 +225,9 @@ projectile_values = ExtResource( 41 )
 transform = Transform( 0.949595, 0.0879358, -0.300892, 0, 0.959849, 0.280516, 0.313479, -0.266377, 0.911468, -0.831, 1.003, -0.754 )
 script = ExtResource( 40 )
 projectile_values = ExtResource( 41 )
+
+[node name="Shield" parent="Body" instance=ExtResource( 33 )]
+transform = Transform( 2.247, 0, 0, 0, 1.668, 0, 0, 0, 3.519, 0, 0.49271, 0.00949597 )
 
 [node name="ExplosionParticles" parent="Body" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76547, 0 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/vehicles/eternal_bond_front.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/score_label.gd" type="Script" id=24]
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/gadgets/shield.tscn" type="PackedScene" id=27]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=28]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=29]
 [ext_resource path="res://resources/custom/vehicle_values/eternal_bond/body_front.tres" type="Resource" id=30]
@@ -164,6 +165,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.961467, 0.663603, 1.18968 )
 
 [node name="CartridgeExitRight" type="Position3D" parent="Body"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74227e-08, 0, -1, -0.961, 0.664011, 1.19 )
+
+[node name="Shield" parent="Body" instance=ExtResource( 27 )]
+transform = Transform( 2.122, 0, 0, 0, 1.35, 0, 0, 0, 3.447, 0, 0.577, -0.165999 )
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

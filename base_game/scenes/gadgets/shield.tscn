@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/materials/gadgets/light_shield_sphere.material" type="Material" id=1]
+[ext_resource path="res://resources/meshes/generic/ico_sphere.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://scripts/gadgets/shield.gd" type="Script" id=3]
+
+[node name="Shield" type="MeshInstance"]
+visible = false
+portal_mode = 3
+cast_shadow = 0
+mesh = ExtResource( 2 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 3 )

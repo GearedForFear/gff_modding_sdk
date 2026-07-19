@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scripts/vehicles/metal_undertow.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/nitro_flame.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://scenes/particles/pull_cpu.tscn" type="PackedScene" id=25]
 [ext_resource path="res://resources/sounds/vehicles/sci-fi_deep_electric_hum_loop_01.wav" type="AudioStream" id=26]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/gadgets/shield.tscn" type="PackedScene" id=28]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=29]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=30]
 [ext_resource path="res://resources/custom/vehicle_values/metal_undertow/body.tres" type="Resource" id=31]
@@ -152,6 +153,9 @@ skeleton = NodePath("../../WheelBackRight")
 material/0 = ExtResource( 17 )
 script = ExtResource( 16 )
 required_setting = 3
+
+[node name="Shield" parent="Body" instance=ExtResource( 28 )]
+transform = Transform( 1.975, 0, 0, 0, 1.193, 0, 0, 0, 3.351, 0, 0.536189, 0 )
 
 [node name="ScoreLabel" type="Label3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

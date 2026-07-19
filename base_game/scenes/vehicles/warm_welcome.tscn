@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/vehicles/warm_welcome.gd" type="Script" id=1]
 [ext_resource path="res://scenes/particles/muzzle_flash_cpu.tscn" type="PackedScene" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://scenes/particles/acid_cpu.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/particles/death_explosion_cpu.tscn" type="PackedScene" id=33]
 [ext_resource path="res://scripts/vehicles/body_mesh.gd" type="Script" id=34]
+[ext_resource path="res://scenes/gadgets/shield.tscn" type="PackedScene" id=35]
 [ext_resource path="res://resources/animations/vehicles/death.anim" type="Animation" id=36]
 [ext_resource path="res://resources/animations/vehicles/RESET.anim" type="Animation" id=37]
 [ext_resource path="res://resources/custom/vehicle_values/warm_welcome/body.tres" type="Resource" id=38]
@@ -293,6 +294,9 @@ monitorable = false
 [node name="CollisionShape" type="CollisionShape" parent="Body/FlameDamageBackRight"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0 )
 shape = SubResource( 17 )
+
+[node name="Shield" parent="Body" instance=ExtResource( 35 )]
+transform = Transform( 1.949, 0, 0, 0, 1.307, 0, 0, 0, 3.201, 0, 0.592128, -0.133828 )
 
 [node name="MuzzleFlash" type="Spatial" parent="Body"]
 

@@ -1,38 +1,21 @@
-extends Node
+class_name Shield
+extends MeshInstance
 
 
-const ABSORB_COLOR := Color("00ff6a")
-const DEFLECT_COLOR := Color("ff3600")
-
-export var absorb_resource: Resource
-export var deflect_resource: Resource
-export var meshes: Array
+func _ready():
+	get_parent().connect("light_shield_remaining_changed", self,
+			"_on_light_shield_remaining_changed")
+	get_parent().connect("death", self, "_on_death")
 
 
-func absorb(vehicle: CombatVehicle):
-	if vehicle.ammo < absorb_resource.ammo_cost:
-		return
-	
-	vehicle.shield_mode = CombatVehicle.ShieldModes.ABSORB
-	vehicle.ammo -= absorb_resource.ammo_cost
-	set_color(vehicle, ABSORB_COLOR)
+func _on_light_shield_remaining_changed(new: int, vehicle: CombatVehicle):
+	if new > 0 and vehicle.shield_mode == CombatVehicle.ShieldModes.OFF:
+		vehicle.shield_mode = CombatVehicle.ShieldModes.LIGHT
+		visible = vehicle.alive
+	elif new == 0:
+		vehicle.shield_mode = CombatVehicle.ShieldModes.OFF
+		hide()
 
 
-func deflect(vehicle: CombatVehicle):
-	if vehicle.ammo < deflect_resource.ammo_cost:
-		return
-	
-	vehicle.shield_mode = CombatVehicle.ShieldModes.DEFLECT
-	vehicle.ammo -= deflect_resource.ammo_cost
-	set_color(vehicle, DEFLECT_COLOR)
-
-
-func disable(vehicle: CombatVehicle):
-	vehicle.shield_mode = CombatVehicle.ShieldModes.OFF
-	set_color(vehicle, Color.black)
-
-
-func set_color(vehicle: CombatVehicle, color: Color):
-	for mesh_category in vehicle.meshes:
-		for mesh in mesh_category:
-			vehicle.get_node(mesh).get_surface_material(0).set_shader_param("emission", color)
+func _on_death():
+	hide()

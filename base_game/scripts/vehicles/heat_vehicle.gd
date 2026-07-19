@@ -15,8 +15,9 @@ func _physics_process(_delta):
 		var reduction: float = 0.04 + linear_velocity.length() / 200
 		heat = max(heat - reduction, 0.0)
 		emit_signal("heat_changed", heat)
-		if not already_overheating and not block_overheat and (heat >= 100.0
-				or (heat >= 25.0 and not delay_overheat)):
+		if not already_overheating and not block_overheat \
+				and (heat >= 100.0 or (heat >= 25.0 and not delay_overheat
+				and shield_mode == CombatVehicle.ShieldModes.OFF)):
 			overheat()
 		delay_overheat = false
 

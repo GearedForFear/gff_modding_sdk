@@ -4,8 +4,10 @@ extends CustomizableVehicle
 
 signal health_changed(new)
 signal acid_changed(new, health, base_health)
+signal light_shield_remaining_changed(new, this)
+signal death()
 
-enum ShieldModes {OFF, ABSORB, DEFLECT}
+enum ShieldModes {OFF, ABSORB, DEFLECT, LIGHT}
 
 const STEER_SPEED: float = 0.03
 const STEER_LIMIT: float = 0.4
@@ -27,6 +29,7 @@ var track: Spatial
 var gameplay_manager: Node
 var pools: Node
 var shield_mode: int = ShieldModes.OFF
+var light_shield_remaining: int = 0
 
 onready var health: float = body_values.base_health
 onready var boost: Boost = body_values.boost
@@ -174,6 +177,9 @@ func _physics_process(_delta):
 		else:
 			for n in $AcidParticles.get_children():
 				n.emitting = false
+		
+		if shield_mode == ShieldModes.LIGHT:
+			change_light_shield_remaining(-1)
 	else:
 		engine_force = 0.0
 	
@@ -198,6 +204,8 @@ func damage(amount: float, _reward: int, _burn: float, shooter: VehicleBody) \
 
 
 func reduce_health(amount: float, shooter: VehicleBody) -> int:
+	if shield_mode == ShieldModes.LIGHT:
+		amount /= 2
 	health -= amount
 	emit_signal("health_changed", health)
 	if health <= 0:
@@ -227,6 +235,7 @@ func kill(penalty_divisor: int, shooter: VehicleBody) -> int:
 	$ExplosionParticles.emitting = true
 	$DeathParticles.emitting = true
 	get_node("../DeathAnimation").play("death")
+	emit_signal("death")
 	return payout
 
 
@@ -255,6 +264,11 @@ func try_boost() -> float:
 		if Input.is_action_just_released(controls.boost):
 			boost.try_haze(self)
 		return 0.0
+
+
+func change_light_shield_remaining(amount: int):
+	light_shield_remaining += amount
+	emit_signal("light_shield_remaining_changed", light_shield_remaining, self)
 
 
 func pause_looping_audio():
