@@ -37,12 +37,11 @@ func get_hex() -> String:
 	return get_bytes().hex_encode()
 
 
-func set_hex(new_value: String):
+func set_hex(new_value: String) -> bool:
 	var exterior_hex: String = "0x" + new_value.substr(0, 2)
 	var exterior_id = exterior_hex.hex_to_int()
 	exterior = SkinComponent.get_component(
 			SkinComponent.Categories.VEHICLE_BODY, exterior_id)
-	
 	
 	var wheels_hex: String = "0x" + new_value.substr(2, 2)
 	var wheel_id: int = wheels_hex.hex_to_int()
@@ -53,10 +52,14 @@ func set_hex(new_value: String):
 		category = SkinComponent.Categories.WHEEL
 	wheels = SkinComponent.get_component(category, wheel_id)
 	
+	if exterior == null or wheels == null:
+		return false
+	
 	primary_color = Color(new_value.substr(4, 6))
 	secondary_color = Color(new_value.substr(10, 6))
 	
 	generate_materials()
+	return true
 
 
 func copy(from: VehicleSkin):

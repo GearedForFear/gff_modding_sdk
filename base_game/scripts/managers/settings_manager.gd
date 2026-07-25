@@ -12,6 +12,7 @@ const TWISTED: Environment = \
 		preload("res://resources/environments/twisted.tres")
 const ENVIRONMENTS: Array = [THE_CALM, PILLARS, BELOW, TWISTED]
 
+var settings: Dictionary
 var config: ConfigFile = ConfigFile.new()
 var resolution: int = 1
 var msaa: int = Viewport.MSAA_DISABLED
@@ -35,6 +36,7 @@ var to_update: Array
 
 
 func start():
+	settings = FileReader.read_ini("user://config.cfg")
 	config.load("user://config.cfg")
 	field_of_view = config.get_value("graphics", "field_of_view", 75)
 	OS.window_borderless = config.get_value("graphics", "borderless", false)

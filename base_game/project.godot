@@ -79,6 +79,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/managers/extrapolation_manager.gd"
 }, {
+"base": "Reference",
+"class": "FileReader",
+"language": "GDScript",
+"path": "res://scripts/file_reader.gd"
+}, {
+"base": "Reference",
+"class": "FileWriter",
+"language": "GDScript",
+"path": "res://scripts/file_writer.gd"
+}, {
 "base": "Resource",
 "class": "GadgetForce",
 "language": "GDScript",
@@ -354,6 +364,8 @@ _global_script_class_icons={
 "DeletionManager": "",
 "Destructible": "",
 "ExtrapolationManager": "",
+"FileReader": "",
+"FileWriter": "",
 "GadgetForce": "",
 "GameplayManager": "",
 "Glide": "",

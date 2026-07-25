@@ -48,7 +48,11 @@ static func get_list(component_category: int) -> Array:
 
 static func get_component(component_category: int, position_in_list: int) \
 		-> SkinComponent:
-	return get_list(component_category)[position_in_list]
+	var list = get_list(component_category)
+	if position_in_list < list.size():
+		return list[position_in_list]
+	else:
+		return null
 
 
 func has_color_override() -> bool:
