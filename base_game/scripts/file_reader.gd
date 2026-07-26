@@ -10,30 +10,26 @@ static func read_ini(path: String) -> Dictionary:
 		return Dictionary()
 	
 	file.open(path, File.READ)
-	var file_length: int = file.get_len()
+	var ascii: PoolByteArray = file.get_buffer(file.get_len())
+	var text: String = ascii.get_string_from_ascii()
+	
 	var regex := RegEx.new()
 	regex.compile("[a-z_]+=([0-9]+(\\.[0-9]+)?|(true)|(false))")
+	var matching_lines: Array = regex.search_all(text)
+	
 	var return_value := Dictionary()
-	var current_line := ""
-	while file.get_position() < file_length:
-		var next_char: String = char(file.get_8())
-		if next_char == '\n':
-			var regex_match: RegExMatch = regex.search(current_line)
-			if regex_match != null:
-				var key_and_value: PoolStringArray = \
-						regex_match.subject.split('=', false, 1)
-				var key: String = key_and_value[0]
-				var value
-				if key_and_value[1].is_valid_integer():
-					value = int(key_and_value[1])
-				elif key_and_value[1].is_valid_float():
-					value = float(key_and_value[1])
-				else:
-					value = bool(key_and_value[1])
-				return_value[key] = value
-			current_line = ""
+	for n in matching_lines:
+		var key_and_value: PoolStringArray = n.get_string().split('=')
+		var key: String = key_and_value[0]
+		var value
+		if key_and_value[1].is_valid_integer():
+			value = int(key_and_value[1])
+		elif key_and_value[1].is_valid_float():
+			value = float(key_and_value[1])
 		else:
-			current_line += next_char
+			value = bool(key_and_value[1])
+		return_value[key] = value
+	
 	file.close()
 	return return_value
 
