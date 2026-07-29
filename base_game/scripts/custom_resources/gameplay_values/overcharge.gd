@@ -11,10 +11,14 @@ func prepare(vehicle: VehicleBody):
 		vehicle.get_node("OverchargeCPUParticles").name = "OverchargeParticles"
 
 
-func use(vehicle: VehicleBody) -> float:
-	vehicle.apply_heat(0.5)
-	set_effects(vehicle, true)
-	return force
+func use(vehicle: VehicleBody, input: int) -> float:
+	if input == Inputs.PRESSED or input == Inputs.JUST_PRESSED:
+		vehicle.apply_heat(0.5)
+		set_effects(vehicle, true)
+		return force
+	elif input == Inputs.JUST_RELEASED:
+		set_effects(vehicle, false)
+	return 0.0
 
 
 func set_effects(vehicle: VehicleBody, enable: bool):

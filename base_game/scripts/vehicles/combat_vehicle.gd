@@ -257,13 +257,16 @@ func heal(amount: float):
 
 
 func try_boost() -> float:
-	if Input.is_action_pressed(controls.boost):
-		return boost.use(self)
+	var input: int
+	if Input.is_action_just_pressed(controls.boost):
+		input = Boost.Inputs.JUST_PRESSED
+	elif Input.is_action_pressed(controls.boost):
+		input = Boost.Inputs.PRESSED
+	elif Input.is_action_just_released(controls.boost):
+		input = Boost.Inputs.JUST_RELEASED
 	else:
-		boost.set_effects(self, false)
-		if Input.is_action_just_released(controls.boost):
-			boost.try_haze(self)
-		return 0.0
+		input = Boost.Inputs.NONE
+	return boost.use(self, input)
 
 
 func change_light_shield_remaining(amount: int):

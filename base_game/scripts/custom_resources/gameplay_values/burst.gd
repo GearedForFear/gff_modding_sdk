@@ -10,9 +10,22 @@ func prepare(vehicle: VehicleBody):
 		vehicle.get_node("BurstCPUParticles").name = "BurstParticles"
 
 
-func use(vehicle: VehicleBody) -> float:
-	set_effects(vehicle, true)
-	return force
+func use(vehicle: VehicleBody, input: int) -> float:
+	if input == Inputs.JUST_PRESSED:
+		vehicle.xp += 6.0
+		vehicle.burst_remaining = 6 * vehicle.level
+		set_effects(vehicle, true)
+		var audio: AudioStreamPlayer3D = vehicle.get_node(
+				"LoopingAudio/BurstAudio")
+		audio.unit_size = vehicle.level * 0.5
+		audio.play()
+	
+	if vehicle.burst_remaining > 0:
+		vehicle.burst_remaining -= 1
+		return force
+	else:
+		set_effects(vehicle, false)
+		return 0.0
 
 
 func set_effects(vehicle: VehicleBody, enable: bool):

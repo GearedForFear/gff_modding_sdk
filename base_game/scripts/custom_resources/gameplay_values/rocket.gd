@@ -16,18 +16,37 @@ func prepare(vehicle: VehicleBody):
 				= "ReverseRocketParticles"
 
 
-func use(vehicle: VehicleBody) -> float:
+func use(vehicle: VehicleBody, input: int) -> float:
 	if Input.is_action_pressed(vehicle.controls.reverse):
-		vehicle.apply_central_impulse(vehicle.transform.basis.z * -force)
-		set_effects_forwards(vehicle, false)
-		set_effects_reverse(vehicle, true)
-		set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), false)
+		if input == Inputs.PRESSED or input == Inputs.JUST_PRESSED:
+			vehicle.apply_central_impulse(vehicle.transform.basis.z * -force)
+			set_effects_forwards(vehicle, false)
+			set_effects_reverse(vehicle, true)
+			set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), false,
+					null)
+			if Input.is_action_pressed(vehicle.controls.reverse):
+				set_haze_emitting(vehicle.get_node("HazeParticles"), true,
+						vehicle.get_node("HazeTimer"))
+			return vehicle.body_values.base_engine_force
+		elif input == Inputs.JUST_RELEASED:
+			set_effects(vehicle, false)
+			set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), true,
+					vehicle.get_node("ReverseHazeTimer"))
 	else:
-		vehicle.apply_central_impulse(vehicle.transform.basis.z * force)
-		set_effects_forwards(vehicle, true)
-		set_effects_reverse(vehicle, false)
-		set_haze_emitting(vehicle.get_node("HazeParticles"), false)
-	return vehicle.body_values.base_engine_force
+		if input == Inputs.PRESSED or input == Inputs.JUST_PRESSED:
+			vehicle.apply_central_impulse(vehicle.transform.basis.z * force)
+			set_effects_forwards(vehicle, true)
+			set_effects_reverse(vehicle, false)
+			set_haze_emitting(vehicle.get_node("HazeParticles"), false, null)
+			if Input.is_action_just_released(vehicle.controls.reverse):
+				set_haze_emitting(vehicle.get_node("ReverseHazeParticles"),
+						true, vehicle.get_node("ReverseHazeTimer"))
+			return vehicle.body_values.base_engine_force
+		elif input == Inputs.JUST_RELEASED:
+			set_effects(vehicle, false)
+			set_haze_emitting(vehicle.get_node("HazeParticles"), true,
+					vehicle.get_node("HazeTimer"))
+	return 0.0
 
 
 func set_effects(vehicle: VehicleBody, enable: bool):
@@ -48,15 +67,8 @@ func set_effects_reverse(vehicle: VehicleBody, enable: bool):
 		n.emitting = enable
 
 
-func try_haze(vehicle: VehicleBody):
-	if Input.is_action_pressed(vehicle.controls.reverse):
-		set_haze_emitting(vehicle.get_node("ReverseHazeParticles"), true)
-		vehicle.get_node("ReverseHazeTimer").start()
-	else:
-		set_haze_emitting(vehicle.get_node("HazeParticles"), true)
-		vehicle.get_node("HazeTimer").start()
-
-
-func set_haze_emitting(haze: Spatial, enable: bool):
+func set_haze_emitting(haze: Spatial, enable: bool, timer: Timer):
 	for n in haze.get_children():
 		n.emitting = enable
+	if enable:
+		timer.start()
