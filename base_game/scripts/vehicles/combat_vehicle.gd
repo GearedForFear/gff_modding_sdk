@@ -28,6 +28,7 @@ var replacement: CombatVehicle
 var track: Spatial
 var gameplay_manager: Node
 var pools: Node
+var movement_lock: int = Burst.MovementLocks.UNLOCKED
 var shield_mode: int = ShieldModes.OFF
 var light_shield_remaining: int = 0
 
@@ -117,7 +118,9 @@ func _physics_process(_delta):
 			
 			acceleration_factor = try_boost()
 			
-			if Input.is_action_pressed(controls.reverse):
+			if (Input.is_action_pressed(controls.reverse)
+					and movement_lock != Burst.MovementLocks.FORWARDS_ONLY) \
+					or movement_lock == Burst.MovementLocks.REVERSE_ONLY:
 				if acceleration_factor != 0.0:
 					acceleration_factor = -acceleration_factor
 				elif transform.basis.xform_inv(linear_velocity).x < -1:

@@ -6,14 +6,14 @@ enum cartridge_out {NONE, LINK, CASE}
 export var bullet_damage: float = 8.0
 export var bullet_reward: int = 1
 export var bullet_burn: float = 0.2
-export var bullet_xp: float = 3.0
+export var bullet_xp: int = 300
 export var acid_bullet_damage: float = 6.0
 export var acid_bullet_duration: int = 30
 
 export var shotgun_damage: float = 6.0
 export var shotgun_reward: int = 1
 export var shotgun_burn: float = 0.2
-export var shotgun_xp: float = 10.0
+export var shotgun_xp: int = 1000
 export var shotgun_acid_damage: float = 5.5
 export var shotgun_acid_duration: int = 10
 export var shotgun_blast: float = 900.0
