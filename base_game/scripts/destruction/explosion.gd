@@ -38,8 +38,8 @@ func _on_Area_body_entered(body: PhysicsBody):
 		if body != shooter:
 			var payout: int = body.damage(projectile_values.damage, projectile_values.reward, projectile_values.burn, shooter)
 			if payout > 0:
-				get_node("../..").get_money().start(global_transform, shooter,
-						body, payout)
+				PickupFactory.create(global_transform, shooter, body,
+						GlobalEnums.PickupTypes.MONEY, payout)
 
 
 func _on_Area_area_entered(area: Area):
@@ -47,4 +47,4 @@ func _on_Area_area_entered(area: Area):
 
 
 func _on_AudioStreamPlayer3D_finished():
-	get_node("../..").EXPLOSIONS_AVAILABLE.append(self)
+	Pools.EXPLOSIONS_AVAILABLE.append(self)

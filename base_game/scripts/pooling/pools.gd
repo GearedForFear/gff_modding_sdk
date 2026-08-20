@@ -2,8 +2,7 @@ class_name Pools
 extends Node
 
 
-const MONEY_AVAILABLE := Array()
-const AMMO_AVAILABLE := Array()
+const PICKUPS_AVAILABLE := Array()
 const EXPLOSIONS_AVAILABLE := Array()
 const SPARKS_AVAILABLE := Array()
 const BULLETS_AVAILABLE := Array()
@@ -14,8 +13,7 @@ const CHAINSAWS_AVAILABLE := Array()
 const CARTRIDGE_CASES_AVAILABLE := Array()
 const CARTRIDGE_LINKS_AVAILABLE := Array()
 
-var money: PackedScene
-var ammo: PackedScene
+var pickup: PackedScene
 var explosion: PackedScene
 var bullet: PackedScene
 var missile: PackedScene
@@ -25,20 +23,20 @@ var chainsaw: PackedScene
 var sparks: PackedScene
 var cartridge_case: PackedScene
 var cartridge_link: PackedScene
+
 var homing_missile_script: GDScript
 var straight_missile_script: GDScript
 
 
 func _ready():
 	Global.pools = self
-	for n in [BULLETS_AVAILABLE, MONEY_AVAILABLE, EXPLOSIONS_AVAILABLE,
+	for n in [BULLETS_AVAILABLE, PICKUPS_AVAILABLE, EXPLOSIONS_AVAILABLE,
 			SPARKS_AVAILABLE, CHAINSAWS_AVAILABLE, MISSILES_AVAILABLE,
 			GRENADES_AVAILABLE, BUZZSAWS_AVAILABLE, CARTRIDGE_CASES_AVAILABLE,
 			CARTRIDGE_LINKS_AVAILABLE]:
 		n.clear()
 	
-	money = load("res://scenes/collectibles/money.tscn")
-	ammo = load("res://scenes/collectibles/ammo.tscn")
+	pickup = load("res://scenes/collectibles/pickup.tscn")
 	explosion = load("res://scenes/destruction/explosion.tscn")
 	if OS.get_current_video_driver() == OS.VIDEO_DRIVER_GLES3:
 		sparks = load("res://scenes/particles/sparks.tscn")
@@ -57,7 +55,7 @@ func _ready():
 	straight_missile_script = load(
 			"res://scripts/weapon_compontents/straight_missile.gd")
 	
-	MONEY_AVAILABLE.append_array($Money.get_children())
+	PICKUPS_AVAILABLE.append_array($Money.get_children())
 	EXPLOSIONS_AVAILABLE.append_array($Explosions.get_children())
 	BULLETS_AVAILABLE.append_array($Bullets.get_children())
 	MISSILES_AVAILABLE.append_array($Missiles.get_children())
@@ -73,115 +71,106 @@ func _ready():
 		n.pool = CARTRIDGE_LINKS_AVAILABLE
 
 
-func get_bullet() -> StraightProjectile:
-	var return_value: StraightProjectile
+func get_bullet() -> Area:
+	var return_value: Area
 	if BULLETS_AVAILABLE.empty():
 		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
 		return_value = BULLETS_AVAILABLE.pop_back()
-	return_value.set_type(false, Projectile.ImpactTypes.NORMAL)
+	return_value.set_type(false, GlobalEnums.ImpactTypes.NORMAL)
 	return return_value
 
 
-func get_sniper_bullet() -> StraightProjectile:
-	var return_value: StraightProjectile
+func get_sniper_bullet() -> Area:
+	var return_value: Area
 	if BULLETS_AVAILABLE.empty():
 		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
 		return_value = BULLETS_AVAILABLE.pop_back()
-	return_value.set_type(true, Projectile.ImpactTypes.NORMAL)
+	return_value.set_type(true, GlobalEnums.ImpactTypes.NORMAL)
 	return return_value
 
 
-func get_acid_bullet() -> StraightProjectile:
-	var return_value: StraightProjectile
+func get_acid_bullet() -> Area:
+	var return_value: Area
 	if BULLETS_AVAILABLE.empty():
 		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
 		return_value = BULLETS_AVAILABLE.pop_back()
-	return_value.set_type(false, Projectile.ImpactTypes.ACID)
+	return_value.set_type(false, GlobalEnums.ImpactTypes.ACID)
 	return return_value
 
 
-func get_ricochet_bullet() -> StraightProjectile:
-	var return_value: StraightProjectile
+func get_ricochet_bullet() -> Area:
+	var return_value: Area
 	if BULLETS_AVAILABLE.empty():
 		return_value = bullet.instance()
 		$Bullets.add_child(return_value)
 	else:
 		return_value = BULLETS_AVAILABLE.pop_back()
-	return_value.set_type(false, Projectile.ImpactTypes.RICOCHET)
+	return_value.set_type(false, GlobalEnums.ImpactTypes.RICOCHET)
 	return return_value
 
 
-static func get_homing_missile() -> Projectile:
+static func get_homing_missile() -> Area:
 	var this: Pools = Global.pools
-	var return_value: Projectile = this.get_missile()
+	var return_value: Area = this.get_missile()
 	return_value.set_script(this.homing_missile_script)
 	return return_value
 
 
-static func get_straight_missile() -> Projectile:
+static func get_straight_missile() -> Area:
 	var this: Pools = Global.pools
-	var return_value: Projectile = this.get_missile()
+	var return_value: Area = this.get_missile()
 	return_value.set_script(this.straight_missile_script)
 	return return_value
 
 
-func get_missile() -> Projectile:
+func get_missile() -> Area:
 	if MISSILES_AVAILABLE.empty():
-		var return_value: Projectile
+		var return_value: Area
 		return_value = missile.instance()
 		get_node("Missiles").add_child(return_value)
 		return return_value
 	return MISSILES_AVAILABLE.pop_back()
 
 
-static func get_grenade() -> ArcProjectile:
+static func get_grenade() -> Area:
 	var this: Pools = Global.pools
 	if not GRENADES_AVAILABLE.empty():
 		return GRENADES_AVAILABLE.pop_back()
-	var new: ArcProjectile = this.grenade.instance()
+	var new: Area = this.grenade.instance()
 	this.get_node("Grenades").add_child(new)
 	return new
 
 
-static func get_buzzsaw() -> StraightProjectile:
+static func get_buzzsaw() -> Area:
 	var this: Pools = Global.pools
 	if not BUZZSAWS_AVAILABLE.empty():
 		return BUZZSAWS_AVAILABLE.pop_back()
-	var new: StraightProjectile = this.buzzsaw.instance()
+	var new: Area = this.buzzsaw.instance()
 	this.get_node("Buzzsaws").add_child(new)
 	return new
 
 
-static func get_chainsaw() -> ArcProjectile:
+static func get_chainsaw() -> Area:
 	var this: Pools = Global.pools
 	if not CHAINSAWS_AVAILABLE.empty():
 		return CHAINSAWS_AVAILABLE.pop_back()
-	var new: ArcProjectile = this.chainsaw.instance()
+	var new: Area = this.chainsaw.instance()
 	this.get_node("Chainsaws").add_child(new)
 	return new
 
 
-static func get_money() -> Pickup:
-	if not MONEY_AVAILABLE.empty():
-		return MONEY_AVAILABLE.pop_back()
+static func get_pickup() -> Area:
+	if not PICKUPS_AVAILABLE.empty():
+		return PICKUPS_AVAILABLE.pop_back()
 	var this: Pools = Global.pools
-	var new: Pickup = this.money.instance()
+	var new: Area = this.money.instance()
 	this.get_node("Money").add_child(new)
-	return new
-
-
-static func get_ammo() -> Pickup:
-	if not AMMO_AVAILABLE.empty():
-		return AMMO_AVAILABLE.pop_back()
-	var this: Pools = Global.pools
-	var new: Pickup = this.ammo.instance()
-	this.get_node("Ammo").add_child(new)
 	return new
 
 

@@ -217,10 +217,7 @@ func deal_flame_damage(var a: Area):
 		if n != self:
 			var payout: int = n.damage(flamethrower_damage, \
 					flamethrower_reward, flamethrower_burn, self)
-			if payout > 0:
-				var new_money: Area = pools.get_money()
-				new_money.start(global_transform, self, n, payout)
-				new_money.speed_divisor = 2.0
+			reward(payout)
 
 
 func _on_GunTimerLeft_timeout():

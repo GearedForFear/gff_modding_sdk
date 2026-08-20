@@ -209,6 +209,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/collectibles/pickup.gd"
 }, {
+"base": "Reference",
+"class": "PickupFactory",
+"language": "GDScript",
+"path": "res://scripts/factories/pickup_factory.gd"
+}, {
 "base": "ViewportContainer",
 "class": "PlayerContainer",
 "language": "GDScript",
@@ -292,7 +297,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SkinCollectionFactory",
 "language": "GDScript",
-"path": "res://scripts/skin_collection_factory.gd"
+"path": "res://scripts/factories/skin_collection_factory.gd"
 }, {
 "base": "Resource",
 "class": "SkinComponent",
@@ -390,6 +395,7 @@ _global_script_class_icons={
 "Nitro": "",
 "Overcharge": "",
 "Pickup": "",
+"PickupFactory": "",
 "PlayerContainer": "",
 "PlayerControls": "",
 "Pools": "",

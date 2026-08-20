@@ -225,10 +225,6 @@ script = ExtResource( 11 )
 [node name="CollisionShape" type="CollisionShape" parent="Bodies/RigidBody10"]
 shape = SubResource( 10 )
 
-[node name="VisibilityNotifier" type="VisibilityNotifier" parent="Bodies/RigidBody10"]
-aabb = AABB( -10, -10, -10, 20, 20, 20 )
-max_distance = 150.0
-
 [node name="RigidBody11" type="RigidBody" parent="Bodies"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.307447, 0.537221, -0.506477 )
 collision_layer = 4
@@ -298,6 +294,3 @@ stream = ExtResource( 10 )
 unit_size = 0.5
 autoplay = true
 bus = "Effects"
-
-[connection signal="camera_entered" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_entered"]
-[connection signal="camera_exited" from="Bodies/RigidBody10/VisibilityNotifier" to="Bodies/RigidBody10" method="_on_VisibilityNotifier_camera_exited"]

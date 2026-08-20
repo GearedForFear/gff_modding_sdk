@@ -100,8 +100,8 @@ func _on_Area_body_entered(body: PhysicsBody):
 				
 				var payout: int = body.damage(damage, reward, burn, shooter)
 				if payout > 0 and shooter != null:
-					pools.get_money().start(global_transform, shooter, body, \
-							payout)
+					PickupFactory.create(global_transform, shooter, body,
+							GlobalEnums.PickupTypes.MONEY, payout)
 				if bounce:
 					if body.is_in_group("heist_target"):
 						shooter = null
