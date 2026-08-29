@@ -52,8 +52,8 @@ static func read_skin_collection(vehicle_name: String) -> SkinCollection:
 		var ascii: PoolByteArray = file.get_buffer(16)
 		var hex := ascii.get_string_from_ascii()
 		var new_skin := VehicleSkin.new()
+		new_skin.vehicle_name = vehicle_name
 		if new_skin.set_hex(hex):
-			new_skin.vehicle_name = vehicle_name
 			new_skin.monster_truck = monster_truck
 			new_skin.has_teeth = has_teeth
 			skins.append(new_skin)
