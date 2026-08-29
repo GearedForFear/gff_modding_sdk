@@ -1,21 +1,35 @@
 shader_type spatial;
 render_mode cull_disabled;
-const float DistanceFadeMin = 0.0;
-const float DistanceFadeMax = 60.0;
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D main_texture : hint_albedo;
+uniform sampler2D noise_texture : hint_albedo;
+uniform vec4 color : hint_color;
+uniform bool move;
+
+varying float time_offset;
+
+
+void vertex() {
+	time_offset = TIME;
+	time_offset *= VIEWPORT_SIZE.x / VIEWPORT_SIZE.y;
+	time_offset *= 0.4;
+}
 
 
 void fragment() {
-	ALBEDO = albedo.rgb * texture(texture_albedo, UV).rgb;
+	ALBEDO = texture(main_texture, UV).rgb;
+	ALBEDO *= color.rgb;
 	SPECULAR = 0.0;
-	{
-		const vec3 magic = vec3(0.06711056f, 0.00583715f, 52.9829189f);
-		float fade = clamp(smoothstep(DistanceFadeMin, DistanceFadeMax,
-				length(VERTEX)), 0.0, 1.0);
-		if (fade < 0.001 || fade < fract(magic.z * fract(
-				dot(FRAGCOORD.xy, magic.xy)))) {
-			discard;
+	
+	vec2 dithering_uv = SCREEN_UV;
+	if (move) {
+		float dithering_offset = time_offset;
+		if (!FRONT_FACING) {
+			dithering_offset *= -1.0;
 		}
+		dithering_uv.x += dithering_offset;
 	}
+	
+	ALPHA = -VERTEX.z;
+	ALPHA *= texture(noise_texture, dithering_uv).r;
+	ALPHA_SCISSOR = 16.0;
 }
