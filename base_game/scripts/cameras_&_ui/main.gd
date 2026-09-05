@@ -455,7 +455,6 @@ func spawn_world(vehicle_data_array: Array):
 	spawn_vehicle(VehicleData.complete_resource_name("fungibber"),
 			"TargetStartSpawn", null)
 	add_child(track)
-	next_tracks.remove(0)
 	
 	var spawns := Array()
 	for n in player_amount:
