@@ -61,6 +61,8 @@ func impact_audio(var body: PhysicsBody):
 			impact_audio.stream = IMPACT_LIGHT
 		elif damage < 20:
 			impact_audio.stream = IMPACT_MEDIUM
+			if shooter != null and shooter.controls != null:
+				GlobalAudio.play("BulletImpact")
 		else:
 			impact_audio.stream = IMPACT_HEAVY
 			if shooter.controls != null:

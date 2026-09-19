@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://shaders/cameras_&_ui/menu_background.tres" type="Shader" id=1]
 [ext_resource path="res://scripts/managers/menu_manager.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scripts/cameras_&_ui/front_container.gd" type="Script" id=5]
 [ext_resource path="res://scripts/managers/settings_manager.gd" type="Script" id=6]
 [ext_resource path="res://scripts/cameras_&_ui/main.gd" type="Script" id=7]
+[ext_resource path="res://resources/sounds/global_impacts/WEAPKnif_DAGGER-Impact Hard Body_B00M_MMDS.wav" type="AudioStream" id=8]
 [ext_resource path="res://scripts/audio/global_audio_player.gd" type="Script" id=9]
 [ext_resource path="res://scripts/audio/music_player.gd" type="Script" id=20]
 [ext_resource path="res://resources/music/theme_1/G4F T.1_Sweep before intro NO LOOP.wav" type="AudioStream" id=21]
@@ -263,8 +264,19 @@ bus = "Effects"
 script = ExtResource( 72 )
 starts = PoolRealArray( 0.21, 6.57, 12.42, 18.61 )
 
-[node name="Timer" type="Timer" parent="GlobalAudio/KillImpact"]
+[node name="Duration" type="Timer" parent="GlobalAudio/KillImpact"]
 wait_time = 4.0
+one_shot = true
+
+[node name="BulletImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
+stream = ExtResource( 8 )
+volume_db = -20.0
+bus = "Effects"
+script = ExtResource( 72 )
+starts = PoolRealArray( 0.07, 3.15, 6.21, 9.28, 12.35, 15.41 )
+
+[node name="Duration" type="Timer" parent="GlobalAudio/BulletImpact"]
+wait_time = 0.6
 one_shot = true
 
 [node name="SniperImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
@@ -274,7 +286,7 @@ bus = "Effects"
 script = ExtResource( 72 )
 starts = PoolRealArray( 0.21, 5.76, 12, 17.36 )
 
-[node name="Timer" type="Timer" parent="GlobalAudio/SniperImpact"]
+[node name="Duration" type="Timer" parent="GlobalAudio/SniperImpact"]
 wait_time = 4.0
 one_shot = true
 
@@ -309,7 +321,8 @@ autostart = true
 script = ExtResource( 55 )
 
 [connection signal="visibility_changed" from="MaterialManager/Precompiler" to="MaterialManager/Precompiler" method="_on_Precompiler_visibility_changed"]
-[connection signal="timeout" from="GlobalAudio/KillImpact/Timer" to="GlobalAudio/KillImpact" method="_on_Timer_timeout"]
-[connection signal="timeout" from="GlobalAudio/SniperImpact/Timer" to="GlobalAudio/SniperImpact" method="_on_Timer_timeout"]
+[connection signal="timeout" from="GlobalAudio/KillImpact/Duration" to="GlobalAudio/KillImpact" method="_on_Duration_timeout"]
+[connection signal="timeout" from="GlobalAudio/BulletImpact/Duration" to="GlobalAudio/BulletImpact" method="_on_Duration_timeout"]
+[connection signal="timeout" from="GlobalAudio/SniperImpact/Duration" to="GlobalAudio/SniperImpact" method="_on_Duration_timeout"]
 [connection signal="timeout" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer" method="_on_MenuTimer_timeout"]
 [connection signal="tree_entered" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer/MenuTimer" method="_on_MenuTimer_tree_entered"]

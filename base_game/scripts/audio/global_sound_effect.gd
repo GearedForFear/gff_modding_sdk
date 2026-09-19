@@ -8,7 +8,7 @@ var last_played: int = 0
 
 func try_play():
 	play(random_start())
-	$Timer.start()
+	$Duration.start()
 
 
 func random_start() -> float:
@@ -19,5 +19,5 @@ func random_start() -> float:
 	return starts[random]
 
 
-func _on_Timer_timeout():
+func _on_Duration_timeout():
 	stop()
