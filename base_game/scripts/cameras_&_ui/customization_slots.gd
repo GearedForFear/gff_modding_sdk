@@ -20,6 +20,9 @@ func _process(_delta):
 		$SlotsView/Viewport/Spatial/CodePivot/AnimationPlayer.play(
 				"rotate_garage")
 		yield_and_rotate(Vector3.ZERO)
+	elif Input.is_action_just_pressed("ui_accept"):
+		var skin: VehicleSkin = vehicles[skin_position].get_skin(skin_position)
+		MenuManager.go_to("CustomizationExterior").set_skin(skin)
 
 
 func yield_and_rotate(rotation_degrees: Vector3):
@@ -75,7 +78,7 @@ func move(direction: int):
 	skin_position = limit(skin_position + direction, skin_amount)
 
 
-func limit(position: int, upper_limit: int):
+func limit(position: int, upper_limit: int) -> int:
 	var return_value: int = position + upper_limit
 	return_value %= upper_limit
 	return return_value

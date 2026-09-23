@@ -88,6 +88,10 @@ hack = true
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/customization_slots.tscn"
 
+[node name="CustomizationExterior" type="Node" parent="Main/Customization/CustomizationSlots"]
+script = ExtResource( 1 )
+scene_path = "res://scenes/cameras_&_ui/menus/customization_exterior.tscn"
+
 [node name="Options" type="Node" parent="Main"]
 script = ExtResource( 1 )
 scene_path = "res://scenes/cameras_&_ui/menus/options.tscn"

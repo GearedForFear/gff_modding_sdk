@@ -24,7 +24,7 @@ export var teeth: Resource
 
 static func start():
 	EXTERIORS.append_array(ResourceLoader.load(
-			"res://resources/custom/skins/exteriors.tres").array)
+			"res://resources/custom/skins/exteriors.tres").get_all())
 	WHEELS_LIST.append_array(ResourceLoader.load(
 			"res://resources/custom/skins/wheels_list.tres").array)
 	MONSTER_WHEELS_LIST.append_array(ResourceLoader.load(

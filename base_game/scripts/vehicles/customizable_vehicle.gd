@@ -10,13 +10,12 @@ export var skins_implemented := false
 
 
 func set_skin(skin_number: int):
-	var skin_collection: SkinCollection = \
-			SkinCollectionFactory.load_collection(body_values.vehicle_file_name)
-	var skin: VehicleSkin = skin_collection.skins[skin_number]
+	var skin: VehicleSkin = get_skin(skin_number)
 	
 	for n in meshes[MeshCategories.MAIN]:
 		var body_mesh: MeshInstance = get_node(n)
-		var texture: StreamTexture = body_mesh.get_surface_material(0).get_shader_param("main_texture")
+		var texture: StreamTexture = \
+				body_mesh.get_surface_material(0).get_shader_param("main_texture")
 		var material: ShaderMaterial = skin.body_material.duplicate()
 		material.set_shader_param("main_texture", texture)
 		body_mesh.set_surface_material(0, material)
@@ -35,6 +34,12 @@ func set_skin(skin_number: int):
 	
 	for n in meshes[MeshCategories.SIMPLE]:
 		get_node(n).set_surface_material(0, skin.simple_material)
-		
+	
 	for n in meshes[MeshCategories.SIMPLE_NO_CULL]:
 		get_node(n).set_surface_material(0, skin.simple_no_cull_material)
+
+
+func get_skin(skin_number: int) -> VehicleSkin:
+	var skin_collection: SkinCollection = \
+			SkinCollectionFactory.load_collection(body_values.vehicle_file_name)
+	return skin_collection.skins[skin_number]

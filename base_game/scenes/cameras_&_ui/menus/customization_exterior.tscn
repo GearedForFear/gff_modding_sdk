@@ -1,0 +1,115 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/cameras_&_ui/customization_exterior.gd" type="Script" id=2]
+
+[node name="Current" type="AspectRatioContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_clip_content = true
+ratio = 1.7778
+script = ExtResource( 2 )
+options_horizontal = [ NodePath("Control/Left2"), NodePath("Control/Left"), NodePath("Control/Current"), NodePath("Control/Right"), NodePath("Control/Right2"), NodePath("Control/Right3"), NodePath("Control/Right4"), NodePath("Control/Right5"), NodePath("Control/Right6"), NodePath("Control/Right7") ]
+options_vertical = [ NodePath("Control/Top"), NodePath("Control/Current"), NodePath("Control/Bottom"), NodePath("Control/Bottom2"), NodePath("Control/Bottom3") ]
+
+[node name="Control" type="Control" parent="."]
+margin_top = 0.00224304
+margin_right = 640.0
+margin_bottom = 359.998
+
+[node name="Current" type="ColorRect" parent="Control"]
+anchor_left = 0.168
+anchor_top = 0.192
+anchor_right = 0.348
+anchor_bottom = 0.512
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Left2" type="ColorRect" parent="Control"]
+anchor_left = -0.03
+anchor_top = 0.272
+anchor_right = 0.06
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Left" type="ColorRect" parent="Control"]
+anchor_left = 0.069
+anchor_top = 0.272
+anchor_right = 0.159
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right" type="ColorRect" parent="Control"]
+anchor_left = 0.357
+anchor_top = 0.272
+anchor_right = 0.447
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right2" type="ColorRect" parent="Control"]
+anchor_left = 0.456
+anchor_top = 0.272
+anchor_right = 0.546
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right3" type="ColorRect" parent="Control"]
+anchor_left = 0.555
+anchor_top = 0.272
+anchor_right = 0.645
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right4" type="ColorRect" parent="Control"]
+anchor_left = 0.654
+anchor_top = 0.272
+anchor_right = 0.744
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right5" type="ColorRect" parent="Control"]
+anchor_left = 0.753
+anchor_top = 0.272
+anchor_right = 0.843
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right6" type="ColorRect" parent="Control"]
+anchor_left = 0.852
+anchor_top = 0.272
+anchor_right = 0.942
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Right7" type="ColorRect" parent="Control"]
+anchor_left = 0.951
+anchor_top = 0.272
+anchor_right = 1.041
+anchor_bottom = 0.432
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Top" type="ColorRect" parent="Control"]
+anchor_left = 0.213
+anchor_top = 0.016
+anchor_right = 0.303
+anchor_bottom = 0.176
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Bottom" type="ColorRect" parent="Control"]
+anchor_left = 0.213
+anchor_top = 0.528
+anchor_right = 0.303
+anchor_bottom = 0.688
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Bottom2" type="ColorRect" parent="Control"]
+anchor_left = 0.213
+anchor_top = 0.704
+anchor_right = 0.303
+anchor_bottom = 0.864
+color = Color( 0, 0, 0, 0.603922 )
+
+[node name="Bottom3" type="ColorRect" parent="Control"]
+anchor_left = 0.213
+anchor_top = 0.88
+anchor_right = 0.303
+anchor_bottom = 1.04
+color = Color( 0, 0, 0, 0.603922 )
