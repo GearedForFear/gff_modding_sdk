@@ -21,7 +21,8 @@ func _process(_delta):
 				"rotate_garage")
 		yield_and_rotate(Vector3.ZERO)
 	elif Input.is_action_just_pressed("ui_accept"):
-		var skin: VehicleSkin = vehicles[skin_position].get_skin(skin_position)
+		var skin: VehicleSkin \
+				= vehicles[preview_position].get_skin(skin_position)
 		MenuManager.go_to("CustomizationExterior").set_skin(skin)
 
 

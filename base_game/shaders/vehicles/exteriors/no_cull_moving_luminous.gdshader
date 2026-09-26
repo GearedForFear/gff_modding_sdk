@@ -1,5 +1,6 @@
 // Contains code by CptPotato and Calinou (MIT license)
 shader_type spatial;
+render_mode cull_disabled;
 uniform sampler2D main_texture : hint_albedo;
 uniform sampler2D skin_texture_0 : hint_albedo;
 uniform vec4 primary_color : hint_color;
@@ -51,5 +52,6 @@ void fragment() {
 			texture(skin_texture_0, noise_uv).r);
 	ALBEDO = mix(paint_color.rgb, details_color, paint_mask)
 			* brightness;
-	EMISSION = emission.rgb;
+	EMISSION = emission.rgb + paint_color.rgb * (1.0 - paint_mask)
+			* brightness;
 }
