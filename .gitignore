@@ -58,3 +58,5 @@ base_game/resources/images/weapon_components/missile.png
 base_game/resources/images/weapon_components/grenade.png
 base_game/resources/images/collectibles/light_armor_pickup.png
 base_game/resources/images/world/crate_1.png
+/base_game/resources/meshes/collectibles
+base_game/resources/images/collectibles/tv.png
