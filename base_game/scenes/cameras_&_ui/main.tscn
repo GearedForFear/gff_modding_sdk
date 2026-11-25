@@ -268,6 +268,10 @@ starts = PoolRealArray( 0.21, 6.57, 12.42, 18.61 )
 wait_time = 4.0
 one_shot = true
 
+[node name="MinimumDuration" type="Timer" parent="GlobalAudio/KillImpact"]
+wait_time = 1.4
+one_shot = true
+
 [node name="BulletImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
 stream = ExtResource( 8 )
 volume_db = -20.0
@@ -279,6 +283,10 @@ starts = PoolRealArray( 0.07, 3.15, 6.21, 9.28, 12.35, 15.41 )
 wait_time = 0.6
 one_shot = true
 
+[node name="MinimumDuration" type="Timer" parent="GlobalAudio/BulletImpact"]
+wait_time = 0.11
+one_shot = true
+
 [node name="SniperImpact" type="AudioStreamPlayer" parent="GlobalAudio"]
 stream = ExtResource( 69 )
 volume_db = -5.0
@@ -288,6 +296,9 @@ starts = PoolRealArray( 0.21, 5.76, 12, 17.36 )
 
 [node name="Duration" type="Timer" parent="GlobalAudio/SniperImpact"]
 wait_time = 4.0
+one_shot = true
+
+[node name="MinimumDuration" type="Timer" parent="GlobalAudio/SniperImpact"]
 one_shot = true
 
 [node name="ButtonPressAudio" type="AudioStreamPlayer" parent="GlobalAudio"]
@@ -322,7 +333,10 @@ script = ExtResource( 55 )
 
 [connection signal="visibility_changed" from="MaterialManager/Precompiler" to="MaterialManager/Precompiler" method="_on_Precompiler_visibility_changed"]
 [connection signal="timeout" from="GlobalAudio/KillImpact/Duration" to="GlobalAudio/KillImpact" method="_on_Duration_timeout"]
+[connection signal="timeout" from="GlobalAudio/KillImpact/MinimumDuration" to="GlobalAudio/KillImpact" method="_on_MinimumDuration_timeout"]
 [connection signal="timeout" from="GlobalAudio/BulletImpact/Duration" to="GlobalAudio/BulletImpact" method="_on_Duration_timeout"]
+[connection signal="timeout" from="GlobalAudio/BulletImpact/MinimumDuration" to="GlobalAudio/BulletImpact" method="_on_MinimumDuration_timeout"]
 [connection signal="timeout" from="GlobalAudio/SniperImpact/Duration" to="GlobalAudio/SniperImpact" method="_on_Duration_timeout"]
+[connection signal="timeout" from="GlobalAudio/SniperImpact/MinimumDuration" to="GlobalAudio/SniperImpact" method="_on_MinimumDuration_timeout"]
 [connection signal="timeout" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer" method="_on_MenuTimer_timeout"]
 [connection signal="tree_entered" from="GlobalAudio/MusicPlayer/MenuTimer" to="GlobalAudio/MusicPlayer/MenuTimer" method="_on_MenuTimer_tree_entered"]
